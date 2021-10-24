@@ -2,6 +2,7 @@ package project.apicapstone.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
@@ -24,11 +25,17 @@ public class EmployeeController {
     @GetMapping
     public Object findAllEmployee() {
         List<Employee> employees = employeeService.findAll();
+        if(employees.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         return ResponseHandler.getResponse(employees, HttpStatus.OK);
+        //return new ResponseEntity<>(customerList,HttpStatus.OK);
     }
+
 
     @GetMapping("/{employee-name}")
     public Object searchEmployeeName(@PathVariable("employee-name") String employeeName) {
+
         List<Employee> employeesToFind =  employeeService.findEmployeeByName(employeeName);
 
         return ResponseHandler.getResponse(employeesToFind,HttpStatus.OK);
