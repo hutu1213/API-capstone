@@ -12,6 +12,7 @@ import project.apicapstone.service.EmployeeService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/employee")
@@ -19,13 +20,14 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    public EmployeeController(EmployeeService employeeService){
-        this.employeeService=employeeService;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
+
     @GetMapping
     public Object findAllEmployee() {
         List<Employee> employees = employeeService.findAll();
-        if(employees.isEmpty()){
+        if (employees.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return ResponseHandler.getResponse(employees, HttpStatus.OK);
@@ -33,13 +35,28 @@ public class EmployeeController {
     }
 
 
-    @GetMapping("/{employee-name}")
-    public Object searchEmployeeName(@PathVariable("employee-name") String employeeName) {
 
-        List<Employee> employeesToFind =  employeeService.findEmployeeByName(employeeName);
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Employee> findById(@PathVariable("id") Long id) {
+//        Employee employee = employeeService.findEmployeeById(id);
+//        //return ResponseHandler.getResponse(employee,HttpStatus.OK);
+//        return ResponseEntity.ok(employee);
+//    }
+//
+//    @GetMapping("")
+//    public Object findEmployee(@RequestParam String employeeName) {
+//        List<Employee> employeeList = employeeService.findEmployeeByName(employeeName);
+//        //return ResponseEntity.ok(employeeList);
+//        return ResponseHandler.getResponse(employeeList,HttpStatus.OK);
+//    }
 
-        return ResponseHandler.getResponse(employeesToFind,HttpStatus.OK);
+    @GetMapping("/{paramSearch}")
+    public Object findEmployeeByNameOrId(@PathVariable String paramSearch){
+        List<Employee> employeeList = employeeService.findEmployeeByNameOrId(paramSearch);
+        return ResponseHandler.getResponse(employeeList,HttpStatus.OK);
     }
+
+
 
     @PostMapping
     public Object addEmployee(@Valid @RequestBody CreateEmployeeDto dto, BindingResult errors) {

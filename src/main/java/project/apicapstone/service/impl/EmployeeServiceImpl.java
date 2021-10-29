@@ -1,5 +1,6 @@
 package project.apicapstone.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.apicapstone.common.util.ResourceNotFoundException;
 import project.apicapstone.dto.employee.CreateEmployeeDto;
@@ -11,8 +12,9 @@ import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private EmployeeRepository employeeRepository;
 
+    private EmployeeRepository employeeRepository;
+    @Autowired
     public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
@@ -27,7 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> findEmployeeByName(String employeeName) {
 
         List<Employee> employeeList = employeeRepository.findEmployeesByEmployeeNameContains(employeeName);
-        if (employeeList.size()==0) {
+        if (employeeList.size() == 0) {
             //throw new ResourceNotFoundException("");
             throw new IllegalStateException("Name not exists!");
         }
@@ -37,6 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee addNewEmployee(CreateEmployeeDto dto) {
         Employee addEmployee = new Employee();
+        addEmployee.setId(dto.getId());
         addEmployee.setEmployeeName(dto.getEmployeeName());
         addEmployee.setDateBirth(dto.getDateBirth());
         addEmployee.setPlaceBirth(dto.getPlaceBirth());
@@ -53,6 +56,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         addEmployee.setMaritalStatus(dto.getMaritalStatus());
         return employeeRepository.save(addEmployee);
     }
+
+
+    @Override
+    public List<Employee> findEmployeeByNameOrId(String paramSearch) {
+
+        return employeeRepository.findEmployeesByNameOrId(paramSearch);
+    }
+
 
 //    delete(Long id){
 //        boolean exists=employeeRepository.existsById(id);
