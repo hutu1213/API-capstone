@@ -2,7 +2,7 @@ package project.apicapstone.dto.employee;
 
 
 public class CreateEmployeeDto {
-
+private String Id;
     private String employeeName;
 
     private String dateBirth;
@@ -30,8 +30,11 @@ public class CreateEmployeeDto {
     private String academicLevel;
 
     private String maritalStatus;
+public CreateEmployeeDto(){
 
-    public CreateEmployeeDto(String employeeName, String dateBirth, String placeBirth, String phone, String identityCardNum, String placeIdentityCard, String gender, String address, String email, String nationality, String religion, String countryOfCitizenship, String academicLevel, String maritalStatus) {
+}
+    public CreateEmployeeDto(String id, String employeeName, String dateBirth, String placeBirth, String phone, String identityCardNum, String placeIdentityCard, String gender, String address, String email, String nationality, String religion, String countryOfCitizenship, String academicLevel, String maritalStatus) {
+        Id = id;
         this.employeeName = employeeName;
         this.dateBirth = dateBirth;
         this.placeBirth = placeBirth;
@@ -46,6 +49,14 @@ public class CreateEmployeeDto {
         this.countryOfCitizenship = countryOfCitizenship;
         this.academicLevel = academicLevel;
         this.maritalStatus = maritalStatus;
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
     }
 
     public String getEmployeeName() {

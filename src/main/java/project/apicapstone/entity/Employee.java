@@ -9,9 +9,13 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
 @Table(name = "table_employee")
-public class Employee extends BaseEntity {
+public class Employee {
+    @Id
+    @Column
+    private String Id;
     @Column
     private String employeeName;
     @Column
@@ -80,7 +84,8 @@ public class Employee extends BaseEntity {
     private Account account;
 
 
-    public Employee(String employeeName, String dateBirth, String placeBirth, String phone, String identityCardNum, String placeIdentityCard, String gender, String address, String email, String nationality, String religion, String countryOfCitizenship, String academicLevel, String maritalStatus, Set<Timesheet> timesheets, Set<Dependant> dependants, Set<Skill> skills, Set<Contract> contracts, Title titles, Set<Evaluation> evaluations, Account account) {
+    public Employee(String id, String employeeName, String dateBirth, String placeBirth, String phone, String identityCardNum, String placeIdentityCard, String gender, String address, String email, String nationality, String religion, String countryOfCitizenship, String academicLevel, String maritalStatus, Set<Timesheet> timesheets, Set<Dependant> dependants, Set<Skill> skills, Set<Contract> contracts, Title titles, Set<Evaluation> evaluations, Account account) {
+        Id = id;
         this.employeeName = employeeName;
         this.dateBirth = dateBirth;
         this.placeBirth = placeBirth;
@@ -107,7 +112,13 @@ public class Employee extends BaseEntity {
     public Employee() {
 
     }
+    public String getId() {
+        return Id;
+    }
 
+    public void setId(String id) {
+        Id = id;
+    }
     public String getEmployeeName() {
         return employeeName;
     }
@@ -275,4 +286,6 @@ public class Employee extends BaseEntity {
     public void setAccount(Account account) {
         this.account = account;
     }
+
+
 }

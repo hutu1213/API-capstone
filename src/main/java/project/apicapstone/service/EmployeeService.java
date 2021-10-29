@@ -13,4 +13,7 @@ public interface EmployeeService {
     List<Employee> findEmployeeByName(String employeeName);
 
     Employee addNewEmployee(CreateEmployeeDto dto);
+
+
+    List<Employee> findEmployeeByNameOrId(String paramSearch);
 }
