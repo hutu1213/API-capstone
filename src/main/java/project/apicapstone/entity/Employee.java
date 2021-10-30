@@ -1,25 +1,33 @@
 package project.apicapstone.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.entity.BaseEntity;
-
+import project.apicapstone.common.util.DateUtils;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 
 @Entity
 @Table(name = "table_employee")
 public class Employee {
     @Id
     @Column
-    private String Id;
+    private String employeeId;
+
     @Column
     private String employeeName;
+
     @Column
-    private String dateBirth;
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private LocalDate dateBirth;
+
     @Column
     private String placeBirth;
     @Column
@@ -83,9 +91,12 @@ public class Employee {
     @PrimaryKeyJoinColumn
     private Account account;
 
+    public Employee() {
 
-    public Employee(String id, String employeeName, String dateBirth, String placeBirth, String phone, String identityCardNum, String placeIdentityCard, String gender, String address, String email, String nationality, String religion, String countryOfCitizenship, String academicLevel, String maritalStatus, Set<Timesheet> timesheets, Set<Dependant> dependants, Set<Skill> skills, Set<Contract> contracts, Title titles, Set<Evaluation> evaluations, Account account) {
-        Id = id;
+    }
+
+    public Employee(String employeeId, String employeeName, LocalDate dateBirth, String placeBirth, String phone, String identityCardNum, String placeIdentityCard, String gender, String address, String email, String nationality, String religion, String countryOfCitizenship, String academicLevel, String maritalStatus, Set<Timesheet> timesheets, Set<Dependant> dependants, Set<Skill> skills, Set<Contract> contracts, Title titles, Set<Evaluation> evaluations, Account account) {
+        this.employeeId = employeeId;
         this.employeeName = employeeName;
         this.dateBirth = dateBirth;
         this.placeBirth = placeBirth;
@@ -109,16 +120,14 @@ public class Employee {
         this.account = account;
     }
 
-    public Employee() {
-
-    }
-    public String getId() {
-        return Id;
+    public String getEmployeeId() {
+        return employeeId;
     }
 
-    public void setId(String id) {
-        Id = id;
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
+
     public String getEmployeeName() {
         return employeeName;
     }
@@ -127,11 +136,11 @@ public class Employee {
         this.employeeName = employeeName;
     }
 
-    public String getDateBirth() {
+    public LocalDate getDateBirth() {
         return dateBirth;
     }
 
-    public void setDateBirth(String dateBirth) {
+    public void setDateBirth(LocalDate dateBirth) {
         this.dateBirth = dateBirth;
     }
 
@@ -286,6 +295,4 @@ public class Employee {
     public void setAccount(Account account) {
         this.account = account;
     }
-
-
 }

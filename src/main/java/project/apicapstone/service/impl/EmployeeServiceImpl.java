@@ -14,6 +14,7 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
+
     @Autowired
     public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
@@ -39,7 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee addNewEmployee(CreateEmployeeDto dto) {
         Employee addEmployee = new Employee();
-        addEmployee.setId(dto.getId());
+        addEmployee.setEmployeeId(dto.getEmployeeId());
         addEmployee.setEmployeeName(dto.getEmployeeName());
         addEmployee.setDateBirth(dto.getDateBirth());
         addEmployee.setPlaceBirth(dto.getPlaceBirth());
@@ -60,8 +61,27 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> findEmployeeByNameOrId(String paramSearch) {
+//        List<Employee> employeeList = employeeRepository.findEmployeesByEmployeeNameContains(paramSearch);
+//        if (employeeList.size() == 0) {
+//            //throw new ResourceNotFoundException("");
+//            throw new IllegalStateException("Name not exists!");
+//        }
+//        List<Employee> employee = employeeRepository.findEmployeeByIdEmployeeContaining(paramSearch);
+//        if (employee==null) {
+//            //throw new ResourceNotFoundException("");
+//            throw new IllegalStateException("Id not exists!");
+//
+//        }
+        List<Employee> listSearch = employeeRepository.findEmployeesByNameOrId(paramSearch);
+        if (listSearch.size() == 0) {
+            throw new IllegalStateException("Not found !");
+        }
+        return listSearch;
+    }
 
-        return employeeRepository.findEmployeesByNameOrId(paramSearch);
+    @Override
+    public boolean isExisted(String id) {
+        return employeeRepository.existsById(id);
     }
 
 

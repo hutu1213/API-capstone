@@ -1,11 +1,35 @@
 package project.apicapstone.dto.employee;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.Check;
+import org.hibernate.annotations.Columns;
+import org.hibernate.validator.constraints.UniqueElements;
+import org.springframework.format.annotation.DateTimeFormat;
+import project.apicapstone.common.util.DateUtils;
+import project.apicapstone.validation.annonation.CheckDate;
+import project.apicapstone.validation.annonation.CheckEmployeeId;
+import project.apicapstone.validation.annonation.UniqueEmployeeId;
+
+import javax.persistence.Column;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.time.LocalDate;
+import java.util.Date;
+
 public class CreateEmployeeDto {
-private String Id;
+    @CheckEmployeeId
+    @UniqueEmployeeId
+    private String employeeId;
+
+    @Size(min = 3, max = 25, message = "{employee.name.size}")
     private String employeeName;
 
-    private String dateBirth;
+    //@CheckDate
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private LocalDate dateBirth;
 
     private String placeBirth;
 
@@ -19,6 +43,7 @@ private String Id;
 
     private String address;
 
+    @Email
     private String email;
 
     private String nationality;
@@ -30,11 +55,13 @@ private String Id;
     private String academicLevel;
 
     private String maritalStatus;
-public CreateEmployeeDto(){
 
-}
-    public CreateEmployeeDto(String id, String employeeName, String dateBirth, String placeBirth, String phone, String identityCardNum, String placeIdentityCard, String gender, String address, String email, String nationality, String religion, String countryOfCitizenship, String academicLevel, String maritalStatus) {
-        Id = id;
+    public CreateEmployeeDto() {
+
+    }
+
+    public CreateEmployeeDto(String employeeId, String employeeName, LocalDate dateBirth, String placeBirth, String phone, String identityCardNum, String placeIdentityCard, String gender, String address, String email, String nationality, String religion, String countryOfCitizenship, String academicLevel, String maritalStatus) {
+        this.employeeId = employeeId;
         this.employeeName = employeeName;
         this.dateBirth = dateBirth;
         this.placeBirth = placeBirth;
@@ -51,12 +78,12 @@ public CreateEmployeeDto(){
         this.maritalStatus = maritalStatus;
     }
 
-    public String getId() {
-        return Id;
+    public String getEmployeeId() {
+        return employeeId;
     }
 
-    public void setId(String id) {
-        Id = id;
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getEmployeeName() {
@@ -67,11 +94,11 @@ public CreateEmployeeDto(){
         this.employeeName = employeeName;
     }
 
-    public String getDateBirth() {
+    public LocalDate getDateBirth() {
         return dateBirth;
     }
 
-    public void setDateBirth(String dateBirth) {
+    public void setDateBirth(LocalDate dateBirth) {
         this.dateBirth = dateBirth;
     }
 

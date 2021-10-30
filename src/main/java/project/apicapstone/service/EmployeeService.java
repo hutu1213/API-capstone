@@ -16,4 +16,6 @@ public interface EmployeeService {
 
 
     List<Employee> findEmployeeByNameOrId(String paramSearch);
+
+    boolean isExisted(String s);
 }

@@ -3,6 +3,7 @@ package project.apicapstone.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
@@ -15,9 +16,10 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/employee")
+@RequestMapping(value = "/employee")
+//, produces = {MimeTypeUtils.APPLICATION_JSON_VALUE}, consumes = {MimeTypeUtils.APPLICATION_JSON_VALUE}
 public class EmployeeController {
-    @Autowired
+
     private EmployeeService employeeService;
 
     public EmployeeController(EmployeeService employeeService) {
@@ -27,13 +29,12 @@ public class EmployeeController {
     @GetMapping
     public Object findAllEmployee() {
         List<Employee> employees = employeeService.findAll();
-        if (employees.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+//        if (employees.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
         return ResponseHandler.getResponse(employees, HttpStatus.OK);
         //return new ResponseEntity<>(customerList,HttpStatus.OK);
     }
-
 
 
 //    @GetMapping("/{id}")
@@ -51,11 +52,10 @@ public class EmployeeController {
 //    }
 
     @GetMapping("/{paramSearch}")
-    public Object findEmployeeByNameOrId(@PathVariable String paramSearch){
+    public Object findEmployeeByNameOrId(@PathVariable String paramSearch) {
         List<Employee> employeeList = employeeService.findEmployeeByNameOrId(paramSearch);
-        return ResponseHandler.getResponse(employeeList,HttpStatus.OK);
+        return ResponseHandler.getResponse(employeeList, HttpStatus.OK);
     }
-
 
 
     @PostMapping
