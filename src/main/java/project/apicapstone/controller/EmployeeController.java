@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/employee")
-//, produces = {MimeTypeUtils.APPLICATION_JSON_VALUE}, consumes = {MimeTypeUtils.APPLICATION_JSON_VALUE}
+@RequestMapping(value = "/employees")
+
 public class EmployeeController {
 
     private EmployeeService employeeService;
@@ -35,7 +35,6 @@ public class EmployeeController {
         return ResponseHandler.getResponse(employees, HttpStatus.OK);
         //return new ResponseEntity<>(customerList,HttpStatus.OK);
     }
-
 
 //    @GetMapping("/{id}")
 //    public ResponseEntity<Employee> findById(@PathVariable("id") Long id) {
@@ -57,18 +56,12 @@ public class EmployeeController {
         return ResponseHandler.getResponse(employeeList, HttpStatus.OK);
     }
 
-
     @PostMapping
     public Object addEmployee(@Valid @RequestBody CreateEmployeeDto dto, BindingResult errors) {
-
         if (errors.hasErrors()) {
-
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
         }
-
         Employee addedEmployee = employeeService.addNewEmployee(dto);
-
-
         return ResponseHandler.getResponse(addedEmployee, HttpStatus.CREATED);
     }
 }
