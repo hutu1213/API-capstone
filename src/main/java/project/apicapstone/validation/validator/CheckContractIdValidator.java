@@ -1,16 +1,18 @@
 package project.apicapstone.validation.validator;
 
 import project.apicapstone.common.util.ValidatorUtils;
+import project.apicapstone.validation.annonation.CheckContractId;
 import project.apicapstone.validation.annonation.CheckDepartmentId;
-
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class CheckDepartmentIdValidator implements ConstraintValidator<CheckDepartmentId,String> {
+public class CheckContractIdValidator implements ConstraintValidator<CheckContractId,String> {
     private String message;
+
+
     @Override
-    public void initialize(CheckDepartmentId constraintAnnotation) {
+    public void initialize(CheckContractId constraintAnnotation) {
         message = constraintAnnotation.message();
     }
 
