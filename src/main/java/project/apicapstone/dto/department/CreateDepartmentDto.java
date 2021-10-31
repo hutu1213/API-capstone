@@ -5,6 +5,7 @@ import project.apicapstone.validation.annonation.UniqueDepartmentId;
 import project.apicapstone.validation.annonation.UniqueEmployeeId;
 
 import javax.persistence.Column;
+import javax.validation.constraints.NotBlank;
 
 public class CreateDepartmentDto {
 
@@ -12,6 +13,7 @@ public class CreateDepartmentDto {
     @UniqueDepartmentId
     private String departmentId;
 
+    @NotBlank(message = "{department.name.not-blank}")
     private String departmentName;
 
     public CreateDepartmentDto() {

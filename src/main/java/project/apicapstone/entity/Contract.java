@@ -1,22 +1,36 @@
 package project.apicapstone.entity;
 
-
-
-import project.apicapstone.common.entity.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+import project.apicapstone.common.util.DateUtils;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(exclude = {})
+@EqualsAndHashCode(exclude = {}, callSuper = false)
 @Entity
 @Table(name = "table_contract")
-public class Contract extends BaseEntity {
+public class Contract {
+    @Id
+    @Column
+    private String contractId;
     @Column
     private String contractName;
     @Column
-    private String startDate;
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private LocalDate startDate;
     @Column
-    private String endDate;
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private LocalDate endDate;
     @Column
     private String status;
     @Column
@@ -32,7 +46,8 @@ public class Contract extends BaseEntity {
     private Employee employees;
 
     // relationship contract - dependant 1-N
-    @OneToMany(mappedBy="contracts")
+    @OneToMany(mappedBy = "contracts")
     private Set<Allowance> allowance = new HashSet<>();
+
 
 }
