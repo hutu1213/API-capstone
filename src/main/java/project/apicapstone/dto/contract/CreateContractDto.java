@@ -37,6 +37,6 @@ public class CreateContractDto {
 
     private String salary;
 
-    private String workingTime;
+    private String type;
 
 }

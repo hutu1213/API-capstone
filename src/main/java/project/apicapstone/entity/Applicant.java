@@ -10,7 +10,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "table_application")
-public class Applicant extends BaseEntity {
+public class Applicant  {
+    @Id
+    @Column
+    private String applicantId;
     @Column
     private String applicantName;
     @Column

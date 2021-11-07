@@ -9,17 +9,19 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"roles"})
-@EqualsAndHashCode(exclude = { "roles" }, callSuper = false)
+@ToString(exclude = { "roles", "" })
+@EqualsAndHashCode(exclude = { "roles", "" }, callSuper = false)
 @Entity
 @Table(name = "table_account")
-public class Account extends BaseEntity {
+public class Account {
+    @Id
+    @Column
+    private String accountId;
     @Column
     private String username;
     @Column
@@ -30,13 +32,15 @@ public class Account extends BaseEntity {
     //relation acc-role : N-N
     @JsonIgnore
     @Builder.Default
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
     // relation: employee -account 1-1
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    @JsonIgnore
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @MapsId
+//    @JsonIgnore
+//    private Employee;
+    @OneToOne(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Employee employee;
 }

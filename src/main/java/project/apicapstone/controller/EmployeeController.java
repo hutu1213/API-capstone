@@ -23,11 +23,9 @@ public class EmployeeController {
     @GetMapping
     public Object findAllEmployee() {
         List<Employee> employees = employeeService.findAll();
-//        if (employees.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        }
+
         return ResponseHandler.getResponse(employees, HttpStatus.OK);
-        //return new ResponseEntity<>(customerList,HttpStatus.OK);
+
     }
 
 //    @GetMapping("/{id}")

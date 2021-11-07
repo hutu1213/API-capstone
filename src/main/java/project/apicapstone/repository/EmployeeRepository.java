@@ -16,5 +16,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     @Query("SELECT e FROM Employee e WHERE e.employeeName LIKE %?1% OR e.employeeId LIKE %?1%")
     List<Employee> findEmployeesByNameOrId(String paramSearch);
 
+    Employee findEmployeeByEmployeeId(String id);
 
 }

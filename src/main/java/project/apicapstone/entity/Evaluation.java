@@ -2,10 +2,17 @@ package project.apicapstone.entity;
 
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import project.apicapstone.common.entity.BaseEntity;
 
 import javax.persistence.*;
-
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "table_evaluation")
 public class Evaluation extends BaseEntity {

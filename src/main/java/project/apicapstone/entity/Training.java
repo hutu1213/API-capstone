@@ -1,53 +1,47 @@
 package project.apicapstone.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
+@Builder
 @AllArgsConstructor
 @ToString(exclude = {})
 @EqualsAndHashCode(exclude = {}, callSuper = false)
 @Entity
-@Table(name = "table_contract")
-public class Contract {
+@Table(name = "table_training")
+public class Training {
     @Id
     @Column
-    private String contractId;
+    private String trainingId;
     @Column
-    private String contractName;
+    private String trainingName;
     @Column
-    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
-    private LocalDate startDate;
+    private String trainingDescription;
     @Column
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
-    private LocalDate endDate;
+    private String startDate;
+    @Column
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private String endDate;
     @Column
     private String status;
     @Column
-    private String content;
-    @Column
-    private String salary;
-    @Column
-    private String type;
-
-    // relationship emply - contract 1-N
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employees;
-
-    // relationship contract - dependant 1-N
-    @OneToMany(mappedBy = "contracts")
-    private Set<Allowance> allowance = new HashSet<>();
-
+    private String trainer;
+    //relation employee - training : N-N
+    @JsonIgnore
+    @Builder.Default
+    @ManyToMany(mappedBy = "trainings",fetch = FetchType.LAZY)
+    private Set<Employee> employees = new HashSet<>();
 
 }

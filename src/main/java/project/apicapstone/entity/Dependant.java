@@ -2,15 +2,25 @@ package project.apicapstone.entity;
 
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import project.apicapstone.common.entity.BaseEntity;
 
 import javax.persistence.*;
-
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "table_dependant")
-public class Dependant extends BaseEntity {
+public class Dependant  {
+    @Id
     @Column
-    private String depentdantName;
+    private String dependantId;
+    @Column
+    private String dependantName;
     @Column
     private String gender;
     @Column
@@ -23,7 +33,7 @@ public class Dependant extends BaseEntity {
     private String nationality;
 
 
-    // relationship emply - dependant 1-N
+    // relationship employee - dependant 1-N
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employees;
