@@ -1,9 +1,10 @@
 package project.apicapstone.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import project.apicapstone.common.util.ResourceNotFoundException;
 import project.apicapstone.dto.employee.CreateEmployeeDto;
+import project.apicapstone.dto.employee.PagingFormatEmployeeDto;
 import project.apicapstone.entity.Employee;
 import project.apicapstone.repository.EmployeeRepository;
 import project.apicapstone.service.EmployeeService;
@@ -15,15 +16,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
 
-    @Autowired
+
     public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
     @Override
-    public List<Employee> findAll() {
+    public Page<Employee> findAll(Pageable pageable) {
 
-        return employeeRepository.findAll();
+        return employeeRepository.findAllEmp(pageable);
     }
 
     @Override
@@ -82,6 +83,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public boolean isExisted(String id) {
         return employeeRepository.existsById(id);
+    }
+
+    @Override
+    public List<Employee> findAllEmployee() {
+        return employeeRepository.findAll();
+    }
+
+    @Override
+    public PagingFormatEmployeeDto pagingFormat(Page<Employee> employeePage) {
+        PagingFormatEmployeeDto dto = new PagingFormatEmployeeDto();
+        dto.setPageSize(employeePage.getSize());
+        dto.setTotalRecordCount(employeePage.getTotalElements());
+        dto.setPageNumber(employeePage.getNumber());
+        dto.setRecords(employeePage.toList());
+        return dto;
     }
 
 
