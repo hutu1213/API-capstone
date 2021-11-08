@@ -17,23 +17,15 @@ import java.util.List;
 @RequestMapping("/account")
 public class AccountController {
     private AccountService accountService;
-    public AccountController(AccountService service) {
+    public AccountController(AccountService accountService) {
         this.accountService = accountService;
     }
-
-    //    @GetMapping("")
-//    public ResponseEntity<List<User>> findAllUser() {
-//        List<User> users = service.findAll();
-//
-//        //return ResponseHandler.getResponse(users, HttpStatus.OK);
-//        return ResponseEntity.ok().body(users);
-//    }
-    @GetMapping("")
+    @GetMapping()
     public Object findAllUser() {
         List<Account> accounts = accountService.findAll();
-        //return ResponseHandler.getResponse(users, HttpStatus.OK);
-        return ResponseEntity.ok().body(accounts);
+        return ResponseHandler.getResponse(accounts, HttpStatus.OK);
     }
+
     @PostMapping("")
     public Object createUser(@Valid @RequestBody CreateAccountDto dto,
                              BindingResult errors) {

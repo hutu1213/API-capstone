@@ -58,11 +58,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //http.csrf().disable();
 
         //test
-        http.csrf().disable().cors().and().authorizeRequests().anyRequest().permitAll();
+        //http.csrf().disable().cors().and().authorizeRequests().anyRequest().permitAll();
 
-//        http.antMatcher("/**").authorizeRequests()
-//                .antMatchers("/auth/login").permitAll()
-//                .anyRequest().authenticated();
+        http.antMatcher("/**").authorizeRequests()
+                .antMatchers("/auth/login").permitAll()
+                .anyRequest().authenticated();
 
 
         // cấu hình xác thực cho các api
