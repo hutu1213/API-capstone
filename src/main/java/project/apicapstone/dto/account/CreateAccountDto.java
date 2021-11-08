@@ -11,7 +11,8 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateAccountDto {
-    private String employeeId;
+//    private String employeeId;
+    private String accountId;
     private String username;
     private String password;
     private String confirmPassword;

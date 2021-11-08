@@ -28,7 +28,6 @@ public class EmployeeController {
 
     @GetMapping
     public Object findAllEmployee(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
-
         Pageable pageable = PageRequest.of(page, size);
         Page<Employee> employees = employeeService.findAll(pageable);
         return ResponseHandler.getResponse(employeeService.pagingFormat(employees), HttpStatus.OK);
