@@ -31,7 +31,7 @@ public class ContractServiceImpl implements ContractService {
         addContract.setStatus(dto.getStatus());
         addContract.setContent(dto.getContent());
         addContract.setSalary(dto.getSalary());
-        addContract.setWorkingTime(dto.getWorkingTime());
+        addContract.setType(dto.getType());
         return contractRepository.save(addContract);
     }
 

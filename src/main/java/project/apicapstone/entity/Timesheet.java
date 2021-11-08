@@ -2,13 +2,18 @@ package project.apicapstone.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
+import lombok.*;
 import project.apicapstone.common.entity.BaseEntity;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(exclude = {""})
+@EqualsAndHashCode(exclude = { "" }, callSuper = false)
 @Entity
 @Table(name = "table_timesheet")
 public class Timesheet extends BaseEntity {
@@ -22,6 +27,6 @@ public class Timesheet extends BaseEntity {
     //relation empl- timesheet : N-N
     @JsonIgnore
     @Builder.Default
-    @ManyToMany(mappedBy = "timesheets",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "timeSheets",fetch = FetchType.LAZY)
     private Set<Employee> employees = new HashSet<>();
 }
