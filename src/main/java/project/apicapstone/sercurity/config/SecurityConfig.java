@@ -28,7 +28,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.jwtAuthorizationFilter = jwtAuthorizationFilter;
     }
 
-
     @Bean
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -58,11 +57,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //http.csrf().disable();
 
         //test
-        //http.csrf().disable().cors().and().authorizeRequests().anyRequest().permitAll();
+        http.csrf().disable().cors().and().authorizeRequests().anyRequest().permitAll();
 
-        http.antMatcher("/**").authorizeRequests()
-                .antMatchers("/auth/login").permitAll()
-                .anyRequest().authenticated();
+//        http.antMatcher("/**").authorizeRequests()
+//                .antMatchers("/auth/login").permitAll()
+//                //.antMatchers("/account/**").permitAll()
+//                .antMatchers("/account/create-account").permitAll()
+//                .anyRequest().authenticated();
 
 
         // cấu hình xác thực cho các api

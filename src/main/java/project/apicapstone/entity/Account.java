@@ -43,4 +43,10 @@ public class Account {
 //    private Employee;
     @OneToOne(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Employee employee;
+
+    //helper
+    public void addRole(Role role) {
+        roles.add(role);
+        role.getAccounts().add(this);
+    }
 }
