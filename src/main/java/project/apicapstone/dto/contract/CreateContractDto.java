@@ -35,7 +35,7 @@ public class CreateContractDto {
 
     private String content;
 
-    private String salary;
+    private double salary;
 
     private String type;
 

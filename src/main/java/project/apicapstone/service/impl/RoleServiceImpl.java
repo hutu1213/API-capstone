@@ -28,4 +28,9 @@ public class RoleServiceImpl implements RoleService {
         newRole.setRoleDescription(dto.getRoleDescription());
         return roleRepository.save(newRole);
     }
+
+    @Override
+    public boolean isExisted(String id) {
+        return roleRepository.existsById(id);
+    }
 }

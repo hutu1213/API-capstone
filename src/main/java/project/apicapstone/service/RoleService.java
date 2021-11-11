@@ -11,4 +11,6 @@ public interface RoleService {
     List<Role> findAll();
 
     Role createRole(CreateRoleDto dto);
+
+    boolean isExisted(String id);
 }
