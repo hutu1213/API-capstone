@@ -36,7 +36,7 @@ public class Contract {
     @Column
     private String content;
     @Column
-    private String salary;
+    private double salary;
     @Column
     private String type;
 

@@ -10,43 +10,43 @@ import java.util.Map;
 
 
 public class ResponseHandler {
-	public static ResponseEntity<Object> getResponse(Object content, HttpStatus status){
-		Map<String, Object> map = new HashMap<>();
-		map.put("content", content);
-		map.put("errors", "");
-		map.put("timestamp", DateUtils.toString(LocalDateTime.now()));
-		map.put("status", status.value());
-		
-		return new ResponseEntity<Object>(map, status);
-	}
-	
-	public static ResponseEntity<Object> getResponse(BindingResult errors, HttpStatus status){
-		Map<String, Object> map = new HashMap<>();
-		map.put("content", "");
-		map.put("errors", ErrorUtils.getErrorMessages(errors));
-		map.put("timestamp", DateUtils.toString(LocalDateTime.now()));
-		map.put("status", status.value());
-		
-		return new ResponseEntity<Object>(map, status);
-	}
+    public static ResponseEntity<Object> getResponse(Object content, HttpStatus status) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("content", content);
+        map.put("errors", "");
+        map.put("timestamp", DateUtils.toString(LocalDateTime.now()));
+        map.put("status", status.value());
 
-	public static Object getResponse(HttpStatus status) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("content", "");
-		map.put("errors", "");
-		map.put("timestamp", DateUtils.toString(LocalDateTime.now()));
-		map.put("status", status.value());
-		
-		return new ResponseEntity<Object>(map, status);
-	}
-	
-	public static Object getErrors(Object errors,HttpStatus status) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("content", "");
-		map.put("errors", errors);
-		map.put("timestamp", DateUtils.toString(LocalDateTime.now()));
-		map.put("status", status.value());
-		
-		return new ResponseEntity<Object>(map, status);
-	}
+        return new ResponseEntity<Object>(map, status);
+    }
+
+    public static ResponseEntity<Object> getResponse(BindingResult errors, HttpStatus status) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("content", "");
+        map.put("errors", ErrorUtils.getErrorMessages(errors));
+        map.put("timestamp", DateUtils.toString(LocalDateTime.now()));
+        map.put("status", status.value());
+
+        return new ResponseEntity<Object>(map, status);
+    }
+
+    public static Object getResponse(HttpStatus status) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("content", "");
+        map.put("errors", "");
+        map.put("timestamp", DateUtils.toString(LocalDateTime.now()));
+        map.put("status", status.value());
+
+        return new ResponseEntity<Object>(map, status);
+    }
+
+//    public static Object getErrors(Object errors, HttpStatus status) {
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("content", "");
+//        map.put("errors", errors);
+//        map.put("timestamp", DateUtils.toString(LocalDateTime.now()));
+//        map.put("status", status.value());
+//
+//        return new ResponseEntity<Object>(map, status);
+//    }
 }

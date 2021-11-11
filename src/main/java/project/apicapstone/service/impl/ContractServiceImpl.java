@@ -1,7 +1,11 @@
 package project.apicapstone.service.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import project.apicapstone.dto.contract.CreateContractDto;
+import project.apicapstone.dto.contract.PagingFormatContractDto;
+import project.apicapstone.dto.department.PagingFormatDepartmentDto;
 import project.apicapstone.entity.Contract;
 import project.apicapstone.repository.ContractRepository;
 import project.apicapstone.service.ContractService;
@@ -38,6 +42,21 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public boolean isExisted(String s) {
         return contractRepository.existsById(s);
+    }
+
+    @Override
+    public Page<Contract> findAllContract(Pageable pageable) {
+        return contractRepository.findAllContract(pageable);
+    }
+
+    @Override
+    public PagingFormatContractDto pagingFormat(Page<Contract> contractPage) {
+        PagingFormatContractDto dto = new PagingFormatContractDto();
+        dto.setPageSize(contractPage.getSize());
+        dto.setTotalRecordCount(contractPage.getTotalElements());
+        dto.setPageNumber(contractPage.getNumber());
+        dto.setRecords(contractPage.toList());
+        return dto;
     }
 
 }

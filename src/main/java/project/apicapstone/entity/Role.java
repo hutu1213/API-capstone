@@ -13,8 +13,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = { "accounts", "" })
-@EqualsAndHashCode(exclude = { "accounts", "" }, callSuper = false)
+
 @Entity
 @Table(name = "table_role")
 public class Role {
@@ -24,7 +23,7 @@ public class Role {
     @Column
     private String roleName;
     @Column
-    private String description;
+    private String roleDescription;
     //relation account-role : N-N
     @JsonIgnore
     @Builder.Default
