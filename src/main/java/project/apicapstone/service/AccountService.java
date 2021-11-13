@@ -12,4 +12,6 @@ public interface AccountService {
     Account createAccount(CreateAccountDto dto);
 
     Account addRole(AddRoleDto dto);
+
+    boolean isExistedUsername(String s);
 }

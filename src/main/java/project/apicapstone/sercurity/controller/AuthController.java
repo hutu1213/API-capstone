@@ -42,6 +42,7 @@ public class AuthController {
                     new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));
 
             SecurityContextHolder.getContext().setAuthentication(auth);
+
             String token = jwtUtils.generateJwtToken(auth);
             // log history - AOP
             return ResponseHandler.getResponse(token, HttpStatus.OK);

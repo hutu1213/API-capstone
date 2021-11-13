@@ -13,6 +13,7 @@ import project.apicapstone.repository.RoleRepository;
 import project.apicapstone.service.AccountService;
 
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -43,7 +44,7 @@ public class AccountServiceImpl implements AccountService {
         newAcc.setAccountId(dto.getAccountId());
         newAcc.setUsername(dto.getUsername());
         newAcc.setPassword(encoder.encode(dto.getPassword()));
-        newAcc.setStatus(dto.getStatus());
+        newAcc.setStatus(dto.getStatus().toUpperCase());
 
 
         return accountRepository.save(newAcc);
@@ -57,5 +58,10 @@ public class AccountServiceImpl implements AccountService {
         account.addRole(role);
 
         return accountRepository.save(account);
+    }
+
+    @Override
+    public boolean isExistedUsername(String s) {
+        return accountRepository.countByUsername(s)>=1;
     }
 }
