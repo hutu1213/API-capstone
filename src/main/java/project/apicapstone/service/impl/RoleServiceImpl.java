@@ -33,4 +33,6 @@ public class RoleServiceImpl implements RoleService {
     public boolean isExisted(String id) {
         return roleRepository.existsById(id);
     }
+
+
 }

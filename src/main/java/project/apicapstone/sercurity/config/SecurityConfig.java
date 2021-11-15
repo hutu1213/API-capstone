@@ -54,10 +54,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        //http.csrf().disable();
+        http.csrf().disable();
 
         //test
-        http.csrf().disable().cors().and().authorizeRequests().anyRequest().permitAll();
+        //http.csrf().disable().cors().and().authorizeRequests().anyRequest().permitAll();
 
 //        http.antMatcher("/**").authorizeRequests()
 //                .antMatchers("/auth/login").permitAll()

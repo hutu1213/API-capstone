@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface UniqueEmployeeId {
-    String message() default "Employee ID is duplicated";
+    String message() default "Employee Id is duplicated";
 
     Class<?>[] groups() default {};
 

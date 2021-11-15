@@ -19,6 +19,7 @@ public class CreateRoleDto {
     private String roleId;
     @Column
     @Size(min = 3, max = 25, message = "{role.name.size}")
+    //@UniqueRoleName
     private String roleName;
     @Column
     private String roleDescription;

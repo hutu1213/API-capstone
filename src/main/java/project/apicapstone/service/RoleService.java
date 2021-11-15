@@ -13,4 +13,6 @@ public interface RoleService {
     Role createRole(CreateRoleDto dto);
 
     boolean isExisted(String id);
+
+
 }

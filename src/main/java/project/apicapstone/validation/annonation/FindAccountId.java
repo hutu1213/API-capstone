@@ -1,7 +1,7 @@
 package project.apicapstone.validation.annonation;
 
-import project.apicapstone.validation.validator.UniqueEmployeeIdValidator;
-import project.apicapstone.validation.validator.UniqueRoleIdValidator;
+import project.apicapstone.validation.validator.FindAccountIdValidator;
+import project.apicapstone.validation.validator.FindRoleIdValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -11,11 +11,11 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Constraint(validatedBy = UniqueRoleIdValidator.class)
+@Constraint(validatedBy = FindAccountIdValidator.class)
 @Retention(RUNTIME)
 @Target(FIELD)
-public @interface UniqueRoleId {
-    String message() default "Role Id is duplicated";
+public @interface FindAccountId {
+    String message() default "Account Id not found";
 
     Class<?>[] groups() default {};
 
