@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.entity.Employee;
 import project.apicapstone.validation.annonation.ConfirmPassword;
+import project.apicapstone.validation.annonation.FindEmployeeId;
 import project.apicapstone.validation.annonation.UniqueUsername;
 
 import javax.persistence.Column;
@@ -24,7 +25,7 @@ public class CreateAccountDto {
     private String password;
     private String confirmPassword;
     private String status;
-    //@FindEmployeeId
+    @FindEmployeeId
     private String employeeId;
 
 }
