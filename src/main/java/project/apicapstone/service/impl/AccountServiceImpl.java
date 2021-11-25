@@ -22,11 +22,11 @@ public class AccountServiceImpl implements AccountService {
     private EmployeeRepository employeeRepository;
     private RoleRepository roleRepository;
 
-    public AccountServiceImpl(AccountRepository accountRepository,PasswordEncoder encoder,EmployeeRepository employeeRepository,RoleRepository roleRepository) {
-        this.accountRepository=accountRepository;
-        this.encoder=encoder;
-        this.employeeRepository=employeeRepository;
-        this.roleRepository=roleRepository;
+    public AccountServiceImpl(AccountRepository accountRepository, PasswordEncoder encoder, EmployeeRepository employeeRepository, RoleRepository roleRepository) {
+        this.accountRepository = accountRepository;
+        this.encoder = encoder;
+        this.employeeRepository = employeeRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -36,16 +36,14 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account createAccount(CreateAccountDto dto) {
-//        Employee e = new Employee();
-//        e= employeeRepository.findEmployeeByEmployeeId(dto.getEmployeeId());
         Account newAcc = new Account();
-        //newAcc.setAccountId(dto.getEmployeeId());
-        //newAcc.setEmployee(e);
         newAcc.setAccountId(dto.getAccountId());
         newAcc.setUsername(dto.getUsername());
         newAcc.setPassword(encoder.encode(dto.getPassword()));
         newAcc.setStatus(dto.getStatus().toUpperCase());
+        Employee employee = employeeRepository.getById(dto.getEmployeeId());
 
+        newAcc.setEmployee(employee);
 
         return accountRepository.save(newAcc);
     }
@@ -62,6 +60,11 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public boolean isExistedUsername(String s) {
-        return accountRepository.countByUsername(s)>=1;
+        return accountRepository.countByUsername(s) >= 1;
+    }
+
+    @Override
+    public boolean isExisted(String id) {
+        return accountRepository.existsById(id);
     }
 }

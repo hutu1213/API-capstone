@@ -7,11 +7,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import project.apicapstone.common.util.ResourceBadRequestException;
+import project.apicapstone.common.util.ResourceNotFoundException;
 import project.apicapstone.entity.Account;
 import project.apicapstone.entity.Role;
 import project.apicapstone.repository.AccountRepository;
 import project.apicapstone.sercurity.dto.UserDetailsDto;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -19,7 +22,7 @@ import java.util.Set;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     private AccountRepository repository;
-    //private String status;
+    private final String status = "ACTIVE";
 
     public UserDetailsServiceImpl(AccountRepository repository) {
         this.repository = repository;
@@ -27,25 +30,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        //Optional<Account> account = repository.findByUsernameAndStatus(username,"active");
-        //Account acc = repository.findByUsername(username);
-        Account account = repository.findByUsernameAndStatus(username, "ACTIVE");
-
+        //Account account = repository.findByUsername(username);
+        Account account = repository.findByUsernameAndStatus(username, status);
 
 //        if (account == null) {
-//            //throw new UsernameNotFoundException("Username is not existed.");
-//            throw new UsernameNotFoundException("Unknown username : " + username);
+//            //throw new ResourceBadRequestException("Username is not found");
+//            throw new UsernameNotFoundException("username is not fount");
 //        }
-
-//        if(acc.getStatus().equals("closed")){
-//            //throw new BaseException("");
-//            throw new UsernameNotFoundException("not active");
-//
+//        if (!account.getStatus().equals("ACTIVE")) {
+//            //throw new UsernameNotFoundException("not active");
+//            throw new ResourceBadRequestException("Account not active");
 //        }
-
-//        if(!account.isPresent())
-//            throw new UsernameNotFoundException("Username is not existed.");
-
         Set<GrantedAuthority> authorities = getAuthorities(account.getRoles());
         return new UserDetailsDto(username, account.getPassword(), authorities);
     }
