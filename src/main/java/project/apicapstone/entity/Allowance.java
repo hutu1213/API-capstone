@@ -7,8 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import project.apicapstone.common.entity.BaseEntity;
-
 import javax.persistence.*;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -28,4 +28,5 @@ public class Allowance  {
     @ManyToOne
     @JoinColumn(name = "contract_id")
     private Contract contracts;
+
 }

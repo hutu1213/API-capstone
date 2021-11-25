@@ -22,6 +22,7 @@ import java.util.Set;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     private AccountRepository repository;
+    private final String status = "ACTIVE";
 
     public UserDetailsServiceImpl(AccountRepository repository) {
         this.repository = repository;
@@ -29,18 +30,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account = repository.findByUsername(username);
-        //Account account = repository.findByUsernameAndStatus(username, "ACTIVE");
+        //Account account = repository.findByUsername(username);
+        Account account = repository.findByUsernameAndStatus(username, status);
 
-        if(account==null){
-            throw new ResourceBadRequestException("Username is not found");
-        }
-
-
-        if (!account.getStatus().equals("ACTIVE")) {
-            //throw new UsernameNotFoundException("not active");
-            throw new ResourceBadRequestException("Account not active");
-        }
+//        if (account == null) {
+//            //throw new ResourceBadRequestException("Username is not found");
+//            throw new UsernameNotFoundException("username is not fount");
+//        }
+//        if (!account.getStatus().equals("ACTIVE")) {
+//            //throw new UsernameNotFoundException("not active");
+//            throw new ResourceBadRequestException("Account not active");
+//        }
         Set<GrantedAuthority> authorities = getAuthorities(account.getRoles());
         return new UserDetailsDto(username, account.getPassword(), authorities);
     }

@@ -87,9 +87,14 @@ public class Employee {
 //    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
 //    @PrimaryKeyJoinColumn
 //    private Account account;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id", referencedColumnName = "accountId")
-    private Account account;
+
+//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "account_id", referencedColumnName = "accountId")
+//    private Account account;
+
+//    @OneToOne(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private Account account;
+
 
     //relation employee-task : N-N
     @JsonIgnore

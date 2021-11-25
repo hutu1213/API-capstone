@@ -36,16 +36,14 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account createAccount(CreateAccountDto dto) {
-//        Employee e = new Employee();
-//        e= employeeRepository.findEmployeeByEmployeeId(dto.getEmployeeId());
         Account newAcc = new Account();
-        //newAcc.setAccountId(dto.getEmployeeId());
-        //newAcc.setEmployee(e);
         newAcc.setAccountId(dto.getAccountId());
         newAcc.setUsername(dto.getUsername());
         newAcc.setPassword(encoder.encode(dto.getPassword()));
         newAcc.setStatus(dto.getStatus().toUpperCase());
+        Employee employee = employeeRepository.getById(dto.getEmployeeId());
 
+        newAcc.setEmployee(employee);
 
         return accountRepository.save(newAcc);
     }

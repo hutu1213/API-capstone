@@ -10,12 +10,13 @@ import project.apicapstone.validation.annonation.UniqueUsername;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ConfirmPassword
 public class CreateAccountDto {
-//    private String employeeId;
+
     private String accountId;
     @UniqueUsername
     private String username;
@@ -23,6 +24,7 @@ public class CreateAccountDto {
     private String password;
     private String confirmPassword;
     private String status;
-
+    //@FindEmployeeId
+    private String employeeId;
 
 }

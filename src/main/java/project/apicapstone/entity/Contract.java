@@ -13,8 +13,8 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {})
-@EqualsAndHashCode(exclude = {}, callSuper = false)
+//@ToString(exclude = {})
+//@EqualsAndHashCode(exclude = {}, callSuper = false)
 @Entity
 @Table(name = "table_contract")
 public class Contract {
@@ -44,6 +44,7 @@ public class Contract {
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employees;
+
 
     // relationship contract - dependant 1-N
     @OneToMany(mappedBy = "contracts")
