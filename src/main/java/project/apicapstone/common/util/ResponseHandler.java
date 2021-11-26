@@ -19,7 +19,16 @@ public class ResponseHandler {
 
         return new ResponseEntity<Object>(map, status);
     }
+    public static ResponseEntity<Object> getResponseLogin(Object token,Object content, HttpStatus status) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", token);
+        map.put("content", content);
+        map.put("errors", "");
+        map.put("timestamp", DateUtils.toString(LocalDateTime.now()));
+        map.put("status", status.value());
 
+        return new ResponseEntity<Object>(map, status);
+    }
     public static ResponseEntity<Object> getResponse(BindingResult errors, HttpStatus status) {
         Map<String, Object> map = new HashMap<>();
         map.put("content", "");
