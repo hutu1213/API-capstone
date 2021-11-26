@@ -45,7 +45,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public Object login(@Valid @RequestBody LoginDto dto, BindingResult errors) throws Exception {
-        if(errors.hasErrors())
+        if (errors.hasErrors())
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 
         Authentication auth = null;
@@ -56,10 +56,12 @@ public class AuthController {
 
             SecurityContextHolder.getContext().setAuthentication(auth);
             String token = jwtUtils.generateJwtToken(auth);
+            Account account = accountRepository.findByUsername(dto.getUsername());
 
-            return ResponseHandler.getResponse(token, HttpStatus.OK);
+            //return ResponseHandler.getResponse(token, HttpStatus.OK);
+            return ResponseHandler.getResponseLogin(token, account, HttpStatus.OK);
         } catch (Exception e) {
-            logger.debug("{} has been logged in with wrong password: {}",dto.getUsername(), e.getMessage() );
+            logger.debug("{} has been logged in with wrong password: {}", dto.getUsername(), e.getMessage());
         }
         return ResponseHandler.getErrors("Username or password is invalid.", HttpStatus.BAD_REQUEST);
     }
