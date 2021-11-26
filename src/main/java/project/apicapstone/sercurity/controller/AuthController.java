@@ -61,6 +61,6 @@ public class AuthController {
         } catch (Exception e) {
             logger.debug("{} has been logged in with wrong password: {}",dto.getUsername(), e.getMessage() );
         }
-        return ResponseHandler.getResponse("Username or password is invalid.", HttpStatus.BAD_REQUEST);
+        return ResponseHandler.getErrors("Username or password is invalid.", HttpStatus.BAD_REQUEST);
     }
 }
