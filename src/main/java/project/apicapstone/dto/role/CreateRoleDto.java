@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import project.apicapstone.validation.annonation.UniqueRoleId;
+import project.apicapstone.validation.annonation.UniqueRoleName;
 
 import javax.persistence.Column;
 
@@ -17,8 +18,7 @@ public class CreateRoleDto {
     @UniqueRoleId
     private String roleId;
 
-    //@Size(min = 3, max = 25, message = "{role.name.size}")
-    @NotBlank(message = "{role.name.not-blank}")
+    @UniqueRoleName
     private String roleName;
 
     private String roleDescription;

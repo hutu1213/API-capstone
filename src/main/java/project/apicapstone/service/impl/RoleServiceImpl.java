@@ -34,5 +34,10 @@ public class RoleServiceImpl implements RoleService {
         return roleRepository.existsById(id);
     }
 
+    @Override
+    public boolean isExistedRoleName(String s) {
+        return roleRepository.countByRoleName(s) >=1 ;
+    }
+
 
 }
