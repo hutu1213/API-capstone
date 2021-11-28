@@ -42,8 +42,8 @@ public class TitleController {
         if (errors.hasErrors())
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 
-        Title newTitle = titleService.createTitle(dto);
+        Title createTitle = titleService.createTitle(dto);
 
-        return ResponseHandler.getResponse(newTitle, HttpStatus.OK);
+        return ResponseHandler.getResponse(createTitle, HttpStatus.CREATED);
     }
 }

@@ -35,8 +35,8 @@ public class RoleController {
         if (errors.hasErrors())
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 
-        Role newRole = roleService.createRole(dto);
+        Role createRole = roleService.createRole(dto);
 
-        return ResponseHandler.getResponse(newRole, HttpStatus.OK);
+        return ResponseHandler.getResponse(createRole, HttpStatus.CREATED);
     }
 }

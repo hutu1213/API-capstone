@@ -40,13 +40,13 @@ public class AllowanceController {
     }
 
     @PostMapping("/create-allowance")
-    public Object createUser(@Valid @RequestBody CreateAllowanceDto dto,
+    public Object createAllowance(@Valid @RequestBody CreateAllowanceDto dto,
                              BindingResult errors) {
         if (errors.hasErrors())
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 
-        Allowance newAllowance = allowanceService.createAllowance(dto);
+        Allowance createAllowance = allowanceService.createAllowance(dto);
 
-        return ResponseHandler.getResponse(newAllowance, HttpStatus.OK);
+        return ResponseHandler.getResponse(createAllowance, HttpStatus.CREATED);
     }
 }
