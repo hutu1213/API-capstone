@@ -41,8 +41,8 @@ public class PositionController {
         if (errors.hasErrors())
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 
-        Position newPosition = positionService.createPosition(dto);
+        Position createPosition = positionService.createPosition(dto);
 
-        return ResponseHandler.getResponse(newPosition, HttpStatus.OK);
+        return ResponseHandler.getResponse(createPosition, HttpStatus.CREATED);
     }
 }

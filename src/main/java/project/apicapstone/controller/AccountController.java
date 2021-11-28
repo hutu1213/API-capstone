@@ -41,9 +41,9 @@ public class AccountController {
         if (errors.hasErrors())
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 
-        Account newAcc = accountService.createAccount(dto);
+        Account createAcc = accountService.createAccount(dto);
 
-        return ResponseHandler.getResponse(newAcc, HttpStatus.OK);
+        return ResponseHandler.getResponse(createAcc, HttpStatus.CREATED);
     }
 
     @PostMapping("/add-role")

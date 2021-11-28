@@ -38,11 +38,11 @@ public class ContractController {
         return ResponseHandler.getResponse(contractService.pagingFormat(contractPage), HttpStatus.OK);
     }
     @PostMapping
-    public Object addContract(@Valid @RequestBody CreateContractDto dto, BindingResult errors) {
+    public Object createContract(@Valid @RequestBody CreateContractDto dto, BindingResult errors) {
         if (errors.hasErrors()) {
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
         }
-        Contract addedContract = contractService.addNewContract(dto);
-        return ResponseHandler.getResponse(addedContract, HttpStatus.CREATED);
+        Contract createContract = contractService.addNewContract(dto);
+        return ResponseHandler.getResponse(createContract, HttpStatus.CREATED);
     }
 }

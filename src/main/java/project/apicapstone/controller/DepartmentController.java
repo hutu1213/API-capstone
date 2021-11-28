@@ -39,11 +39,11 @@ public class DepartmentController {
     }
 
     @PostMapping
-    public Object addDepartment(@Valid @RequestBody CreateDepartmentDto dto, BindingResult errors) {
+    public Object createDepartment(@Valid @RequestBody CreateDepartmentDto dto, BindingResult errors) {
         if (errors.hasErrors()) {
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
         }
-        Department addedDepartment = departmentService.addNewDepartment(dto);
-        return ResponseHandler.getResponse(addedDepartment, HttpStatus.CREATED);
+        Department createDepartment = departmentService.addNewDepartment(dto);
+        return ResponseHandler.getResponse(createDepartment, HttpStatus.CREATED);
     }
 }

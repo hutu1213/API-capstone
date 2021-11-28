@@ -37,11 +37,11 @@ public class DependantController {
     }
 
     @PostMapping
-    public Object addDependant(@Valid @RequestBody CreateDependantDto dto, BindingResult errors) {
+    public Object createDependant(@Valid @RequestBody CreateDependantDto dto, BindingResult errors) {
         if (errors.hasErrors()) {
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
         }
-        Dependant addDependant = dependantService.createDependant(dto);
-        return ResponseHandler.getResponse(addDependant, HttpStatus.CREATED);
+        Dependant createDependant = dependantService.createDependant(dto);
+        return ResponseHandler.getResponse(createDependant, HttpStatus.CREATED);
     }
 }

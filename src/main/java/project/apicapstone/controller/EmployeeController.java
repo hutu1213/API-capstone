@@ -60,12 +60,12 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public Object addEmployee(@Valid @RequestBody CreateEmployeeDto dto, BindingResult errors) {
+    public Object createEmployee(@Valid @RequestBody CreateEmployeeDto dto, BindingResult errors) {
         if (errors.hasErrors()) {
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
         }
-        Employee addedEmployee = employeeService.addNewEmployee(dto);
-        return ResponseHandler.getResponse(addedEmployee, HttpStatus.CREATED);
+        Employee createEmployee = employeeService.addNewEmployee(dto);
+        return ResponseHandler.getResponse(createEmployee, HttpStatus.CREATED);
     }
 
     @DeleteMapping()

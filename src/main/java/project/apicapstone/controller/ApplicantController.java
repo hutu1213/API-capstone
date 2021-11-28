@@ -37,13 +37,13 @@ public class ApplicantController {
     }
 
     @PostMapping("/create-applicant")
-    public Object createUser(@Valid @RequestBody CreateApplicantDto dto,
+    public Object createApplicant(@Valid @RequestBody CreateApplicantDto dto,
                              BindingResult errors) {
         if (errors.hasErrors())
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 
-        Applicant newApplicant = applicantService.createApplicant(dto);
+        Applicant createApplicant = applicantService.createApplicant(dto);
 
-        return ResponseHandler.getResponse(newApplicant, HttpStatus.OK);
+        return ResponseHandler.getResponse(createApplicant, HttpStatus.CREATED);
     }
 }
