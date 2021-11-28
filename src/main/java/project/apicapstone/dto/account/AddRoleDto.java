@@ -1,4 +1,4 @@
-package project.apicapstone.dto.role;
+package project.apicapstone.dto.account;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -15,8 +15,6 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"employees"})
-@EqualsAndHashCode(exclude = { "employees" }, callSuper = false)
 @Entity
 @Table(name = "table_task")
 public class Task {

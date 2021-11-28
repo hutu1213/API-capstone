@@ -28,5 +28,4 @@ public class Role {
     @Builder.Default
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Set<Account> accounts = new HashSet<>();
-
 }

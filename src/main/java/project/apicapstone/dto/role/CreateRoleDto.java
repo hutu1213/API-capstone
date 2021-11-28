@@ -7,17 +7,19 @@ import project.apicapstone.validation.annonation.UniqueRoleId;
 
 import javax.persistence.Column;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateRoleDto {
-    @Column
     @UniqueRoleId
     private String roleId;
-    @Size(min = 3, max = 25, message = "{role.name.size}")
+
+    //@Size(min = 3, max = 25, message = "{role.name.size}")
+    @NotBlank(message = "{role.name.not-blank}")
     private String roleName;
-    @Column
+
     private String roleDescription;
 }

@@ -82,12 +82,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public boolean isExisted(String id) {
+
         return employeeRepository.existsById(id);
     }
 
     @Override
     public List<Employee> findAllEmployee() {
         return employeeRepository.findAll();
+    }
+
+    @Override
+    public void deleteById(String id) {
+//        Employee employee = employeeRepository.getById(id);
+//        if(employee==null){
+//            throw new IllegalStateException("Not found !");
+//        }
+         employeeRepository.deleteById(id);
     }
 
     @Override

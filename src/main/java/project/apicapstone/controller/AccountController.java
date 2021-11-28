@@ -1,13 +1,14 @@
 package project.apicapstone.controller;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.dto.account.CreateAccountDto;
-import project.apicapstone.dto.role.AddRoleDto;
+import project.apicapstone.dto.account.AddRoleDto;
 import project.apicapstone.entity.Account;
 import project.apicapstone.service.AccountService;
 
@@ -22,9 +23,14 @@ public class AccountController {
     public AccountController(AccountService accountService) {
         this.accountService = accountService;
     }
-
-    @GetMapping()
-    public Object findAllUser() {
+    @GetMapping
+    public Object findAllAccount(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Account> accountPage = accountService.findAllAccount(pageable);
+        return ResponseHandler.getResponse(accountService.pagingFormat(accountPage), HttpStatus.OK);
+    }
+    @GetMapping("/get-all")
+    public Object findAll() {
         List<Account> accounts = accountService.findAll();
         return ResponseHandler.getResponse(accounts, HttpStatus.OK);
     }

@@ -15,7 +15,6 @@ import java.time.LocalDate;
 @Data
 public class CreateContractDto {
     @CheckContractId
-    //@NotBlank(message = "{contract.id.not-blank}")
     @UniqueContractId
     private String contractId;
 
@@ -26,13 +25,16 @@ public class CreateContractDto {
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate startDate;
+
     @Column
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate endDate;
 
+    @NotBlank(message = "{contract.status.not-blank}")
     private String status;
 
+    @Size(min = 3, max = 25, message = "{contract.content.size}")
     private String content;
 
     private double salary;
