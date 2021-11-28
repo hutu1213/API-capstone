@@ -15,4 +15,5 @@ public interface RoleService {
     boolean isExisted(String id);
 
 
+    boolean isExistedRoleName(String s);
 }
