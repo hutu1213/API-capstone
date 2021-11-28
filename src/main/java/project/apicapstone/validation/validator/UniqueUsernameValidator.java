@@ -23,7 +23,10 @@ public class UniqueUsernameValidator implements ConstraintValidator<UniqueUserna
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
         boolean isExistedUsername = service.isExistedUsername(s);
-
+        if (s.isEmpty()) {
+            ValidatorUtils.addError(constraintValidatorContext, "Username not blank");
+            return false;
+        }
         if (isExistedUsername) {
             ValidatorUtils.addError(constraintValidatorContext, message);
             return false;

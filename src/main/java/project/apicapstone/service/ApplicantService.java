@@ -1,5 +1,7 @@
 package project.apicapstone.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import project.apicapstone.dto.applicant.CreateApplicantDto;
 import project.apicapstone.entity.Applicant;
 
@@ -9,4 +11,10 @@ public interface ApplicantService {
     List<Applicant> findAll();
 
     Applicant createApplicant(CreateApplicantDto dto);
+
+    boolean isExisted(String s);
+
+    Page<Applicant> findAllApplicant(Pageable pageable);
+
+    Object pagingFormat(Page<Applicant> applicantPage);
 }

@@ -14,8 +14,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-@ToString(exclude = {})
-@EqualsAndHashCode(exclude = {}, callSuper = false)
 @Entity
 @Table(name = "table_training")
 public class Training {

@@ -15,9 +15,11 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "table_criteria")
-public class Criteria extends BaseEntity {
+public class Criteria {
+    @Id
+    private String criteriaId;
     @Column
-    private String description;
+    private String criteriaDescription;
     @Column
     private String weight;
 

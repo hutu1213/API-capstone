@@ -7,8 +7,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {})
-@EqualsAndHashCode(exclude = {}, callSuper = false)
+
 @Entity
 @Table(name = "table_trainingProposal")
 public class TrainingProposal {

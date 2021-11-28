@@ -1,15 +1,18 @@
 package project.apicapstone.entity;
 
+import lombok.Data;
 import project.apicapstone.common.entity.BaseEntity;
 
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
+@Data
 @Entity
 @Table(name = "table_title")
-public class Title extends BaseEntity {
+public class Title  {
+    @Id
+    private String titleId;
     @Column
     private String jobTitle;
 

@@ -1,9 +1,12 @@
 package project.apicapstone.service.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import project.apicapstone.dto.account.CreateAccountDto;
-import project.apicapstone.dto.role.AddRoleDto;
+import project.apicapstone.dto.account.PagingFormatAccountDto;
+import project.apicapstone.dto.account.AddRoleDto;
 import project.apicapstone.entity.Account;
 import project.apicapstone.entity.Employee;
 import project.apicapstone.entity.Role;
@@ -13,7 +16,6 @@ import project.apicapstone.repository.RoleRepository;
 import project.apicapstone.service.AccountService;
 
 import java.util.List;
-import java.util.Locale;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -21,7 +23,6 @@ public class AccountServiceImpl implements AccountService {
     private PasswordEncoder encoder;
     private EmployeeRepository employeeRepository;
     private RoleRepository roleRepository;
-
     public AccountServiceImpl(AccountRepository accountRepository, PasswordEncoder encoder, EmployeeRepository employeeRepository, RoleRepository roleRepository) {
         this.accountRepository = accountRepository;
         this.encoder = encoder;
@@ -40,11 +41,9 @@ public class AccountServiceImpl implements AccountService {
         newAcc.setAccountId(dto.getAccountId());
         newAcc.setUsername(dto.getUsername());
         newAcc.setPassword(encoder.encode(dto.getPassword()));
-        newAcc.setStatus(dto.getStatus().toUpperCase());
+        newAcc.setStatus("ACTIVE");
         Employee employee = employeeRepository.getById(dto.getEmployeeId());
-
         newAcc.setEmployee(employee);
-
         return accountRepository.save(newAcc);
     }
 
@@ -66,5 +65,20 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public boolean isExisted(String id) {
         return accountRepository.existsById(id);
+    }
+
+    @Override
+    public Page<Account> findAllAccount(Pageable pageable) {
+        return accountRepository.findAllAccount(pageable);
+    }
+
+    @Override
+    public Object pagingFormat(Page<Account> accountPage) {
+        PagingFormatAccountDto dto = new PagingFormatAccountDto();
+        dto.setPageSize(accountPage.getSize());
+        dto.setTotalRecordCount(accountPage.getTotalElements());
+        dto.setPageNumber(accountPage.getNumber());
+        dto.setRecords(accountPage.toList());
+        return dto;
     }
 }

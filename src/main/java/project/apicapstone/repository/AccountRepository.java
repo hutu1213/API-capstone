@@ -1,9 +1,13 @@
 package project.apicapstone.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import project.apicapstone.entity.Account;
+import project.apicapstone.entity.Allowance;
 import project.apicapstone.entity.Employee;
 
 import java.util.Optional;
@@ -19,5 +23,8 @@ public interface AccountRepository extends JpaRepository<Account, String> {
 
     Account findByUsernameAndStatus(String username, String status);
 
+    @Transactional(readOnly = true)
+    @Query("SELECT e FROM Account e")
+    Page<Account> findAllAccount(Pageable pageable);
 
 }

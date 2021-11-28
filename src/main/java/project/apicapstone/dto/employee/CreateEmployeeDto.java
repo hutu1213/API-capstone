@@ -10,7 +10,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
 import project.apicapstone.validation.annonation.CheckDate;
 import project.apicapstone.validation.annonation.CheckEmployeeId;
+import project.apicapstone.validation.annonation.CheckPhoneNumber;
 import project.apicapstone.validation.annonation.UniqueEmployeeId;
+
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -38,6 +40,7 @@ public class CreateEmployeeDto {
 
     private String placeBirth;
 
+    @CheckPhoneNumber
     private String phone;
 
     private String frontIdentityCard;
@@ -60,8 +63,6 @@ public class CreateEmployeeDto {
     private String academicLevel;
 
     private String maritalStatus;
-
-
 
 
 }

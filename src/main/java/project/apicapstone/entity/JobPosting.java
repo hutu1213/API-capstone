@@ -17,7 +17,9 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "table_jobPosting")
-public class JobPosting extends BaseEntity {
+public class JobPosting  {
+    @Id
+    private String jobPostingId;
     @Column
     private String vacancies;
     @Column

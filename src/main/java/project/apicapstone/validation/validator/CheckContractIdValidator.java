@@ -19,7 +19,7 @@ public class CheckContractIdValidator implements ConstraintValidator<CheckContra
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
         if(s.isEmpty()){
-            ValidatorUtils.addError(constraintValidatorContext, "Not blank !");
+            ValidatorUtils.addError(constraintValidatorContext, "Contract Id not blank ");
             return false;
         }
         if (!s.matches("[a-zA-Z0-9\\-]*$") ) {

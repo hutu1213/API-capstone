@@ -15,7 +15,9 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "table_evaluation")
-public class Evaluation extends BaseEntity {
+public class Evaluation  {
+    @Id
+    private String evaluationId;
     @Column
     private String content;
     @Column

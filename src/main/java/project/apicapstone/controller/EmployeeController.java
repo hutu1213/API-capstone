@@ -67,4 +67,10 @@ public class EmployeeController {
         Employee addedEmployee = employeeService.addNewEmployee(dto);
         return ResponseHandler.getResponse(addedEmployee, HttpStatus.CREATED);
     }
+
+    @DeleteMapping()
+    public Object deleteEmployee(@RequestParam(name = "id") String id){
+        employeeService.deleteById(id);
+        return ResponseHandler.getResponse(HttpStatus.OK);
+    }
 }
