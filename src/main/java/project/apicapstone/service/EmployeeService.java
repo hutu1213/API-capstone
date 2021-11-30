@@ -26,4 +26,6 @@ public interface EmployeeService {
     List<Employee> findAllEmployee();
 
     void deleteById(String id);
+
+    Employee findEmployeeById(String id);
 }

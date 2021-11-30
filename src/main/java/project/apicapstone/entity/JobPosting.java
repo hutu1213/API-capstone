@@ -2,6 +2,7 @@ package project.apicapstone.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,7 +33,8 @@ public class JobPosting  {
     private String jobRequirements;
 
     // relationship  title - job posting: 1-N
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "title_id")
     private Title title;
 
@@ -42,6 +44,7 @@ public class JobPosting  {
 
     // relationship job posting - application 1-N
     @OneToMany(mappedBy="jobPosting")
+
     private Set<Applicant> applicants = new HashSet<>();
 
 }

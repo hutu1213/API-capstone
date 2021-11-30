@@ -24,7 +24,7 @@ public class Criteria {
     private String weight;
 
     // relationship job posting - criteria 1-N
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_posting_id")
     private JobPosting jobPosting;
 }

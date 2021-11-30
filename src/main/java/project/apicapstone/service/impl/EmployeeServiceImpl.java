@@ -101,6 +101,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public Employee findEmployeeById(String id) {
+        return employeeRepository.getById(id);
+    }
+
+    @Override
     public PagingFormatEmployeeDto pagingFormat(Page<Employee> employeePage) {
         PagingFormatEmployeeDto dto = new PagingFormatEmployeeDto();
         dto.setPageSize(employeePage.getSize());

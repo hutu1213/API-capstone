@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
@@ -13,7 +14,6 @@ import project.apicapstone.service.EmployeeService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/employees")
@@ -39,12 +39,11 @@ public class EmployeeController {
         return ResponseHandler.getResponse(employees, HttpStatus.OK);
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Employee> findById(@PathVariable("id") Long id) {
-//        Employee employee = employeeService.findEmployeeById(id);
-//        //return ResponseHandler.getResponse(employee,HttpStatus.OK);
-//        return ResponseEntity.ok(employee);
-//    }
+    @GetMapping("/get-by-id/{id}")
+    public Object findById(@PathVariable("id") String id) {
+        Employee employee = employeeService.findEmployeeById(id);
+        return ResponseHandler.getResponse(employee, HttpStatus.OK);
+    }
 //
 //    @GetMapping("")
 //    public Object findEmployee(@RequestParam String employeeName) {
@@ -53,7 +52,7 @@ public class EmployeeController {
 //        return ResponseHandler.getResponse(employeeList,HttpStatus.OK);
 //    }
 
-    @GetMapping("/{paramSearch}")
+    @GetMapping("/search/{paramSearch}")
     public Object findEmployeeByNameOrId(@PathVariable String paramSearch) {
         List<Employee> employeeList = employeeService.findEmployeeByNameOrId(paramSearch);
         return ResponseHandler.getResponse(employeeList, HttpStatus.OK);

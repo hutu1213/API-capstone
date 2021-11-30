@@ -2,6 +2,7 @@ package project.apicapstone.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,7 +26,8 @@ public class Allowance  {
     private String type;
 
     // relationship emply - dependant 1-N
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "contract_id")
     private Contract contracts;
 
