@@ -1,5 +1,6 @@
 package project.apicapstone.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,7 +22,8 @@ public class TrainingProposal {
     @Column
     private String status;
     // relationship employ - trainingProposal 1-N
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "employee_id")
     private Employee employee;
 }

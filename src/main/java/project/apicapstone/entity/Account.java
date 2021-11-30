@@ -1,6 +1,7 @@
 package project.apicapstone.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import project.apicapstone.common.entity.BaseEntity;
 
@@ -14,8 +15,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = { "roles", "" })
-@EqualsAndHashCode(exclude = { "roles", "" }, callSuper = false)
+@JsonIgnoreProperties(value={"hibernateLazyInitializer"})
 @Entity
 @Table(name = "table_account")
 public class Account {
@@ -25,6 +25,7 @@ public class Account {
     @Column
     private String username;
     @Column
+    @JsonIgnore
     private String password;
     @Column
     private String status;
@@ -45,6 +46,8 @@ public class Account {
 
 //    @OneToOne(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //    private Employee employee;
+
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id", referencedColumnName = "employeeId")
     private Employee employee;

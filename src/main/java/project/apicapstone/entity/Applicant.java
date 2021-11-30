@@ -46,7 +46,7 @@ public class Applicant {
     private String resumeFile;
 
     // relationship jobPosting - application 1-N
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_posting_id")
     private JobPosting jobPosting;
 

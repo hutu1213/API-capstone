@@ -1,5 +1,6 @@
 package project.apicapstone.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,6 +25,7 @@ public class Department  {
 
     // relationship department - title 1-N
     @OneToMany(mappedBy="department")
+    @JsonIgnore
     private Set<Title> titles = new HashSet<>();
 
 

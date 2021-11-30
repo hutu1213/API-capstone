@@ -2,6 +2,7 @@ package project.apicapstone.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,12 +25,14 @@ public class Evaluation  {
     private String type;
 
     // relationship application - evaluation 1-N
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+
     @JoinColumn(name = "application_id")
     private Applicant applicant;
 
   // relationship employ - evaluation 1-N
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "employee_id")
     private Employee employee;
 }

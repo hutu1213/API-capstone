@@ -1,7 +1,9 @@
 package project.apicapstone.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
@@ -15,6 +17,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(value={"hibernateLazyInitializer"})
 @Entity
 @Table(name = "table_employee")
 public class Employee {
@@ -61,6 +64,7 @@ public class Employee {
 
     // relationship employee - dependant 1-N
     @OneToMany(mappedBy = "employees")
+    @JsonIgnore
     private Set<Dependant> dependants = new HashSet<>();
 
     //relation employee- skill : N-N
@@ -72,15 +76,19 @@ public class Employee {
 
     // relationship employee - contract 1-N
     @OneToMany(mappedBy = "employees")
+    @JsonIgnore
     private Set<Contract> contracts = new HashSet<>();
 
     // relationship title - employee 1-N
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    //@JsonBackReference
+    @JsonIgnore
     @JoinColumn(name = "title_id")
     private Title titles;
 
     // relationship employee - evaluation 1-N
     @OneToMany(mappedBy = "employee")
+    @JsonIgnore
     private Set<Evaluation> evaluations = new HashSet<>();
 
     //relation employee - account: 1-1
@@ -112,6 +120,7 @@ public class Employee {
 
     // relationship employee - trainingProposal 1-N
     @OneToMany(mappedBy = "employee")
+    @JsonIgnore
     private Set<TrainingProposal> proposals = new HashSet<>();
 
 }

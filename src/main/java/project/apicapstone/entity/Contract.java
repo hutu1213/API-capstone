@@ -1,6 +1,7 @@
 package project.apicapstone.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
@@ -41,13 +42,15 @@ public class Contract {
     private String type;
 
     // relationship emply - contract 1-N
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "employee_id")
     private Employee employees;
 
 
     // relationship contract - dependant 1-N
     @OneToMany(mappedBy = "contracts")
+    @JsonIgnore
     private Set<Allowance> allowance = new HashSet<>();
 
 
