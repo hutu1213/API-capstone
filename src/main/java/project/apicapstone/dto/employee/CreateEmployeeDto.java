@@ -64,5 +64,6 @@ public class CreateEmployeeDto {
 
     private String maritalStatus;
 
+    private String workingStatus;
 
 }
