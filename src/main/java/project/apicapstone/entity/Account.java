@@ -16,6 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(value={"hibernateLazyInitializer"})
+@EqualsAndHashCode(exclude = {"roles","employee"}, callSuper = false)
 @Entity
 @Table(name = "table_account")
 public class Account {

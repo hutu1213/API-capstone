@@ -13,6 +13,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = {"accounts"}, callSuper = false)
 @Entity
 @Table(name = "table_role")
 public class Role {

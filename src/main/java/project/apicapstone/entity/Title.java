@@ -19,7 +19,7 @@ public class Title  {
     private String jobTitle;
 
     // relationship title - employee 1-N
-    @OneToMany(mappedBy="titles")
+    @OneToMany(mappedBy="title")
     //@JsonManagedReference
     @JsonIgnore
     private Set<Employee> employees ;
