@@ -2,6 +2,7 @@ package project.apicapstone.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,6 +26,7 @@ public class Criteria {
 
     // relationship job posting - criteria 1-N
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "job_posting_id")
     private JobPosting jobPosting;
 }
