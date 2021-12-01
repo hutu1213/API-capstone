@@ -1,5 +1,6 @@
 package project.apicapstone.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import project.apicapstone.common.entity.BaseEntity;
 
@@ -18,5 +19,6 @@ public class Position{
 
     // relationship position - title: 1-N
     @OneToMany(mappedBy="position")
+    @JsonIgnore
     private Set<Title> titles = new HashSet<>();
 }

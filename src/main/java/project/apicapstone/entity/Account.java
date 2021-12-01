@@ -30,7 +30,6 @@ public class Account {
     @Column
     private String status;
 
-
     //relation acc-role : N-N
     @JsonIgnore
     @Builder.Default
@@ -47,12 +46,9 @@ public class Account {
 //    @OneToOne(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //    private Employee employee;
 
-
 //    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    @JoinColumn(name = "employee_id", referencedColumnName = "employeeId")
 //    private Employee employee;
-
-
 
     //helper
     public void addRole(Role role) {

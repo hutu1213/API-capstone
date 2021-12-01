@@ -40,11 +40,12 @@ public class JobPosting  {
 
     // relationship job posting - criteria 1-N
     @OneToMany(mappedBy="jobPosting")
+    @JsonIgnore
     private Set<Criteria> criteria = new HashSet<>();
 
     // relationship job posting - application 1-N
     @OneToMany(mappedBy="jobPosting")
-
+    @JsonIgnore
     private Set<Applicant> applicants = new HashSet<>();
 
 }
