@@ -15,8 +15,8 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @ConfirmPassword
 public class CreateAccountDto {
-    @UniqueAccountId
-    private String accountId;
+//    @UniqueAccountId
+//    private String accountId;
     @UniqueUsername
     private String username;
     @NotBlank(message = "{account.password.not-blank}")

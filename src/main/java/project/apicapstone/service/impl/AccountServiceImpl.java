@@ -38,7 +38,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account createAccount(CreateAccountDto dto) {
         Account newAcc = new Account();
-        newAcc.setAccountId(dto.getAccountId());
+        //newAcc.setAccountId(dto.getAccountId());
         newAcc.setUsername(dto.getUsername());
         newAcc.setPassword(encoder.encode(dto.getPassword()));
         newAcc.setStatus("ACTIVE");

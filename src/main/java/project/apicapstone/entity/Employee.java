@@ -17,6 +17,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = {"timeSheets","dependants","skills","contracts","evaluations","tasks","trainings","proposals"}, callSuper = false)
 @JsonIgnoreProperties(value={"hibernateLazyInitializer"})
 @Entity
 @Table(name = "table_employee")
@@ -85,7 +86,7 @@ public class Employee {
     //@JsonBackReference
     @JsonIgnore
     @JoinColumn(name = "title_id")
-    private Title titles;
+    private Title title;
 
     // relationship employee - evaluation 1-N
     @OneToMany(mappedBy = "employee")
