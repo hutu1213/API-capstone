@@ -39,18 +39,18 @@ public class Account {
     private Set<Role> roles = new HashSet<>();
 
     // relation: employee -account 1-1
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @MapsId
-//    @JsonIgnore
-//    private Employee;
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JsonIgnore
+    private Employee employee;
 
 //    @OneToOne(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //    private Employee employee;
 
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id", referencedColumnName = "employeeId")
-    private Employee employee;
+//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "employee_id", referencedColumnName = "employeeId")
+//    private Employee employee;
 
 
 

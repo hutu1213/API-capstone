@@ -56,6 +56,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         addEmployee.setCountryOfCitizenship(dto.getCountryOfCitizenship());
         addEmployee.setAcademicLevel(dto.getAcademicLevel());
         addEmployee.setMaritalStatus(dto.getMaritalStatus());
+        addEmployee.setWorkingStatus(dto.getWorkingStatus());
         return employeeRepository.save(addEmployee);
     }
 

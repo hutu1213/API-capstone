@@ -54,7 +54,8 @@ public class Employee {
     private String academicLevel;
     @Column
     private String maritalStatus;
-
+    @Column
+    private String workingStatus;
     //relation employee- timesheet : N-N
     @JsonIgnore
     @Builder.Default
@@ -92,9 +93,10 @@ public class Employee {
     private Set<Evaluation> evaluations = new HashSet<>();
 
     //relation employee - account: 1-1
-//    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @PrimaryKeyJoinColumn
-//    private Account account;
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @PrimaryKeyJoinColumn
+    @JsonIgnore
+    private Account account;
 
 //    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    @JoinColumn(name = "account_id", referencedColumnName = "accountId")
