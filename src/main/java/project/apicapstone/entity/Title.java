@@ -41,4 +41,15 @@ public class Title  {
     @JsonIgnore
     private Set<JobPosting> jobPostings = new HashSet<>();
 
+    // code nay ap dung jobpostings: https://vladmihalcea.com/the-best-way-to-map-a-onetomany-association-with-jpa-and-hibernate/
+//    public void addComment(PostComment comment) {
+//        comments.add(comment);
+//        comment.setPost(this);
+//    }
+//
+//    public void removeComment(PostComment comment) {
+//        comments.remove(comment);
+//        comment.setPost(null);
+//    }
+
 }

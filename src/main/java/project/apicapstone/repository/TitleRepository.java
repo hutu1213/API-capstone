@@ -11,7 +11,9 @@ import project.apicapstone.entity.Title;
 
 @Repository
 public interface TitleRepository extends JpaRepository<Title,String> {
-    @Transactional(readOnly = true)
+    //@Transactional(readOnly = true)
     @Query("SELECT e FROM Title e")
     Page<Title> findAllAllTitle(Pageable pageable);
+
+
 }

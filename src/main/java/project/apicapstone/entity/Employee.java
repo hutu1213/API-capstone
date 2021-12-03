@@ -57,6 +57,7 @@ public class Employee {
     private String maritalStatus;
     @Column
     private String workingStatus;
+
     //relation employee- timesheet : N-N
     @JsonIgnore
     @Builder.Default
@@ -82,7 +83,7 @@ public class Employee {
     private Set<Contract> contracts = new HashSet<>();
 
     // relationship title - employee 1-N
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) //// test không cần lazy
     //@JsonBackReference
     @JsonIgnore
     @JoinColumn(name = "title_id")
@@ -125,5 +126,9 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
     @JsonIgnore
     private Set<TrainingProposal> proposals = new HashSet<>();
+
+    //helper
+
+
 
 }

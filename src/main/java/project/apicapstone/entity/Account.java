@@ -41,7 +41,7 @@ public class Account {
     // relation: employee -account 1-1
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
-    @JsonIgnore
+    //@JsonIgnore
     private Employee employee;
 
 //    @OneToOne(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
