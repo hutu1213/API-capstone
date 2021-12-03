@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import project.apicapstone.dto.employee.CreateEmployeeDto;
 import project.apicapstone.dto.employee.PagingFormatEmployeeDto;
 import project.apicapstone.entity.Employee;
+import project.apicapstone.entity.Title;
 import project.apicapstone.repository.EmployeeRepository;
+import project.apicapstone.repository.TitleRepository;
 import project.apicapstone.service.EmployeeService;
 
 import java.util.List;
@@ -15,10 +17,11 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
+    private TitleRepository titleRepository;
 
-
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, TitleRepository titleRepository) {
         this.employeeRepository = employeeRepository;
+        this.titleRepository = titleRepository;
     }
 
     @Override
@@ -57,6 +60,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         addEmployee.setAcademicLevel(dto.getAcademicLevel());
         addEmployee.setMaritalStatus(dto.getMaritalStatus());
         addEmployee.setWorkingStatus(dto.getWorkingStatus());
+        Title title = titleRepository.getById(dto.getTitleId());
+        addEmployee.setTitle(title);
         return employeeRepository.save(addEmployee);
     }
 
@@ -98,7 +103,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 //        if(employee==null){
 //            throw new IllegalStateException("Not found !");
 //        }
-         employeeRepository.deleteById(id);
+        employeeRepository.deleteById(id);
     }
 
     @Override
@@ -106,6 +111,16 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.getById(id);
     }
 
+
+
+    //    public Account addRole(AddRoleDto dto) {
+//        Role role = roleRepository.getById(dto.getRoleId());
+//        Account account = accountRepository.getById(dto.getAccountId());
+//
+//        account.addRole(role);
+//
+//        return accountRepository.save(account);
+//    }
     @Override
     public PagingFormatEmployeeDto pagingFormat(Page<Employee> employeePage) {
         PagingFormatEmployeeDto dto = new PagingFormatEmployeeDto();
