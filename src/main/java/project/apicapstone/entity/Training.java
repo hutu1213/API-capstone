@@ -36,6 +36,7 @@ public class Training {
     private String status;
     @Column
     private String trainer;
+
     //relation employee - training : N-N
     @JsonIgnore
     @Builder.Default

@@ -2,6 +2,7 @@ package project.apicapstone.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
@@ -14,8 +15,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-//@ToString(exclude = {})
-//@EqualsAndHashCode(exclude = {}, callSuper = false)
+@JsonIgnoreProperties(value={"hibernateLazyInitializer"})
 @Entity
 @Table(name = "table_contract")
 public class Contract {
@@ -43,15 +43,15 @@ public class Contract {
 
     // relationship emply - contract 1-N
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+   // @JsonIgnore
     @JoinColumn(name = "employee_id")
-    private Employee employees;
+    private Employee employee;
 
 
     // relationship contract - dependant 1-N
-    @OneToMany(mappedBy = "contracts")
+    @OneToMany(mappedBy = "contract")
     @JsonIgnore
-    private Set<Allowance> allowance = new HashSet<>();
+    private Set<Allowance> allowances = new HashSet<>();
 
 
 }

@@ -48,7 +48,7 @@ public class Applicant {
 
     // relationship jobPosting - application 1-N
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+   // @JsonIgnore
     @JoinColumn(name = "job_posting_id")
     private JobPosting jobPosting;
 

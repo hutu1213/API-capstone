@@ -27,8 +27,8 @@ public class Allowance  {
 
     // relationship emply - dependant 1-N
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    //@JsonIgnore
     @JoinColumn(name = "contract_id")
-    private Contract contracts;
+    private Contract contract;
 
 }

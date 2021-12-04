@@ -78,14 +78,14 @@ public class Employee {
     private Set<Skill> skills = new HashSet<>();
 
     // relationship employee - contract 1-N
-    @OneToMany(mappedBy = "employees")
+    @OneToMany(mappedBy = "employee")
     @JsonIgnore
     private Set<Contract> contracts = new HashSet<>();
 
     // relationship title - employee 1-N
     @ManyToOne(fetch = FetchType.LAZY) //// test không cần lazy
     //@JsonBackReference
-    @JsonIgnore
+    //@JsonIgnore
     @JoinColumn(name = "title_id")
     private Title title;
 

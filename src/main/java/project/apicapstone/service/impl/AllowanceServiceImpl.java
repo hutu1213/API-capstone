@@ -7,7 +7,9 @@ import project.apicapstone.dto.allowance.CreateAllowanceDto;
 import project.apicapstone.dto.allowance.PagingFormatAllowanceDto;
 import project.apicapstone.dto.employee.PagingFormatEmployeeDto;
 import project.apicapstone.entity.Allowance;
+import project.apicapstone.entity.Contract;
 import project.apicapstone.repository.AllowanceRepository;
+import project.apicapstone.repository.ContractRepository;
 import project.apicapstone.service.AllowanceService;
 
 import java.util.List;
@@ -15,9 +17,10 @@ import java.util.List;
 @Service
 public class AllowanceServiceImpl implements AllowanceService {
     private AllowanceRepository allowanceRepository;
-
-    public AllowanceServiceImpl(AllowanceRepository allowanceRepository) {
+private ContractRepository contractRepository;
+    public AllowanceServiceImpl(AllowanceRepository allowanceRepository,ContractRepository contractRepository) {
         this.allowanceRepository = allowanceRepository;
+        this.contractRepository=contractRepository;
     }
 
     @Override
@@ -36,6 +39,8 @@ public class AllowanceServiceImpl implements AllowanceService {
         newAllowance.setAllowanceId(dto.getAllowanceId());
         newAllowance.setAllowanceName(dto.getAllowanceName());
         newAllowance.setType(dto.getType());
+        Contract contract = contractRepository.getById(dto.getContractId());
+        newAllowance.setContract(contract);
         return allowanceRepository.save(newAllowance);
     }
 

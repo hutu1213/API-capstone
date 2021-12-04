@@ -57,8 +57,8 @@ this.employeeRepository=employeeRepository;
             SecurityContextHolder.getContext().setAuthentication(auth);
             String token = jwtUtils.generateJwtToken(auth);
             Account account = accountRepository.findByUsername(dto.getUsername());
-            Title title = accountRepository.findTitleByUsername(dto.getUsername());
-            return ResponseHandler.getResponseLogin(token, account,title, HttpStatus.OK);
+           // String title = accountRepository.findTitleByUsername(dto.getUsername());
+            return ResponseHandler.getResponseLogin(token, account, HttpStatus.OK);
         } catch (Exception e) {
             logger.debug("{} has been logged in with wrong password: {}", dto.getUsername(), e.getMessage());
         }

@@ -23,7 +23,7 @@ public class TrainingProposal {
     private String status;
     // relationship employ - trainingProposal 1-N
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    //@JsonIgnore
     @JoinColumn(name = "employee_id")
     private Employee employee;
 }

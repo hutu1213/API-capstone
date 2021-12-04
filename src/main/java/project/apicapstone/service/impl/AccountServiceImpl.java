@@ -23,6 +23,7 @@ public class AccountServiceImpl implements AccountService {
     private PasswordEncoder encoder;
     private EmployeeRepository employeeRepository;
     private RoleRepository roleRepository;
+
     public AccountServiceImpl(AccountRepository accountRepository, PasswordEncoder encoder, EmployeeRepository employeeRepository, RoleRepository roleRepository) {
         this.accountRepository = accountRepository;
         this.encoder = encoder;

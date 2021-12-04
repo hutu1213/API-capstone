@@ -26,6 +26,6 @@ public interface AccountRepository extends JpaRepository<Account, String> {
     @Query("SELECT e FROM Account e")
     Page<Account> findAllAccount(Pageable pageable);
 
-    @Query("SELECT t FROM Account a JOIN a.employee e JOIN e.title t WHERE a.username = ?1")
-    Title findTitleByUsername(String username);
+    @Query("SELECT t.jobTitle FROM Account a JOIN a.employee e JOIN e.title t WHERE a.username = ?1")
+    String findTitleByUsername(String username);
 }

@@ -26,7 +26,7 @@ public class Criteria {
 
     // relationship job posting - criteria 1-N
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+//    @JsonIgnore
     @JoinColumn(name = "job_posting_id")
     private JobPosting jobPosting;
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
 import project.apicapstone.validation.annonation.CheckPhoneNumber;
+import project.apicapstone.validation.annonation.FindJobPostingId;
 import project.apicapstone.validation.annonation.UniqueApplicantId;
 
 import javax.validation.constraints.Email;
@@ -41,4 +42,7 @@ public class CreateApplicantDto {
     private String status;
 
     private String resumeFile;
+
+    @FindJobPostingId
+    private String jobPostingId;
 }
