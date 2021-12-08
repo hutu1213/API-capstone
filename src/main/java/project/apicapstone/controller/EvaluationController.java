@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import project.apicapstone.service.EvaluationService;
 
 @RestController
-@RequestMapping(value = "/evaluation")
+@RequestMapping(value = "/api/evaluation")
 public class EvaluationController {
     private EvaluationService evaluationService;
     public EvaluationController(EvaluationService evaluationService){

@@ -16,19 +16,21 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/api/account")
 public class AccountController {
     private AccountService accountService;
 
     public AccountController(AccountService accountService) {
         this.accountService = accountService;
     }
+
     @GetMapping
     public Object findAllAccount(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Account> accountPage = accountService.findAllAccount(pageable);
         return ResponseHandler.getResponse(accountService.pagingFormat(accountPage), HttpStatus.OK);
     }
+
     @GetMapping("/get-all")
     public Object findAll() {
         List<Account> accounts = accountService.findAll();
@@ -36,8 +38,8 @@ public class AccountController {
     }
 
     @PostMapping("/create-account")
-    public Object createUser(@Valid @RequestBody CreateAccountDto dto,
-                             BindingResult errors) {
+    public Object createAccount(@Valid @RequestBody CreateAccountDto dto,
+                                BindingResult errors) {
         if (errors.hasErrors())
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 

@@ -36,8 +36,10 @@ public class Employee {
     @Column
     private String phone;
     @Column
+
     private String frontIdentityCard;
     @Column
+
     private String backIdentityCard;
     @Column
     private String gender;

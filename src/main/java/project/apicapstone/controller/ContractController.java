@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/contract")
+@RequestMapping(value = "/api/contract")
 public class ContractController {
     private ContractService contractService;
 

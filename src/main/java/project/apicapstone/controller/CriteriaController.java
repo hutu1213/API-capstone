@@ -6,7 +6,7 @@ import project.apicapstone.service.CriteriaService;
 
 
 @RestController
-@RequestMapping(value = "/criteria")
+@RequestMapping(value = "/api/criteria")
 public class CriteriaController {
     private CriteriaService criteriaService;
 

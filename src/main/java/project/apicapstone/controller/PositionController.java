@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/position")
+@RequestMapping(value = "/api/position")
 public class PositionController {
     private PositionService positionService;
 

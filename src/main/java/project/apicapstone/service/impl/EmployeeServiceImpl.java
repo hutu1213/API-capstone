@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import project.apicapstone.dto.employee.CreateEmployeeDto;
 import project.apicapstone.dto.employee.PagingFormatEmployeeDto;
+import project.apicapstone.dto.employee.UpdateEmployeeDto;
 import project.apicapstone.entity.Employee;
 import project.apicapstone.entity.Title;
 import project.apicapstone.repository.EmployeeRepository;
@@ -111,6 +112,29 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.getById(id);
     }
 
+    @Override
+    public void updateEmployee(UpdateEmployeeDto dto, String id) {
+        Employee updateEmployee = employeeRepository.getById(id);
+        //employee.setEmployeeId(dto.getEmployeeId());
+        updateEmployee.setEmployeeName(dto.getEmployeeName());
+        updateEmployee.setDateBirth(dto.getDateBirth());
+        updateEmployee.setPlaceBirth(dto.getPlaceBirth());
+        updateEmployee.setPhone(dto.getPhone());
+        updateEmployee.setFrontIdentityCard(dto.getFrontIdentityCard());
+        updateEmployee.setBackIdentityCard(dto.getBackIdentityCard());
+        updateEmployee.setGender(dto.getGender());
+        updateEmployee.setAddress(dto.getAddress());
+        updateEmployee.setEmail(dto.getEmail());
+        updateEmployee.setNationality(dto.getNationality());
+        updateEmployee.setReligion(dto.getReligion());
+        updateEmployee.setCountryOfCitizenship(dto.getCountryOfCitizenship());
+        updateEmployee.setAcademicLevel(dto.getAcademicLevel());
+        updateEmployee.setMaritalStatus(dto.getMaritalStatus());
+        updateEmployee.setWorkingStatus(dto.getWorkingStatus());
+        Title title = titleRepository.getById(dto.getTitleId());
+        updateEmployee.setTitle(title);
+        employeeRepository.save(updateEmployee);
+    }
 
 
     //    public Account addRole(AddRoleDto dto) {

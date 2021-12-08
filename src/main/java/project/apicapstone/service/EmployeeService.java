@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import project.apicapstone.dto.employee.CreateEmployeeDto;
 import project.apicapstone.dto.employee.PagingFormatEmployeeDto;
+import project.apicapstone.dto.employee.UpdateEmployeeDto;
 import project.apicapstone.entity.Employee;
 
 import java.util.List;
@@ -30,4 +31,5 @@ public interface EmployeeService {
     Employee findEmployeeById(String id);
 
 
+    void updateEmployee(UpdateEmployeeDto dto, String id);
 }

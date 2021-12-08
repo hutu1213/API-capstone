@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface CheckContractId {
-    String message() default "Id not valid ! (letter, digit, '-' is valid)";
+    String message() default "Contract Id not valid ! (letter, digit, '-' is valid)";
 
     Class<?>[] groups() default {};
 

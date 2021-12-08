@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import project.apicapstone.service.SkillService;
 
 @RestController
-@RequestMapping(value = "/skill")
+@RequestMapping(value = "/api/skill")
 public class SkillController {
     private SkillService skillService;
     public SkillController(SkillService skillService){

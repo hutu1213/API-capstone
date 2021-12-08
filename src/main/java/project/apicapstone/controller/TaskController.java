@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import project.apicapstone.service.TaskService;
 
 @RestController
-@RequestMapping(value = "/task")
+@RequestMapping(value = "/api/task")
 public class TaskController {
     private TaskService taskService;
     public TaskController(TaskService taskService){

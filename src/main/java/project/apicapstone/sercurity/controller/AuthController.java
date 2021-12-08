@@ -25,21 +25,21 @@ import project.apicapstone.sercurity.jwt.JwtUtils;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(Jwts.class);
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
     private AccountRepository accountRepository;
-private EmployeeRepository employeeRepository;
+    private EmployeeRepository employeeRepository;
     private PasswordEncoder encoder;
 
-    public AuthController(AuthenticationManager authManager, JwtUtils jwtUtils, AccountRepository accountRepository, PasswordEncoder encoder,EmployeeRepository employeeRepository) {
+    public AuthController(AuthenticationManager authManager, JwtUtils jwtUtils, AccountRepository accountRepository, PasswordEncoder encoder, EmployeeRepository employeeRepository) {
         authenticationManager = authManager;
         this.jwtUtils = jwtUtils;
         this.accountRepository = accountRepository;
         this.encoder = encoder;
-this.employeeRepository=employeeRepository;
+        this.employeeRepository = employeeRepository;
 
     }
 
@@ -57,7 +57,7 @@ this.employeeRepository=employeeRepository;
             SecurityContextHolder.getContext().setAuthentication(auth);
             String token = jwtUtils.generateJwtToken(auth);
             Account account = accountRepository.findByUsername(dto.getUsername());
-           // String title = accountRepository.findTitleByUsername(dto.getUsername());
+            // String title = accountRepository.findTitleByUsername(dto.getUsername());
             return ResponseHandler.getResponseLogin(token, account, HttpStatus.OK);
         } catch (Exception e) {
             logger.debug("{} has been logged in with wrong password: {}", dto.getUsername(), e.getMessage());

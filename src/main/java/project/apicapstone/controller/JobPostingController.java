@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import project.apicapstone.service.JobPostingService;
 
 @RestController
-@RequestMapping(value = "/jobPosting")
+@RequestMapping(value = "/api/jobPosting")
 public class JobPostingController {
     private JobPostingService jobPostingService;
 
