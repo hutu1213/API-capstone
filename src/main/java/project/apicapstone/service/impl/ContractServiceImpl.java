@@ -7,17 +7,21 @@ import project.apicapstone.dto.contract.CreateContractDto;
 import project.apicapstone.dto.contract.PagingFormatContractDto;
 import project.apicapstone.dto.department.PagingFormatDepartmentDto;
 import project.apicapstone.entity.Contract;
+import project.apicapstone.entity.Employee;
 import project.apicapstone.repository.ContractRepository;
+import project.apicapstone.repository.EmployeeRepository;
 import project.apicapstone.service.ContractService;
+import project.apicapstone.service.EmployeeService;
 
 import java.util.List;
 
 @Service
 public class ContractServiceImpl implements ContractService {
     private ContractRepository contractRepository;
-
-    public ContractServiceImpl(ContractRepository contractRepository) {
+private EmployeeRepository employeeRepository;
+    public ContractServiceImpl(ContractRepository contractRepository,EmployeeRepository employeeRepository) {
         this.contractRepository = contractRepository;
+        this.employeeRepository=employeeRepository;
     }
 
     @Override
@@ -36,6 +40,8 @@ public class ContractServiceImpl implements ContractService {
         addContract.setContent(dto.getContent());
         addContract.setSalary(dto.getSalary());
         addContract.setType(dto.getType());
+        Employee employee =employeeRepository.getById(dto.getEmployeeId());
+        addContract.setEmployee(employee);
         return contractRepository.save(addContract);
     }
 

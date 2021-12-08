@@ -1,7 +1,7 @@
 package project.apicapstone.validation.annonation;
 
-import project.apicapstone.validation.validator.CheckContractIdValidator;
-import project.apicapstone.validation.validator.CheckDepartmentIdValidator;
+import project.apicapstone.validation.validator.FindContractIdValidator;
+import project.apicapstone.validation.validator.FindTitleIdValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -11,11 +11,11 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Constraint(validatedBy = CheckContractIdValidator.class)
+@Constraint(validatedBy = FindContractIdValidator.class)
 @Retention(RUNTIME)
 @Target(FIELD)
-public @interface CheckContractId {
-    String message() default "Contract Id not valid ! (letter, digit, '-' is valid)";
+public @interface FindContractId {
+    String message() default "Contract Id not found";
 
     Class<?>[] groups() default {};
 

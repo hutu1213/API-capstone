@@ -1,6 +1,7 @@
 package project.apicapstone.dto.allowance;
 
 import lombok.Data;
+import project.apicapstone.validation.annonation.FindContractId;
 import project.apicapstone.validation.annonation.UniqueAllowanceId;
 
 import javax.validation.constraints.NotBlank;
@@ -14,4 +15,6 @@ public class CreateAllowanceDto {
     private String allowanceName;
     @NotBlank(message = "{allowance.type.not-blank}")
     private String type;
+    @FindContractId
+    private String contractId;
 }

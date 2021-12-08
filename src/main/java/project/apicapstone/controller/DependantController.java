@@ -17,11 +17,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/dependant")
+@RequestMapping(value = "/api/dependant")
 public class DependantController {
     private DependantService dependantService;
-    public  DependantController(DependantService dependantService){
-        this.dependantService=dependantService;
+
+    public DependantController(DependantService dependantService) {
+        this.dependantService = dependantService;
     }
 
     @GetMapping("/get-all")
@@ -29,6 +30,7 @@ public class DependantController {
         List<Dependant> dependants = dependantService.findAll();
         return ResponseHandler.getResponse(dependants, HttpStatus.OK);
     }
+
     @GetMapping
     public Object findAllDependant(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);

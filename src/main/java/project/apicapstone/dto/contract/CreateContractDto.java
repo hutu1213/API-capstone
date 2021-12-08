@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
 import project.apicapstone.validation.annonation.CheckContractId;
+import project.apicapstone.validation.annonation.FindEmployeeId;
 import project.apicapstone.validation.annonation.UniqueContractId;
 
 import javax.persistence.Column;
@@ -41,4 +42,6 @@ public class CreateContractDto {
 
     private String type;
 
+    @FindEmployeeId
+    private String employeeId;
 }

@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/department")
+@RequestMapping(value = "/api/department")
 public class DepartmentController {
     private DepartmentService departmentService;
 

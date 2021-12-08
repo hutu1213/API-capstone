@@ -34,7 +34,7 @@ public class JobPosting  {
 
     // relationship  title - job posting: 1-N
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    //@JsonIgnore
     @JoinColumn(name = "title_id")
     private Title title;
 

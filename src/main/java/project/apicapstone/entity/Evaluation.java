@@ -3,6 +3,7 @@ package project.apicapstone.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(value={"hibernateLazyInitializer"})
 @Entity
 @Table(name = "table_evaluation")
 public class Evaluation  {
@@ -26,13 +28,13 @@ public class Evaluation  {
 
     // relationship application - evaluation 1-N
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    //@JsonIgnore
     @JoinColumn(name = "application_id")
     private Applicant applicant;
 
   // relationship employ - evaluation 1-N
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    //@JsonIgnore
     @JoinColumn(name = "employee_id")
     private Employee employee;
 }

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import project.apicapstone.service.TimesheetService;
 
 @RestController
-@RequestMapping(value = "/timesheet")
+@RequestMapping(value = "/api/timesheet")
 public class TimesheetController {
     private TimesheetService timesheetService;
     public TimesheetController(TimesheetService timesheetService){

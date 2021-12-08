@@ -10,4 +10,9 @@ public class JobPostingServiceImpl implements JobPostingService {
     public JobPostingServiceImpl(JobPostingRepository jobPostingRepository){
         this.jobPostingRepository=jobPostingRepository;
     }
+
+    @Override
+    public boolean isExisted(String s) {
+        return jobPostingRepository.existsById(s);
+    }
 }

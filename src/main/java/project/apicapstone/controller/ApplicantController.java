@@ -17,19 +17,21 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/applicant")
+@RequestMapping("/api/applicant")
 public class ApplicantController {
     private ApplicantService applicantService;
 
     public ApplicantController(ApplicantService applicantService) {
         this.applicantService = applicantService;
     }
+
     @GetMapping
     public Object findAllApplicant(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Applicant> applicantPage = applicantService.findAllApplicant(pageable);
         return ResponseHandler.getResponse(applicantService.pagingFormat(applicantPage), HttpStatus.OK);
     }
+
     @GetMapping("/get-all")
     public Object findAll() {
         List<Applicant> applicants = applicantService.findAll();
@@ -38,7 +40,7 @@ public class ApplicantController {
 
     @PostMapping("/create-applicant")
     public Object createApplicant(@Valid @RequestBody CreateApplicantDto dto,
-                             BindingResult errors) {
+                                  BindingResult errors) {
         if (errors.hasErrors())
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 

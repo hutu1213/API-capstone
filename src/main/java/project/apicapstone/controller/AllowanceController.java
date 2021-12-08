@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/allowance")
+@RequestMapping("/api/allowance")
 public class AllowanceController {
     private AllowanceService allowanceService;
 
@@ -41,7 +41,7 @@ public class AllowanceController {
 
     @PostMapping("/create-allowance")
     public Object createAllowance(@Valid @RequestBody CreateAllowanceDto dto,
-                             BindingResult errors) {
+                                  BindingResult errors) {
         if (errors.hasErrors())
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 

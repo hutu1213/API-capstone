@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.dto.employee.CreateEmployeeDto;
+import project.apicapstone.dto.employee.UpdateEmployeeDto;
 import project.apicapstone.entity.Employee;
 import project.apicapstone.service.EmployeeService;
 
@@ -15,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/employees")
+@RequestMapping(value = "/api/employees")
 
 public class EmployeeController {
 
@@ -39,11 +40,11 @@ public class EmployeeController {
     }
 
     @GetMapping("/get-by-id/{id}")
-    public Object findById(@PathVariable("id") String id) {
+    public Object findEmployeeById(@PathVariable("id") String id) {
         Employee employee = employeeService.findEmployeeById(id);
         return ResponseHandler.getResponse(employee, HttpStatus.OK);
     }
-//
+
 //    @GetMapping("")
 //    public Object findEmployee(@RequestParam String employeeName) {
 //        List<Employee> employeeList = employeeService.findEmployeeByName(employeeName);
@@ -67,9 +68,17 @@ public class EmployeeController {
     }
 
     @DeleteMapping()
-    public Object deleteEmployee(@RequestParam(name = "id") String id){
+    public Object deleteEmployee(@RequestParam(name = "id") String id) {
         employeeService.deleteById(id);
         return ResponseHandler.getResponse(HttpStatus.OK);
     }
 
+    @PutMapping()
+    public Object updateEmployee(@Valid @RequestBody UpdateEmployeeDto dto, BindingResult errors) {
+        if (errors.hasErrors()) {
+            return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
+        }
+        employeeService.updateEmployee(dto, dto.getEmployeeId());
+        return ResponseHandler.getResponse(HttpStatus.OK);
+    }
 }

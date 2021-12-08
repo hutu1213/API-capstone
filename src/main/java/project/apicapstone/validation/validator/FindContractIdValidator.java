@@ -1,30 +1,29 @@
 package project.apicapstone.validation.validator;
 
 import project.apicapstone.common.util.ValidatorUtils;
-import project.apicapstone.service.EmployeeService;
-import project.apicapstone.validation.annonation.FindEmployeeId;
+import project.apicapstone.service.ContractService;
+import project.apicapstone.validation.annonation.FindContractId;
+import project.apicapstone.validation.annonation.FindTitleId;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class FindEmployeeIdValidator implements ConstraintValidator<FindEmployeeId, String> {
+public class FindContractIdValidator implements ConstraintValidator<FindContractId, String> {
     private String message;
-    private EmployeeService employeeService;
-
-    public FindEmployeeIdValidator(EmployeeService employeeService) {
-        this.employeeService = employeeService;
+    private ContractService contractService;
+    public FindContractIdValidator(ContractService contractService){
+        this.contractService=contractService;
     }
-
     @Override
-    public void initialize(FindEmployeeId constraintAnnotation) {
+    public void initialize(FindContractId constraintAnnotation) {
         message = constraintAnnotation.message();
     }
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        boolean isExisted = employeeService.isExisted(s);
+        boolean isExisted = contractService.isExisted(s);
         if (s.isEmpty()) {
-            ValidatorUtils.addError(constraintValidatorContext, "Employee Id not blank");
+            ValidatorUtils.addError(constraintValidatorContext, "Contract Id not blank");
             return false;
         }
         if (isExisted) {
