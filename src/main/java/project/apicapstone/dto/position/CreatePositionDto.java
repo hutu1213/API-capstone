@@ -9,6 +9,6 @@ import javax.validation.constraints.NotBlank;
 public class CreatePositionDto {
     @UniquePositionId
     private String positionId;
-    @NotBlank(message = "{position.name.not-blank}")
+    //@NotBlank(message = "{position.name.not-blank}")
     private String positionName;
 }

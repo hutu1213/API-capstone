@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface UniqueAllowanceId {
-    String message() default "Allowance Id is duplicated";
+    String message() default "Mã phụ cấp bị trùng";
 
     Class<?>[] groups() default {};
 

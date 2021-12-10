@@ -1,10 +1,14 @@
 package project.apicapstone.service.impl;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
+import project.apicapstone.common.util.DateUtils;
 import project.apicapstone.dto.contract.CreateContractDto;
 import project.apicapstone.dto.contract.PagingFormatContractDto;
+import project.apicapstone.dto.contract.UpdateContractDto;
 import project.apicapstone.dto.department.PagingFormatDepartmentDto;
 import project.apicapstone.entity.Contract;
 import project.apicapstone.entity.Employee;
@@ -12,16 +16,20 @@ import project.apicapstone.repository.ContractRepository;
 import project.apicapstone.repository.EmployeeRepository;
 import project.apicapstone.service.ContractService;
 import project.apicapstone.service.EmployeeService;
+import project.apicapstone.validation.annonation.FindEmployeeId;
 
+import javax.persistence.Column;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class ContractServiceImpl implements ContractService {
     private ContractRepository contractRepository;
-private EmployeeRepository employeeRepository;
-    public ContractServiceImpl(ContractRepository contractRepository,EmployeeRepository employeeRepository) {
+    private EmployeeRepository employeeRepository;
+
+    public ContractServiceImpl(ContractRepository contractRepository, EmployeeRepository employeeRepository) {
         this.contractRepository = contractRepository;
-        this.employeeRepository=employeeRepository;
+        this.employeeRepository = employeeRepository;
     }
 
     @Override
@@ -40,7 +48,7 @@ private EmployeeRepository employeeRepository;
         addContract.setContent(dto.getContent());
         addContract.setSalary(dto.getSalary());
         addContract.setType(dto.getType());
-        Employee employee =employeeRepository.getById(dto.getEmployeeId());
+        Employee employee = employeeRepository.getById(dto.getEmployeeId());
         addContract.setEmployee(employee);
         return contractRepository.save(addContract);
     }
@@ -63,6 +71,30 @@ private EmployeeRepository employeeRepository;
         dto.setPageNumber(contractPage.getNumber());
         dto.setRecords(contractPage.toList());
         return dto;
+    }
+
+    @Override
+    public Contract getById(String id) {
+        return contractRepository.getById(id);
+    }
+
+    @Override
+    public void update(UpdateContractDto dto, String contractId) {
+        Contract contract = contractRepository.getById(contractId);
+        contract.setContractName(dto.getContractName());
+        contract.setStartDate(dto.getStartDate());
+        contract.setEndDate(dto.getEndDate());
+        contract.setStatus(dto.getStatus());
+        contract.setContent(dto.getContent());
+        contract.setSalary(dto.getSalary());
+        contract.setType(dto.getType());
+        contract.setEmployee(employeeRepository.getById(dto.getEmployeeId()));
+        contractRepository.save(contract);
+    }
+
+    @Override
+    public void deleteById(String id) {
+        contractRepository.deleteById(id);
     }
 
 }

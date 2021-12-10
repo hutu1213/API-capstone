@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface UniquePositionId {
-    String message() default "Position Id is duplicated";
+    String message() default "Mã vị trí bị trùng";
 
     Class<?>[] groups() default {};
 

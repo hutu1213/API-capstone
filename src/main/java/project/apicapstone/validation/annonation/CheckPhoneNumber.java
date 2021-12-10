@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface CheckPhoneNumber {
-    String message() default "Phone number from 1 - 12 digit";
+    String message() default "Số điện thoại từ 1 đến 12 chữ số";
 
     Class<?>[] groups() default {};
 

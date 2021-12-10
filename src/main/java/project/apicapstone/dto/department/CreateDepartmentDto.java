@@ -14,7 +14,7 @@ public class CreateDepartmentDto {
     @UniqueDepartmentId
     private String departmentId;
 
-    @NotBlank(message = "{department.name.not-blank}")
+    //@NotBlank(message = "{department.name.not-blank}")
     private String departmentName;
 
 

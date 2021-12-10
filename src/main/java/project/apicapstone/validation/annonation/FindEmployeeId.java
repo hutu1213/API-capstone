@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface FindEmployeeId {
-    String message() default "Employee Id not found";
+    String message() default "Mã nhân viên không tìm thấy";
 
     Class<?>[] groups() default {};
 

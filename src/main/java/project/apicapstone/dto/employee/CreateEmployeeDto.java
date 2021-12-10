@@ -18,14 +18,12 @@ import java.time.LocalDate;
 import java.util.Date;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class CreateEmployeeDto {
     @CheckEmployeeId
     @UniqueEmployeeId
     private String employeeId;
 
-    @Size(min = 3, max = 25, message = "{employee.name.size}")
+    //@Size(min = 3, max = 25, message = "{employee.name.size}")
     private String employeeName;
 
     //@CheckDate

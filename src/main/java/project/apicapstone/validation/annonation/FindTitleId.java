@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface FindTitleId {
-    String message() default "Title Id not found";
+    String message() default "Mã chức vụ không tìm thấy";
 
     Class<?>[] groups() default {};
 

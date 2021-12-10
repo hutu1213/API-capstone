@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface CheckEmployeeId {
-    String message() default "Employee Id from 1 - 12";
+    String message() default "Mã nhân viên từ 1 đến 12 chữ số";
 
     Class<?>[] groups() default {};
 

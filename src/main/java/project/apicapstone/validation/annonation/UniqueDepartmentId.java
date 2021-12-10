@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(FIELD)
 
 public @interface UniqueDepartmentId {
-    String message() default "Department Id is duplicated";
+    String message() default "Mã phòng ban bị trùng";
 
     Class<?>[] groups() default {};
 

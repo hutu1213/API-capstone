@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target(TYPE)
 public @interface ConfirmPassword {
-    String message() default "Confirm password is not same password";
+    String message() default "Mật khẩu không trùng khớp";
 
     Class<?>[] groups() default {};
 

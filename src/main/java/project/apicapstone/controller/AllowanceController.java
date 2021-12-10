@@ -8,7 +8,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.dto.allowance.CreateAllowanceDto;
+import project.apicapstone.dto.allowance.UpdateAllowanceDto;
 import project.apicapstone.dto.applicant.CreateApplicantDto;
+import project.apicapstone.dto.employee.UpdateEmployeeDto;
 import project.apicapstone.entity.Allowance;
 import project.apicapstone.entity.Applicant;
 import project.apicapstone.entity.Employee;
@@ -48,5 +50,35 @@ public class AllowanceController {
         Allowance createAllowance = allowanceService.createAllowance(dto);
 
         return ResponseHandler.getResponse(createAllowance, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping()
+    public Object deleteAllowance(@RequestParam(name = "id") String id) {
+        allowanceService.deleteById(id);
+        return ResponseHandler.getResponse(HttpStatus.OK);
+    }
+
+    @PutMapping()
+    public Object updateAllowance(@Valid @RequestBody UpdateAllowanceDto dto, BindingResult errors) {
+        if (errors.hasErrors()) {
+            return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
+        }
+        allowanceService.updateAllowance(dto, dto.getAllowanceId());
+        return ResponseHandler.getResponse(HttpStatus.OK);
+    }
+
+    @GetMapping("/get-by-id/{id}")
+    public Object findAllowanceById(@PathVariable("id") String id) {
+        Allowance allowance = allowanceService.findAllowanceById(id);
+        return ResponseHandler.getResponse(allowance, HttpStatus.OK);
+    }
+
+    @GetMapping("/search/{paramSearch}")
+    public Object findAllowanceByNameOrId(@PathVariable String paramSearch) {
+        List<Allowance> allowanceList = allowanceService.findAllowanceByNameOrId(paramSearch);
+        if (allowanceList.isEmpty()) {
+            return ResponseHandler.getErrors("Not found", HttpStatus.NOT_FOUND);
+        }
+        return ResponseHandler.getResponse(allowanceList, HttpStatus.OK);
     }
 }

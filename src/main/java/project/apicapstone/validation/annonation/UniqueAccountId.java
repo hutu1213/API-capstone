@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface UniqueAccountId {
-    String message() default "Account Id is duplicated";
+    String message() default "Mã tài khoản bị trùng";
 
     Class<?>[] groups() default {};
 

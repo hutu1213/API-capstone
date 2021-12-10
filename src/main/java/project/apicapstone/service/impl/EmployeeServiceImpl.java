@@ -81,9 +81,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 //
 //        }
         List<Employee> listSearch = employeeRepository.findEmployeesByNameOrId(paramSearch);
-        if (listSearch.size() == 0) {
-            throw new IllegalStateException("Not found !");
-        }
         return listSearch;
     }
 

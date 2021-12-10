@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import project.apicapstone.dto.allowance.CreateAllowanceDto;
 import project.apicapstone.dto.allowance.PagingFormatAllowanceDto;
+import project.apicapstone.dto.allowance.UpdateAllowanceDto;
 import project.apicapstone.dto.employee.PagingFormatEmployeeDto;
 import project.apicapstone.entity.Allowance;
 import project.apicapstone.entity.Contract;
@@ -17,10 +18,11 @@ import java.util.List;
 @Service
 public class AllowanceServiceImpl implements AllowanceService {
     private AllowanceRepository allowanceRepository;
-private ContractRepository contractRepository;
-    public AllowanceServiceImpl(AllowanceRepository allowanceRepository,ContractRepository contractRepository) {
+    private ContractRepository contractRepository;
+
+    public AllowanceServiceImpl(AllowanceRepository allowanceRepository, ContractRepository contractRepository) {
         this.allowanceRepository = allowanceRepository;
-        this.contractRepository=contractRepository;
+        this.contractRepository = contractRepository;
     }
 
     @Override
@@ -57,5 +59,30 @@ private ContractRepository contractRepository;
         dto.setPageNumber(allowancePage.getNumber());
         dto.setRecords(allowancePage.toList());
         return dto;
+    }
+
+    @Override
+    public void deleteById(String id) {
+        allowanceRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateAllowance(UpdateAllowanceDto dto, String allowanceId) {
+        Allowance allowance = allowanceRepository.getById(allowanceId);
+        allowance.setAllowanceName(dto.getAllowanceName());
+        allowance.setType(dto.getType());
+        Contract contract = contractRepository.getById(dto.getContractId());
+        allowance.setContract(contract);
+        allowanceRepository.save(allowance);
+    }
+
+    @Override
+    public Allowance findAllowanceById(String id) {
+        return allowanceRepository.getById(id);
+    }
+
+    @Override
+    public List<Allowance> findAllowanceByNameOrId(String paramSearch) {
+        return allowanceRepository.findByAllowanceIdOrName(paramSearch);
     }
 }

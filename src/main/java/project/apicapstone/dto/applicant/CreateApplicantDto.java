@@ -17,20 +17,20 @@ public class CreateApplicantDto {
     @UniqueApplicantId
     private String applicantId;
 
-    @NotBlank(message = "{applicant.name.not-blank}")
+    //@NotBlank(message = "{applicant.name.not-blank}")
     private String applicantName;
 
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate dateBirth;
 
-    @NotBlank(message = "{applicant.address.not-blank}")
+    //@NotBlank(message = "{applicant.address.not-blank}")
     private String address;
 
     @CheckPhoneNumber
     private String phone;
 
-    @NotBlank(message = "{applicant.gender.not-blank}")
+    //@NotBlank(message = "{applicant.gender.not-blank}")
     private String gender;
 
     @Email
@@ -38,7 +38,7 @@ public class CreateApplicantDto {
 
     private String certification;
 
-    @NotBlank(message = "{applicant.status.not-blank}")
+   // @NotBlank(message = "{applicant.status.not-blank}")
     private String status;
 
     private String resumeFile;

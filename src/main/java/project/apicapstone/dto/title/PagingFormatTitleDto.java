@@ -6,8 +6,6 @@ import project.apicapstone.entity.Title;
 
 import java.util.List;
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class PagingFormatTitleDto {
     private int pageNumber;
 
