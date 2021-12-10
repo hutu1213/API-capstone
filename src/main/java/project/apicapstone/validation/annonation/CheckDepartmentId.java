@@ -15,7 +15,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface CheckDepartmentId {
-    String message() default "Id not valid ! (letter, digit, '-' is valid)";
+    //    String message() default "Id not valid ! (letter, digit, '-' is valid)";
+    String message() default "Mã phòng ban theo định dạng chữ, số và '-'";
 
     Class<?>[] groups() default {};
 

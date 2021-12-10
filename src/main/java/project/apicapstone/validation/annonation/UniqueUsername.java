@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface UniqueUsername {
-    String message() default "Username is duplicated";
+    String message() default "Tài khoản đăng nhập bị trùng";
 
     Class<?>[] groups() default {};
 

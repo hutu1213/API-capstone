@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import project.apicapstone.dto.contract.CreateContractDto;
 import project.apicapstone.dto.contract.PagingFormatContractDto;
+import project.apicapstone.dto.contract.UpdateContractDto;
 import project.apicapstone.entity.Contract;
 
 import java.util.List;
@@ -18,4 +19,10 @@ public interface ContractService {
     Page<Contract> findAllContract(Pageable pageable);
 
     PagingFormatContractDto pagingFormat(Page<Contract> contractPage);
+
+    Contract getById(String id);
+
+    void update(UpdateContractDto dto, String contractId);
+
+    void deleteById(String id);
 }

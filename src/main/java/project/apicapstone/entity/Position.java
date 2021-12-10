@@ -1,14 +1,14 @@
 package project.apicapstone.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import project.apicapstone.common.entity.BaseEntity;
-
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 @Data
+@JsonIgnoreProperties(value={"hibernateLazyInitializer"})
 @Entity
 @Table(name = "table_position")
 public class Position{

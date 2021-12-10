@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface UniqueRoleName {
-    String message() default "Role name is duplicated";
+    String message() default "Tên vai trò bị trùng";
 
     Class<?>[] groups() default {};
 

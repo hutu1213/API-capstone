@@ -55,6 +55,9 @@ public class EmployeeController {
     @GetMapping("/search/{paramSearch}")
     public Object findEmployeeByNameOrId(@PathVariable String paramSearch) {
         List<Employee> employeeList = employeeService.findEmployeeByNameOrId(paramSearch);
+        if (employeeList.isEmpty()) {
+            return ResponseHandler.getErrors("Not found ",HttpStatus.NOT_FOUND);
+        }
         return ResponseHandler.getResponse(employeeList, HttpStatus.OK);
     }
 

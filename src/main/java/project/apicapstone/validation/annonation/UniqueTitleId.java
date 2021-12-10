@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface UniqueTitleId {
-    String message() default "Title Id is duplicated";
+    String message() default "Mã chức vụ bị trùng";
 
     Class<?>[] groups() default {};
 

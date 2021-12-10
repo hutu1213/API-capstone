@@ -2,12 +2,16 @@ package project.apicapstone.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.entity.BaseEntity;
+import project.apicapstone.common.util.DateUtils;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -16,6 +20,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(value={"hibernateLazyInitializer"})
 @Entity
 @Table(name = "table_jobPosting")
 public class JobPosting  {
@@ -24,6 +29,8 @@ public class JobPosting  {
     @Column
     private String vacancies;
     @Column
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private String datePost;
     @Column
     private String employmentInfor;

@@ -28,12 +28,14 @@ public class Title {
     private Set<Employee> employees;
 
     // relationship position - title: 1-N
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "position_id")
     //@JsonIgnore
     private Position position;
 
     // relationship department - title 1-N
+
     @ManyToOne(fetch = FetchType.LAZY)
     //@JsonIgnore
     @JoinColumn(name = "department_id")

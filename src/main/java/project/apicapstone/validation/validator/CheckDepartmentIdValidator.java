@@ -17,7 +17,7 @@ public class CheckDepartmentIdValidator implements ConstraintValidator<CheckDepa
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
         if(s.isEmpty()){
-            ValidatorUtils.addError(constraintValidatorContext, "Deparment ID not blank !");
+            ValidatorUtils.addError(constraintValidatorContext, "Deparment Id not blank !");
             return false;
         }
         if (!s.matches("[a-zA-Z0-9\\-]*$") ) {

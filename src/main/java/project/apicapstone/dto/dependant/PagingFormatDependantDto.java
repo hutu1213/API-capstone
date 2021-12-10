@@ -8,7 +8,6 @@ import project.apicapstone.entity.Dependant;
 
 import java.util.List;
 @Data
-
 public class PagingFormatDependantDto {
     private int pageNumber;
 

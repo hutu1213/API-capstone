@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.dto.contract.CreateContractDto;
+import project.apicapstone.dto.contract.UpdateContractDto;
 import project.apicapstone.dto.department.CreateDepartmentDto;
 import project.apicapstone.entity.Contract;
 import project.apicapstone.entity.Department;
@@ -31,12 +32,14 @@ public class ContractController {
         List<Contract> contracts = contractService.findAll();
         return ResponseHandler.getResponse(contracts, HttpStatus.OK);
     }
+
     @GetMapping
     public Object findAllContract(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Contract> contractPage = contractService.findAllContract(pageable);
         return ResponseHandler.getResponse(contractService.pagingFormat(contractPage), HttpStatus.OK);
     }
+
     @PostMapping
     public Object createContract(@Valid @RequestBody CreateContractDto dto, BindingResult errors) {
         if (errors.hasErrors()) {
@@ -44,5 +47,26 @@ public class ContractController {
         }
         Contract createContract = contractService.addNewContract(dto);
         return ResponseHandler.getResponse(createContract, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/get-by-id/{id}")
+    public Object findContractById(@PathVariable String id) {
+        Contract contract = contractService.getById(id);
+        return ResponseHandler.getResponse(contract, HttpStatus.OK);
+    }
+
+    @PutMapping
+    public Object updateContract(@Valid @RequestBody UpdateContractDto dto, BindingResult errors) {
+        if (errors.hasErrors()) {
+            return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
+        }
+        contractService.update(dto, dto.getContractId());
+        return ResponseHandler.getResponse(HttpStatus.OK);
+    }
+
+    @DeleteMapping()
+    public Object deleteContract(@RequestParam(name = "id") String id) {
+        contractService.deleteById(id);
+        return ResponseHandler.getResponse(HttpStatus.OK);
     }
 }

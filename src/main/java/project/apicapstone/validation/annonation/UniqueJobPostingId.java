@@ -1,7 +1,7 @@
 package project.apicapstone.validation.annonation;
 
-import project.apicapstone.validation.validator.FindRoleIdValidator;
-import project.apicapstone.validation.validator.UniqueContractIdValidator;
+import project.apicapstone.validation.validator.UniqueAccountIdValidator;
+import project.apicapstone.validation.validator.UniqueJobPostingIdValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -11,11 +11,11 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Constraint(validatedBy = FindRoleIdValidator.class)
+@Constraint(validatedBy = UniqueJobPostingIdValidator.class)
 @Retention(RUNTIME)
 @Target(FIELD)
-public @interface FindRoleId {
-    String message() default "Mã vai trò không tìm thấy";
+public @interface UniqueJobPostingId {
+    String message() default "Mã bài đăng tuyển dụng bị trùng";
 
     Class<?>[] groups() default {};
 

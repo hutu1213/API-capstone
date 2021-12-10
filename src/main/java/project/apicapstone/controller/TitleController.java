@@ -36,9 +36,10 @@ public class TitleController {
         Page<Title> titlePage = titleService.findAllTitle(pageable);
         return ResponseHandler.getResponse(titleService.pagingFormat(titlePage), HttpStatus.OK);
     }
+
     @PostMapping()
     public Object createTitle(@Valid @RequestBody CreateTitleDto dto,
-                             BindingResult errors) {
+                              BindingResult errors) {
         if (errors.hasErrors())
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 

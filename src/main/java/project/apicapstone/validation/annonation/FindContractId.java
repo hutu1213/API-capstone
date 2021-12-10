@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface FindContractId {
-    String message() default "Contract Id not found";
+    String message() default "Mã hợp đồng không tìm thấy";
 
     Class<?>[] groups() default {};
 

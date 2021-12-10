@@ -5,15 +5,13 @@ import project.apicapstone.validation.annonation.FindContractId;
 import project.apicapstone.validation.annonation.UniqueAllowanceId;
 
 import javax.validation.constraints.NotBlank;
-
-
 @Data
-public class CreateAllowanceDto {
-    @UniqueAllowanceId
+public class UpdateAllowanceDto {
+    //@UniqueAllowanceId
     private String allowanceId;
-    //@NotBlank(message = "{allowance.name.not-blank}")
+    @NotBlank(message = "{allowance.name.not-blank}")
     private String allowanceName;
-    //@NotBlank(message = "{allowance.type.not-blank}")
+    @NotBlank(message = "{allowance.type.not-blank}")
     private String type;
     @FindContractId
     private String contractId;

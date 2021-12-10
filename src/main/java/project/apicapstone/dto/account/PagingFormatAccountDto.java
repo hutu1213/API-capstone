@@ -8,8 +8,6 @@ import project.apicapstone.entity.Account;
 
 import java.util.List;
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class PagingFormatAccountDto {
     private int pageNumber;
 

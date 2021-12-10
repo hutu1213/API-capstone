@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface FindAccountId {
-    String message() default "Account Id not found";
+    String message() default "Mã tài khoản không tìm thấy";
 
     Class<?>[] groups() default {};
 
