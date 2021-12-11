@@ -25,4 +25,8 @@ public interface ContractService {
     void update(UpdateContractDto dto, String contractId);
 
     void deleteById(String id);
+
+    List<Contract> findContractByNameOrId(String paramSearch);
+
+
 }

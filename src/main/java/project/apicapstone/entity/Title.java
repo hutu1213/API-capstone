@@ -30,7 +30,7 @@ public class Title {
     // relationship position - title: 1-N
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "position_id")
+    @JoinColumn(name = "position_id", referencedColumnName = "positionId")
     //@JsonIgnore
     private Position position;
 
