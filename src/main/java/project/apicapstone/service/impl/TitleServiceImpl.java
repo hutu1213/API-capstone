@@ -15,6 +15,7 @@ import project.apicapstone.repository.PositionRepository;
 import project.apicapstone.repository.TitleRepository;
 import project.apicapstone.service.TitleService;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -48,6 +49,7 @@ public class TitleServiceImpl implements TitleService {
         dto.setRecords(titlePage.toList());
         return dto;
     }
+
 
     @Override
     public Title createTitle(CreateTitleDto dto) {

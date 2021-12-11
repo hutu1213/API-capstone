@@ -12,7 +12,6 @@ import project.apicapstone.common.entity.BaseEntity;
 import javax.persistence.*;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(value={"hibernateLazyInitializer"})

@@ -12,6 +12,7 @@ import project.apicapstone.dto.contract.UpdateContractDto;
 import project.apicapstone.dto.department.CreateDepartmentDto;
 import project.apicapstone.entity.Contract;
 import project.apicapstone.entity.Department;
+import project.apicapstone.entity.Employee;
 import project.apicapstone.service.ContractService;
 import project.apicapstone.service.DepartmentService;
 
@@ -68,5 +69,14 @@ public class ContractController {
     public Object deleteContract(@RequestParam(name = "id") String id) {
         contractService.deleteById(id);
         return ResponseHandler.getResponse(HttpStatus.OK);
+    }
+
+    @GetMapping("/search/{paramSearch}")
+    public Object findContractByNameOrId(@PathVariable String paramSearch) {
+        List<Contract> contractList = contractService.findContractByNameOrId(paramSearch);
+        if (contractList.isEmpty()) {
+            return ResponseHandler.getErrors("Not found ",HttpStatus.NOT_FOUND);
+        }
+        return ResponseHandler.getResponse(contractList, HttpStatus.OK);
     }
 }
