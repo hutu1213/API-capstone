@@ -26,7 +26,7 @@ public class Evaluation  {
     @Column
     private String type;
 
-    // relationship application - evaluation 1-N
+     //relationship application - evaluation 1-N
     @ManyToOne(fetch = FetchType.LAZY)
     //@JsonIgnore
     @JoinColumn(name = "application_id")

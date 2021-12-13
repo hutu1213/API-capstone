@@ -1,8 +1,11 @@
 package project.apicapstone.service.impl;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
+import project.apicapstone.common.util.DateUtils;
 import project.apicapstone.dto.employee.CreateEmployeeDto;
 import project.apicapstone.dto.employee.PagingFormatEmployeeDto;
 import project.apicapstone.dto.employee.UpdateEmployeeDto;
@@ -12,6 +15,7 @@ import project.apicapstone.repository.EmployeeRepository;
 import project.apicapstone.repository.TitleRepository;
 import project.apicapstone.service.EmployeeService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -57,10 +61,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         addEmployee.setEmail(dto.getEmail());
         addEmployee.setNationality(dto.getNationality());
         addEmployee.setReligion(dto.getReligion());
-        addEmployee.setCountryOfCitizenship(dto.getCountryOfCitizenship());
+        addEmployee.setEthnic(dto.getEthnic());
         addEmployee.setAcademicLevel(dto.getAcademicLevel());
         addEmployee.setMaritalStatus(dto.getMaritalStatus());
         addEmployee.setWorkingStatus(dto.getWorkingStatus());
+        addEmployee.setAvatar(dto.getAvatar());
+        addEmployee.setIdCardNo(dto.getIdCardNo());
+        addEmployee.setPlaceIssue(dto.getPlaceIssue());
+        addEmployee.setDateIssue(dto.getDateIssue());
         Title title = titleRepository.getById(dto.getTitleId());
         addEmployee.setTitle(title);
         return employeeRepository.save(addEmployee);
@@ -69,17 +77,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> findEmployeeByNameOrId(String paramSearch) {
-//        List<Employee> employeeList = employeeRepository.findEmployeesByEmployeeNameContains(paramSearch);
-//        if (employeeList.size() == 0) {
-//            //throw new ResourceNotFoundException("");
-//            throw new IllegalStateException("Name not exists!");
-//        }
-//        List<Employee> employee = employeeRepository.findEmployeeByIdEmployeeContaining(paramSearch);
-//        if (employee==null) {
-//            //throw new ResourceNotFoundException("");
-//            throw new IllegalStateException("Id not exists!");
-//
-//        }
         List<Employee> listSearch = employeeRepository.findEmployeesByNameOrId(paramSearch);
         return listSearch;
     }
@@ -97,10 +94,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void deleteById(String id) {
-//        Employee employee = employeeRepository.getById(id);
-//        if(employee==null){
-//            throw new IllegalStateException("Not found !");
-//        }
         employeeRepository.deleteById(id);
     }
 
@@ -124,10 +117,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         updateEmployee.setEmail(dto.getEmail());
         updateEmployee.setNationality(dto.getNationality());
         updateEmployee.setReligion(dto.getReligion());
-        updateEmployee.setCountryOfCitizenship(dto.getCountryOfCitizenship());
+        updateEmployee.setEthnic(dto.getEthnic());
         updateEmployee.setAcademicLevel(dto.getAcademicLevel());
         updateEmployee.setMaritalStatus(dto.getMaritalStatus());
         updateEmployee.setWorkingStatus(dto.getWorkingStatus());
+        updateEmployee.setAvatar(dto.getAvatar());
+        updateEmployee.setIdCardNo(dto.getIdCardNo());
+        updateEmployee.setPlaceIssue(dto.getPlaceIssue());
+        updateEmployee.setDateIssue(dto.getDateIssue());
         Title title = titleRepository.getById(dto.getTitleId());
         updateEmployee.setTitle(title);
         employeeRepository.save(updateEmployee);

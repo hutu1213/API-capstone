@@ -51,13 +51,23 @@ public class CreateEmployeeDto {
 
     private String religion;
 
-    private String countryOfCitizenship;
+    private String ethnic;
 
     private String academicLevel;
 
     private String maritalStatus;
 
     private String workingStatus;
+
+    private String avatar;
+
+    private String idCardNo;
+
+    private String placeIssue;
+
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private LocalDate dateIssue;
 
     @FindTitleId
     private String titleId;
