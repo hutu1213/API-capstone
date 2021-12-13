@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import project.apicapstone.dto.account.PagingFormatAccountDto;
 import project.apicapstone.dto.position.CreatePositionDto;
 import project.apicapstone.dto.position.PagingFormatPositionDto;
+import project.apicapstone.dto.position.UpdatePositionDto;
 import project.apicapstone.entity.Position;
 import project.apicapstone.repository.PositionRepository;
 import project.apicapstone.service.PositionService;
@@ -42,7 +43,7 @@ public class PositionServiceImpl implements PositionService {
 
     @Override
     public Position createPosition(CreatePositionDto dto) {
-        Position newPosition =new Position();
+        Position newPosition = new Position();
         newPosition.setPositionId(dto.getPositionId());
         newPosition.setPositionName(dto.getPositionName());
         return positionRepository.save(newPosition);
@@ -51,5 +52,27 @@ public class PositionServiceImpl implements PositionService {
     @Override
     public boolean isExisted(String s) {
         return positionRepository.existsById(s);
+    }
+
+    @Override
+    public Position findPositionById(String id) {
+        return positionRepository.getById(id);
+    }
+
+    @Override
+    public List<Position> findPositionByNameOrId(String paramSearch) {
+        return positionRepository.findPositionsByNameOrId(paramSearch);
+    }
+
+    @Override
+    public void deleteById(String id) {
+        positionRepository.deleteById(id);
+    }
+
+    @Override
+    public void updatePosition(UpdatePositionDto dto, String positionId) {
+        Position updatePosition = positionRepository.getById(positionId);
+        updatePosition.setPositionName(dto.getPositionName());
+        positionRepository.save(updatePosition);
     }
 }
