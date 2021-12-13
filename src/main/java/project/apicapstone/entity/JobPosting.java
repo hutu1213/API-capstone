@@ -38,6 +38,8 @@ public class JobPosting  {
     private String jobDescription;
     @Column
     private String jobRequirements;
+    @Column
+    private String status;
 
     // relationship  title - job posting: 1-N
     @ManyToOne(fetch = FetchType.LAZY)

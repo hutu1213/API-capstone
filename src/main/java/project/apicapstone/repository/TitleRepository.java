@@ -9,11 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 import project.apicapstone.entity.Allowance;
 import project.apicapstone.entity.Title;
 
+import java.util.List;
+
 @Repository
 public interface TitleRepository extends JpaRepository<Title,String> {
     //@Transactional(readOnly = true)
     @Query("SELECT e FROM Title e")
     Page<Title> findAllAllTitle(Pageable pageable);
 
+    @Query("SELECT t FROM Title t WHERE t.jobTitle LIKE %?1% OR t.titleId LIKE %?1%")
+    List<Title> findTitlesByNameOrId(String paramSearch);
 
 }

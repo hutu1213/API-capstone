@@ -32,9 +32,9 @@ public class Timesheet  {
     @Column
     private String workTime;
 
-    //relation empl- timesheet : N-N
-    @JsonIgnore
-    @Builder.Default
-    @ManyToMany(mappedBy = "timeSheets",fetch = FetchType.LAZY)
-    private Set<Employee> employees = new HashSet<>();
+    //relation employee- timesheet : N-N
+    @ManyToOne(fetch = FetchType.LAZY)
+    //@JsonIgnore
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 }

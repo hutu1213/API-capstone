@@ -6,6 +6,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
 import project.apicapstone.validation.annonation.CheckPhoneNumber;
 import project.apicapstone.validation.annonation.FindTitleId;
+
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -30,10 +32,20 @@ public class UpdateEmployeeDto {
     private String email;
     private String nationality;
     private String religion;
-    private String countryOfCitizenship;
+    private String ethnic;
     private String academicLevel;
     private String maritalStatus;
     private String workingStatus;
+    private String avatar;
+
+    private String idCardNo;
+
+    private String placeIssue;
+
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private LocalDate dateIssue;
+
     @FindTitleId
     private String titleId;
 }

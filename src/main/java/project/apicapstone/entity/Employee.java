@@ -17,8 +17,8 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"timeSheets","dependants","skills","contracts","evaluations","tasks","trainings","proposals"}, callSuper = false)
-@JsonIgnoreProperties(value={"hibernateLazyInitializer"})
+@EqualsAndHashCode(exclude = {"timeSheets", "dependants", "skills", "contracts", "evaluations", "tasks", "trainings", "proposals"}, callSuper = false)
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 @Entity
 @Table(name = "table_employee")
 public class Employee {
@@ -36,10 +36,8 @@ public class Employee {
     @Column
     private String phone;
     @Column
-
     private String frontIdentityCard;
     @Column
-
     private String backIdentityCard;
     @Column
     private String gender;
@@ -52,23 +50,32 @@ public class Employee {
     @Column
     private String religion;
     @Column
-    private String countryOfCitizenship;
+    private String ethnic;
     @Column
     private String academicLevel;
     @Column
     private String maritalStatus;
     @Column
     private String workingStatus;
+    @Column
+    private String avatar;
+    @Column
+    private String idCardNo;
+    @Column
+    private String placeIssue;
+    @Column
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private LocalDate dateIssue;
 
-    //relation employee- timesheet : N-N
+
+    //relation employee- timesheet : 1-N
+    @OneToMany(mappedBy = "employee")
     @JsonIgnore
-    @Builder.Default
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "employee_timesheet", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "timesheet_id"))
     private Set<Timesheet> timeSheets = new HashSet<>();
 
     // relationship employee - dependant 1-N
-    @OneToMany(mappedBy = "employees")
+    @OneToMany(mappedBy = "employee")
     @JsonIgnore
     private Set<Dependant> dependants = new HashSet<>();
 
@@ -129,7 +136,10 @@ public class Employee {
     @JsonIgnore
     private Set<TrainingProposal> proposals = new HashSet<>();
 
-    //helper
+    // relationship employee - Probation 1-N
+    @OneToMany(mappedBy = "employee")
+    @JsonIgnore
+    private Set<Probation> probations = new HashSet<>();
 
 
 

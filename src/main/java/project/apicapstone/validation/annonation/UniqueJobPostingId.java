@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface UniqueJobPostingId {
-    String message() default "Mã bài đăng tuyển dụng bị trùng";
+    String message() default "Mã bài đăng bị trùng";
 
     Class<?>[] groups() default {};
 

@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import project.apicapstone.dto.allowance.PagingFormatAllowanceDto;
 import project.apicapstone.dto.title.CreateTitleDto;
 import project.apicapstone.dto.title.PagingFormatTitleDto;
+import project.apicapstone.dto.title.UpdateTitleDto;
 import project.apicapstone.entity.Department;
 import project.apicapstone.entity.Position;
 import project.apicapstone.entity.Title;
@@ -66,5 +67,31 @@ public class TitleServiceImpl implements TitleService {
     @Override
     public boolean isExisted(String s) {
         return titleRepository.existsById(s);
+    }
+
+    @Override
+    public void deleteById(String id) {
+        titleRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Title> findTitleByNameOrId(String paramSearch) {
+        return titleRepository.findTitlesByNameOrId(paramSearch);
+    }
+
+    @Override
+    public Title findTitleById(String id) {
+        return titleRepository.getById(id);
+    }
+
+    @Override
+    public void updateTitle(UpdateTitleDto dto, String titleId) {
+        Title updateTitle = titleRepository.getById(titleId);
+        updateTitle.setJobTitle(dto.getJobTitle());
+        Position position = positionRepository.getById(dto.getPositionId());
+        updateTitle.setPosition(position);
+        Department department = departmentRepository.getById(dto.getDepartmentId());
+        updateTitle.setDepartment(department);
+        titleRepository.save(updateTitle);
     }
 }

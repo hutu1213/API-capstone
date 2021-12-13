@@ -9,11 +9,9 @@ import project.apicapstone.validation.annonation.FindEmployeeId;
 import project.apicapstone.validation.annonation.UniqueDependantId;
 
 import java.time.LocalDate;
-
-
 @Data
-public class CreateDependantDto {
-    @UniqueDependantId
+public class UpdateDependantDto {
+
     private String dependantId;
 
     private String dependantName;

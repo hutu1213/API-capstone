@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface FindJobPostingId {
-    String message() default "Mã bài đăng tuyển dụng không tìm thấy";
+    String message() default "Mã bài đăng không tìm thấy";
 
     Class<?>[] groups() default {};
 

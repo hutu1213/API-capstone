@@ -5,11 +5,10 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
 import project.apicapstone.validation.annonation.FindTitleId;
-import project.apicapstone.validation.annonation.UniqueJobPostingId;
 
 @Data
-public class CreateJobPostingDto {
-    @UniqueJobPostingId
+public class UpdateJobPostingDto {
+
     private String jobPostingId;
 
     private String vacancies;

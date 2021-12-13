@@ -18,9 +18,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties(value={"hibernateLazyInitializer"})
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 @Entity
 @Table(name = "table_application")
 public class Applicant {
@@ -50,7 +51,7 @@ public class Applicant {
 
     // relationship jobPosting - application 1-N
     @ManyToOne(fetch = FetchType.LAZY)
-   // @JsonIgnore
+    // @JsonIgnore
     @JoinColumn(name = "job_posting_id")
     private JobPosting jobPosting;
 
@@ -58,4 +59,10 @@ public class Applicant {
     @OneToMany(mappedBy = "applicant")
     @JsonIgnore
     private Set<Evaluation> evaluations = new HashSet<>();
+
+//    //relation empl- applicant : N-N
+//    @JsonIgnore
+//    @Builder.Default
+//    @ManyToMany(mappedBy = "applicants", fetch = FetchType.LAZY)
+//    private Set<Employee> employees = new HashSet<>();
 }
