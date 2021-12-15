@@ -8,6 +8,7 @@ import project.apicapstone.dto.employee.PagingFormatEmployeeDto;
 import project.apicapstone.dto.employee.UpdateEmployeeDto;
 import project.apicapstone.entity.Employee;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -32,4 +33,6 @@ public interface EmployeeService {
 
 
     void updateEmployee(UpdateEmployeeDto dto, String id);
+
+    int countByWeek();
 }

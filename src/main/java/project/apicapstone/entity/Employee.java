@@ -5,11 +5,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,10 +29,12 @@ public class Employee {
     private String employeeId;
     @Column
     private String employeeName;
+
     @Column
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate dateBirth;
+
     @Column
     private String placeBirth;
     @Column
@@ -63,11 +67,21 @@ public class Employee {
     private String idCardNo;
     @Column
     private String placeIssue;
+
     @Column
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate dateIssue;
 
+    @Column
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private LocalDate createDate;   // 1/1/2021
+
+//    @JsonIgnore
+//    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+//    private LocalDate endDateOfWeek;
 
     //relation employee- timesheet : 1-N
     @OneToMany(mappedBy = "employee")
@@ -140,7 +154,6 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
     @JsonIgnore
     private Set<Probation> probations = new HashSet<>();
-
 
 
 }

@@ -3,8 +3,6 @@ package project.apicapstone.service.impl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
-import project.apicapstone.dto.allowance.PagingFormatAllowanceDto;
 import project.apicapstone.dto.title.CreateTitleDto;
 import project.apicapstone.dto.title.PagingFormatTitleDto;
 import project.apicapstone.dto.title.UpdateTitleDto;
@@ -16,7 +14,6 @@ import project.apicapstone.repository.PositionRepository;
 import project.apicapstone.repository.TitleRepository;
 import project.apicapstone.service.TitleService;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -93,5 +90,10 @@ public class TitleServiceImpl implements TitleService {
         Department department = departmentRepository.getById(dto.getDepartmentId());
         updateTitle.setDepartment(department);
         titleRepository.save(updateTitle);
+    }
+
+    @Override
+    public Title findTitleByPositionIdAndDepartmentId(String positionId, String departmentId) {
+        return titleRepository.findTitleByPositionIdAndDepartmentId(positionId, departmentId);
     }
 }

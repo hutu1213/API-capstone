@@ -1,11 +1,8 @@
 package project.apicapstone.service.impl;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
-import project.apicapstone.common.util.DateUtils;
 import project.apicapstone.dto.employee.CreateEmployeeDto;
 import project.apicapstone.dto.employee.PagingFormatEmployeeDto;
 import project.apicapstone.dto.employee.UpdateEmployeeDto;
@@ -15,7 +12,12 @@ import project.apicapstone.repository.EmployeeRepository;
 import project.apicapstone.repository.TitleRepository;
 import project.apicapstone.service.EmployeeService;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.IsoFields;
+import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.WeekFields;
+
 import java.util.List;
 
 @Service
@@ -69,11 +71,26 @@ public class EmployeeServiceImpl implements EmployeeService {
         addEmployee.setIdCardNo(dto.getIdCardNo());
         addEmployee.setPlaceIssue(dto.getPlaceIssue());
         addEmployee.setDateIssue(dto.getDateIssue());
+        addEmployee.setCreateDate(LocalDate.now());
+//        LocalDate date = getEndDateFromWeek();
+//        addEmployee.setEndDateOfWeek(date);
         Title title = titleRepository.getById(dto.getTitleId());
         addEmployee.setTitle(title);
         return employeeRepository.save(addEmployee);
     }
 
+    public LocalDate getEndDateFromWeek() {
+//        LocalDate date = LocalDate.of(2021, 12, 14);
+        LocalDate date = LocalDate.now();
+        WeekFields weekFields = WeekFields.ISO;
+        int weekNumber = date.get(weekFields.weekOfWeekBasedYear());
+        //System.out.println("week num: " + weekNumber);
+        LocalDate desiredDate = date
+                .with(IsoFields.WEEK_OF_WEEK_BASED_YEAR, weekNumber)
+                .with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+        System.out.println("End date of week: " + desiredDate);
+        return desiredDate;
+    }
 
     @Override
     public List<Employee> findEmployeeByNameOrId(String paramSearch) {
@@ -83,7 +100,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public boolean isExisted(String id) {
-
         return employeeRepository.existsById(id);
     }
 
@@ -105,7 +121,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void updateEmployee(UpdateEmployeeDto dto, String id) {
         Employee updateEmployee = employeeRepository.getById(id);
-        //employee.setEmployeeId(dto.getEmployeeId());
         updateEmployee.setEmployeeName(dto.getEmployeeName());
         updateEmployee.setDateBirth(dto.getDateBirth());
         updateEmployee.setPlaceBirth(dto.getPlaceBirth());
@@ -125,11 +140,17 @@ public class EmployeeServiceImpl implements EmployeeService {
         updateEmployee.setIdCardNo(dto.getIdCardNo());
         updateEmployee.setPlaceIssue(dto.getPlaceIssue());
         updateEmployee.setDateIssue(dto.getDateIssue());
-        Title title = titleRepository.getById(dto.getTitleId());
-        updateEmployee.setTitle(title);
+        //Title title = titleRepository.getById(dto.getTitleId());
+        updateEmployee.setTitle(titleRepository.getById(dto.getTitleId()));
         employeeRepository.save(updateEmployee);
     }
 
+    @Override
+    public int countByWeek() {
+        LocalDate end = getEndDateFromWeek();
+        int count = employeeRepository.countByCreateDateBetween(LocalDate.now(), end);
+        return count;
+    }
 
     //    public Account addRole(AddRoleDto dto) {
 //        Role role = roleRepository.getById(dto.getRoleId());
@@ -149,12 +170,4 @@ public class EmployeeServiceImpl implements EmployeeService {
         return dto;
     }
 
-
-//    delete(Long id){
-//        boolean exists=employeeRepository.existsById(id);
-//        if(!exists){
-//            throw new IllegalStateException("Id not exists!");
-//        }
-//        return employeeRepository.deleteById(id);
-//    }
 }
