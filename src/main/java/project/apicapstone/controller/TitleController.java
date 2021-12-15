@@ -50,6 +50,7 @@ public class TitleController {
 
         return ResponseHandler.getResponse(createTitle, HttpStatus.CREATED);
     }
+
     @DeleteMapping()
     public Object deleteTitle(@RequestParam(name = "id") String id) {
         titleService.deleteById(id);
@@ -64,11 +65,12 @@ public class TitleController {
         titleService.updateTitle(dto, dto.getTitleId());
         return ResponseHandler.getResponse(HttpStatus.OK);
     }
+
     @GetMapping("/search/{paramSearch}")
     public Object findTitleByNameOrId(@PathVariable String paramSearch) {
         List<Title> titleList = titleService.findTitleByNameOrId(paramSearch);
         if (titleList.isEmpty()) {
-            return ResponseHandler.getErrors("Not found ",HttpStatus.NOT_FOUND);
+            return ResponseHandler.getErrors("Not found ", HttpStatus.NOT_FOUND);
         }
         return ResponseHandler.getResponse(titleList, HttpStatus.OK);
     }
@@ -76,6 +78,12 @@ public class TitleController {
     @GetMapping("/get-by-id/{id}")
     public Object findTitleById(@PathVariable("id") String id) {
         Title title = titleService.findTitleById(id);
+        return ResponseHandler.getResponse(title, HttpStatus.OK);
+    }
+
+    @GetMapping("/get-by")
+    public Object findTitleByDepartmentIdAndPositionId(@RequestParam(name = "positionId") String positionId, @RequestParam(name = "departmentId") String departmentId) {
+        Title title = titleService.findTitleByPositionIdAndDepartmentId(positionId,departmentId);
         return ResponseHandler.getResponse(title, HttpStatus.OK);
     }
 }

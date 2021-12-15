@@ -28,4 +28,6 @@ public interface TitleService {
     Title findTitleById(String id);
 
     void updateTitle(UpdateTitleDto dto, String titleId);
+
+    Title findTitleByPositionIdAndDepartmentId(String positionId, String departmentId);
 }

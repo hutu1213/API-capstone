@@ -10,6 +10,7 @@ import project.apicapstone.entity.Employee;
 import project.apicapstone.entity.Title;
 
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -26,4 +27,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     @Transactional(readOnly = true)
     @Query("SELECT e FROM Employee e")
     Page<Employee> findAllEmp(Pageable pageable);
+
+    int countByCreateDateBetween(LocalDate start,LocalDate end);
 }

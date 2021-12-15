@@ -84,4 +84,9 @@ public class EmployeeController {
         employeeService.updateEmployee(dto, dto.getEmployeeId());
         return ResponseHandler.getResponse(HttpStatus.OK);
     }
+    @GetMapping("/count-by-week")
+    public Object countByWeek() {
+        int count = employeeService.countByWeek();
+        return ResponseHandler.getResponse(count,HttpStatus.OK);
+    }
 }
