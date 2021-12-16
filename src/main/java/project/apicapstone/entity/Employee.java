@@ -118,9 +118,9 @@ public class Employee {
     private Set<Evaluation> evaluations = new HashSet<>();
 
     //relation employee - account: 1-1
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "employee",fetch = FetchType.LAZY)
     @JsonIgnore
+    @PrimaryKeyJoinColumn
     private Account account;
 
 //    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

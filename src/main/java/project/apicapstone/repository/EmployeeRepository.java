@@ -28,5 +28,11 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     @Query("SELECT e FROM Employee e")
     Page<Employee> findAllEmp(Pageable pageable);
 
-    int countByCreateDateBetween(LocalDate start,LocalDate end);
+    int countByCreateDateBetween(LocalDate start, LocalDate end);
+
+    @Query("SELECT COUNT(e.employeeId) FROM Employee e")
+    int countAll();
+
+    int countEmployeeByWorkingStatus(String workingStatus);
+
 }
