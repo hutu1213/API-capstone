@@ -40,10 +40,6 @@ public class Employee {
     @Column
     private String phone;
     @Column
-    private String frontIdentityCard;
-    @Column
-    private String backIdentityCard;
-    @Column
     private String gender;
     @Column
     private String address;
@@ -58,20 +54,17 @@ public class Employee {
     @Column
     private String academicLevel;
     @Column
+    private String bankAccountNo;
+    @Column
+    private String bank;
+    @Column
+    private String taxIdentificationNo;
+    @Column
     private String maritalStatus;
     @Column
     private String workingStatus;
     @Column
     private String avatar;
-    @Column
-    private String idCardNo;
-    @Column
-    private String placeIssue;
-
-    @Column
-    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
-    private LocalDate dateIssue;
 
     @Column
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)

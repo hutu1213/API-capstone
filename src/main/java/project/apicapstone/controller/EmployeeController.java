@@ -44,14 +44,12 @@ public class EmployeeController {
         Employee employee = employeeService.findEmployeeById(id);
         return ResponseHandler.getResponse(employee, HttpStatus.OK);
     }
-
 //    @GetMapping("")
 //    public Object findEmployee(@RequestParam String employeeName) {
 //        List<Employee> employeeList = employeeService.findEmployeeByName(employeeName);
 //        //return ResponseEntity.ok(employeeList);
 //        return ResponseHandler.getResponse(employeeList,HttpStatus.OK);
 //    }
-
     @GetMapping("/search/{paramSearch}")
     public Object findEmployeeByNameOrId(@PathVariable String paramSearch) {
         List<Employee> employeeList = employeeService.findEmployeeByNameOrId(paramSearch);
