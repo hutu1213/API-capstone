@@ -13,6 +13,7 @@ import project.apicapstone.repository.ContractRepository;
 import project.apicapstone.repository.EmployeeRepository;
 import project.apicapstone.service.ContractService;
 
+import java.time.Duration;
 import java.util.List;
 
 @Service
@@ -36,11 +37,15 @@ public class ContractServiceImpl implements ContractService {
         addContract.setContractId(dto.getContractId());
         addContract.setContractName(dto.getContractName());
         addContract.setStartDate(dto.getStartDate());
-        addContract.setEndDate(dto.getEndDate());
+        addContract.setEndDate(dto.getStartDate().plusMonths(dto.getDuration()));
         addContract.setStatus(dto.getStatus());
-        addContract.setContent(dto.getContent());
         addContract.setSalary(dto.getSalary());
         addContract.setType(dto.getType());
+        addContract.setDuration(dto.getDuration());
+        addContract.setSignDate(dto.getSignDate());
+        addContract.setWage(dto.getWage());
+        addContract.setNote(dto.getNote());
+        addContract.setAttachedFile(dto.getAttachedFile());
         Employee employee = employeeRepository.getById(dto.getEmployeeId());
         addContract.setEmployee(employee);
         return contractRepository.save(addContract);
@@ -76,12 +81,17 @@ public class ContractServiceImpl implements ContractService {
         Contract contract = contractRepository.getById(contractId);
         contract.setContractName(dto.getContractName());
         contract.setStartDate(dto.getStartDate());
-        contract.setEndDate(dto.getEndDate());
+        contract.setEndDate(dto.getStartDate().plusMonths(dto.getDuration()));
         contract.setStatus(dto.getStatus());
-        contract.setContent(dto.getContent());
         contract.setSalary(dto.getSalary());
         contract.setType(dto.getType());
-        contract.setEmployee(employeeRepository.getById(dto.getEmployeeId()));
+        contract.setDuration(dto.getDuration());
+        contract.setSignDate(dto.getSignDate());
+        contract.setWage(dto.getWage());
+        contract.setNote(dto.getNote());
+        contract.setAttachedFile(dto.getAttachedFile());
+        Employee employee = employeeRepository.getById(dto.getEmployeeId());
+        contract.setEmployee(employee);
         contractRepository.save(contract);
     }
 

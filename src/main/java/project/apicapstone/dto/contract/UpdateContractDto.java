@@ -6,35 +6,41 @@ import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
 import project.apicapstone.validation.annonation.FindEmployeeId;
 
-import javax.persistence.Column;
+
 import java.time.LocalDate;
 
 @Data
 public class UpdateContractDto {
     private String contractId;
 
-    //@Size(min = 3, max = 25, message = "{contract.name.size}")
     private String contractName;
-
 
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate startDate;
 
-
-    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
-    private LocalDate endDate;
+//    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+//    private LocalDate endDate;
 
     // @NotBlank(message = "{contract.status.not-blank}")
     private String status;
 
-    //@Size(min = 3, max = 25, message = "{contract.content.size}")
-    private String content;
-
     private double salary;
 
     private String type;
+
+    private Long duration;
+
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private LocalDate signDate;
+
+    private String wage;
+
+    private String note;
+
+    private String attachedFile;
 
     @FindEmployeeId
     private String employeeId;

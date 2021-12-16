@@ -35,11 +35,21 @@ public class Contract {
     @Column
     private String status;
     @Column
-    private String content;
-    @Column
     private double salary;
     @Column
     private String type;
+    @Column
+    private Long duration;
+    @Column
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private LocalDate signDate;
+    @Column
+    private String wage;
+    @Column
+    private String note;
+    @Column
+    private String attachedFile;
 
     // relationship emply - contract 1-N
     @ManyToOne(fetch = FetchType.LAZY)
