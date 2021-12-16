@@ -36,10 +36,6 @@ public class CreateEmployeeDto {
     @CheckPhoneNumber
     private String phone;
 
-    private String frontIdentityCard;
-
-    private String backIdentityCard;
-
     private String gender;
 
     private String address;
@@ -55,19 +51,17 @@ public class CreateEmployeeDto {
 
     private String academicLevel;
 
+    private String bankAccountNo;
+
+    private String bank;
+
+    private String taxIdentificationNo;
+
     private String maritalStatus;
 
     private String workingStatus;
 
     private String avatar;
-
-    private String idCardNo;
-
-    private String placeIssue;
-
-    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
-    private LocalDate dateIssue;
 
     @FindTitleId
     private String titleId;
