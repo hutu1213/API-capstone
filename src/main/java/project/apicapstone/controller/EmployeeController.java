@@ -56,7 +56,7 @@ public class EmployeeController {
     public Object findEmployeeByNameOrId(@PathVariable String paramSearch) {
         List<Employee> employeeList = employeeService.findEmployeeByNameOrId(paramSearch);
         if (employeeList.isEmpty()) {
-            return ResponseHandler.getErrors("Not found ",HttpStatus.NOT_FOUND);
+            return ResponseHandler.getErrors("Not found ", HttpStatus.NOT_FOUND);
         }
         return ResponseHandler.getResponse(employeeList, HttpStatus.OK);
     }
@@ -84,9 +84,35 @@ public class EmployeeController {
         employeeService.updateEmployee(dto, dto.getEmployeeId());
         return ResponseHandler.getResponse(HttpStatus.OK);
     }
+
     @GetMapping("/count-by-week")
     public Object countByWeek() {
         int count = employeeService.countByWeek();
-        return ResponseHandler.getResponse(count,HttpStatus.OK);
+        return ResponseHandler.getResponse(count, HttpStatus.OK);
     }
+
+    @GetMapping("/count-by-month")
+    public Object countByMonth() {
+        int count = employeeService.countByMonth();
+        return ResponseHandler.getResponse(count, HttpStatus.OK);
+    }
+
+    @GetMapping("/count-by-year")
+    public Object countByYear() {
+        int count = employeeService.countByYear();
+        return ResponseHandler.getResponse(count, HttpStatus.OK);
+    }
+
+    @GetMapping("/count-all")
+    public Object countAll() {
+        int count = employeeService.countAll();
+        return ResponseHandler.getResponse(count, HttpStatus.OK);
+    }
+
+    @GetMapping("/count-by")
+    public Object countByStatus(@RequestParam(name = "status") String status) {
+        int count = employeeService.countByStatus(status);
+        return ResponseHandler.getResponse(count, HttpStatus.OK);
+    }
+
 }

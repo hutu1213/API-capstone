@@ -14,11 +14,12 @@ import java.util.List;
 @Service
 public interface EmployeeService {
     Page<Employee> findAll(Pageable pageable);
+
     PagingFormatEmployeeDto pagingFormat(Page<Employee> employeePage);
+
     List<Employee> findEmployeeByName(String employeeName);
 
     Employee addNewEmployee(CreateEmployeeDto dto);
-
 
     List<Employee> findEmployeeByNameOrId(String paramSearch);
 
@@ -35,4 +36,12 @@ public interface EmployeeService {
     void updateEmployee(UpdateEmployeeDto dto, String id);
 
     int countByWeek();
+
+    int countByMonth();
+
+    int countByYear();
+
+    int countAll();
+
+    int countByStatus(String status);
 }
