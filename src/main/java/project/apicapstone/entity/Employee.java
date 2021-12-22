@@ -1,17 +1,14 @@
 package project.apicapstone.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -62,6 +59,7 @@ public class Employee {
     @Column
     private String maritalStatus;
     @Column
+//    @Enumerated(EnumType.STRING)
     private String workingStatus;
     @Column
     private String avatar;
@@ -111,7 +109,7 @@ public class Employee {
     private Set<Evaluation> evaluations = new HashSet<>();
 
     //relation employee - account: 1-1
-    @OneToOne(mappedBy = "employee",fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "employee", fetch = FetchType.LAZY)
     @JsonIgnore
     @PrimaryKeyJoinColumn
     private Account account;

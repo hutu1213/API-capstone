@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
+import project.apicapstone.entity.util.WorkingStatus;
 import project.apicapstone.validation.annonation.CheckEmployeeId;
 import project.apicapstone.validation.annonation.CheckPhoneNumber;
 import project.apicapstone.validation.annonation.FindTitleId;

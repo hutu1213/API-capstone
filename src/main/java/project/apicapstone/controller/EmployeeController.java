@@ -14,10 +14,10 @@ import project.apicapstone.service.EmployeeService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/employees")
-
 public class EmployeeController {
 
     private EmployeeService employeeService;
@@ -44,7 +44,8 @@ public class EmployeeController {
         Employee employee = employeeService.findEmployeeById(id);
         return ResponseHandler.getResponse(employee, HttpStatus.OK);
     }
-//    @GetMapping("")
+
+    //    @GetMapping("")
 //    public Object findEmployee(@RequestParam String employeeName) {
 //        List<Employee> employeeList = employeeService.findEmployeeByName(employeeName);
 //        //return ResponseEntity.ok(employeeList);
@@ -89,11 +90,11 @@ public class EmployeeController {
         return ResponseHandler.getResponse(count, HttpStatus.OK);
     }
 
-    @GetMapping("/count-by-month")
-    public Object countByMonth() {
-        int count = employeeService.countByMonth();
-        return ResponseHandler.getResponse(count, HttpStatus.OK);
-    }
+//    @GetMapping("/count-by-month")
+//    public Object countByMonth() {
+//        int count = employeeService.countByMonth();
+//        return ResponseHandler.getResponse(count, HttpStatus.OK);
+//    }
 
     @GetMapping("/count-by-year")
     public Object countByYear() {
@@ -112,5 +113,9 @@ public class EmployeeController {
         int count = employeeService.countByStatus(status);
         return ResponseHandler.getResponse(count, HttpStatus.OK);
     }
-
+    @GetMapping("/count-every-month")
+    public Object countByEveryMonth() {
+        int []a = employeeService.countByMonth();
+        return ResponseHandler.getResponse(a, HttpStatus.OK);
+    }
 }

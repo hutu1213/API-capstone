@@ -32,16 +32,17 @@ public interface EmployeeService {
 
     Employee findEmployeeById(String id);
 
-
     void updateEmployee(UpdateEmployeeDto dto, String id);
 
     int countByWeek();
 
-    int countByMonth();
+    //int countByMonth();
 
     int countByYear();
 
     int countAll();
 
     int countByStatus(String status);
+
+    int[] countByMonth();
 }

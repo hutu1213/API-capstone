@@ -93,7 +93,7 @@ public class TitleServiceImpl implements TitleService {
     }
 
     @Override
-    public List<Title> findTitleByPositionIdAndDepartmentId(String positionId, String departmentId) {
+    public Title findTitleByPositionIdAndDepartmentId(String positionId, String departmentId) {
         return titleRepository.findTitleByPositionIdAndDepartmentId(positionId, departmentId);
     }
 }

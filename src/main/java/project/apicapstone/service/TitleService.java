@@ -29,5 +29,5 @@ public interface TitleService {
 
     void updateTitle(UpdateTitleDto dto, String titleId);
 
-    List<Title> findTitleByPositionIdAndDepartmentId(String positionId, String departmentId);
+    Title findTitleByPositionIdAndDepartmentId(String positionId, String departmentId);
 }

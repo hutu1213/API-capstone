@@ -83,7 +83,7 @@ public class TitleController {
 
     @GetMapping("/get-by")
     public Object findTitleByDepartmentIdAndPositionId(@RequestParam(name = "positionId") String positionId, @RequestParam(name = "departmentId") String departmentId) {
-        List<Title> titleList = titleService.findTitleByPositionIdAndDepartmentId(positionId,departmentId);
+        Title titleList = titleService.findTitleByPositionIdAndDepartmentId(positionId,departmentId);
         return ResponseHandler.getResponse(titleList, HttpStatus.OK);
     }
 }
