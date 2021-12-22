@@ -8,6 +8,7 @@ import org.hibernate.annotations.Columns;
 import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
+import project.apicapstone.entity.util.WorkingStatus;
 import project.apicapstone.validation.annonation.*;
 
 import javax.persistence.Column;

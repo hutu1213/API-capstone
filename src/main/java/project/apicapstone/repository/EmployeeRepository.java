@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import project.apicapstone.entity.Employee;
 import project.apicapstone.entity.Title;
+import project.apicapstone.entity.util.WorkingStatus;
 
 
 import java.time.LocalDate;
@@ -27,11 +28,13 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     @Query("SELECT e FROM Employee e")
     Page<Employee> findAllEmp(Pageable pageable);
 
+    int countByCreateDateBetweenAndWorkingStatusNotContains(LocalDate start, LocalDate end, String workingStatus);
     int countByCreateDateBetween(LocalDate start, LocalDate end);
-
     @Query("SELECT COUNT(e.employeeId) FROM Employee e")
     int countAll();
 
     int countEmployeeByWorkingStatus(String workingStatus);
+
+
 
 }

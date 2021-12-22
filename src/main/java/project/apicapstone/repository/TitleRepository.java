@@ -21,5 +21,5 @@ public interface TitleRepository extends JpaRepository<Title, String> {
     List<Title> findTitlesByNameOrId(String paramSearch);
 
     @Query("SELECT t FROM Title t JOIN t.department d JOIN t.position p WHERE p.positionId = ?1 AND d.departmentId =?2")
-    List<Title> findTitleByPositionIdAndDepartmentId(String positionId, String departmentId);
+    Title findTitleByPositionIdAndDepartmentId(String positionId, String departmentId);
 }
