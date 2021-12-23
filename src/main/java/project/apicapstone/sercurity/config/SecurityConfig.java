@@ -50,42 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-        http.cors().configurationSource(request -> configuration.applyPermitDefaultValues());
 
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-        http.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
-
-        http.csrf().disable();
-
-        //test
-        //http.csrf().disable().cors().and().authorizeRequests().anyRequest().permitAll();
-
-//        http.antMatcher("/**").authorizeRequests()
-//                .antMatchers("/auth/login").permitAll()
-//                //.antMatchers("/account/**").permitAll()
-//                .antMatchers("/account/create-account").permitAll()
-//                .anyRequest().authenticated();
-
-
-        // cấu hình xác thực cho các api
-//        http.antMatcher("/api/**").authorizeRequests()
-//                .antMatchers("/api/user/create-user").permitAll()
-//                .antMatchers("/api/auth/authenticate").permitAll()
-//                .antMatchers("/api/user/getAll-user").permitAll()
-//                .antMatchers("/api/user/add-role")..permitAll()
-//                .antMatchers("/api/**").hasAnyRole("USER","ADMIN")
-//                .anyRequest().authenticated();
-
-//        http.antMatcher("/api/**").authorizeRequests()
-//                //.antMatchers("/api/user/create-user", "/api/auth/authenticate", "/api/user/getAll-user", "/api/user/add-role").permitAll()
-//                .antMatchers("/api/auth/authenticate").permitAll()
-//                .antMatchers("/api/user/getAll-user").permitAll()
-//                .antMatchers("/api/user/add-role").permitAll()
-//                .antMatchers("/api/product/**").hasAnyRole("USER","ADMIN")
-//                .anyRequest().authenticated();
     }
 }

@@ -8,6 +8,7 @@ import project.apicapstone.dto.employee.PagingFormatEmployeeDto;
 import project.apicapstone.dto.employee.UpdateEmployeeDto;
 import project.apicapstone.entity.Employee;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +26,6 @@ public interface EmployeeService {
 
     boolean isExisted(String s);
 
-
     List<Employee> findAllEmployee();
 
     void deleteById(String id);
@@ -34,15 +34,5 @@ public interface EmployeeService {
 
     void updateEmployee(UpdateEmployeeDto dto, String id);
 
-    int countByWeek();
 
-    //int countByMonth();
-
-    int countByYear();
-
-    int countAll();
-
-    int countByStatus(String status);
-
-    int[] countByMonth();
 }

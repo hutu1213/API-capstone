@@ -22,19 +22,21 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     @Query("SELECT e FROM Employee e WHERE e.employeeName LIKE %?1% OR e.employeeId LIKE %?1%")
     List<Employee> findEmployeesByNameOrId(String paramSearch);
 
-    Employee findEmployeeByEmployeeId(String id);
-
     @Transactional(readOnly = true)
     @Query("SELECT e FROM Employee e")
     Page<Employee> findAllEmp(Pageable pageable);
 
     int countByCreateDateBetweenAndWorkingStatusNotContains(LocalDate start, LocalDate end, String workingStatus);
     int countByCreateDateBetween(LocalDate start, LocalDate end);
+    int countByCreateDateBetweenAndWorkingStatus(LocalDate start, LocalDate end,String workingStatus);
     @Query("SELECT COUNT(e.employeeId) FROM Employee e")
     int countAll();
 
     int countEmployeeByWorkingStatus(String workingStatus);
 
+//    @Query("SELECT e.dateBirth FROM Employee e")
+//    List<LocalDate> getAllBirth();
 
-
+    List<Employee> getAllByDateBirth(LocalDate date);
+   // List<Employee> findByDateBirth(LocalDate birth);
 }

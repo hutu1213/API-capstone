@@ -13,8 +13,10 @@ import project.apicapstone.entity.Employee;
 import project.apicapstone.service.EmployeeService;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/employees")
@@ -84,38 +86,5 @@ public class EmployeeController {
         return ResponseHandler.getResponse(HttpStatus.OK);
     }
 
-    @GetMapping("/count-by-week")
-    public Object countByWeek() {
-        int count = employeeService.countByWeek();
-        return ResponseHandler.getResponse(count, HttpStatus.OK);
-    }
 
-//    @GetMapping("/count-by-month")
-//    public Object countByMonth() {
-//        int count = employeeService.countByMonth();
-//        return ResponseHandler.getResponse(count, HttpStatus.OK);
-//    }
-
-    @GetMapping("/count-by-year")
-    public Object countByYear() {
-        int count = employeeService.countByYear();
-        return ResponseHandler.getResponse(count, HttpStatus.OK);
-    }
-
-    @GetMapping("/count-all")
-    public Object countAll() {
-        int count = employeeService.countAll();
-        return ResponseHandler.getResponse(count, HttpStatus.OK);
-    }
-
-    @GetMapping("/count-by")
-    public Object countByStatus(@RequestParam(name = "status") String status) {
-        int count = employeeService.countByStatus(status);
-        return ResponseHandler.getResponse(count, HttpStatus.OK);
-    }
-    @GetMapping("/count-every-month")
-    public Object countByEveryMonth() {
-        int []a = employeeService.countByMonth();
-        return ResponseHandler.getResponse(a, HttpStatus.OK);
-    }
 }
