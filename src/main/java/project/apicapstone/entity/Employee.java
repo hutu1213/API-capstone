@@ -67,12 +67,8 @@ public class Employee {
     @Column
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
-    private LocalDate createDate;   // 1/1/2021
+    private LocalDate createDate;
 
-//    @JsonIgnore
-//    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
-//    private LocalDate endDateOfWeek;
 
     //relation employee- timesheet : 1-N
     @OneToMany(mappedBy = "employee")

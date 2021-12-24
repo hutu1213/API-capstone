@@ -35,21 +35,5 @@ public interface EmployeeService {
 
     void updateEmployee(UpdateEmployeeDto dto, String id);
 
-    int countByWeek();
 
-    //int countByMonth();
-
-    int countByYear();
-
-    int countAll();
-
-    int countByStatus(String status);
-
-    int[] countByMonth();
-
-    int[] countByMonthWithStatus(String status);
-
-
-
-    List<Employee> getBirth();
 }
