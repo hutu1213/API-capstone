@@ -2,7 +2,9 @@ package project.apicapstone.service.impl;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.dto.employee.CreateEmployeeDto;
 import project.apicapstone.dto.employee.PagingFormatEmployeeDto;
 import project.apicapstone.dto.employee.UpdateEmployeeDto;
@@ -70,8 +72,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         addEmployee.setMaritalStatus(dto.getMaritalStatus());
         addEmployee.setWorkingStatus(dto.getWorkingStatus());
         addEmployee.setAvatar(dto.getAvatar());
-        //addEmployee.setCreateDate(LocalDate.of(2021, 5, 20));
-        addEmployee.setCreateDate(LocalDate.now());
+        addEmployee.setCreateDate(dto.getCreateDate());
+        //addEmployee.setCreateDate(LocalDate.now());
 //        LocalDate date = getEndDateFromWeek();
         Title title = titleRepository.getById(dto.getTitleId());
         addEmployee.setTitle(title);
@@ -129,6 +131,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.save(updateEmployee);
     }
 
+
+
+
+    @Override
+    public PagingFormatEmployeeDto pagingFormat(Page<Employee> employeePage) {
+        PagingFormatEmployeeDto dto = new PagingFormatEmployeeDto();
+        dto.setPageSize(employeePage.getSize());
+        dto.setTotalRecordCount(employeePage.getTotalElements());
+        dto.setPageNumber(employeePage.getNumber());
+        dto.setRecords(employeePage.toList());
+        return dto;
+    }
     @Override
     public int countByWeek() {
         LocalDate lastDay = getEndDateOfWeek();
@@ -212,26 +226,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     public int countByStatus(String status) {
         return employeeRepository.countEmployeeByWorkingStatus(status);
     }
-
-
-    //    public Account addRole(AddRoleDto dto) {
-//        Role role = roleRepository.getById(dto.getRoleId());
-//        Account account = accountRepository.getById(dto.getAccountId());
-//
-//        account.addRole(role);
-//
-//        return accountRepository.save(account);
-//    }
-    @Override
-    public PagingFormatEmployeeDto pagingFormat(Page<Employee> employeePage) {
-        PagingFormatEmployeeDto dto = new PagingFormatEmployeeDto();
-        dto.setPageSize(employeePage.getSize());
-        dto.setTotalRecordCount(employeePage.getTotalElements());
-        dto.setPageNumber(employeePage.getNumber());
-        dto.setRecords(employeePage.toList());
-        return dto;
-    }
-
     public int getYear() {
         Date date = new Date();
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -293,5 +287,68 @@ public class EmployeeServiceImpl implements EmployeeService {
         int month12 = employeeRepository.countByCreateDateBetween(startDayOfJan, lastDayOfDec);
 
         return new int[]{month1, month2, month3, month4, month5, month6, month7, month8, month9, month10, month11, month12};
+    }
+
+    @Override
+    public int[] countByMonthWithStatus(String status) {
+        int[] a;
+
+        LocalDate dateOfJan = LocalDate.of(getYear(), 1, 1);
+        LocalDate startDayOfJan = dateOfJan.with(TemporalAdjusters.firstDayOfMonth());
+        LocalDate lastDayOfJan = dateOfJan.with(TemporalAdjusters.lastDayOfMonth());
+
+        int month1 = employeeRepository.countByCreateDateBetweenAndWorkingStatus(startDayOfJan, lastDayOfJan, status);
+
+        LocalDate dateOfFer = LocalDate.of(getYear(), 2, 1);
+        LocalDate lastDayOfFer = dateOfFer.with(TemporalAdjusters.lastDayOfMonth());
+        int month2 = employeeRepository.countByCreateDateBetweenAndWorkingStatus(startDayOfJan, lastDayOfFer, status);
+
+        LocalDate dateOfMarch = LocalDate.of(getYear(), 3, 1);
+        LocalDate lastDayOfMarch = dateOfMarch.with(TemporalAdjusters.lastDayOfMonth());
+        int month3 = employeeRepository.countByCreateDateBetweenAndWorkingStatus(startDayOfJan, lastDayOfMarch, status);
+
+        LocalDate dateOfApril = LocalDate.of(getYear(), 4, 1);
+        LocalDate lastDayOfApril = dateOfApril.with(TemporalAdjusters.lastDayOfMonth());
+        int month4 = employeeRepository.countByCreateDateBetweenAndWorkingStatus(startDayOfJan, lastDayOfApril, status);
+
+        LocalDate dateOfMay = LocalDate.of(getYear(), 5, 1);
+        LocalDate lastDayOfMay = dateOfMay.with(TemporalAdjusters.lastDayOfMonth());
+        int month5 = employeeRepository.countByCreateDateBetweenAndWorkingStatus(startDayOfJan, lastDayOfMay, status);
+
+        LocalDate dateOfJune = LocalDate.of(getYear(), 6, 1);
+        LocalDate lastDayOfJune = dateOfJune.with(TemporalAdjusters.lastDayOfMonth());
+        int month6 = employeeRepository.countByCreateDateBetweenAndWorkingStatus(startDayOfJan, lastDayOfJune, status);
+
+        LocalDate dateOfJuly = LocalDate.of(getYear(), 7, 1);
+        LocalDate lastDayOfJuly = dateOfJuly.with(TemporalAdjusters.lastDayOfMonth());
+        int month7 = employeeRepository.countByCreateDateBetweenAndWorkingStatus(startDayOfJan, lastDayOfJuly, status);
+
+        LocalDate dateOfAug = LocalDate.of(getYear(), 8, 1);
+        LocalDate lastDayOfAug = dateOfAug.with(TemporalAdjusters.lastDayOfMonth());
+        int month8 = employeeRepository.countByCreateDateBetweenAndWorkingStatus(startDayOfJan, lastDayOfAug, status);
+
+        LocalDate dateOfSep = LocalDate.of(getYear(), 9, 1);
+        LocalDate lastDayOfSep = dateOfSep.with(TemporalAdjusters.lastDayOfMonth());
+        int month9 = employeeRepository.countByCreateDateBetweenAndWorkingStatus(startDayOfJan, lastDayOfSep, status);
+
+        LocalDate dateOfOc = LocalDate.of(getYear(), 10, 1);
+        LocalDate lastDayOfOc = dateOfOc.with(TemporalAdjusters.lastDayOfMonth());
+        int month10 = employeeRepository.countByCreateDateBetweenAndWorkingStatus(startDayOfJan, lastDayOfOc, status);
+
+        LocalDate dateOfNov = LocalDate.of(getYear(), 11, 1);
+        LocalDate lastDayOfNov = dateOfNov.with(TemporalAdjusters.lastDayOfMonth());
+        int month11 = employeeRepository.countByCreateDateBetweenAndWorkingStatus(startDayOfJan, lastDayOfNov, status);
+
+        LocalDate dateOfDec = LocalDate.of(getYear(), 12, 1);
+        LocalDate lastDayOfDec = dateOfDec.with(TemporalAdjusters.lastDayOfMonth());
+        int month12 = employeeRepository.countByCreateDateBetweenAndWorkingStatus(startDayOfJan, lastDayOfDec, status);
+
+        return new int[]{month1, month2, month3, month4, month5, month6, month7, month8, month9, month10, month11, month12};
+    }
+
+    @Override
+    public List<Employee> getBirth() {
+
+        return  employeeRepository.getAllByDateBirth(LocalDate.now());
     }
 }

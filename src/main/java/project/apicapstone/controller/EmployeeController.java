@@ -13,8 +13,10 @@ import project.apicapstone.entity.Employee;
 import project.apicapstone.service.EmployeeService;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/employees")
@@ -113,9 +115,23 @@ public class EmployeeController {
         int count = employeeService.countByStatus(status);
         return ResponseHandler.getResponse(count, HttpStatus.OK);
     }
-    @GetMapping("/count-every-month")
+
+    @GetMapping("/count-all-every-month")
     public Object countByEveryMonth() {
-        int []a = employeeService.countByMonth();
-        return ResponseHandler.getResponse(a, HttpStatus.OK);
+        int[] result = employeeService.countByMonth();
+        return ResponseHandler.getResponse(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/count-every-month")
+    public Object countByEveryMonthWithStatus(@RequestParam(name = "status") String status) {
+        int[] result = employeeService.countByMonthWithStatus(status);
+        return ResponseHandler.getResponse(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/check-birth")
+    public Object checkBirth() {
+        List<Employee> employee = employeeService.getBirth();
+
+        return ResponseHandler.getResponse(employee, HttpStatus.OK);
     }
 }

@@ -8,6 +8,7 @@ import project.apicapstone.dto.employee.PagingFormatEmployeeDto;
 import project.apicapstone.dto.employee.UpdateEmployeeDto;
 import project.apicapstone.entity.Employee;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -45,4 +46,10 @@ public interface EmployeeService {
     int countByStatus(String status);
 
     int[] countByMonth();
+
+    int[] countByMonthWithStatus(String status);
+
+
+
+    List<Employee> getBirth();
 }
