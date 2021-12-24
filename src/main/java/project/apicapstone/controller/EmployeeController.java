@@ -86,5 +86,52 @@ public class EmployeeController {
         return ResponseHandler.getResponse(HttpStatus.OK);
     }
 
+    @GetMapping("/count-by-week")
+    public Object countByWeek() {
+        int count = employeeService.countByWeek();
+        return ResponseHandler.getResponse(count, HttpStatus.OK);
+    }
 
+//    @GetMapping("/count-by-month")
+//    public Object countByMonth() {
+//        int count = employeeService.countByMonth();
+//        return ResponseHandler.getResponse(count, HttpStatus.OK);
+//    }
+
+    @GetMapping("/count-by-year")
+    public Object countByYear() {
+        int count = employeeService.countByYear();
+        return ResponseHandler.getResponse(count, HttpStatus.OK);
+    }
+
+    @GetMapping("/count-all")
+    public Object countAll() {
+        int count = employeeService.countAll();
+        return ResponseHandler.getResponse(count, HttpStatus.OK);
+    }
+
+    @GetMapping("/count-by")
+    public Object countByStatus(@RequestParam(name = "status") String status) {
+        int count = employeeService.countByStatus(status);
+        return ResponseHandler.getResponse(count, HttpStatus.OK);
+    }
+
+    @GetMapping("/count-all-every-month")
+    public Object countByEveryMonth() {
+        int[] result = employeeService.countByMonth();
+        return ResponseHandler.getResponse(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/count-every-month")
+    public Object countByEveryMonthWithStatus(@RequestParam(name = "status") String status) {
+        int[] result = employeeService.countByMonthWithStatus(status);
+        return ResponseHandler.getResponse(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/check-birth")
+    public Object checkBirth() {
+        List<Employee> employee = employeeService.getBirth();
+
+        return ResponseHandler.getResponse(employee, HttpStatus.OK);
+    }
 }

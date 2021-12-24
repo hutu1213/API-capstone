@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import project.apicapstone.dto.department.CreateDepartmentDto;
 import project.apicapstone.dto.department.PagingFormatDepartmentDto;
+import project.apicapstone.dto.department.UpdateDepartmentDto;
 import project.apicapstone.entity.Department;
 import project.apicapstone.repository.DepartmentRepository;
 import project.apicapstone.service.DepartmentService;
@@ -51,6 +52,29 @@ public class DepartmentServiceImpl implements DepartmentService {
         dto.setPageNumber(departmentPage.getNumber());
         dto.setRecords(departmentPage.toList());
         return dto;
+    }
+
+    @Override
+    public Department findEmployeeById(String id) {
+        return departmentRepository.getById(id);
+    }
+
+    @Override
+    public List<Department> findDepartmentByNameOrId(String paramSearch) {
+        return departmentRepository.findDepartmentsByNameOrId(paramSearch);
+    }
+
+    @Override
+    public void deleteById(String id) {
+        departmentRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateDepartment(UpdateDepartmentDto dto, String departmentId) {
+        Department updateDepartment = departmentRepository.getById(departmentId);
+
+        updateDepartment.setDepartmentName(dto.getDepartmentName());
+         departmentRepository.save(updateDepartment);
     }
 
 
