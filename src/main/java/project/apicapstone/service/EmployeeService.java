@@ -49,7 +49,5 @@ public interface EmployeeService {
 
     int[] countByMonthWithStatus(String status);
 
-
-
     List<Employee> getBirth();
 }

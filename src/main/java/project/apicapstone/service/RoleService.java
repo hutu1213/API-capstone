@@ -2,6 +2,7 @@ package project.apicapstone.service;
 
 import org.springframework.stereotype.Service;
 import project.apicapstone.dto.role.CreateRoleDto;
+import project.apicapstone.dto.role.UpdateRoleDto;
 import project.apicapstone.entity.Role;
 
 import java.util.List;
@@ -16,4 +17,12 @@ public interface RoleService {
 
 
     boolean isExistedRoleName(String s);
+
+    Role findRoleById(String id);
+
+    List<Role> findRoleByNameOrId(String paramSearch);
+
+    void deleteById(String id);
+
+    void updateRole(UpdateRoleDto dto, String roleId);
 }

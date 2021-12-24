@@ -74,7 +74,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         addEmployee.setAvatar(dto.getAvatar());
         addEmployee.setCreateDate(dto.getCreateDate());
         //addEmployee.setCreateDate(LocalDate.now());
-//        LocalDate date = getEndDateFromWeek();
+        addEmployee.setBackIdentityCard(dto.getBackIdentityCard());
+        addEmployee.setFrontIdentityCard(dto.getFrontIdentityCard());
+
         Title title = titleRepository.getById(dto.getTitleId());
         addEmployee.setTitle(title);
         return employeeRepository.save(addEmployee);
@@ -127,11 +129,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         updateEmployee.setMaritalStatus(dto.getMaritalStatus());
         updateEmployee.setWorkingStatus(dto.getWorkingStatus());
         updateEmployee.setAvatar(dto.getAvatar());
+        updateEmployee.setCreateDate(LocalDate.now());
+        updateEmployee.setBackIdentityCard(dto.getBackIdentityCard());
+        updateEmployee.setFrontIdentityCard(dto.getFrontIdentityCard());
         updateEmployee.setTitle(titleRepository.getById(dto.getTitleId()));
         employeeRepository.save(updateEmployee);
     }
-
-
 
 
     @Override
@@ -143,6 +146,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         dto.setRecords(employeePage.toList());
         return dto;
     }
+
     @Override
     public int countByWeek() {
         LocalDate lastDay = getEndDateOfWeek();
@@ -226,6 +230,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public int countByStatus(String status) {
         return employeeRepository.countEmployeeByWorkingStatus(status);
     }
+
     public int getYear() {
         Date date = new Date();
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -349,6 +354,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> getBirth() {
 
-        return  employeeRepository.getAllByDateBirth(LocalDate.now());
+        return employeeRepository.getAllByDateBirth(LocalDate.now());
     }
 }

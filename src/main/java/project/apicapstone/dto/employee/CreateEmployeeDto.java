@@ -67,7 +67,9 @@ public class CreateEmployeeDto {
     private String workingStatus;
 
     private String avatar;
+    private String backIdentityCard;
 
+    private String frontIdentityCard;
     @FindTitleId
     private String titleId;
 

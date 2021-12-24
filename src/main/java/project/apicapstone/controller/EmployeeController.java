@@ -131,7 +131,7 @@ public class EmployeeController {
     @GetMapping("/check-birth")
     public Object checkBirth() {
         List<Employee> employee = employeeService.getBirth();
-
         return ResponseHandler.getResponse(employee, HttpStatus.OK);
     }
+
 }
