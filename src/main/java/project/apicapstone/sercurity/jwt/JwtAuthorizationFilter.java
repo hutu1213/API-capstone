@@ -32,7 +32,19 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         // authorize the request before
+        try {
+            String token = jwtUtils.getJwtTokenFromRequest(request);
+            if(token != null && jwtUtils.validateJwtToken(token)) {
+                String username = jwtUtils.getUsernameFromToken(token);
+                // authorize
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                Authentication auth = new UsernamePasswordAuthenticationToken(username, null, userDetails.getAuthorities());
 
+                SecurityContextHolder.getContext().setAuthentication(auth);
+            }
+        } catch (Exception e) {
+            logger.debug("An unathorized request has been sent from {}.", request.getRemoteAddr());
+        }
 
         filterChain.doFilter(request, response);
         // do after

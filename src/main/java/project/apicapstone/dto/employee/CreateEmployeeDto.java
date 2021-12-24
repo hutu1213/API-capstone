@@ -60,14 +60,16 @@ public class CreateEmployeeDto {
 
     private String maritalStatus;
 
-//    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
-//    private LocalDate createDate;
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private LocalDate createDate;
 
     private String workingStatus;
 
     private String avatar;
+    private String backIdentityCard;
 
+    private String frontIdentityCard;
     @FindTitleId
     private String titleId;
 

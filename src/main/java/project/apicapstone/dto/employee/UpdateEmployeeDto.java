@@ -60,9 +60,14 @@ public class UpdateEmployeeDto {
     private String workingStatus;
 
     private String avatar;
+
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate createDate;
+
+    private String backIdentityCard;
+
+    private String frontIdentityCard;
     @FindTitleId
     private String titleId;
 }
