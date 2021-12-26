@@ -69,6 +69,10 @@ public class Employee {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate createDate;
     @Column
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private LocalDate updateDate;
+    @Column
     private String backIdentityCard;
     @Column
     private String frontIdentityCard;

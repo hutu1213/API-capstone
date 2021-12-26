@@ -63,7 +63,7 @@ public class UpdateEmployeeDto {
 
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
-    private LocalDate createDate;
+    private LocalDate updateDate;
 
     private String backIdentityCard;
 

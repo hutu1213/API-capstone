@@ -18,6 +18,7 @@ import java.util.List;
 public interface EmployeeRepository extends JpaRepository<Employee, String> {
     //List<Employee> findEmployeesByEmployeeName(String employeeName);
     List<Employee> findEmployeesByEmployeeNameContains(String employeeName);
+
     //
     @Query("SELECT e FROM Employee e WHERE e.employeeName LIKE %?1% OR e.employeeId LIKE %?1%")
     List<Employee> findEmployeesByNameOrId(String paramSearch);
@@ -27,8 +28,11 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     Page<Employee> findAllEmp(Pageable pageable);
 
     int countByCreateDateBetweenAndWorkingStatusNotContains(LocalDate start, LocalDate end, String workingStatus);
+
     int countByCreateDateBetween(LocalDate start, LocalDate end);
-    int countByCreateDateBetweenAndWorkingStatus(LocalDate start, LocalDate end,String workingStatus);
+
+    int countByUpdateDateBetweenAndWorkingStatus(LocalDate start, LocalDate end, String workingStatus);
+
     @Query("SELECT COUNT(e.employeeId) FROM Employee e")
     int countAll();
 
@@ -38,5 +42,5 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
 //    List<LocalDate> getAllBirth();
 
     List<Employee> getAllByDateBirth(LocalDate date);
-   // List<Employee> findByDateBirth(LocalDate birth);
+    // List<Employee> findByDateBirth(LocalDate birth);
 }
