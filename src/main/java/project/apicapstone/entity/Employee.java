@@ -63,12 +63,12 @@ public class Employee {
     private String workingStatus;
     @Column
     private String avatar;
-    @JsonIgnore
-    @Column
-    private int monthOfBirth;
-    @JsonIgnore
-    @Column
-    private int dayOfBirth;
+//    @JsonIgnore
+//    @Column
+//    private int monthOfBirth;
+//    @JsonIgnore
+//    @Column
+//    private int dayOfBirth;
     @Column
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
