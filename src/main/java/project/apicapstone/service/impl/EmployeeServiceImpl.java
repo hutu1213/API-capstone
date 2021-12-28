@@ -77,8 +77,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         addEmployee.setCreateDate(dto.getCreateDate());
         addEmployee.setUpdateDate(dto.getCreateDate());
 
-        addEmployee.setDayOfBirth(dto.getDateBirth().getDayOfMonth());
-        addEmployee.setMonthOfBirth(dto.getDateBirth().getMonth().getValue());
+//        addEmployee.setDayOfBirth(dto.getDateBirth().getDayOfMonth());
+//        addEmployee.setMonthOfBirth(dto.getDateBirth().getMonth().getValue());
 
         addEmployee.setBackIdentityCard(dto.getBackIdentityCard());
         addEmployee.setFrontIdentityCard(dto.getFrontIdentityCard());
