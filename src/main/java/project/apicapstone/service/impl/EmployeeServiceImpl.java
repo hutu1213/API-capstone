@@ -72,9 +72,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         addEmployee.setMaritalStatus(dto.getMaritalStatus());
         addEmployee.setWorkingStatus(dto.getWorkingStatus());
         addEmployee.setAvatar(dto.getAvatar());
+
+        //addEmployee.setCreateDate(LocalDate.now());
         addEmployee.setCreateDate(dto.getCreateDate());
         addEmployee.setUpdateDate(dto.getCreateDate());
-        //addEmployee.setCreateDate(LocalDate.now());
+
+        addEmployee.setDayOfBirth(dto.getDateBirth().getDayOfMonth());
+        addEmployee.setMonthOfBirth(dto.getDateBirth().getMonth().getValue());
+
         addEmployee.setBackIdentityCard(dto.getBackIdentityCard());
         addEmployee.setFrontIdentityCard(dto.getFrontIdentityCard());
 
@@ -354,7 +359,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> getBirth() {
-
-        return employeeRepository.getAllByDateBirth(LocalDate.now());
+        LocalDate date = LocalDate.now();
+        int day = date.getDayOfMonth();
+        int month = date.getMonthValue();
+        return employeeRepository.getAllByDayOfBirthAndMonthOfBirth(day, month);
     }
 }

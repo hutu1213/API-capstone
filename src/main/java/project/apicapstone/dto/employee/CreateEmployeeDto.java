@@ -2,6 +2,7 @@ package project.apicapstone.dto.employee;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.Check;
 import org.hibernate.annotations.Columns;
@@ -67,9 +68,15 @@ public class CreateEmployeeDto {
     private String workingStatus;
 
     private String avatar;
+
     private String backIdentityCard;
 
+    private int monthOfBirth;
+
+    private int dayOfBirth;
+
     private String frontIdentityCard;
+
     @FindTitleId
     private String titleId;
 

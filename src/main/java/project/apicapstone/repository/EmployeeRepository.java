@@ -41,6 +41,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
 //    @Query("SELECT e.dateBirth FROM Employee e")
 //    List<LocalDate> getAllBirth();
 
-    List<Employee> getAllByDateBirth(LocalDate date);
-    // List<Employee> findByDateBirth(LocalDate birth);
+    List<Employee> getAllByDayOfBirthAndMonthOfBirth(int day, int month);
+
+
+
 }

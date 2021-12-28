@@ -41,6 +41,7 @@ public class AllowanceServiceImpl implements AllowanceService {
         newAllowance.setAllowanceId(dto.getAllowanceId());
         newAllowance.setAllowanceName(dto.getAllowanceName());
         newAllowance.setType(dto.getType());
+        newAllowance.setAmount(dto.getAmount());
         Contract contract = contractRepository.getById(dto.getContractId());
         newAllowance.setContract(contract);
         return allowanceRepository.save(newAllowance);
@@ -71,6 +72,7 @@ public class AllowanceServiceImpl implements AllowanceService {
         Allowance allowance = allowanceRepository.getById(allowanceId);
         allowance.setAllowanceName(dto.getAllowanceName());
         allowance.setType(dto.getType());
+        allowance.setAmount(dto.getAmount());
         Contract contract = contractRepository.getById(dto.getContractId());
         allowance.setContract(contract);
         allowanceRepository.save(allowance);

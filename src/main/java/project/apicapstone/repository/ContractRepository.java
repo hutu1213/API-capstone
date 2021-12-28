@@ -11,11 +11,15 @@ import project.apicapstone.entity.Contract;
 import java.util.List;
 
 @Repository
-public interface ContractRepository extends JpaRepository<Contract,String> {
+public interface ContractRepository extends JpaRepository<Contract, String> {
     @Transactional(readOnly = true)
     @Query("SELECT d FROM Contract d")
     Page<Contract> findAllContract(Pageable pageable);
 
     @Query("SELECT c FROM Contract c WHERE c.contractName LIKE %?1% OR c.contractId LIKE %?1%")
     List<Contract> findContractByNameOrId(String paramSearch);
+
+
+    @Query("SELECT c FROM Contract c join c.employee e WHERE e.employeeId = ?1")
+    List<Contract> findEmployeeIdInContract(String id);
 }

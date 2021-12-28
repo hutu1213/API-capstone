@@ -105,4 +105,9 @@ public class ContractServiceImpl implements ContractService {
         return contractRepository.findContractByNameOrId(paramSearch);
     }
 
+    @Override
+    public List<Contract> existByEmployeeId(String s) {
+        return contractRepository.findEmployeeIdInContract(s);
+    }
+
 }

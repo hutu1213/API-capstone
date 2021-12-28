@@ -16,7 +16,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"timeSheets", "dependants", "skills", "contracts", "evaluations", "tasks", "trainings", "proposals"}, callSuper = false)
+//@EqualsAndHashCode(exclude = {"timeSheets", "dependants", "skills", "contracts", "evaluations", "tasks", "trainings", "proposals"}, callSuper = false)
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 @Entity
 @Table(name = "table_employee")
@@ -63,7 +63,12 @@ public class Employee {
     private String workingStatus;
     @Column
     private String avatar;
-
+    @JsonIgnore
+    @Column
+    private int monthOfBirth;
+    @JsonIgnore
+    @Column
+    private int dayOfBirth;
     @Column
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
@@ -95,9 +100,12 @@ public class Employee {
     private Set<Skill> skills = new HashSet<>();
 
     // relationship employee - contract 1-N
-    @OneToMany(mappedBy = "employee")
+//    @OneToMany(mappedBy = "employee")
+//    @JsonIgnore
+//    private Set<Contract> contracts = new HashSet<>();
+    @OneToOne(mappedBy = "employee", fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<Contract> contracts = new HashSet<>();
+    private Contract contract;
 
     // relationship title - employee 1-N
     @ManyToOne(fetch = FetchType.LAZY) //// test không cần lazy
@@ -149,5 +157,10 @@ public class Employee {
     @JsonIgnore
     private Set<Probation> probations = new HashSet<>();
 
+    //relationship workplace - employee : 1 - N
+    @ManyToOne(fetch = FetchType.LAZY)
+    // @JsonIgnore
+    @JoinColumn(name = "workplace_id")
+    private Workplace workplace;
 
 }
