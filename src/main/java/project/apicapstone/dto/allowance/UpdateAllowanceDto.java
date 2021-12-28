@@ -13,6 +13,7 @@ public class UpdateAllowanceDto {
     private String allowanceName;
     @NotBlank(message = "{allowance.type.not-blank}")
     private String type;
+    private float amount;
     @FindContractId
     private String contractId;
 }

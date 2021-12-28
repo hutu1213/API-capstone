@@ -29,4 +29,5 @@ public interface ContractService {
     List<Contract> findContractByNameOrId(String paramSearch);
 
 
+    List<Contract> existByEmployeeId(String s);
 }

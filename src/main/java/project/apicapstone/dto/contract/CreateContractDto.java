@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
-import project.apicapstone.validation.annonation.CheckContractId;
-import project.apicapstone.validation.annonation.FindEmployeeId;
-import project.apicapstone.validation.annonation.UniqueContractId;
+import project.apicapstone.validation.annonation.*;
 
 import java.time.LocalDate;
 
@@ -33,7 +31,6 @@ public class CreateContractDto {
 
     private String type;
 
-
     private Long duration;
 
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
@@ -47,5 +44,6 @@ public class CreateContractDto {
     private String attachedFile;
 
     @FindEmployeeId
+    @CheckEmployeeIdExistInContract
     private String employeeId;
 }
