@@ -1,13 +1,11 @@
 package project.apicapstone.dto.workplace;
 
-
 import lombok.Data;
 import project.apicapstone.validation.annonation.FindSubareaId;
-import project.apicapstone.validation.annonation.UniqueWorkplaceId;
 
 @Data
-public class CreateWorkplaceDto {
-    @UniqueWorkplaceId
+public class UpdateWorkplaceDto {
+
     private String workplaceId;
 
     private String name;

@@ -2,6 +2,7 @@ package project.apicapstone.service.impl;
 
 import org.springframework.stereotype.Service;
 import project.apicapstone.dto.workplace.CreateWorkplaceDto;
+import project.apicapstone.dto.workplace.UpdateWorkplaceDto;
 import project.apicapstone.entity.Workplace;
 import project.apicapstone.repository.SubareaRepository;
 import project.apicapstone.repository.WorkplaceRepository;
@@ -38,5 +39,20 @@ public class WorkplaceServiceImpl implements WorkplaceService {
     @Override
     public boolean isExisted(String s) {
         return workplaceRepository.existsById(s);
+    }
+
+    @Override
+    public void deleteById(String id) {
+        workplaceRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateWorkplace(UpdateWorkplaceDto dto, String workplaceId) {
+        Workplace workplace = workplaceRepository.getById(dto.getWorkplaceId());
+        workplace.setName(dto.getName());
+        workplace.setType(dto.getType());
+        workplace.setAddress(dto.getAddress());
+        workplace.setSubarea(subareaRepository.getById(dto.getSubareaId()));
+        workplaceRepository.save(workplace);
     }
 }

@@ -7,11 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
-import project.apicapstone.dto.employee.UpdateEmployeeDto;
+
 import project.apicapstone.dto.title.CreateTitleDto;
 import project.apicapstone.dto.title.UpdateTitleDto;
-import project.apicapstone.entity.Account;
-import project.apicapstone.entity.Employee;
+
 import project.apicapstone.entity.Title;
 import project.apicapstone.service.TitleService;
 

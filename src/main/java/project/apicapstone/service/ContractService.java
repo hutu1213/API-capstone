@@ -30,4 +30,6 @@ public interface ContractService {
 
 
     List<Contract> existByEmployeeId(String s);
+
+    String findEmployeeIdWithContract(String employeeId);
 }

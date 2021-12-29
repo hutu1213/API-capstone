@@ -1,28 +1,32 @@
 package project.apicapstone.validation.validator;
 
 
+
 import project.apicapstone.common.util.ValidatorUtils;
-import project.apicapstone.service.SubareaService;
-import project.apicapstone.validation.annonation.FindSubareaId;
+import project.apicapstone.service.AreaService;
+import project.apicapstone.validation.annonation.FindAreaId;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class FindSubareaIdValidator implements ConstraintValidator<FindSubareaId, String> {
+public class FindAreaIdValidator implements ConstraintValidator<FindAreaId, String> {
     private String message;
-    private SubareaService subareaService;
-    public FindSubareaIdValidator(SubareaService subareaService){
-        this.subareaService=subareaService;
+    private AreaService areaService;
+    public FindAreaIdValidator(AreaService areaService){
+        this.areaService=areaService;
     }
     @Override
-    public void initialize(FindSubareaId constraintAnnotation) {
+    public void initialize(FindAreaId constraintAnnotation) {
         message = constraintAnnotation.message();
     }
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        boolean isExisted = subareaService.isExisted(s);
-
+        boolean isExisted = areaService.isExisted(s);
+//        if (s.isEmpty()) {
+//            ValidatorUtils.addError(constraintValidatorContext, "Account Id not blank");
+//            return false;
+//        }
         if (isExisted) {
             return true;
         } else {

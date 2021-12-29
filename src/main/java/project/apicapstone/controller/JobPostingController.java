@@ -7,10 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
-import project.apicapstone.dto.employee.UpdateEmployeeDto;
+
 import project.apicapstone.dto.jobPosting.CreateJobPostingDto;
 import project.apicapstone.dto.jobPosting.UpdateJobPostingDto;
-import project.apicapstone.entity.Employee;
+
 import project.apicapstone.entity.JobPosting;
 import project.apicapstone.service.JobPostingService;
 

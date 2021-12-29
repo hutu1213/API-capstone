@@ -1,17 +1,16 @@
 package project.apicapstone.controller;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
-import project.apicapstone.dto.account.CreateAccountDto;
+
 import project.apicapstone.dto.workplace.CreateWorkplaceDto;
-import project.apicapstone.entity.Account;
+import project.apicapstone.dto.workplace.UpdateWorkplaceDto;
+
 import project.apicapstone.entity.Workplace;
-import project.apicapstone.service.AccountService;
+
 import project.apicapstone.service.WorkplaceService;
 
 import javax.validation.Valid;
@@ -40,13 +39,28 @@ public class WorkplaceController {
     }
 
     @PostMapping("/create-workplace")
-    public Object createAccount(@Valid @RequestBody CreateWorkplaceDto dto,
-                                BindingResult errors) {
+    public Object createWorkplace(@Valid @RequestBody CreateWorkplaceDto dto,
+                                  BindingResult errors) {
         if (errors.hasErrors())
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 
         Workplace createWorkplace = workplaceService.createWorkplace(dto);
 
         return ResponseHandler.getResponse(createWorkplace, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping()
+    public Object deleteWorkplace(@RequestParam(name = "id") String id) {
+        workplaceService.deleteById(id);
+        return ResponseHandler.getResponse(HttpStatus.OK);
+    }
+
+    @PutMapping()
+    public Object updateWorkplace(@Valid @RequestBody UpdateWorkplaceDto dto, BindingResult errors) {
+        if (errors.hasErrors()) {
+            return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
+        }
+        workplaceService.updateWorkplace(dto, dto.getWorkplaceId());
+        return ResponseHandler.getResponse(HttpStatus.OK);
     }
 }

@@ -9,12 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.dto.contract.CreateContractDto;
 import project.apicapstone.dto.contract.UpdateContractDto;
-import project.apicapstone.dto.department.CreateDepartmentDto;
+
 import project.apicapstone.entity.Contract;
-import project.apicapstone.entity.Department;
-import project.apicapstone.entity.Employee;
+
 import project.apicapstone.service.ContractService;
-import project.apicapstone.service.DepartmentService;
+
 
 import javax.validation.Valid;
 import java.util.List;
