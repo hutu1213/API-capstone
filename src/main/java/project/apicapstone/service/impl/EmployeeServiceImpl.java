@@ -73,12 +73,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         addEmployee.setWorkingStatus(dto.getWorkingStatus());
         addEmployee.setAvatar(dto.getAvatar());
 
-        //addEmployee.setCreateDate(LocalDate.now());
-        addEmployee.setCreateDate(dto.getCreateDate());
-        addEmployee.setUpdateDate(dto.getCreateDate());
+        addEmployee.setCreateDate(LocalDate.now());
+//        addEmployee.setCreateDate(dto.getCreateDate());
+       addEmployee.setUpdateDate(LocalDate.now());
 
-//        addEmployee.setDayOfBirth(dto.getDateBirth().getDayOfMonth());
-//        addEmployee.setMonthOfBirth(dto.getDateBirth().getMonth().getValue());
+        addEmployee.setDayOfBirth(dto.getDateBirth().getDayOfMonth());
+        addEmployee.setMonthOfBirth(dto.getDateBirth().getMonth().getValue());
 
         addEmployee.setBackIdentityCard(dto.getBackIdentityCard());
         addEmployee.setFrontIdentityCard(dto.getFrontIdentityCard());
