@@ -19,7 +19,7 @@ import java.util.Set;
 public class Subarea {
     @Id
     @Column
-    private String workplaceId;
+    private String subareaId;
     @Column
     private String name;
     @Column

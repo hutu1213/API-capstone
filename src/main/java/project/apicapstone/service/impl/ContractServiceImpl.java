@@ -110,4 +110,9 @@ public class ContractServiceImpl implements ContractService {
         return contractRepository.findEmployeeIdInContract(s);
     }
 
+    @Override
+    public String findEmployeeIdWithContract(String employeeId) {
+        return contractRepository.findEmployeeIdWithContract(employeeId);
+    }
+
 }
