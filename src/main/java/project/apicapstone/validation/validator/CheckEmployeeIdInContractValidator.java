@@ -17,9 +17,9 @@ public class CheckEmployeeIdInContractValidator implements ConstraintValidator<C
     private EmployeeService employeeService;
     private String message;
 
-    public CheckEmployeeIdInContractValidator(ContractService service,EmployeeService employeeService) {
+    public CheckEmployeeIdInContractValidator(ContractService service, EmployeeService employeeService) {
         this.service = service;
-        this.employeeService=employeeService;
+        this.employeeService = employeeService;
     }
 
     @Override
@@ -32,15 +32,17 @@ public class CheckEmployeeIdInContractValidator implements ConstraintValidator<C
     public boolean isValid(UpdateContractDto updateContractDto, ConstraintValidatorContext constraintValidatorContext) {
         String contractId = service.findEmployeeIdWithContract(updateContractDto.getEmployeeId());
         String id = updateContractDto.getContractId();
-        //boolean isExisted = employeeService.isExisted(updateContractDto.getEmployeeId());
-
+        boolean isExisted = employeeService.isExisted(updateContractDto.getEmployeeId());
+        if (!isExisted) {
+            ValidatorUtils.addError(constraintValidatorContext, "Không tìm thấy mã nhân viên");
+            return false;
+        }
         if (contractId.equals(id)) {
             return true;
-        }else{
+        } else {
             ValidatorUtils.addError(constraintValidatorContext, message);
             return false;
         }
-
 
 
     }

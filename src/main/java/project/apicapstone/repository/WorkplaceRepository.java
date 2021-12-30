@@ -7,4 +7,6 @@ import project.apicapstone.entity.Workplace;
 
 @Repository
 public interface WorkplaceRepository extends JpaRepository<Workplace,String> {
+
+    Workplace findByWorkplaceId(String id);
 }

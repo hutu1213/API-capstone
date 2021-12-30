@@ -80,4 +80,7 @@ public class CreateEmployeeDto {
     @FindTitleId
     private String titleId;
 
+    @FindWorkPlaceId
+    private String workplaceId;
+
 }
