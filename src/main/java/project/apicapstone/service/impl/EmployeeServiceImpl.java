@@ -10,9 +10,11 @@ import project.apicapstone.dto.employee.PagingFormatEmployeeDto;
 import project.apicapstone.dto.employee.UpdateEmployeeDto;
 import project.apicapstone.entity.Employee;
 import project.apicapstone.entity.Title;
+import project.apicapstone.entity.Workplace;
 import project.apicapstone.entity.util.WorkingStatus;
 import project.apicapstone.repository.EmployeeRepository;
 import project.apicapstone.repository.TitleRepository;
+import project.apicapstone.repository.WorkplaceRepository;
 import project.apicapstone.service.EmployeeService;
 
 import java.time.DayOfWeek;
@@ -30,10 +32,12 @@ import static java.time.temporal.TemporalAdjusters.previousOrSame;
 public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
     private TitleRepository titleRepository;
+    private WorkplaceRepository workplaceRepository;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, TitleRepository titleRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, TitleRepository titleRepository, WorkplaceRepository workplaceRepository) {
         this.employeeRepository = employeeRepository;
         this.titleRepository = titleRepository;
+        this.workplaceRepository = workplaceRepository;
     }
 
     @Override
@@ -75,13 +79,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         addEmployee.setCreateDate(LocalDate.now());
 //        addEmployee.setCreateDate(dto.getCreateDate());
-       addEmployee.setUpdateDate(LocalDate.now());
+        addEmployee.setUpdateDate(LocalDate.now());
 
         addEmployee.setDayOfBirth(dto.getDateBirth().getDayOfMonth());
         addEmployee.setMonthOfBirth(dto.getDateBirth().getMonth().getValue());
 
         addEmployee.setBackIdentityCard(dto.getBackIdentityCard());
         addEmployee.setFrontIdentityCard(dto.getFrontIdentityCard());
+
+        addEmployee.setWorkplace(workplaceRepository.getById(dto.getWorkplaceId()));
 
         Title title = titleRepository.getById(dto.getTitleId());
         addEmployee.setTitle(title);

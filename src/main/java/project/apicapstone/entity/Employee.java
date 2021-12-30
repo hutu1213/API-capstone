@@ -158,7 +158,7 @@ public class Employee {
     private Set<Probation> probations = new HashSet<>();
 
     //relationship workplace - employee : 1 - N
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     // @JsonIgnore
     @JoinColumn(name = "workplace_id")
     private Workplace workplace;
