@@ -16,4 +16,8 @@ public interface WorkplaceService {
     void deleteById(String id);
 
     void updateWorkplace(UpdateWorkplaceDto dto, String workplaceId);
+
+    Workplace findWorkplaceById(String id);
+
+    List<Workplace> findWorkplaceByNameOrId(String paramSearch);
 }

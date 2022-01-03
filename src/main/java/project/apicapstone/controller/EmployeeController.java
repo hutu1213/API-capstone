@@ -113,6 +113,11 @@ public class EmployeeController {
         int count = employeeService.countByStatus(status);
         return ResponseHandler.getResponse(count, HttpStatus.OK);
     }
+    @GetMapping("/count-by-area")
+    public Object countByArea(@RequestParam(name = "area") String area) {
+        int count = employeeService.countByArea(area);
+        return ResponseHandler.getResponse(count, HttpStatus.OK);
+    }
 
     @GetMapping("/count-all-every-month")
     public Object countByEveryMonth() {

@@ -9,6 +9,7 @@ import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.dto.workplace.CreateWorkplaceDto;
 import project.apicapstone.dto.workplace.UpdateWorkplaceDto;
 
+import project.apicapstone.entity.Employee;
 import project.apicapstone.entity.Workplace;
 
 import project.apicapstone.service.WorkplaceService;
@@ -62,5 +63,18 @@ public class WorkplaceController {
         }
         workplaceService.updateWorkplace(dto, dto.getWorkplaceId());
         return ResponseHandler.getResponse(HttpStatus.OK);
+    }
+    @GetMapping("/get-by-id/{id}")
+    public Object findWorkplaceById(@PathVariable("id") String id) {
+        Workplace workplace = workplaceService.findWorkplaceById(id);
+        return ResponseHandler.getResponse(workplace, HttpStatus.OK);
+    }
+    @GetMapping("/search/{paramSearch}")
+    public Object findWorkplaceByNameOrId(@PathVariable String paramSearch) {
+        List<Workplace> workplaceList = workplaceService.findWorkplaceByNameOrId(paramSearch);
+        if (workplaceList.isEmpty()) {
+            return ResponseHandler.getErrors("Not found ", HttpStatus.NOT_FOUND);
+        }
+        return ResponseHandler.getResponse(workplaceList, HttpStatus.OK);
     }
 }

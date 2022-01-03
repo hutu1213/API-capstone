@@ -16,4 +16,8 @@ public interface AreaService {
     void deleteById(String id);
 
     void updateArea(UpdateAreaDto dto, String areaId);
+
+    Area findAreaById(String id);
+
+    List<Area> findAreaByNameOrId(String paramSearch);
 }

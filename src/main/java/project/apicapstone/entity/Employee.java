@@ -107,6 +107,9 @@ public class Employee {
     @JsonIgnore
     private Contract contract;
 
+
+
+
     // relationship title - employee 1-N
     @ManyToOne(fetch = FetchType.LAZY) //// test không cần lazy
     //@JsonBackReference

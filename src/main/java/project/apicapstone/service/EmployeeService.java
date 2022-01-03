@@ -50,4 +50,6 @@ public interface EmployeeService {
     int[] countByMonthWithStatus(String status);
 
     List<Employee> getBirth();
+
+    int countByArea(String area);
 }

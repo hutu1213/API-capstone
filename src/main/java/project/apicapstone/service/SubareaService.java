@@ -16,4 +16,8 @@ public interface SubareaService {
     void deleteById(String id);
 
     void updateSubarea(UpdateSubareaDto dto, String subareaId);
+
+    Subarea findSubareaById(String id);
+
+    List<Subarea> findSubareaByNameOrId(String paramSearch);
 }

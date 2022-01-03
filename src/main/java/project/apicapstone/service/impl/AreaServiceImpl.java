@@ -48,4 +48,14 @@ public class AreaServiceImpl implements AreaService {
         area.setDescription(dto.getDescription());
         areaRepository.save(area);
     }
+
+    @Override
+    public Area findAreaById(String id) {
+        return areaRepository.getById(id);
+    }
+
+    @Override
+    public List<Area> findAreaByNameOrId(String paramSearch) {
+        return areaRepository.findAreaByNameOrId(paramSearch);
+    }
 }

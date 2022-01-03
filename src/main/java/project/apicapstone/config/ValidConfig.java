@@ -1,5 +1,6 @@
 package project.apicapstone.config;
 
+
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,4 +23,6 @@ public class ValidConfig {
 		bean.setValidationMessageSource(messageSource());
 		return bean;
 	}
+
+
 }

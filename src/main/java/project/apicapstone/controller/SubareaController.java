@@ -9,6 +9,7 @@ import project.apicapstone.dto.subarea.CreateSubareaDto;
 import project.apicapstone.dto.subarea.UpdateSubareaDto;
 import project.apicapstone.entity.Subarea;
 
+import project.apicapstone.entity.Workplace;
 import project.apicapstone.service.SubareaService;
 
 import javax.validation.Valid;
@@ -52,5 +53,18 @@ public class SubareaController {
         }
         subareaService.updateSubarea(dto, dto.getSubareaId());
         return ResponseHandler.getResponse(HttpStatus.OK);
+    }
+    @GetMapping("/get-by-id/{id}")
+    public Object findSubareaById(@PathVariable("id") String id) {
+        Subarea subarea = subareaService.findSubareaById(id);
+        return ResponseHandler.getResponse(subarea, HttpStatus.OK);
+    }
+    @GetMapping("/search/{paramSearch}")
+    public Object findSubareaByNameOrId(@PathVariable String paramSearch) {
+        List<Subarea> subareaList = subareaService.findSubareaByNameOrId(paramSearch);
+        if (subareaList.isEmpty()) {
+            return ResponseHandler.getErrors("Not found ", HttpStatus.NOT_FOUND);
+        }
+        return ResponseHandler.getResponse(subareaList, HttpStatus.OK);
     }
 }

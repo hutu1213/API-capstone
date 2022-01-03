@@ -370,4 +370,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         int month = date.getMonthValue();
         return employeeRepository.getAllByDayOfBirthAndMonthOfBirth(day, month);
     }
+
+    @Override
+    public int countByArea(String area) {
+        return employeeRepository.countByArea(area);
+    }
 }

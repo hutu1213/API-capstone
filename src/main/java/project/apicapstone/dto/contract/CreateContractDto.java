@@ -46,4 +46,6 @@ public class CreateContractDto {
     @FindEmployeeId
     @CheckEmployeeIdExistInContract
     private String employeeId;
+
+    private String employeeId2;
 }
