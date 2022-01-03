@@ -8,6 +8,7 @@ import project.apicapstone.dto.area.CreateAreaDto;
 import project.apicapstone.dto.area.UpdateAreaDto;
 import project.apicapstone.entity.Area;
 
+import project.apicapstone.entity.Workplace;
 import project.apicapstone.service.AreaService;
 
 import javax.validation.Valid;
@@ -52,5 +53,18 @@ public class AreaController {
         }
         areaService.updateArea(dto, dto.getAreaId());
         return ResponseHandler.getResponse(HttpStatus.OK);
+    }
+    @GetMapping("/get-by-id/{id}")
+    public Object findAreaById(@PathVariable("id") String id) {
+        Area area = areaService.findAreaById(id);
+        return ResponseHandler.getResponse(area, HttpStatus.OK);
+    }
+    @GetMapping("/search/{paramSearch}")
+    public Object findAreaByNameOrId(@PathVariable String paramSearch) {
+        List<Area> areaList = areaService.findAreaByNameOrId(paramSearch);
+        if (areaList.isEmpty()) {
+            return ResponseHandler.getErrors("Not found ", HttpStatus.NOT_FOUND);
+        }
+        return ResponseHandler.getResponse(areaList, HttpStatus.OK);
     }
 }

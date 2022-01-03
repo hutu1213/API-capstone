@@ -61,6 +61,7 @@ public class Contract {
     //@JsonIgnore
     private Employee employee;
 
+
     // relationship contract - dependant 1-N
     @OneToMany(mappedBy = "contract")
     @JsonIgnore

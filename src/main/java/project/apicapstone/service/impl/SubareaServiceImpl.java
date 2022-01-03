@@ -53,4 +53,14 @@ public class SubareaServiceImpl implements SubareaService {
         subarea.setArea(areaRepository.getById(dto.getAreaId()));
         subareaRepository.save(subarea);
     }
+
+    @Override
+    public Subarea findSubareaById(String id) {
+        return subareaRepository.getById(id);
+    }
+
+    @Override
+    public List<Subarea> findSubareaByNameOrId(String paramSearch) {
+        return subareaRepository.findSubareaByNameOrId(paramSearch);
+    }
 }

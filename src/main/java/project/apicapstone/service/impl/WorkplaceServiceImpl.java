@@ -55,4 +55,14 @@ public class WorkplaceServiceImpl implements WorkplaceService {
         workplace.setSubarea(subareaRepository.getById(dto.getSubareaId()));
         workplaceRepository.save(workplace);
     }
+
+    @Override
+    public Workplace findWorkplaceById(String id) {
+        return workplaceRepository.getById(id);
+    }
+
+    @Override
+    public List<Workplace> findWorkplaceByNameOrId(String paramSearch) {
+        return workplaceRepository.findWorkplaceByNameOrId(paramSearch);
+    }
 }
