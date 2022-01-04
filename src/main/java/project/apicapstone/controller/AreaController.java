@@ -1,5 +1,8 @@
 package project.apicapstone.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +11,6 @@ import project.apicapstone.dto.area.CreateAreaDto;
 import project.apicapstone.dto.area.UpdateAreaDto;
 import project.apicapstone.entity.Area;
 
-import project.apicapstone.entity.Workplace;
 import project.apicapstone.service.AreaService;
 
 import javax.validation.Valid;
@@ -22,7 +24,12 @@ public class AreaController {
     public AreaController(AreaService areaService) {
         this.areaService = areaService;
     }
-
+    @GetMapping
+    public Object findAllArea(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Area> areaPage = areaService.findAllArea(pageable);
+        return ResponseHandler.getResponse(areaService.pagingFormat(areaPage), HttpStatus.OK);
+    }
     @GetMapping("/get-all")
     public Object findAll() {
         List<Area> areas = areaService.findAll();

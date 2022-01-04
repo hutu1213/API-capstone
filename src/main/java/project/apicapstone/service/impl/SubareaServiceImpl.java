@@ -1,8 +1,12 @@
 package project.apicapstone.service.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import project.apicapstone.dto.subarea.CreateSubareaDto;
+import project.apicapstone.dto.subarea.PagingFormatSubareaDto;
 import project.apicapstone.dto.subarea.UpdateSubareaDto;
+import project.apicapstone.dto.workplace.PagingFormatWorkPlaceDto;
 import project.apicapstone.entity.Subarea;
 import project.apicapstone.repository.AreaRepository;
 import project.apicapstone.repository.SubareaRepository;
@@ -62,5 +66,20 @@ public class SubareaServiceImpl implements SubareaService {
     @Override
     public List<Subarea> findSubareaByNameOrId(String paramSearch) {
         return subareaRepository.findSubareaByNameOrId(paramSearch);
+    }
+
+    @Override
+    public Page<Subarea> findAllSubarea(Pageable pageable) {
+        return subareaRepository.findAllSubarea(pageable);
+    }
+
+    @Override
+    public Object pagingFormat(Page<Subarea> subareaPage) {
+        PagingFormatSubareaDto dto = new PagingFormatSubareaDto();
+        dto.setPageSize(subareaPage.getSize());
+        dto.setTotalRecordCount(subareaPage.getTotalElements());
+        dto.setPageNumber(subareaPage.getNumber());
+        dto.setRecords(subareaPage.toList());
+        return dto;
     }
 }

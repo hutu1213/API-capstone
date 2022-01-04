@@ -1,5 +1,7 @@
 package project.apicapstone.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import project.apicapstone.dto.subarea.CreateSubareaDto;
 import project.apicapstone.dto.subarea.UpdateSubareaDto;
 import project.apicapstone.entity.Subarea;
@@ -20,4 +22,8 @@ public interface SubareaService {
     Subarea findSubareaById(String id);
 
     List<Subarea> findSubareaByNameOrId(String paramSearch);
+
+    Page<Subarea> findAllSubarea(Pageable pageable);
+
+    Object pagingFormat(Page<Subarea> subareaPage);
 }
