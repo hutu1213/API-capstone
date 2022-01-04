@@ -1,5 +1,7 @@
 package project.apicapstone.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import project.apicapstone.dto.workplace.CreateWorkplaceDto;
 import project.apicapstone.dto.workplace.UpdateWorkplaceDto;
 import project.apicapstone.entity.Workplace;
@@ -20,4 +22,8 @@ public interface WorkplaceService {
     Workplace findWorkplaceById(String id);
 
     List<Workplace> findWorkplaceByNameOrId(String paramSearch);
+
+    Page<Workplace> findAllWorkplace(Pageable pageable);
+
+    Object pagingFormat(Page<Workplace> workplacePage);
 }

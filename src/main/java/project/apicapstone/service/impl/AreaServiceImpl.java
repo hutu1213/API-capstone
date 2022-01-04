@@ -1,7 +1,11 @@
 package project.apicapstone.service.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import project.apicapstone.dto.account.PagingFormatAccountDto;
 import project.apicapstone.dto.area.CreateAreaDto;
+import project.apicapstone.dto.area.PagingFormatAreaDto;
 import project.apicapstone.dto.area.UpdateAreaDto;
 import project.apicapstone.entity.Area;
 import project.apicapstone.repository.AreaRepository;
@@ -57,5 +61,20 @@ public class AreaServiceImpl implements AreaService {
     @Override
     public List<Area> findAreaByNameOrId(String paramSearch) {
         return areaRepository.findAreaByNameOrId(paramSearch);
+    }
+
+    @Override
+    public Page<Area> findAllArea(Pageable pageable) {
+        return areaRepository.findAllArea(pageable);
+    }
+
+    @Override
+    public Object pagingFormat(Page<Area> areaPage) {
+        PagingFormatAreaDto dto = new PagingFormatAreaDto();
+        dto.setPageSize(areaPage.getSize());
+        dto.setTotalRecordCount(areaPage.getTotalElements());
+        dto.setPageNumber(areaPage.getNumber());
+        dto.setRecords(areaPage.toList());
+        return dto;
     }
 }

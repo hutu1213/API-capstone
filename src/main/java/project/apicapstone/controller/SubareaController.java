@@ -1,5 +1,8 @@
 package project.apicapstone.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +26,12 @@ public class SubareaController {
     public SubareaController(SubareaService subareaService) {
         this.subareaService = subareaService;
     }
-
+    @GetMapping
+    public Object findAllSubarea(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Subarea> subareaPage = subareaService.findAllSubarea(pageable);
+        return ResponseHandler.getResponse(subareaService.pagingFormat(subareaPage), HttpStatus.OK);
+    }
     @GetMapping("/get-all")
     public Object findAll() {
         List<Subarea> workplaces = subareaService.findAll();

@@ -1,6 +1,9 @@
 package project.apicapstone.controller;
 
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -26,12 +29,12 @@ public class WorkplaceController {
         this.workplaceService = workplaceService;
     }
 
-//    @GetMapping
-//    public Object findAllAccount(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
-//        Pageable pageable = PageRequest.of(page, size);
-//        Page<Account> accountPage = accountService.findAllAccount(pageable);
-//        return ResponseHandler.getResponse(accountService.pagingFormat(accountPage), HttpStatus.OK);
-//    }
+    @GetMapping
+    public Object findAllWorkplace(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Workplace> workplacePage = workplaceService.findAllWorkplace(pageable);
+        return ResponseHandler.getResponse(workplaceService.pagingFormat(workplacePage), HttpStatus.OK);
+    }
 
     @GetMapping("/get-all")
     public Object findAll() {

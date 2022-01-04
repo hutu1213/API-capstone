@@ -1,7 +1,11 @@
 package project.apicapstone.service.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import project.apicapstone.dto.account.PagingFormatAccountDto;
 import project.apicapstone.dto.workplace.CreateWorkplaceDto;
+import project.apicapstone.dto.workplace.PagingFormatWorkPlaceDto;
 import project.apicapstone.dto.workplace.UpdateWorkplaceDto;
 import project.apicapstone.entity.Workplace;
 import project.apicapstone.repository.SubareaRepository;
@@ -64,5 +68,20 @@ public class WorkplaceServiceImpl implements WorkplaceService {
     @Override
     public List<Workplace> findWorkplaceByNameOrId(String paramSearch) {
         return workplaceRepository.findWorkplaceByNameOrId(paramSearch);
+    }
+
+    @Override
+    public Page<Workplace> findAllWorkplace(Pageable pageable) {
+        return workplaceRepository.findAllWorkplace(pageable);
+    }
+
+    @Override
+    public Object pagingFormat(Page<Workplace> workplacePage) {
+        PagingFormatWorkPlaceDto dto = new PagingFormatWorkPlaceDto();
+        dto.setPageSize(workplacePage.getSize());
+        dto.setTotalRecordCount(workplacePage.getTotalElements());
+        dto.setPageNumber(workplacePage.getNumber());
+        dto.setRecords(workplacePage.toList());
+        return dto;
     }
 }
