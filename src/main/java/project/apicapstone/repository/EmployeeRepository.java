@@ -46,4 +46,5 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     @Query("SELECT COUNT(a.areaId) FROM Employee e JOIN e.workplace w JOIN w.subarea s JOIN s.area a WHERE a.name = ?1")
     int countByArea(String area);
 
+    int countEmployeesByEmployeeId(String id);
 }

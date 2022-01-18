@@ -102,6 +102,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public Employee save(Employee employee) {
+        employee.setEmployeeId(employee.getEmployeeId());
+        return null;
+    }
+
+    @Override
     public boolean isExisted(String id) {
         return employeeRepository.existsById(id);
     }
@@ -374,5 +380,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public int countByArea(String area) {
         return employeeRepository.countByArea(area);
+    }
+
+    @Override
+    public boolean isExistId(String toString) {
+        return employeeRepository.existsById(toString);
     }
 }
