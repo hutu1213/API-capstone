@@ -26,8 +26,8 @@ import java.util.Set;
 public class JobPosting  {
     @Id
     private String jobPostingId;
-    @Column
-    private String vacancies;
+//    @Column
+//    private String vacancies;
     @Column
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)

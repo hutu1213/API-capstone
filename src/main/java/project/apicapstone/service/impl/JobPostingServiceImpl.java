@@ -33,7 +33,7 @@ public class JobPostingServiceImpl implements JobPostingService {
     public void createJP(CreateJobPostingDto dto) {
         JobPosting newJobPosting = new JobPosting();
         newJobPosting.setJobPostingId(dto.getJobPostingId());
-        newJobPosting.setVacancies(dto.getVacancies());
+       // newJobPosting.setVacancies(dto.getVacancies());
         newJobPosting.setDatePost(dto.getDatePost());
         newJobPosting.setEmploymentInfor(dto.getEmploymentInfor());
         newJobPosting.setJobDescription(dto.getJobDescription());
@@ -71,7 +71,8 @@ public class JobPostingServiceImpl implements JobPostingService {
 
     @Override
     public List<JobPosting> findJobPostingsByIdOrDescriptionOrVacancies(String paramSearch) {
-        return jobPostingRepository.findJobPostingsByIdAndDescriptionAndVacancies(paramSearch);
+        //return jobPostingRepository.findJobPostingsByIdAndDescriptionAndVacancies(paramSearch);
+        return null;
     }
 
     @Override
@@ -82,7 +83,7 @@ public class JobPostingServiceImpl implements JobPostingService {
     @Override
     public void updateJobPosting(UpdateJobPostingDto dto, String jobPostingId) {
         JobPosting updateJobPosting = jobPostingRepository.getById(jobPostingId);
-        updateJobPosting.setVacancies(dto.getVacancies());
+        //updateJobPosting.setVacancies(dto.getVacancies());
         updateJobPosting.setDatePost(dto.getDatePost());
         updateJobPosting.setEmploymentInfor(dto.getEmploymentInfor());
         updateJobPosting.setJobDescription(dto.getJobDescription());

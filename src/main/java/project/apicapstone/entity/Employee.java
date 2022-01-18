@@ -7,7 +7,9 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
 
+
 import javax.persistence.*;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,12 +28,10 @@ public class Employee {
     private String employeeId;
     @Column
     private String employeeName;
-
     @Column
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate dateBirth;
-
     @Column
     private String placeBirth;
     @Column
@@ -108,8 +108,6 @@ public class Employee {
     private Contract contract;
 
 
-
-
     // relationship title - employee 1-N
     @ManyToOne(fetch = FetchType.LAZY) //// test không cần lazy
     //@JsonBackReference
@@ -161,7 +159,7 @@ public class Employee {
     private Set<Probation> probations = new HashSet<>();
 
     //relationship workplace - employee : 1 - N
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     // @JsonIgnore
     @JoinColumn(name = "workplace_id")
     private Workplace workplace;

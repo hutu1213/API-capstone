@@ -54,14 +54,14 @@ public class JobPostingController {
         return ResponseHandler.getResponse(jobPosting, HttpStatus.OK);
     }
 
-    @GetMapping("/search/{paramSearch}")
-    public Object findJobPostingByNameOrId(@PathVariable String paramSearch) {
-        List<JobPosting> jobPostingList = jobPostingService.findJobPostingsByIdOrDescriptionOrVacancies(paramSearch);
-        if (jobPostingList.isEmpty()) {
-            return ResponseHandler.getErrors("Not found ", HttpStatus.NOT_FOUND);
-        }
-        return ResponseHandler.getResponse(jobPostingList, HttpStatus.OK);
-    }
+//    @GetMapping("/search/{paramSearch}")
+//    public Object findJobPostingByNameOrId(@PathVariable String paramSearch) {
+//        List<JobPosting> jobPostingList = jobPostingService.findJobPostingsByIdOrDescriptionOrVacancies(paramSearch);
+//        if (jobPostingList.isEmpty()) {
+//            return ResponseHandler.getErrors("Not found ", HttpStatus.NOT_FOUND);
+//        }
+//        return ResponseHandler.getResponse(jobPostingList, HttpStatus.OK);
+//    }
 
     @DeleteMapping()
     public Object deleteJobPosting(@RequestParam(name = "id") String id) {

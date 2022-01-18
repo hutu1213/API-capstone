@@ -9,10 +9,11 @@ import project.apicapstone.validation.annonation.UniqueJobPostingId;
 
 @Data
 public class CreateJobPostingDto {
+
     @UniqueJobPostingId
     private String jobPostingId;
 
-    private String vacancies;
+//    private String vacancies;
 
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)

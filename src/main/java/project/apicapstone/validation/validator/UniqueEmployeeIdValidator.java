@@ -1,6 +1,6 @@
 package project.apicapstone.validation.validator;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import project.apicapstone.common.util.ValidatorUtils;
 import project.apicapstone.service.EmployeeService;
 import project.apicapstone.validation.annonation.UniqueEmployeeId;
@@ -32,5 +32,6 @@ public class UniqueEmployeeIdValidator implements ConstraintValidator<UniqueEmpl
         } else {
             return true;
         }
+
     }
 }

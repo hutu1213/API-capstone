@@ -8,10 +8,9 @@ import project.apicapstone.validation.annonation.FindTitleId;
 
 @Data
 public class UpdateJobPostingDto {
-
     private String jobPostingId;
 
-    private String vacancies;
+//    private String vacancies;
 
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
