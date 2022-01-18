@@ -3,6 +3,8 @@ package project.apicapstone.controller;
 
 import org.apache.commons.math3.stat.descriptive.summary.Product;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -29,6 +31,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -81,9 +84,9 @@ public class ExcelController {
                 employee.setDateBirth(birthDate);
 
                 employee.setDayOfBirth(birthDate.getDayOfMonth());
-
+                System.out.println("day of month: " + birthDate.getDayOfMonth());
                 employee.setMonthOfBirth(birthDate.getMonthValue());
-
+                System.out.println("month : " + birthDate.getMonthValue());
                 employee.setPlaceBirth(row.getCell(3).getStringCellValue());
 //
                 Integer phone = (int) row.getCell(4).getNumericCellValue();
@@ -130,20 +133,14 @@ public class ExcelController {
                 employee.setBackIdentityCard(row.getCell(18).getStringCellValue());
 
                 employee.setFrontIdentityCard(row.getCell(19).getStringCellValue());
-                //
-                Integer titleId = (int) row.getCell(20).getNumericCellValue();
-                if (titleRepository.existsById(titleId.toString())) {
-                    Title tile = titleRepository.getById(titleId.toString());
-                    employee.setTitle(tile);
+
+                if (titleRepository.existsById(row.getCell(20).getStringCellValue())) {
+                    employee.setTitle(titleRepository.getById(row.getCell(20).getStringCellValue()));
                 } else {
                     return ResponseHandler.getErrors("Không tìm thấy mã chức vụ", HttpStatus.BAD_REQUEST);
                 }
-
-
-                Integer workPlaceId = (int) row.getCell(21).getNumericCellValue();
-                if (workplaceRepository.existsById(workPlaceId.toString())) {
-                    Workplace workplace = workplaceRepository.getById(workPlaceId.toString());
-                    employee.setWorkplace(workplace);
+                if (workplaceRepository.existsById(row.getCell(21).getStringCellValue())) {
+                    employee.setWorkplace(workplaceRepository.getById(row.getCell(21).getStringCellValue()));
                 } else {
                     return ResponseHandler.getErrors("Không tìm thấy mã nơi làm việc", HttpStatus.BAD_REQUEST);
                 }
