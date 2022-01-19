@@ -81,7 +81,12 @@ public class Employee {
     private String backIdentityCard;
     @Column
     private String frontIdentityCard;
-
+    @Column
+    private String placeIssue;
+    @Column
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private String dateIssue;
     //relation employee- timesheet : 1-N
     @OneToMany(mappedBy = "employee")
     @JsonIgnore

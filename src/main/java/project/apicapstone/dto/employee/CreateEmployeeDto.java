@@ -76,7 +76,11 @@ public class CreateEmployeeDto {
     private int dayOfBirth;
 
     private String frontIdentityCard;
+    private String placeIssue;
 
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private String dateIssue;
     @FindTitleId
     private String titleId;
 
