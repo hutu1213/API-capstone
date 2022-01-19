@@ -33,6 +33,16 @@ public class EmployeeController {
         return ResponseHandler.getResponse(employeeService.pagingFormat(employeePage), HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public Object search(@RequestParam(name = "search") String paramSearch, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Employee> employeePage = employeeService.search(paramSearch, pageable);
+        if(paramSearch.isEmpty()){
+            return ResponseHandler.getResponse("Vui lòng nhập", HttpStatus.BAD_REQUEST);
+        }
+        return ResponseHandler.getResponse(employeeService.pagingFormat(employeePage), HttpStatus.OK);
+    }
+
     @GetMapping("/get-all")
     public Object findAll() {
         List<Employee> employees = employeeService.findAllEmployee();
@@ -51,14 +61,15 @@ public class EmployeeController {
 //        //return ResponseEntity.ok(employeeList);
 //        return ResponseHandler.getResponse(employeeList,HttpStatus.OK);
 //    }
-    @GetMapping("/search/{paramSearch}")
-    public Object findEmployeeByNameOrId(@PathVariable String paramSearch) {
-        List<Employee> employeeList = employeeService.findEmployeeByNameOrId(paramSearch);
-        if (employeeList.isEmpty()) {
-            return ResponseHandler.getErrors("Not found ", HttpStatus.NOT_FOUND);
-        }
-        return ResponseHandler.getResponse(employeeList, HttpStatus.OK);
-    }
+//    @GetMapping("/search/{paramSearch}")
+//    public Object findEmployeeByNameOrId(@PathVariable String paramSearch) {
+//        List<Employee> employeeList = employeeService.findEmployeeByNameOrId(paramSearch);
+//        if (employeeList.isEmpty()) {
+//            return ResponseHandler.getErrors("Not found ", HttpStatus.NOT_FOUND);
+//        }
+//        return ResponseHandler.getResponse(employeeList, HttpStatus.OK);
+//    }
+
 
     @PostMapping
     public Object createEmployee(@Valid @RequestBody CreateEmployeeDto dto, BindingResult errors) {
@@ -113,6 +124,7 @@ public class EmployeeController {
         int count = employeeService.countByStatus(status);
         return ResponseHandler.getResponse(count, HttpStatus.OK);
     }
+
     @GetMapping("/count-by-area")
     public Object countByArea(@RequestParam(name = "area") String area) {
         int count = employeeService.countByArea(area);

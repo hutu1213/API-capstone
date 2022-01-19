@@ -44,6 +44,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Page<Employee> findAll(Pageable pageable) {
         return employeeRepository.findAllEmp(pageable);
     }
+    @Override
+    public Page<Employee> search(String paramSearch, Pageable pageable) {
+        return employeeRepository.search(paramSearch,pageable);
+    }
 
     @Override
     public List<Employee> findEmployeeByName(String employeeName) {
@@ -389,4 +393,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public boolean isExistId(String toString) {
         return employeeRepository.existsById(toString);
     }
+
+
+
 }

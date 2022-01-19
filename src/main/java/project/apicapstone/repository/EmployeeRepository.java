@@ -27,6 +27,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     @Query("SELECT e FROM Employee e")
     Page<Employee> findAllEmp(Pageable pageable);
 
+    @Query("SELECT e FROM Employee e WHERE e.employeeName LIKE %?1% OR e.employeeId LIKE %?1%")
+    Page<Employee> search(String paramSearch,Pageable pageable);
+
     int countByCreateDateBetweenAndWorkingStatusNotContains(LocalDate start, LocalDate end, String workingStatus);
 
     int countByCreateDateBetween(LocalDate start, LocalDate end);

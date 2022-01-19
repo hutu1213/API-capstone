@@ -76,6 +76,7 @@ public class CreateEmployeeDto {
     private int dayOfBirth;
 
     private String frontIdentityCard;
+
     private String placeIssue;
 
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
