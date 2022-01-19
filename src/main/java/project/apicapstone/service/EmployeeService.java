@@ -56,4 +56,7 @@ public interface EmployeeService {
     int countByArea(String area);
 
     boolean isExistId(String toString);
+
+
+    Page<Employee> search(String paramSearch, Pageable pageable);
 }
