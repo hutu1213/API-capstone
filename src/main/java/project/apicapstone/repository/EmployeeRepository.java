@@ -27,8 +27,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     @Query("SELECT e FROM Employee e")
     Page<Employee> findAllEmp(Pageable pageable);
 
-    @Query("SELECT e FROM Employee e WHERE e.employeeName LIKE %?1% OR e.employeeId LIKE %?1%")
-    Page<Employee> search(String paramSearch,Pageable pageable);
+    //@Query("select u from User u where lower(u.name) like lower(concat('%', ?1,'%'))")
+    @Query("SELECT e FROM Employee e WHERE lower(e.employeeName)  LIKE lower(concat('%', ?1,'%'))  OR e.employeeId LIKE %?1%")
+    Page<Employee> search(String paramSearch, Pageable pageable);
 
     int countByCreateDateBetweenAndWorkingStatusNotContains(LocalDate start, LocalDate end, String workingStatus);
 
@@ -50,4 +51,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     int countByArea(String area);
 
     int countEmployeesByEmployeeId(String id);
+
+    List<Employee> findByEmployeeNameIgnoreCase(String name);
 }

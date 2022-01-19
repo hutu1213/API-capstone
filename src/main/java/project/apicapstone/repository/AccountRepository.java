@@ -28,4 +28,6 @@ public interface AccountRepository extends JpaRepository<Account, String> {
 
     @Query("SELECT t.jobTitle FROM Account a JOIN a.employee e JOIN e.title t WHERE a.username = ?1")
     String findTitleByUsername(String username);
+
+
 }

@@ -20,4 +20,7 @@ public interface DependantRepository extends JpaRepository<Dependant,String> {
 
     @Query("SELECT d FROM Dependant d WHERE d.dependantName LIKE %?1% OR d.dependantId LIKE %?1%")
     List<Dependant> findDependantsByNameOrId(String paramSearch);
+
+    @Query("SELECT d FROM Dependant d WHERE d.dependantName LIKE %?1% OR d.dependantId LIKE %?1%")
+    Page<Dependant> search(String paramSearch, Pageable pageable);
 }
