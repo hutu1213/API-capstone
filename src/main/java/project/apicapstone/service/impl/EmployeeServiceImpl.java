@@ -86,7 +86,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         addEmployee.setBackIdentityCard(dto.getBackIdentityCard());
         addEmployee.setFrontIdentityCard(dto.getFrontIdentityCard());
-
+        addEmployee.setPlaceIssue(dto.getPlaceIssue());
+        addEmployee.setDateIssue(dto.getDateIssue());
         addEmployee.setWorkplace(workplaceRepository.getById(dto.getWorkplaceId()));
 
         Title title = titleRepository.getById(dto.getTitleId());
@@ -150,6 +151,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         updateEmployee.setUpdateDate(LocalDate.now());
         updateEmployee.setBackIdentityCard(dto.getBackIdentityCard());
         updateEmployee.setFrontIdentityCard(dto.getFrontIdentityCard());
+        updateEmployee.setPlaceIssue(dto.getPlaceIssue());
+        updateEmployee.setDateIssue(dto.getDateIssue());
         updateEmployee.setTitle(titleRepository.getById(dto.getTitleId()));
         employeeRepository.save(updateEmployee);
     }
