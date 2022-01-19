@@ -49,7 +49,6 @@ public class ContractServiceImpl implements ContractService {
         Employee employee = employeeRepository.getById(dto.getEmployeeId());
         addContract.setEmployee(employee);
 
-        addContract.setEmployee(employeeRepository.getById(dto.getEmployeeId2()));
         return contractRepository.save(addContract);
     }
 
