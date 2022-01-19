@@ -137,12 +137,12 @@ public class ExcelController {
                 if (titleRepository.existsById(row.getCell(20).getStringCellValue())) {
                     employee.setTitle(titleRepository.getById(row.getCell(20).getStringCellValue()));
                 } else {
-                    return ResponseHandler.getErrors("Không tìm thấy mã chức vụ", HttpStatus.BAD_REQUEST);
+                    return ResponseHandler.getErrors("Không tìm thấy mã chức vụ: " + row.getCell(20).getStringCellValue(), HttpStatus.BAD_REQUEST);
                 }
                 if (workplaceRepository.existsById(row.getCell(21).getStringCellValue())) {
                     employee.setWorkplace(workplaceRepository.getById(row.getCell(21).getStringCellValue()));
                 } else {
-                    return ResponseHandler.getErrors("Không tìm thấy mã nơi làm việc", HttpStatus.BAD_REQUEST);
+                    return ResponseHandler.getErrors("Không tìm thấy mã nơi làm việc: "+row.getCell(21).getStringCellValue(), HttpStatus.BAD_REQUEST);
                 }
 
                 employeeList.add(employee);
