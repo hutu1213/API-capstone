@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import project.apicapstone.entity.Area;
+import project.apicapstone.entity.Position;
 import project.apicapstone.entity.Subarea;
 import project.apicapstone.entity.Workplace;
 
@@ -20,4 +21,7 @@ public interface SubareaRepository extends JpaRepository<Subarea,String> {
     @Transactional(readOnly = true)
     @Query("SELECT e FROM Subarea e")
     Page<Subarea> findAllSubarea(Pageable pageable);
+
+    @Query("SELECT e FROM Subarea e WHERE e.name LIKE %?1% OR e.subareaId LIKE %?1%")
+    Page<Subarea> search(String paramSearch, Pageable pageable);
 }

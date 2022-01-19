@@ -19,4 +19,7 @@ public interface ApplicantRepository extends JpaRepository<Applicant,String> {
 
     @Query("SELECT e FROM Applicant e WHERE e.applicantName LIKE %?1% OR e.applicantId LIKE %?1%")
     List<Applicant> findApplicantsByNameOrId(String paramSearch);
+
+    @Query("SELECT e FROM Applicant e WHERE e.applicantName LIKE %?1% OR e.applicantId LIKE %?1%")
+    Page<Applicant> search(String paramSearch,Pageable pageable);
 }

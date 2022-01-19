@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import project.apicapstone.entity.Contract;
 import project.apicapstone.entity.Department;
 import project.apicapstone.entity.Employee;
 
@@ -20,4 +21,7 @@ public interface DepartmentRepository extends JpaRepository<Department, String> 
 
     @Query("SELECT e FROM Department e WHERE e.departmentName LIKE %?1% OR e.departmentId LIKE %?1%")
     List<Department> findDepartmentsByNameOrId(String paramSearch);
+
+    @Query("SELECT e FROM Department e WHERE e.departmentName LIKE %?1% OR e.departmentId LIKE %?1%")
+    Page<Department> search(String paramSearch, Pageable pageable);
 }

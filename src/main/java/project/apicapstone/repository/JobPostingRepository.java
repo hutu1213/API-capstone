@@ -20,4 +20,5 @@ public interface JobPostingRepository extends JpaRepository<JobPosting,String> {
 
 //    @Query("SELECT j FROM JobPosting j WHERE j.jobDescription LIKE %?1% OR j.jobPostingId LIKE %?1% OR j.vacancies LIKE %?1% ")
 //    List<JobPosting> findJobPostingsByIdAndDescriptionAndVacancies(String paramSearch);
+
 }

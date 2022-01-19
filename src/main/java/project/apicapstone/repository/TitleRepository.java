@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import project.apicapstone.entity.Allowance;
+import project.apicapstone.entity.Task;
 import project.apicapstone.entity.Title;
 
 import java.util.List;
@@ -22,4 +23,7 @@ public interface TitleRepository extends JpaRepository<Title, String> {
 
     @Query("SELECT t FROM Title t JOIN t.department d JOIN t.position p WHERE p.positionId = ?1 AND d.departmentId =?2")
     Title findTitleByPositionIdAndDepartmentId(String positionId, String departmentId);
+
+    @Query("SELECT t FROM Title t WHERE t.jobTitle LIKE %?1% OR t.titleId LIKE %?1%")
+    Page<Title> search(String paramSearch, Pageable pageable);
 }
