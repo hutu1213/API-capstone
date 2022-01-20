@@ -74,4 +74,5 @@ public class AreaController {
         }
         return ResponseHandler.getResponse(areaList, HttpStatus.OK);
     }
+
 }
