@@ -20,7 +20,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     List<Employee> findEmployeesByEmployeeNameContains(String employeeName);
 
     //
-    @Query("SELECT e FROM Employee e WHERE e.employeeName LIKE %?1% OR e.employeeId LIKE %?1%")
+    @Query("SELECT e FROM Employee e WHERE lower(e.employeeName)  LIKE lower(concat('%', ?1,'%'))  OR e.employeeId LIKE %?1%")
     List<Employee> findEmployeesByNameOrId(String paramSearch);
 
     @Transactional(readOnly = true)
