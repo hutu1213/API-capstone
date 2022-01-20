@@ -70,7 +70,6 @@ public class EmployeeController {
         return ResponseHandler.getResponse(employeeList, HttpStatus.OK);
     }
 
-
     @PostMapping
     public Object createEmployee(@Valid @RequestBody CreateEmployeeDto dto, BindingResult errors) {
         if (errors.hasErrors()) {

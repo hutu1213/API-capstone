@@ -106,11 +106,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return listSearch;
     }
 
-    @Override
-    public Employee save(Employee employee) {
-        employee.setEmployeeId(employee.getEmployeeId());
-        return null;
-    }
+
 
     @Override
     public boolean isExisted(String id) {

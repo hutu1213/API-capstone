@@ -75,4 +75,10 @@ public class SubareaController {
         }
         return ResponseHandler.getResponse(subareaList, HttpStatus.OK);
     }
+    @GetMapping("/get-by-area/{id}")
+    public Object getByAreaId(@PathVariable("id") String id) {
+      List<Subarea> subareaList = subareaService.findSubareaByAreaId(id);
+        return ResponseHandler.getResponse(subareaList, HttpStatus.OK);
+    }
+
 }
