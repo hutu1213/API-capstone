@@ -4,7 +4,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.parameters.P;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
@@ -34,7 +33,7 @@ public class EmployeeController {
         return ResponseHandler.getResponse(employeeService.pagingFormat(employeePage), HttpStatus.OK);
     }
 
-    @GetMapping("/search/{paramSearch}")
+    @GetMapping("/search-paging/{paramSearch}")
     public Object search(@PathVariable String paramSearch, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Employee> employeePage = employeeService.search(paramSearch, pageable);
@@ -62,14 +61,14 @@ public class EmployeeController {
 //        //return ResponseEntity.ok(employeeList);
 //        return ResponseHandler.getResponse(employeeList,HttpStatus.OK);
 //    }
-//    @GetMapping("/search/{paramSearch}")
-//    public Object findEmployeeByNameOrId(@PathVariable String paramSearch) {
-//        List<Employee> employeeList = employeeService.findEmployeeByNameOrId(paramSearch);
-//        if (employeeList.isEmpty()) {
-//            return ResponseHandler.getErrors("Not found ", HttpStatus.NOT_FOUND);
-//        }
-//        return ResponseHandler.getResponse(employeeList, HttpStatus.OK);
-//    }
+    @GetMapping("/search/{paramSearch}")
+    public Object findEmployeeByNameOrId(@PathVariable String paramSearch) {
+        List<Employee> employeeList = employeeService.findEmployeeByNameOrId(paramSearch);
+        if (employeeList.isEmpty()) {
+            return ResponseHandler.getErrors("Not found ", HttpStatus.NOT_FOUND);
+        }
+        return ResponseHandler.getResponse(employeeList, HttpStatus.OK);
+    }
 
 
     @PostMapping
