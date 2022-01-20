@@ -24,7 +24,7 @@ public interface EmployeeService {
 
     List<Employee> findEmployeeByNameOrId(String paramSearch);
 
-    Employee save(Employee employee);
+
 
     boolean isExisted(String s);
 
@@ -56,7 +56,6 @@ public interface EmployeeService {
     int countByArea(String area);
 
     boolean isExistId(String toString);
-
 
     Page<Employee> search(String paramSearch, Pageable pageable);
 }

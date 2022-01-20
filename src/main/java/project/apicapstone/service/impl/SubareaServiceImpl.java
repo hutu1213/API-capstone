@@ -82,4 +82,9 @@ public class SubareaServiceImpl implements SubareaService {
         dto.setRecords(subareaPage.toList());
         return dto;
     }
+
+    @Override
+    public List<Subarea> findSubareaByAreaId(String id) {
+        return subareaRepository.findAllByAreaAreaId(id);
+    }
 }

@@ -24,4 +24,6 @@ public interface SubareaRepository extends JpaRepository<Subarea,String> {
 
     @Query("SELECT e FROM Subarea e WHERE e.name LIKE %?1% OR e.subareaId LIKE %?1%")
     Page<Subarea> search(String paramSearch, Pageable pageable);
+
+    List<Subarea> findAllByAreaAreaId(String id);
 }

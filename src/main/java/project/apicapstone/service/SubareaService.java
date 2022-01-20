@@ -26,4 +26,6 @@ public interface SubareaService {
     Page<Subarea> findAllSubarea(Pageable pageable);
 
     Object pagingFormat(Page<Subarea> subareaPage);
+
+    List<Subarea> findSubareaByAreaId(String id);
 }
