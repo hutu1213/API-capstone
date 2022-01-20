@@ -67,16 +67,24 @@ public class WorkplaceController {
         workplaceService.updateWorkplace(dto, dto.getWorkplaceId());
         return ResponseHandler.getResponse(HttpStatus.OK);
     }
+
     @GetMapping("/get-by-id/{id}")
     public Object findWorkplaceById(@PathVariable("id") String id) {
         Workplace workplace = workplaceService.findWorkplaceById(id);
         return ResponseHandler.getResponse(workplace, HttpStatus.OK);
     }
+
+    @GetMapping("/get-by-subarea/{id}")
+    public Object getBySubarea(@PathVariable("id") String id) {
+        List<Workplace> workplaceLis = workplaceService.getBySubarea(id);
+        return ResponseHandler.getResponse(workplaceLis, HttpStatus.OK);
+    }
+
     @GetMapping("/search/{paramSearch}")
     public Object findWorkplaceByNameOrId(@PathVariable String paramSearch) {
         List<Workplace> workplaceList = workplaceService.findWorkplaceByNameOrId(paramSearch);
         if (workplaceList.isEmpty()) {
-            return ResponseHandler.getErrors("Not found ", HttpStatus.NOT_FOUND);
+            return ResponseHandler.getErrors("Not found", HttpStatus.NOT_FOUND);
         }
         return ResponseHandler.getResponse(workplaceList, HttpStatus.OK);
     }

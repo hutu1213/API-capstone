@@ -26,4 +26,6 @@ public interface WorkplaceRepository extends JpaRepository<Workplace,String> {
 
     @Query("SELECT e FROM Workplace e WHERE e.name LIKE %?1% OR e.workplaceId LIKE %?1%")
     Page<Workplace> search(String paramSearch, Pageable pageable);
+
+    List<Workplace> findAllBySubareaSubareaId(String id);
 }
