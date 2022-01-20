@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.parameters.P;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
@@ -33,13 +34,13 @@ public class EmployeeController {
         return ResponseHandler.getResponse(employeeService.pagingFormat(employeePage), HttpStatus.OK);
     }
 
-    @GetMapping("/search")
-    public Object search(@RequestParam(name = "search") String paramSearch, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+    @GetMapping("/search/{paramSearch}")
+    public Object search(@PathVariable String paramSearch, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Employee> employeePage = employeeService.search(paramSearch, pageable);
-        if(paramSearch.isEmpty()){
-            return ResponseHandler.getResponse("Vui lòng nhập", HttpStatus.BAD_REQUEST);
-        }
+//        if(paramSearch.isEmpty()){
+//            return ResponseHandler.getResponse("Vui lòng nhập", HttpStatus.BAD_REQUEST);
+//        }
         return ResponseHandler.getResponse(employeeService.pagingFormat(employeePage), HttpStatus.OK);
     }
 
