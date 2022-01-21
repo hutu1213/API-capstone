@@ -154,6 +154,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         updateEmployee.setPlaceIssue(dto.getPlaceIssue());
         updateEmployee.setDateIssue(dto.getDateIssue());
         updateEmployee.setTitle(titleRepository.getById(dto.getTitleId()));
+        updateEmployee.setWorkplace(workplaceRepository.getById(dto.getWorkplaceId()));
         employeeRepository.save(updateEmployee);
     }
 
