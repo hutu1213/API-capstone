@@ -5,10 +5,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
 import project.apicapstone.entity.util.WorkingStatus;
-import project.apicapstone.validation.annonation.CheckEmployeeId;
-import project.apicapstone.validation.annonation.CheckPhoneNumber;
-import project.apicapstone.validation.annonation.FindTitleId;
-import project.apicapstone.validation.annonation.UniqueEmployeeId;
+import project.apicapstone.validation.annonation.*;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
@@ -75,4 +72,6 @@ public class UpdateEmployeeDto {
     private String dateIssue;
     @FindTitleId
     private String titleId;
+    @FindWorkPlaceId
+    private String workplaceId;
 }
