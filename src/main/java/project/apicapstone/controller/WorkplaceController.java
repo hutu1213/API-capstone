@@ -88,4 +88,10 @@ public class WorkplaceController {
         }
         return ResponseHandler.getResponse(workplaceList, HttpStatus.OK);
     }
+    @GetMapping("/search-paging/{paramSearch}")
+    public Object search(@PathVariable String paramSearch, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Workplace> workplacePage = workplaceService.search(paramSearch, pageable);
+        return ResponseHandler.getResponse(workplaceService.pagingFormat(workplacePage), HttpStatus.OK);
+    }
 }

@@ -11,11 +11,13 @@ import javax.validation.constraints.NotBlank;
 public class CreateAllowanceDto {
     @UniqueAllowanceId
     private String allowanceId;
-    //@NotBlank(message = "{allowance.name.not-blank}")
+
     private String allowanceName;
-    //@NotBlank(message = "{allowance.type.not-blank}")
+
     private String type;
+
     private float amount;
+
     @FindContractId
     private String contractId;
 }

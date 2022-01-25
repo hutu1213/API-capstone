@@ -58,7 +58,6 @@ public class EmployeeController {
     //    @GetMapping("")
 //    public Object findEmployee(@RequestParam String employeeName) {
 //        List<Employee> employeeList = employeeService.findEmployeeByName(employeeName);
-//        //return ResponseEntity.ok(employeeList);
 //        return ResponseHandler.getResponse(employeeList,HttpStatus.OK);
 //    }
     @GetMapping("/search/{paramSearch}")
@@ -142,10 +141,6 @@ public class EmployeeController {
         return ResponseHandler.getResponse(result, HttpStatus.OK);
     }
 
-    @GetMapping("/check-birth")
-    public Object checkBirth() {
-        List<Employee> employee = employeeService.getBirth();
-        return ResponseHandler.getResponse(employee, HttpStatus.OK);
-    }
+
 
 }

@@ -26,4 +26,8 @@ public interface AllowanceService {
     Allowance findAllowanceById(String id);
 
     List<Allowance> findAllowanceByNameOrId(String paramSearch);
+
+    Page<Allowance> search(String paramSearch, Pageable pageable);
+
+    Page<Allowance> getByContractId(String id, Pageable pageable);
 }

@@ -23,4 +23,7 @@ public interface AllowanceRepository extends JpaRepository<Allowance,String> {
     @Query("SELECT e FROM Allowance e WHERE lower(e.allowanceName)  LIKE lower(concat('%', ?1,'%'))  OR e.allowanceId LIKE %?1%")
     Page<Allowance> search(String paramSearch,Pageable pageable);
 
+
+    Page<Allowance> getAllByContractContractId(String id,Pageable pageable);
+
 }

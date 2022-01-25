@@ -81,4 +81,16 @@ public class AllowanceController {
         }
         return ResponseHandler.getResponse(allowanceList, HttpStatus.OK);
     }
+    @GetMapping("/search-paging/{paramSearch}")
+    public Object search(@PathVariable String paramSearch, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Allowance> allowancePage = allowanceService.search(paramSearch, pageable);
+        return ResponseHandler.getResponse(allowanceService.pagingFormat(allowancePage), HttpStatus.OK);
+    }
+    @GetMapping("/get-by-contract-id/{id}")
+    public Object getByContractId(@PathVariable("id") String id, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size){
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Allowance> allowancePage = allowanceService.getByContractId(id, pageable);
+        return ResponseHandler.getResponse(allowanceService.pagingFormat(allowancePage),HttpStatus.OK);
+    }
 }

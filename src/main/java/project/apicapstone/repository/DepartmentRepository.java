@@ -19,9 +19,10 @@ public interface DepartmentRepository extends JpaRepository<Department, String> 
     @Query("SELECT d FROM Department d")
     Page<Department> findALlDepartment(Pageable pageable);
 
-    @Query("SELECT e FROM Department e WHERE e.departmentName LIKE %?1% OR e.departmentId LIKE %?1%")
+    @Query("SELECT c FROM Department c WHERE lower(c.departmentName)  LIKE lower(concat('%', ?1,'%')) OR c.departmentId LIKE %?1%")
     List<Department> findDepartmentsByNameOrId(String paramSearch);
 
-    @Query("SELECT e FROM Department e WHERE e.departmentName LIKE %?1% OR e.departmentId LIKE %?1%")
+
+    @Query("SELECT c FROM Department c WHERE lower(c.departmentName)  LIKE lower(concat('%', ?1,'%')) OR c.departmentId LIKE %?1%")
     Page<Department> search(String paramSearch, Pageable pageable);
 }

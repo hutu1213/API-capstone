@@ -12,6 +12,7 @@ import project.apicapstone.repository.JobPostingRepository;
 import project.apicapstone.repository.TitleRepository;
 import project.apicapstone.service.JobPostingService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -30,18 +31,19 @@ public class JobPostingServiceImpl implements JobPostingService {
     }
 
     @Override
-    public void createJP(CreateJobPostingDto dto) {
+    public JobPosting createJP(CreateJobPostingDto dto) {
         JobPosting newJobPosting = new JobPosting();
         newJobPosting.setJobPostingId(dto.getJobPostingId());
-       // newJobPosting.setVacancies(dto.getVacancies());
         newJobPosting.setDatePost(dto.getDatePost());
-        newJobPosting.setEmploymentInfor(dto.getEmploymentInfor());
+        newJobPosting.setCreateDate(LocalDate.now());
         newJobPosting.setJobDescription(dto.getJobDescription());
         newJobPosting.setJobRequirements(dto.getJobRequirements());
         newJobPosting.setStatus(dto.getStatus());
+        newJobPosting.setBenefit(dto.getBenefit());
+        newJobPosting.setPostTitle(dto.getPostTitle());
         Title title = titleRepository.getById(dto.getTitleId());
         newJobPosting.setTitle(title);
-        jobPostingRepository.save(newJobPosting);
+       return jobPostingRepository.save(newJobPosting);
     }
 
     @Override
@@ -76,6 +78,11 @@ public class JobPostingServiceImpl implements JobPostingService {
     }
 
     @Override
+    public Page<JobPosting> search(String paramSearch, Pageable pageable) {
+        return jobPostingRepository.search(paramSearch,pageable);
+    }
+
+    @Override
     public void deleteById(String id) {
         jobPostingRepository.deleteById(id);
     }
@@ -83,12 +90,12 @@ public class JobPostingServiceImpl implements JobPostingService {
     @Override
     public void updateJobPosting(UpdateJobPostingDto dto, String jobPostingId) {
         JobPosting updateJobPosting = jobPostingRepository.getById(jobPostingId);
-        //updateJobPosting.setVacancies(dto.getVacancies());
         updateJobPosting.setDatePost(dto.getDatePost());
-        updateJobPosting.setEmploymentInfor(dto.getEmploymentInfor());
         updateJobPosting.setJobDescription(dto.getJobDescription());
         updateJobPosting.setJobRequirements(dto.getJobRequirements());
         updateJobPosting.setStatus(dto.getStatus());
+        updateJobPosting.setBenefit(dto.getBenefit());
+        updateJobPosting.setPostTitle(dto.getPostTitle());
         Title title = titleRepository.getById(dto.getTitleId());
         updateJobPosting.setTitle(title);
         jobPostingRepository.save(updateJobPosting);
