@@ -27,4 +27,8 @@ public interface DependantService {
     Dependant findDependantById(String id);
 
     List<Dependant> findDependantByNameOrId(String paramSearch);
+
+    Page<Dependant> search(String paramSearch, Pageable pageable);
+
+    Page<Dependant> getByEmployeeId(String id, Pageable pageable);
 }

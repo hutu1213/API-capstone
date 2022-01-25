@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import project.apicapstone.entity.Account;
 import project.apicapstone.entity.Applicant;
+import project.apicapstone.entity.Contract;
 
 import java.util.List;
 
@@ -17,9 +18,9 @@ public interface ApplicantRepository extends JpaRepository<Applicant,String> {
     @Query("SELECT e FROM Applicant e")
     Page<Applicant> findAllApplicant(Pageable pageable);
 
-    @Query("SELECT e FROM Applicant e WHERE e.applicantName LIKE %?1% OR e.applicantId LIKE %?1%")
+    @Query("SELECT c FROM Applicant c WHERE lower(c.applicantName)  LIKE lower(concat('%', ?1,'%')) OR c.applicantId LIKE %?1%")
     List<Applicant> findApplicantsByNameOrId(String paramSearch);
 
-    @Query("SELECT e FROM Applicant e WHERE e.applicantName LIKE %?1% OR e.applicantId LIKE %?1%")
-    Page<Applicant> search(String paramSearch,Pageable pageable);
+    @Query("SELECT c FROM Applicant c WHERE lower(c.applicantName)  LIKE lower(concat('%', ?1,'%')) OR c.applicantId LIKE %?1%")
+    Page<Applicant> search(String paramSearch, Pageable pageable);
 }

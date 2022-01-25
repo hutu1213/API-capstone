@@ -10,6 +10,7 @@ import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.dto.applicant.CreateApplicantDto;
 import project.apicapstone.dto.applicant.UpdateApplicantDto;
 import project.apicapstone.entity.Applicant;
+import project.apicapstone.entity.Contract;
 import project.apicapstone.service.ApplicantService;
 
 import javax.validation.Valid;
@@ -76,5 +77,11 @@ public class ApplicantController {
     public Object deleteApplicant(@RequestParam(name = "id") String id) {
         applicantService.deleteById(id);
         return ResponseHandler.getResponse(HttpStatus.OK);
+    }
+    @GetMapping("/search-paging/{paramSearch}")
+    public Object search(@PathVariable String paramSearch, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Applicant> applicantPage = applicantService.search(paramSearch, pageable);
+        return ResponseHandler.getResponse(applicantService.pagingFormat(applicantPage), HttpStatus.OK);
     }
 }

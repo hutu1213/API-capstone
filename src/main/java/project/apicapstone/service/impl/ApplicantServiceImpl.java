@@ -99,4 +99,9 @@ public class ApplicantServiceImpl implements ApplicantService {
     public void deleteById(String id) {
         applicantRepository.deleteById(id);
     }
+
+    @Override
+    public Page<Applicant> search(String paramSearch, Pageable pageable) {
+        return applicantRepository.search(paramSearch,pageable);
+    }
 }

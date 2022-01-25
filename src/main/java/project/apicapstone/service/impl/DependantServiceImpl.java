@@ -18,10 +18,11 @@ import java.util.List;
 @Service
 public class DependantServiceImpl implements DependantService {
     private DependantRepository dependantRepository;
-private EmployeeRepository employeeRepository;
-    public DependantServiceImpl(DependantRepository dependantRepository,EmployeeRepository employeeRepository) {
+    private EmployeeRepository employeeRepository;
+
+    public DependantServiceImpl(DependantRepository dependantRepository, EmployeeRepository employeeRepository) {
         this.dependantRepository = dependantRepository;
-        this.employeeRepository=employeeRepository;
+        this.employeeRepository = employeeRepository;
     }
 
     @Override
@@ -80,7 +81,7 @@ private EmployeeRepository employeeRepository;
         updateDependant.setNationality(dto.getNationality());
         Employee employee = employeeRepository.getById(dto.getEmployeeId());
         updateDependant.setEmployee(employee);
-         dependantRepository.save(updateDependant);
+        dependantRepository.save(updateDependant);
     }
 
     @Override
@@ -91,5 +92,15 @@ private EmployeeRepository employeeRepository;
     @Override
     public List<Dependant> findDependantByNameOrId(String paramSearch) {
         return dependantRepository.findDependantsByNameOrId(paramSearch);
+    }
+
+    @Override
+    public Page<Dependant> search(String paramSearch, Pageable pageable) {
+        return dependantRepository.search(paramSearch, pageable);
+    }
+
+    @Override
+    public Page<Dependant> getByEmployeeId(String id, Pageable pageable) {
+        return dependantRepository.getAllByEmployeeEmployeeId(id,pageable);
     }
 }

@@ -12,6 +12,7 @@ import project.apicapstone.dto.contract.UpdateContractDto;
 
 import project.apicapstone.entity.Contract;
 
+import project.apicapstone.entity.Employee;
 import project.apicapstone.service.ContractService;
 
 
@@ -78,4 +79,12 @@ public class ContractController {
         }
         return ResponseHandler.getResponse(contractList, HttpStatus.OK);
     }
+    @GetMapping("/search-paging/{paramSearch}")
+    public Object search(@PathVariable String paramSearch, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Contract> contractPage = contractService.search(paramSearch, pageable);
+        return ResponseHandler.getResponse(contractService.pagingFormat(contractPage), HttpStatus.OK);
+    }
+
+
 }

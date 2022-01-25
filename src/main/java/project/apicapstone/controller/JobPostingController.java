@@ -11,6 +11,7 @@ import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.dto.jobPosting.CreateJobPostingDto;
 import project.apicapstone.dto.jobPosting.UpdateJobPostingDto;
 
+import project.apicapstone.entity.Contract;
 import project.apicapstone.entity.JobPosting;
 import project.apicapstone.service.JobPostingService;
 
@@ -44,8 +45,8 @@ public class JobPostingController {
         if (errors.hasErrors()) {
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
         }
-        jobPostingService.createJP(dto);
-        return ResponseHandler.getResponse(HttpStatus.CREATED);
+       JobPosting jobPosting= jobPostingService.createJP(dto);
+        return ResponseHandler.getResponse(jobPosting,HttpStatus.CREATED);
     }
 
     @GetMapping("/get-by-id/{id}")
@@ -76,5 +77,12 @@ public class JobPostingController {
         }
         jobPostingService.updateJobPosting(dto, dto.getJobPostingId());
         return ResponseHandler.getResponse(HttpStatus.OK);
+    }
+
+    @GetMapping("/search-paging/{paramSearch}")
+    public Object search(@PathVariable String paramSearch, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<JobPosting> jobPostingPage = jobPostingService.search(paramSearch, pageable);
+        return ResponseHandler.getResponse(jobPostingService.pagingFormat(jobPostingPage), HttpStatus.OK);
     }
 }

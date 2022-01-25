@@ -27,4 +27,6 @@ public interface DepartmentService {
     void deleteById(String id);
 
     void updateDepartment(UpdateDepartmentDto dto, String departmentId);
+
+    Page<Department> search(String paramSearch, Pageable pageable);
 }

@@ -12,7 +12,7 @@ import java.util.List;
 public interface JobPostingService {
     boolean isExisted(String s);
 
-    void createJP(CreateJobPostingDto dto);
+    JobPosting createJP(CreateJobPostingDto dto);
 
     List<JobPosting> findAll();
 
@@ -29,4 +29,6 @@ public interface JobPostingService {
     void updateJobPosting(UpdateJobPostingDto dto, String jobPostingId);
 
     List<JobPosting> findJobPostingsByIdOrDescriptionOrVacancies(String paramSearch);
+
+    Page<JobPosting> search(String paramSearch, Pageable pageable);
 }
