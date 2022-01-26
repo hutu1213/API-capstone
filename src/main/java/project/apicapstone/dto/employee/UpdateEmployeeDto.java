@@ -28,7 +28,7 @@ public class UpdateEmployeeDto {
 
     private String placeBirth;
 
-    @CheckPhoneNumber
+    //@CheckPhoneNumber
     private String phone;
 
     private String gender;
