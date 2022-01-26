@@ -35,7 +35,7 @@ public class CreateEmployeeDto {
 
     private String placeBirth;
 
-    @CheckPhoneNumber
+    //@CheckPhoneNumber
     private String phone;
 
     private String gender;
