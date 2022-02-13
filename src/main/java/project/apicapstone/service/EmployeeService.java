@@ -58,4 +58,8 @@ public interface EmployeeService {
     boolean isExistId(String toString);
 
     Page<Employee> search(String paramSearch, Pageable pageable);
+
+    List<Employee> getByCourseId(String id);
+
+    boolean findByCourseIdAndEmployeeId(String courseId, String employeeId);
 }

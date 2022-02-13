@@ -7,11 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import project.apicapstone.entity.Criteria;
-
+import project.apicapstone.entity.TrainingCourse;
 @Repository
-public interface CriteriaRepository extends JpaRepository<Criteria,String> {
+public interface TrainingCourseRepository extends JpaRepository<TrainingCourse,String> {
     @Transactional(readOnly = true)
-    @Query("SELECT e FROM Criteria e")
-    Page<Criteria> findAllCriteria(Pageable pageable);
+    @Query("SELECT e FROM TrainingCourse e")
+    Page<TrainingCourse> findAllCourse(Pageable pageable);
+
+
 }

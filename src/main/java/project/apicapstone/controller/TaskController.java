@@ -79,4 +79,11 @@ public class TaskController {
         }
         return ResponseHandler.getResponse(taskList, HttpStatus.OK);
     }
+    @GetMapping("/search-paging/{paramSearch}")
+    public Object search(@PathVariable String paramSearch, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Task> taskPage = taskService.search(paramSearch, pageable);
+
+        return ResponseHandler.getResponse(taskService.pagingFormat(taskPage), HttpStatus.OK);
+    }
 }

@@ -25,7 +25,7 @@ public class UpdateApplicantDto {
     //@NotBlank(message = "{applicant.address.not-blank}")
     private String address;
 
-    @CheckPhoneNumber
+    //@CheckPhoneNumber
     private String phone;
 
     //@NotBlank(message = "{applicant.gender.not-blank}")
@@ -40,7 +40,11 @@ public class UpdateApplicantDto {
     private String status;
 
     private String resumeFile;
+    private String scanData;
 
+    private float evaluateScore;
+
+    private String stage;
     @FindJobPostingId
     private String jobPostingId;
 }

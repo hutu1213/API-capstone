@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -30,23 +31,30 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        //Account account = repository.findByUsername(username);
-        Account account = repository.findByUsernameAndStatus(username, status);
-
-//        if (account == null) {
-//            //throw new ResourceBadRequestException("Username is not found");
-//            throw new UsernameNotFoundException("username is not fount");
-//        }
-//        if (!account.getStatus().equals("ACTIVE")) {
-//            //throw new UsernameNotFoundException("not active");
-//            throw new ResourceBadRequestException("Account not active");
-//        }
-        Set<GrantedAuthority> authorities = getAuthorities(account.getRoles());
-        return new UserDetailsDto(username, account.getPassword(), authorities);
+//        //Account account = repository.findByUsername(username);
+//        Account account = repository.findByUsernameAndStatus(username, status);
+//
+////        if (account == null) {
+////            //throw new ResourceBadRequestException("Username is not found");
+////            throw new UsernameNotFoundException("username is not fount");
+////        }
+////        if (!account.getStatus().equals("ACTIVE")) {
+////            //throw new UsernameNotFoundException("not active");
+////            throw new ResourceBadRequestException("Account not active");
+////        }
+//
+//        Set<GrantedAuthority> authorities = getAuthorities(account.getRoles());
+//        return new UserDetailsDto(username, account.getPassword(), authorities);
+        Optional<Account> account = repository.findByUsernameWithRoles(username);
+        Set<GrantedAuthority> authorities = getAuthorities(account.get().getRoles());
+        if (!account.isPresent()) {
+            throw new UsernameNotFoundException("Username is not existed");
+        }
+        return new UserDetailsDto(username, account.get().getPassword(), authorities);
     }
 
     private Set<GrantedAuthority> getAuthorities(Set<Role> roles) {
-        Set<GrantedAuthority> authorities = new HashSet<>();
+        Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
         for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
         }

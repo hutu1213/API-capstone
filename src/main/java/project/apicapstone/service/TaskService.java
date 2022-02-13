@@ -27,4 +27,6 @@ public interface TaskService {
     void updateTask(UpdateTaskDto dto, String taskId);
 
     boolean isExisted(String s);
+
+    Page<Task> search(String paramSearch, Pageable pageable);
 }

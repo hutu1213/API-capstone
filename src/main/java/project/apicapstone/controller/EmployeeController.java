@@ -141,6 +141,10 @@ public class EmployeeController {
         return ResponseHandler.getResponse(result, HttpStatus.OK);
     }
 
-
+    @GetMapping("/training-course/{id}")
+    public Object getByTrainingCourseId(@PathVariable String id) {
+        List<Employee> employeeList = employeeService.getByCourseId(id);
+        return ResponseHandler.getResponse(employeeList, HttpStatus.OK);
+    }
 
 }

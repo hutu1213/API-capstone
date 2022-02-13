@@ -3,6 +3,7 @@ package project.apicapstone.service.impl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import project.apicapstone.dto.jobPosting.CreateJobPostingDto;
 import project.apicapstone.dto.jobPosting.PagingFormatJobPostingDto;
 import project.apicapstone.dto.jobPosting.UpdateJobPostingDto;
@@ -31,6 +32,7 @@ public class JobPostingServiceImpl implements JobPostingService {
     }
 
     @Override
+    @Transactional
     public JobPosting createJP(CreateJobPostingDto dto) {
         JobPosting newJobPosting = new JobPosting();
         newJobPosting.setJobPostingId(dto.getJobPostingId());
@@ -43,20 +45,24 @@ public class JobPostingServiceImpl implements JobPostingService {
         newJobPosting.setPostTitle(dto.getPostTitle());
         Title title = titleRepository.getById(dto.getTitleId());
         newJobPosting.setTitle(title);
-       return jobPostingRepository.save(newJobPosting);
+        return jobPostingRepository.save(newJobPosting);
     }
 
     @Override
+    @Transactional
     public List<JobPosting> findAll() {
-        return jobPostingRepository.findAll();
+        String status = "Dừng tuyển";
+        return jobPostingRepository.findAllNotLikeStatus(status);
     }
 
     @Override
+    @Transactional
     public Page<JobPosting> findAllJobPosting(Pageable pageable) {
         return jobPostingRepository.findAllJobPosting(pageable);
     }
 
     @Override
+    @Transactional
     public Object pagingFormat(Page<JobPosting> jobPostingPage) {
         PagingFormatJobPostingDto dto = new PagingFormatJobPostingDto();
         dto.setPageSize(jobPostingPage.getSize());
@@ -67,27 +73,40 @@ public class JobPostingServiceImpl implements JobPostingService {
     }
 
     @Override
+    @Transactional
     public JobPosting findJobPostingById(String id) {
         return jobPostingRepository.getById(id);
     }
 
     @Override
+    @Transactional
     public List<JobPosting> findJobPostingsByIdOrDescriptionOrVacancies(String paramSearch) {
         //return jobPostingRepository.findJobPostingsByIdAndDescriptionAndVacancies(paramSearch);
         return null;
     }
 
     @Override
+    @Transactional
     public Page<JobPosting> search(String paramSearch, Pageable pageable) {
-        return jobPostingRepository.search(paramSearch,pageable);
+        String status = "Dừng tuyển";
+        return jobPostingRepository.search(paramSearch, status, pageable);
     }
 
     @Override
+    @Transactional
+    public Page<JobPosting> searchWithPosition(String paramSearch, String position, Pageable pageable) {
+
+        return jobPostingRepository.searchWithPosition(paramSearch, position, pageable);
+    }
+
+    @Override
+    @Transactional
     public void deleteById(String id) {
         jobPostingRepository.deleteById(id);
     }
 
     @Override
+    @Transactional
     public void updateJobPosting(UpdateJobPostingDto dto, String jobPostingId) {
         JobPosting updateJobPosting = jobPostingRepository.getById(jobPostingId);
         updateJobPosting.setDatePost(dto.getDatePost());

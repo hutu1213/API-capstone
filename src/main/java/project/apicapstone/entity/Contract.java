@@ -15,6 +15,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+//@EqualsAndHashCode(exclude = {"employee","allowances"}, callSuper = false)
 @JsonIgnoreProperties(value={"hibernateLazyInitializer"})
 @Entity
 @Table(name = "table_contract")
@@ -66,6 +67,5 @@ public class Contract {
     @OneToMany(mappedBy = "contract")
     @JsonIgnore
     private Set<Allowance> allowances = new HashSet<>();
-
 
 }

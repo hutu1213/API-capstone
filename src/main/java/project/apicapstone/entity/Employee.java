@@ -14,11 +14,13 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+//@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-//@EqualsAndHashCode(exclude = {"timeSheets", "dependants", "skills", "contracts", "evaluations", "tasks", "trainings", "proposals"}, callSuper = false)
+//@EqualsAndHashCode(exclude = {"timeSheets", "dependants", "skills", "", "evaluations", "tasks", "trainingCourses", "proposals"}, callSuper = false)
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 @Entity
 @Table(name = "table_employee")
@@ -146,18 +148,19 @@ public class Employee {
     @JoinTable(name = "employee_task", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "task_id"))
     private Set<Task> tasks = new HashSet<>();
 
-    //relation employee- training : N-N
+    //relation employee- training course : N-N
     @JsonIgnore
     @Builder.Default
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "employee_training", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "training_id"))
-    private Set<Training> trainings = new HashSet<>();
+    private Set<TrainingCourse> trainingCourses = new HashSet<>();
 
     // relationship employee - trainingProposal 1-N
     @OneToMany(mappedBy = "employee")
     @JsonIgnore
     private Set<TrainingProposal> proposals = new HashSet<>();
 
+    //
     // relationship employee - Probation 1-N
     @OneToMany(mappedBy = "employee")
     @JsonIgnore
