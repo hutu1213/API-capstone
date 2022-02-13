@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         //cấu hình xác thực cho các api
         http.authorizeRequests()
-                .antMatchers("/api/jobPosting/search-paging/{paramSearch}/{position}", "/api/auth/login").permitAll()
+                .antMatchers("/api/jobPosting/search-paging/{paramSearch}/{position}", "/api/auth/login","/swagger-ui.html/**").permitAll()
                 .antMatchers("/api/allowance/**", "/api/applicant/**", "/api/area/**", "/api/account/**", "/api/contract/**", "/api/training-course/**", "/api/criteria/**", "/api/department/**", "/api/dependant/**", "/api/excel/**", "/api/employees/**", "/api/jobPosting/**", "/api/position/**", "/api/role/**", "/api/subarea/**", "/api/task/**", "/api/title/**", "/api/workplace/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_TRUONGPHONG")
                 .antMatchers("/api/employees/**", "/api/skill/**", "/api/dependant/**", "/api/time-keeping/**").hasAnyAuthority("ROLE_QL_NHANVIEN", "ROLE_TRUONGPHONG")
                 .antMatchers("/api/contract/**", "/api/allowance/**").hasAnyAuthority("ROLE_QL_HOPDONG", "ROLE_TRUONGPHONG")
