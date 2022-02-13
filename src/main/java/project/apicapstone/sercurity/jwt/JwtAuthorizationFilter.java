@@ -34,9 +34,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         // authorize the request before
         try {
             String token = jwtUtils.getJwtTokenFromRequest(request);
+
             if(token != null && jwtUtils.validateJwtToken(token)) {
                 String username = jwtUtils.getUsernameFromToken(token);
+
                 // authorize
+
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 Authentication auth = new UsernamePasswordAuthenticationToken(username, null, userDetails.getAuthorities());
 

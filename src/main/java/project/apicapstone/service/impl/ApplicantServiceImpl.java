@@ -3,7 +3,7 @@ package project.apicapstone.service.impl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import project.apicapstone.dto.account.PagingFormatAccountDto;
+
 import project.apicapstone.dto.applicant.CreateApplicantDto;
 import project.apicapstone.dto.applicant.PagingFormatApplicantDto;
 import project.apicapstone.dto.applicant.UpdateApplicantDto;
@@ -43,6 +43,9 @@ public class ApplicantServiceImpl implements ApplicantService {
         newApplicant.setCertification(dto.getCertification());
         newApplicant.setStatus(dto.getStatus());
         newApplicant.setResumeFile(dto.getResumeFile());
+        newApplicant.setScanData(dto.getScanData());
+        newApplicant.setEvaluateScore(dto.getEvaluateScore());
+        newApplicant.setStage(dto.getStage());
         JobPosting jobPosting = jobPostingRepository.getById(dto.getJobPostingId());
         newApplicant.setJobPosting(jobPosting);
         return applicantRepository.save(newApplicant);
@@ -90,6 +93,9 @@ public class ApplicantServiceImpl implements ApplicantService {
         applicant.setCertification(dto.getCertification());
         applicant.setStatus(dto.getStatus());
         applicant.setResumeFile(dto.getResumeFile());
+        applicant.setScanData(dto.getScanData());
+        applicant.setEvaluateScore(dto.getEvaluateScore());
+        applicant.setStage(dto.getStage());
         JobPosting jobPosting = jobPostingRepository.getById(dto.getJobPostingId());
         applicant.setJobPosting(jobPosting);
         applicantRepository.save(applicant);

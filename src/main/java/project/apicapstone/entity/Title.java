@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import project.apicapstone.common.entity.BaseEntity;
 
 
@@ -13,6 +14,7 @@ import java.util.Set;
 
 @Data
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
+//@EqualsAndHashCode(exclude = {"employees"}, callSuper = false)
 @Entity
 @Table(name = "table_title")
 public class Title {
@@ -25,7 +27,7 @@ public class Title {
     @OneToMany(mappedBy = "title")
     //@JsonManagedReference
     @JsonIgnore
-    private Set<Employee> employees;
+    private Set<Employee> employees = new HashSet<>();
 
     // relationship position - title: 1-N
 

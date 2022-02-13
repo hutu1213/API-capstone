@@ -33,13 +33,16 @@ public class JobPosting {
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate datePost;
-    @Column
+    //    @Lob
+    @Column(columnDefinition = "TEXT")
     private String jobDescription;
-    @Column
+    //    @Lob
+    @Column(columnDefinition = "TEXT")
     private String jobRequirements;
     @Column
     private String status;
-    @Column
+    //    @Lob
+    @Column(columnDefinition = "TEXT")
     private String benefit;
     @Column
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)

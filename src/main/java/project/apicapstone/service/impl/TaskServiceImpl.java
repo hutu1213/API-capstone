@@ -87,4 +87,9 @@ public class TaskServiceImpl implements TaskService {
     public boolean isExisted(String s) {
         return taskRepository.existsById(s);
     }
+
+    @Override
+    public Page<Task> search(String paramSearch, Pageable pageable) {
+        return taskRepository.search(paramSearch,pageable);
+    }
 }

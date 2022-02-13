@@ -8,6 +8,7 @@ import project.apicapstone.validation.annonation.CheckPhoneNumber;
 import project.apicapstone.validation.annonation.FindJobPostingId;
 import project.apicapstone.validation.annonation.UniqueApplicantId;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
@@ -27,7 +28,7 @@ public class CreateApplicantDto {
     //@NotBlank(message = "{applicant.address.not-blank}")
     private String address;
 
-    @CheckPhoneNumber
+   // @CheckPhoneNumber
     private String phone;
 
     //@NotBlank(message = "{applicant.gender.not-blank}")
@@ -43,6 +44,11 @@ public class CreateApplicantDto {
 
     private String resumeFile;
 
+    private String scanData;
+
+    private float evaluateScore;
+
+    private String stage;
     @FindJobPostingId
     private String jobPostingId;
 }

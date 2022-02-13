@@ -50,6 +50,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public List<Employee> getByCourseId(String id) {
+        return employeeRepository.findAllByTrainingCourseId(id);
+    }
+
+    @Override
+    public boolean findByCourseIdAndEmployeeId(String courseId, String employeeId) {
+        return employeeRepository.findEmployeeByCourseIdAndEmployeeId(courseId,employeeId)>=1;
+    }
+
+    @Override
     public List<Employee> findEmployeeByName(String employeeName) {
         List<Employee> employeeList = employeeRepository.findEmployeesByEmployeeNameContains(employeeName);
         if (employeeList.size() == 0) {

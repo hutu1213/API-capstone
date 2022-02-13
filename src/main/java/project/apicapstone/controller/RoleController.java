@@ -1,5 +1,8 @@
 package project.apicapstone.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +14,7 @@ import project.apicapstone.dto.role.UpdateRoleDto;
 import project.apicapstone.entity.Account;
 import project.apicapstone.entity.Position;
 import project.apicapstone.entity.Role;
+import project.apicapstone.entity.Task;
 import project.apicapstone.service.EmployeeService;
 import project.apicapstone.service.RoleService;
 
@@ -26,8 +30,15 @@ public class RoleController {
         this.roleService = roleService;
     }
 
-    @GetMapping()
-    public Object findAllRole() {
+    @GetMapping
+    public Object findAllRole(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Role> rolePage = roleService.findAllRole(pageable);
+        return ResponseHandler.getResponse(roleService.pagingFormat(rolePage), HttpStatus.OK);
+    }
+
+    @GetMapping("/get-all")
+    public Object findAll() {
         List<Role> roles = roleService.findAll();
         return ResponseHandler.getResponse(roles, HttpStatus.OK);
     }
