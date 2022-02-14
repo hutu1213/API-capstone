@@ -22,4 +22,7 @@ public interface RoleRepository extends JpaRepository<Role,String> {
     @Transactional(readOnly = true)
     @Query("SELECT r FROM Role r")
     Page<Role> findAllRole(Pageable pageable);
+
+    @Query("SELECT r FROM Role r join r.accounts a WHERE a.username LIKE ?1 ")
+    List<Role> findByUsername(String username);
 }

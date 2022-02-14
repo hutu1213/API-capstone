@@ -20,9 +20,10 @@ public class ResponseHandler {
 
         return new ResponseEntity<Object>(map, status);
     }
-    public static ResponseEntity<Object> getResponseLogin(Object token, Object object, HttpStatus status) {
+    public static ResponseEntity<Object> getResponseLogin(Object role,Object token, Object object, HttpStatus status) {
         Map<String, Object> map = new HashMap<>();
         map.put("token", token);
+        map.put("role", role);
         map.put("content", object);
         map.put("errors", "");
         map.put("timestamp", DateUtils.toString(LocalDateTime.now()));
