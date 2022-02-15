@@ -26,4 +26,8 @@ public interface TitleRepository extends JpaRepository<Title, String> {
 
     @Query("SELECT t FROM Title t WHERE t.jobTitle LIKE %?1% OR t.titleId LIKE %?1%")
     Page<Title> search(String paramSearch, Pageable pageable);
+
+
+    @Query("SELECT COUNT(t.titleId) FROM Title t join t.position p join t.department d WHERE p.positionId = ?1 AND d.departmentId =?2")
+    int checkPositionAndDepartment(String positionId, String departmentId);
 }

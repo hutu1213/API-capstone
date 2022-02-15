@@ -96,4 +96,9 @@ public class TitleServiceImpl implements TitleService {
     public Title findTitleByPositionIdAndDepartmentId(String positionId, String departmentId) {
         return titleRepository.findTitleByPositionIdAndDepartmentId(positionId, departmentId);
     }
+
+    @Override
+    public boolean checkPositionAndDepartment(String positionId, String departmentId) {
+        return titleRepository.checkPositionAndDepartment(positionId,departmentId)>=1;
+    }
 }

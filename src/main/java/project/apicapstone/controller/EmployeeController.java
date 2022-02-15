@@ -11,9 +11,7 @@ import project.apicapstone.dto.employee.CreateEmployeeDto;
 import project.apicapstone.dto.employee.UpdateEmployeeDto;
 import project.apicapstone.entity.Employee;
 import project.apicapstone.service.EmployeeService;
-
 import javax.validation.Valid;
-
 import java.util.List;
 
 @RestController
@@ -144,6 +142,12 @@ public class EmployeeController {
     @GetMapping("/training-course/{id}")
     public Object getByTrainingCourseId(@PathVariable String id) {
         List<Employee> employeeList = employeeService.getByCourseId(id);
+        return ResponseHandler.getResponse(employeeList, HttpStatus.OK);
+    }
+
+    @GetMapping("/task/{id}")
+    public Object getByTaskId(@PathVariable String id) {
+        List<Employee> employeeList = employeeService.getByTaskId(id);
         return ResponseHandler.getResponse(employeeList, HttpStatus.OK);
     }
 

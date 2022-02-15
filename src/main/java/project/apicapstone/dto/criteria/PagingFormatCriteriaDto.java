@@ -1,7 +1,7 @@
 package project.apicapstone.dto.criteria;
 
 import lombok.Data;
-import project.apicapstone.entity.Applicant;
+
 import project.apicapstone.entity.Criteria;
 
 import java.util.List;
