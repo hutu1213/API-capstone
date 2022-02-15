@@ -62,4 +62,8 @@ public interface EmployeeService {
     List<Employee> getByCourseId(String id);
 
     boolean findByCourseIdAndEmployeeId(String courseId, String employeeId);
+
+    boolean findByTaskIdAndEmployeeId(String taskId, String employeeId);
+
+    List<Employee> getByTaskId(String id);
 }

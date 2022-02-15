@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
-import project.apicapstone.validation.annonation.CheckPhoneNumber;
+
 import project.apicapstone.validation.annonation.FindJobPostingId;
-import project.apicapstone.validation.annonation.UniqueApplicantId;
+
 
 import javax.validation.constraints.Email;
 import java.time.LocalDate;

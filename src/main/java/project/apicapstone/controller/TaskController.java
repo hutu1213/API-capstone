@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.dto.allowance.CreateAllowanceDto;
 import project.apicapstone.dto.allowance.UpdateAllowanceDto;
+import project.apicapstone.dto.task.AddEmployeeToTaskDto;
 import project.apicapstone.dto.task.CreateTaskDto;
 import project.apicapstone.dto.task.UpdateTaskDto;
+import project.apicapstone.dto.trainingCourse.AddEmployeeDto;
 import project.apicapstone.entity.Allowance;
 import project.apicapstone.entity.Task;
+import project.apicapstone.service.EmployeeService;
 import project.apicapstone.service.TaskService;
 
 import javax.validation.Valid;
@@ -22,8 +25,11 @@ import java.util.List;
 @RequestMapping(value = "/api/task")
 public class TaskController {
     private TaskService taskService;
-    public TaskController(TaskService taskService){
-        this.taskService=taskService;
+    private EmployeeService employeeService;
+
+    public TaskController(TaskService taskService, EmployeeService employeeService) {
+        this.taskService = taskService;
+        this.employeeService = employeeService;
     }
 
     @GetMapping
@@ -41,7 +47,7 @@ public class TaskController {
 
     @PostMapping("/create-task")
     public Object createTask(@Valid @RequestBody CreateTaskDto dto,
-                                  BindingResult errors) {
+                             BindingResult errors) {
         if (errors.hasErrors())
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 
@@ -79,6 +85,7 @@ public class TaskController {
         }
         return ResponseHandler.getResponse(taskList, HttpStatus.OK);
     }
+
     @GetMapping("/search-paging/{paramSearch}")
     public Object search(@PathVariable String paramSearch, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -86,4 +93,23 @@ public class TaskController {
 
         return ResponseHandler.getResponse(taskService.pagingFormat(taskPage), HttpStatus.OK);
     }
+
+    @PostMapping("/add-employee")
+    public Object addEmployeeToTask(@Valid @RequestBody AddEmployeeToTaskDto dto, BindingResult errors) {
+        if (errors.hasErrors())
+            return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
+
+        for (int i = 0; i < dto.getEmployeeIdList().size(); i++) {
+            String employeeId = dto.getEmployeeIdList().get(i);
+            if (employeeService.findByTaskIdAndEmployeeId(dto.getTaskId(), employeeId)) {
+                return ResponseHandler.getErrors("Mã nhân viên " + employeeId + " đã tồn tại trong công việc", HttpStatus.BAD_REQUEST);
+            }
+        }
+        taskService.addEmployee(dto);
+        return ResponseHandler.getResponse("Add Successful!", HttpStatus.OK);
+    }
+
+
+
+
 }

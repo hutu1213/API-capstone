@@ -6,7 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
 import project.apicapstone.validation.annonation.FindTitleId;
 
-import javax.persistence.Lob;
+
 import java.time.LocalDate;
 
 @Data
