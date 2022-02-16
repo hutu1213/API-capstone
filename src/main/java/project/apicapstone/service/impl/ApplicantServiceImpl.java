@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import project.apicapstone.dto.account.PagingFormatAccountDto;
 import project.apicapstone.dto.applicant.CreateApplicantDto;
 import project.apicapstone.dto.applicant.PagingFormatApplicantDto;
+import project.apicapstone.dto.applicant.ProcessApplicantDto;
 import project.apicapstone.dto.applicant.UpdateApplicantDto;
 import project.apicapstone.entity.Applicant;
 import project.apicapstone.entity.JobPosting;
@@ -13,6 +14,7 @@ import project.apicapstone.repository.ApplicantRepository;
 import project.apicapstone.repository.JobPostingRepository;
 import project.apicapstone.service.ApplicantService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -103,5 +105,20 @@ public class ApplicantServiceImpl implements ApplicantService {
     @Override
     public Page<Applicant> search(String paramSearch, Pageable pageable) {
         return applicantRepository.search(paramSearch,pageable);
+    }
+
+    @Override
+    public List<ProcessApplicantDto> getAllProcessApplicantDtoByJobPosting(String jobPostingId) {
+        return applicantRepository.getAllProcessApplicantsByJobPostingId(jobPostingId);
+    }
+
+    @Override
+    public int updateScanData(String scanData, String id) {
+        return applicantRepository.updateApplicantScanData(scanData, id);
+    }
+
+    @Override
+    public int updateScore(Double score, String id) {
+        return applicantRepository.updateApplicantScore(score, id);
     }
 }

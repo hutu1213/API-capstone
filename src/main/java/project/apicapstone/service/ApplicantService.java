@@ -2,7 +2,9 @@ package project.apicapstone.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 import project.apicapstone.dto.applicant.CreateApplicantDto;
+import project.apicapstone.dto.applicant.ProcessApplicantDto;
 import project.apicapstone.dto.applicant.UpdateApplicantDto;
 import project.apicapstone.entity.Applicant;
 
@@ -28,4 +30,11 @@ public interface ApplicantService {
     void deleteById(String id);
 
     Page<Applicant> search(String paramSearch, Pageable pageable);
+
+    @Transactional //anotation to access Lob field
+    List<ProcessApplicantDto> getAllProcessApplicantDtoByJobPosting(String jobPostingId);
+
+    int updateScanData(String scanData, String id);
+
+    int updateScore(Double score, String id);
 }

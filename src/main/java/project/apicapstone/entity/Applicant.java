@@ -48,6 +48,10 @@ public class Applicant {
     private String status;
     @Column
     private String resumeFile;
+    @Lob
+    private String scanData;
+    @Column
+    private double score;
 
     // relationship jobPosting - application 1-N
     @ManyToOne(fetch = FetchType.LAZY)

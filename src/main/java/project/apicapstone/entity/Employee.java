@@ -121,7 +121,7 @@ public class Employee {
     private Title title;
 
     // relationship employee - evaluation 1-N
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     @JsonIgnore
     private Set<Evaluation> evaluations = new HashSet<>();
 
