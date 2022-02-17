@@ -79,10 +79,10 @@ public class CriteriaServiceImpl implements CriteriaService {
         return criteriaRepository.existsById(s);
     }
 
-    @Override
-    public List<Criteria> findAll() {
-        return criteriaRepository.findAll();
-    }
+//    @Override
+//    public List<Criteria> findAll() {
+//        return criteriaRepository.findAll();
+//    }
 
     @Override
     public List<CriteriaWithoutJobPostingDto> findAllByJobPostingId(String jobPostingId) {

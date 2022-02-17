@@ -46,7 +46,7 @@ public class CreateApplicantDto {
 
     private String scanData;
 
-    private float evaluateScore;
+    private double evaluateScore;
 
     private String stage;
     @FindJobPostingId
