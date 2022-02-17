@@ -44,7 +44,7 @@ public class CreateApplicantDto {
 
     private String resumeFile;
 
-    private String scanData;
+    //private String scanData;
 
     private double evaluateScore;
 

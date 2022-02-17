@@ -40,7 +40,7 @@ public class UpdateApplicantDto {
     private String status;
 
     private String resumeFile;
-    private String scanData;
+   // private String scanData;
 
     private double evaluateScore;
 
