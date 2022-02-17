@@ -71,6 +71,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public List<Employee> checkBirthDate(int dayOfMonth, int monthValue) {
+        return employeeRepository.findByDayOfBirthAndMonthOfBirth(dayOfMonth,monthValue);
+    }
+
+    @Override
     public List<Employee> findEmployeeByName(String employeeName) {
         List<Employee> employeeList = employeeRepository.findEmployeesByEmployeeNameContains(employeeName);
         if (employeeList.size() == 0) {

@@ -28,4 +28,6 @@ public interface ApplicantService {
     void deleteById(String id);
 
     Page<Applicant> search(String paramSearch, Pageable pageable);
+
+    List<Applicant> getAllByStatus(String status);
 }

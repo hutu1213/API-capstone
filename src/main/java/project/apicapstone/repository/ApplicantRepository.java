@@ -23,4 +23,6 @@ public interface ApplicantRepository extends JpaRepository<Applicant,String> {
 
     @Query("SELECT c FROM Applicant c WHERE lower(c.applicantName)  LIKE lower(concat('%', ?1,'%')) OR c.applicantId LIKE %?1%")
     Page<Applicant> search(String paramSearch, Pageable pageable);
+
+    List<Applicant> findAllByStatusAndCheckSendMail(String status,int check);
 }
