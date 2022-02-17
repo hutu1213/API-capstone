@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
 import project.apicapstone.dto.applicant.CreateApplicantDto;
 import project.apicapstone.dto.applicant.PagingFormatApplicantDto;
 import project.apicapstone.dto.applicant.ProcessApplicantDto;
@@ -79,6 +80,7 @@ public class ApplicantServiceImpl implements ApplicantService {
         return applicantRepository.getById(id);
     }
 
+    @Transactional
     @Override
     public List<Applicant> findApplicantByNameOrId(String paramSearch) {
         return applicantRepository.findApplicantsByNameOrId(paramSearch);
@@ -111,6 +113,7 @@ public class ApplicantServiceImpl implements ApplicantService {
         applicantRepository.deleteById(id);
     }
 
+    @Transactional
     @Override
     public Page<Applicant> search(String paramSearch, Pageable pageable) {
         return applicantRepository.search(paramSearch,pageable);
