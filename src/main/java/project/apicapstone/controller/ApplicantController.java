@@ -40,7 +40,7 @@ public class ApplicantController {
     @Autowired
     private CriteriaService criteriaService;
 
-    public static final String APPLICANT_PROCESS_API = "https://applicant-process-api.herokuapp.com/";
+    public static final String APPLICANT_PROCESS_API = "https://applicant-process-api.herokuapp.com";
 
     public ApplicantController(ApplicantService applicantService) {
         this.applicantService = applicantService;
