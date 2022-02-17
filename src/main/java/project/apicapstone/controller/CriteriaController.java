@@ -25,6 +25,7 @@ public class CriteriaController {
     public CriteriaController(CriteriaService criteriaService) {
         this.criteriaService = criteriaService;
     }
+  
     @GetMapping
     public Object findAllCriteria(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
