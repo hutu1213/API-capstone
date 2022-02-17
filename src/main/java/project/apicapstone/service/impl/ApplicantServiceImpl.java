@@ -14,7 +14,7 @@ import project.apicapstone.repository.ApplicantRepository;
 import project.apicapstone.repository.JobPostingRepository;
 import project.apicapstone.service.ApplicantService;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Service
@@ -47,7 +47,7 @@ public class ApplicantServiceImpl implements ApplicantService {
         newApplicant.setStatus(dto.getStatus());
         newApplicant.setResumeFile(dto.getResumeFile());
         newApplicant.setScanData(dto.getScanData());
-        newApplicant.setEvaluateScore(dto.getEvaluateScore());
+        newApplicant.setScore(dto.getEvaluateScore());
         newApplicant.setStage(dto.getStage());
         JobPosting jobPosting = jobPostingRepository.getById(dto.getJobPostingId());
         newApplicant.setJobPosting(jobPosting);
@@ -98,7 +98,7 @@ public class ApplicantServiceImpl implements ApplicantService {
         applicant.setStatus(dto.getStatus());
         applicant.setResumeFile(dto.getResumeFile());
         applicant.setScanData(dto.getScanData());
-        applicant.setEvaluateScore(dto.getEvaluateScore());
+        applicant.setScore(dto.getEvaluateScore());
         applicant.setStage(dto.getStage());
         JobPosting jobPosting = jobPostingRepository.getById(dto.getJobPostingId());
         applicant.setJobPosting(jobPosting);
@@ -129,9 +129,11 @@ public class ApplicantServiceImpl implements ApplicantService {
     public int updateScore(Double score, String id) {
         return applicantRepository.updateApplicantScore(score, id);
 
+    }
+
     @Override
     public List<Applicant> getAllByStatus(String status) {
         return applicantRepository.findAllByStatusAndCheckSendMail(status,0);
-
     }
+
 }
