@@ -78,5 +78,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .anyRequest().authenticated();//.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
 //
 //
-//    }
+    }
 }
