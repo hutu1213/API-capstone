@@ -1,14 +1,13 @@
 package project.apicapstone.dto.title;
 
 import lombok.Data;
-import project.apicapstone.validation.annonation.FindDepartmentId;
-import project.apicapstone.validation.annonation.FindPositionId;
-import project.apicapstone.validation.annonation.FindTitleId;
-import project.apicapstone.validation.annonation.UniqueTitleId;
+import org.hibernate.annotations.Check;
+import project.apicapstone.validation.annonation.*;
 
 import javax.validation.constraints.NotBlank;
 
 @Data
+@CheckUniquePositionAndDepartment
 public class CreateTitleDto {
     @UniqueTitleId
     private String titleId;

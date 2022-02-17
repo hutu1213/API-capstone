@@ -82,4 +82,9 @@ public class AccountServiceImpl implements AccountService {
         dto.setRecords(accountPage.toList());
         return dto;
     }
+
+    @Override
+    public List<Account> getByRoleId(String roleId) {
+        return accountRepository.findAccountsByRoleId(roleId);
+    }
 }

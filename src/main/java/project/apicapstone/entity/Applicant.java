@@ -52,7 +52,12 @@ public class Applicant {
     private String scanData;
     @Column
     private double score;
-
+    @Column
+    private String stage;
+    @Column
+    @JsonIgnore
+    private int checkSendMail;
+  
     // relationship jobPosting - application 1-N
     @ManyToOne(fetch = FetchType.LAZY)
     // @JsonIgnore

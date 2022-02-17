@@ -9,11 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.dto.allowance.CreateAllowanceDto;
 import project.apicapstone.dto.allowance.UpdateAllowanceDto;
-import project.apicapstone.dto.applicant.CreateApplicantDto;
-import project.apicapstone.dto.employee.UpdateEmployeeDto;
+
 import project.apicapstone.entity.Allowance;
-import project.apicapstone.entity.Applicant;
-import project.apicapstone.entity.Employee;
+
 import project.apicapstone.service.AllowanceService;
 
 import javax.validation.Valid;

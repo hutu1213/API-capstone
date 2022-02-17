@@ -22,4 +22,5 @@ public interface TaskRepository extends JpaRepository<Task,String> {
 
     @Query("SELECT e FROM Task e WHERE e.taskName LIKE %?1% OR e.taskId LIKE %?1%")
     Page<Task> search(String paramSearch, Pageable pageable);
+
 }

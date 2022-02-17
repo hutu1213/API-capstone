@@ -44,4 +44,10 @@ public class Task {
     @ManyToMany(mappedBy = "tasks",fetch = FetchType.LAZY)
     private Set<Employee> employees = new HashSet<>();
 
+    //helper
+    public void addEmployee(Employee employee) {
+        employees.add(employee);
+        employee.getTasks().add(this);
+    }
+
 }

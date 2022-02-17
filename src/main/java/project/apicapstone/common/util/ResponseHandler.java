@@ -10,7 +10,8 @@ import java.util.Map;
 
 
 public class ResponseHandler {
-    public static ResponseEntity<Object> getResponse(Object content, HttpStatus status) {
+
+    public static ResponseEntity<Object> getResponse(Object content, HttpStatus status){
         Map<String, Object> map = new HashMap<>();
         map.put("content", content);
         map.put("errors", "");
@@ -19,12 +20,11 @@ public class ResponseHandler {
 
         return new ResponseEntity<Object>(map, status);
     }
-
-    public static ResponseEntity<Object> getResponseLogin(Object token, Object object, HttpStatus status) {
+    public static ResponseEntity<Object> getResponseLogin(Object role,Object token, Object object, HttpStatus status) {
         Map<String, Object> map = new HashMap<>();
         map.put("token", token);
+        map.put("role", role);
         map.put("content", object);
-//        map.put("content2", object2);
         map.put("errors", "");
         map.put("timestamp", DateUtils.toString(LocalDateTime.now()));
         map.put("status", status.value());

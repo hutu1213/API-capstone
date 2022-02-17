@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
 import project.apicapstone.validation.annonation.FindTitleId;
 
+
 import java.time.LocalDate;
 
 @Data
@@ -23,6 +24,7 @@ public class UpdateJobPostingDto {
     private String jobRequirements;
 
     private String status;
+
 
     private String benefit;
 

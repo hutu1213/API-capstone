@@ -12,7 +12,7 @@ import project.apicapstone.entity.Employee;
 
 import java.util.List;
 
-@Service
+//@Service
 public interface EmployeeService {
     Page<Employee> findAll(Pageable pageable);
 
@@ -58,4 +58,14 @@ public interface EmployeeService {
     boolean isExistId(String toString);
 
     Page<Employee> search(String paramSearch, Pageable pageable);
+
+    List<Employee> getByCourseId(String id);
+
+    boolean findByCourseIdAndEmployeeId(String courseId, String employeeId);
+
+    boolean findByTaskIdAndEmployeeId(String taskId, String employeeId);
+
+    List<Employee> getByTaskId(String id);
+
+    List<Employee> checkBirthDate(int dayOfMonth, int monthValue);
 }

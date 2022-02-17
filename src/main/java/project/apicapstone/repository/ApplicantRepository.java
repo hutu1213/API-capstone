@@ -44,4 +44,6 @@ public interface ApplicantRepository extends JpaRepository<Applicant,String> {
     @Modifying
     @Query("UPDATE Applicant a SET a.score = ?1 WHERE a.applicantId = ?2")
     int updateApplicantScore(Double score, String id);
+  
+    List<Applicant> findAllByStatusAndCheckSendMail(String status,int check);
 }

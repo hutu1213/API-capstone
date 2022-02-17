@@ -16,13 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.entity.Account;
+import project.apicapstone.entity.Role;
 import project.apicapstone.entity.Title;
 import project.apicapstone.repository.AccountRepository;
 import project.apicapstone.repository.EmployeeRepository;
+import project.apicapstone.repository.RoleRepository;
 import project.apicapstone.sercurity.dto.LoginDto;
 import project.apicapstone.sercurity.jwt.JwtUtils;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -31,20 +34,18 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
     private AccountRepository accountRepository;
-    private EmployeeRepository employeeRepository;
-    private PasswordEncoder encoder;
+    private RoleRepository roleRepository;
 
-    public AuthController(AuthenticationManager authManager, JwtUtils jwtUtils, AccountRepository accountRepository, PasswordEncoder encoder, EmployeeRepository employeeRepository) {
-        authenticationManager = authManager;
+
+    public AuthController(AuthenticationManager authenticationManager, JwtUtils jwtUtils, AccountRepository accountRepository,RoleRepository roleRepository) {
+        this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
         this.accountRepository = accountRepository;
-        this.encoder = encoder;
-        this.employeeRepository = employeeRepository;
-
+        this.roleRepository=roleRepository;
     }
 
     @PostMapping("/login")
-    public Object login(@Valid @RequestBody LoginDto dto, BindingResult errors) throws Exception {
+    public Object login(@Valid @RequestBody LoginDto dto, BindingResult errors) {
         if (errors.hasErrors())
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 
@@ -57,8 +58,11 @@ public class AuthController {
             SecurityContextHolder.getContext().setAuthentication(auth);
             String token = jwtUtils.generateJwtToken(auth);
             Account account = accountRepository.findByUsername(dto.getUsername());
+            List<Role> roleList  = roleRepository.findByUsername(dto.getUsername());
             // String title = accountRepository.findTitleByUsername(dto.getUsername());
-            return ResponseHandler.getResponseLogin(token, account, HttpStatus.OK);
+            return ResponseHandler.getResponseLogin(roleList,token, account, HttpStatus.OK);
+            //return ResponseHandler.getResponse(token, HttpStatus.OK);
+
         } catch (Exception e) {
             logger.debug("{} has been logged in with wrong password: {}", dto.getUsername(), e.getMessage());
         }

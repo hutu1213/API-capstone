@@ -1,5 +1,7 @@
 package project.apicapstone.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import project.apicapstone.dto.role.CreateRoleDto;
 import project.apicapstone.dto.role.UpdateRoleDto;
@@ -25,4 +27,8 @@ public interface RoleService {
     void deleteById(String id);
 
     void updateRole(UpdateRoleDto dto, String roleId);
+
+    Page<Role> findAllRole(Pageable pageable);
+
+    Object pagingFormat(Page<Role> rolePage);
 }

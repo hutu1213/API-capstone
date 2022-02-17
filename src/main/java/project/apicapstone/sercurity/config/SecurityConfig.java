@@ -1,7 +1,7 @@
 package project.apicapstone.sercurity.config;
 
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import project.apicapstone.sercurity.jwt.JwtAuthenticationEntryPoint;
 import project.apicapstone.sercurity.jwt.JwtAuthorizationFilter;
 
 import java.util.Arrays;
@@ -24,6 +25,8 @@ import java.util.Arrays;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     private final JwtAuthorizationFilter jwtAuthorizationFilter;
+    @Autowired
+    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     public SecurityConfig(UserDetailsService userDetailsService, JwtAuthorizationFilter jwtAuthorizationFilter) {
         this.userDetailsService = userDetailsService;
@@ -60,31 +63,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
 
-        //test
+        //test1
         //http.csrf().disable().cors().and().authorizeRequests().anyRequest().permitAll();
 
-//        http.antMatcher("/**").authorizeRequests()
-//                .antMatchers("/auth/login").permitAll()
-//                //.antMatchers("/account/**").permitAll()
-//                .antMatchers("/account/create-account").permitAll()
-//                .anyRequest().authenticated();
+        //cấu hình xác thực cho các api
+        http.authorizeRequests()
+                .antMatchers("/api/jobPosting/search-paging/{paramSearch}/{position}", "/api/auth/login","/swagger-ui.html/**").permitAll()
+                .antMatchers("/api/allowance/**", "/api/applicant/**", "/api/area/**", "/api/account/**", "/api/contract/**", "/api/training-course/**", "/api/criteria/**", "/api/department/**", "/api/dependant/**", "/api/excel/**", "/api/employees/**", "/api/jobPosting/**", "/api/position/**", "/api/role/**", "/api/subarea/**", "/api/task/**", "/api/title/**", "/api/workplace/**","/api/evaluation/**","/api/mail/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_TRUONGPHONG")
+                .antMatchers("/api/employees/**", "/api/skill/**", "/api/dependant/**", "/api/time-keeping/**").hasAnyAuthority("ROLE_QL_NHANVIEN", "ROLE_TRUONGPHONG")
+                .antMatchers("/api/contract/**", "/api/allowance/**").hasAnyAuthority("ROLE_QL_HOPDONG", "ROLE_TRUONGPHONG")
+                .antMatchers("/api/jobPosting/**", "/api/applicant/search/{paramSearch}", "/api/applicant/**").hasAnyAuthority("ROLE_QL_TUYENDUNG", "ROLE_TRUONGPHONG")
+//                .antMatchers("").hasAnyAuthority("TRƯỞNG PHÒNG BAN KHÁC")
+                .antMatchers("/api/task/**").hasAnyAuthority("ROLE_NHANVIEN", "ROLE_TRUONGPHONG")
+                .anyRequest().authenticated();//.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
 
 
-        // cấu hình xác thực cho các api
-//        http.antMatcher("/api/**").authorizeRequests()
-//                .antMatchers("/api/user/create-user").permitAll()
-//                .antMatchers("/api/auth/authenticate").permitAll()
-//                .antMatchers("/api/user/getAll-user").permitAll()
-//                .antMatchers("/api/user/add-role")..permitAll()
-//                .antMatchers("/api/**").hasAnyRole("USER","ADMIN")
-//                .anyRequest().authenticated();
-
-//        http.antMatcher("/api/**").authorizeRequests()
-//                //.antMatchers("/api/user/create-user", "/api/auth/authenticate", "/api/user/getAll-user", "/api/user/add-role").permitAll()
-//                .antMatchers("/api/auth/authenticate").permitAll()
-//                .antMatchers("/api/user/getAll-user").permitAll()
-//                .antMatchers("/api/user/add-role").permitAll()
-//                .antMatchers("/api/product/**").hasAnyRole("USER","ADMIN")
-//                .anyRequest().authenticated();
     }
 }

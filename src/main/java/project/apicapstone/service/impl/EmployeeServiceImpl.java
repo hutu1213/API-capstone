@@ -44,9 +44,35 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Page<Employee> findAll(Pageable pageable) {
         return employeeRepository.findAllEmp(pageable);
     }
+
     @Override
     public Page<Employee> search(String paramSearch, Pageable pageable) {
-        return employeeRepository.search(paramSearch,pageable);
+        return employeeRepository.search(paramSearch, pageable);
+    }
+
+    @Override
+    public List<Employee> getByCourseId(String id) {
+        return employeeRepository.findAllByTrainingCourseId(id);
+    }
+
+    @Override
+    public boolean findByCourseIdAndEmployeeId(String courseId, String employeeId) {
+        return employeeRepository.findEmployeeByCourseIdAndEmployeeId(courseId, employeeId) >= 1;
+    }
+
+    @Override
+    public boolean findByTaskIdAndEmployeeId(String taskId, String employeeId) {
+        return employeeRepository.findEmployeeByTaskIdAndEmployeeId(taskId, employeeId) >= 1;
+    }
+
+    @Override
+    public List<Employee> getByTaskId(String id) {
+        return employeeRepository.findAllByTaskId(id);
+    }
+
+    @Override
+    public List<Employee> checkBirthDate(int dayOfMonth, int monthValue) {
+        return employeeRepository.findByDayOfBirthAndMonthOfBirth(dayOfMonth,monthValue);
     }
 
     @Override
@@ -105,7 +131,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> listSearch = employeeRepository.findEmployeesByNameOrId(paramSearch);
         return listSearch;
     }
-
 
 
     @Override
@@ -390,7 +415,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     public boolean isExistId(String toString) {
         return employeeRepository.existsById(toString);
     }
-
 
 
 }

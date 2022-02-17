@@ -37,4 +37,7 @@ public interface ApplicantService {
     int updateScanData(String scanData, String id);
 
     int updateScore(Double score, String id);
+
+    List<Applicant> getAllByStatus(String status);
+
 }

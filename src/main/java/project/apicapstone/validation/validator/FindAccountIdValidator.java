@@ -25,10 +25,7 @@ public class FindAccountIdValidator implements ConstraintValidator<FindAccountId
     @Override
     public boolean isValid(String id, ConstraintValidatorContext constraintValidatorContext) {
         boolean isExisted = accountService.isExisted(id);
-//        if (s.isEmpty()) {
-//            ValidatorUtils.addError(constraintValidatorContext, "Account Id not blank");
-//            return false;
-//        }
+
         if (isExisted) {
             return true;
         } else {
