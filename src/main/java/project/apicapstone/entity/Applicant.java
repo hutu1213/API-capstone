@@ -48,6 +48,7 @@ public class Applicant {
     private String status;
     @Column
     private String resumeFile;
+    @JsonIgnore
     @Lob
     private String scanData;
     @Column
