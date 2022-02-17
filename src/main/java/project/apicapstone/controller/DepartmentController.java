@@ -11,6 +11,7 @@ import project.apicapstone.dto.department.CreateDepartmentDto;
 import project.apicapstone.dto.department.UpdateDepartmentDto;
 import project.apicapstone.dto.employee.CreateEmployeeDto;
 import project.apicapstone.dto.employee.UpdateEmployeeDto;
+import project.apicapstone.entity.Applicant;
 import project.apicapstone.entity.Department;
 import project.apicapstone.entity.Employee;
 import project.apicapstone.service.DepartmentService;
@@ -77,6 +78,12 @@ public class DepartmentController {
             return ResponseHandler.getErrors("Not found ", HttpStatus.NOT_FOUND);
         }
         return ResponseHandler.getResponse(departmentList, HttpStatus.OK);
+    }
+    @GetMapping("/search-paging/{paramSearch}")
+    public Object search(@PathVariable String paramSearch, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Department> departmentPage = departmentService.search(paramSearch, pageable);
+        return ResponseHandler.getResponse(departmentService.pagingFormat(departmentPage), HttpStatus.OK);
     }
 
 }

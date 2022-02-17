@@ -13,7 +13,6 @@ import project.apicapstone.repository.ContractRepository;
 import project.apicapstone.repository.EmployeeRepository;
 import project.apicapstone.service.ContractService;
 
-import java.time.Duration;
 import java.util.List;
 
 @Service
@@ -46,10 +45,10 @@ public class ContractServiceImpl implements ContractService {
         addContract.setWage(dto.getWage());
         addContract.setNote(dto.getNote());
         addContract.setAttachedFile(dto.getAttachedFile());
+
         Employee employee = employeeRepository.getById(dto.getEmployeeId());
         addContract.setEmployee(employee);
 
-        addContract.setEmployee(employeeRepository.getById(dto.getEmployeeId2()));
         return contractRepository.save(addContract);
     }
 
@@ -115,6 +114,11 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public String findEmployeeIdWithContract(String employeeId) {
         return contractRepository.findEmployeeIdWithContract(employeeId);
+    }
+
+    @Override
+    public Page<Contract> search(String paramSearch, Pageable pageable) {
+        return contractRepository.search(paramSearch,pageable);
     }
 
 }

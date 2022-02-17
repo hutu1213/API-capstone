@@ -26,4 +26,8 @@ public interface WorkplaceService {
     Page<Workplace> findAllWorkplace(Pageable pageable);
 
     Object pagingFormat(Page<Workplace> workplacePage);
+
+    List<Workplace> getBySubarea(String id);
+
+    Page<Workplace> search(String paramSearch, Pageable pageable);
 }

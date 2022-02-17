@@ -9,11 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.dto.allowance.CreateAllowanceDto;
 import project.apicapstone.dto.allowance.UpdateAllowanceDto;
-import project.apicapstone.dto.applicant.CreateApplicantDto;
-import project.apicapstone.dto.employee.UpdateEmployeeDto;
+
 import project.apicapstone.entity.Allowance;
-import project.apicapstone.entity.Applicant;
-import project.apicapstone.entity.Employee;
+
 import project.apicapstone.service.AllowanceService;
 
 import javax.validation.Valid;
@@ -80,5 +78,17 @@ public class AllowanceController {
             return ResponseHandler.getErrors("Not found", HttpStatus.NOT_FOUND);
         }
         return ResponseHandler.getResponse(allowanceList, HttpStatus.OK);
+    }
+    @GetMapping("/search-paging/{paramSearch}")
+    public Object search(@PathVariable String paramSearch, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Allowance> allowancePage = allowanceService.search(paramSearch, pageable);
+        return ResponseHandler.getResponse(allowanceService.pagingFormat(allowancePage), HttpStatus.OK);
+    }
+    @GetMapping("/get-by-contract-id/{id}")
+    public Object getByContractId(@PathVariable("id") String id, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size){
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Allowance> allowancePage = allowanceService.getByContractId(id, pageable);
+        return ResponseHandler.getResponse(allowanceService.pagingFormat(allowancePage),HttpStatus.OK);
     }
 }

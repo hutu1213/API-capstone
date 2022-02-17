@@ -48,7 +48,15 @@ public class Applicant {
     private String status;
     @Column
     private String resumeFile;
-
+    @Column(columnDefinition = "TEXT")
+    private String scanData;
+    @Column
+    private float evaluateScore;
+    @Column
+    private String stage;
+    @Column
+    @JsonIgnore
+    private int checkSendMail;
     // relationship jobPosting - application 1-N
     @ManyToOne(fetch = FetchType.LAZY)
     // @JsonIgnore

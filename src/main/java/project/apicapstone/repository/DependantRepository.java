@@ -18,6 +18,12 @@ public interface DependantRepository extends JpaRepository<Dependant,String> {
     @Query("SELECT e FROM Dependant e")
     Page<Dependant> findAllDependant(Pageable pageable);
 
-    @Query("SELECT d FROM Dependant d WHERE d.dependantName LIKE %?1% OR d.dependantId LIKE %?1%")
+    @Query("SELECT c FROM Dependant c WHERE lower(c.dependantName)  LIKE lower(concat('%', ?1,'%')) OR c.dependantId LIKE %?1%")
     List<Dependant> findDependantsByNameOrId(String paramSearch);
+
+
+    @Query("SELECT c FROM Dependant c WHERE lower(c.dependantName)  LIKE lower(concat('%', ?1,'%')) OR c.dependantId LIKE %?1%")
+    Page<Dependant> search(String paramSearch, Pageable pageable);
+
+    Page<Dependant> getAllByEmployeeEmployeeId(String id,Pageable pageable);
 }

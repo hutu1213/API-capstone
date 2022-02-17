@@ -26,4 +26,8 @@ public interface ApplicantService {
     void updateApplicant(UpdateApplicantDto dto, String applicantId);
 
     void deleteById(String id);
+
+    Page<Applicant> search(String paramSearch, Pageable pageable);
+
+    List<Applicant> getAllByStatus(String status);
 }

@@ -77,5 +77,10 @@ public class DepartmentServiceImpl implements DepartmentService {
          departmentRepository.save(updateDepartment);
     }
 
+    @Override
+    public Page<Department> search(String paramSearch, Pageable pageable) {
+        return departmentRepository.search(paramSearch,pageable);
+    }
+
 
 }

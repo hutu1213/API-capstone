@@ -3,6 +3,7 @@ package project.apicapstone.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.BindingResult;
+import project.apicapstone.dto.task.AddEmployeeToTaskDto;
 import project.apicapstone.dto.task.CreateTaskDto;
 import project.apicapstone.dto.task.UpdateTaskDto;
 import project.apicapstone.entity.Task;
@@ -27,4 +28,8 @@ public interface TaskService {
     void updateTask(UpdateTaskDto dto, String taskId);
 
     boolean isExisted(String s);
+
+    Page<Task> search(String paramSearch, Pageable pageable);
+
+    void addEmployee(AddEmployeeToTaskDto dto);
 }

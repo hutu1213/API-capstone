@@ -20,4 +20,7 @@ public interface AreaRepository extends JpaRepository<Area,String> {
     @Transactional(readOnly = true)
     @Query("SELECT e FROM Area e")
     Page<Area> findAllArea(Pageable pageable);
+
+    @Query("SELECT e FROM Area e WHERE e.name LIKE %?1% OR e.areaId LIKE %?1%")
+    Page<Area> search(String paramSearch,Pageable pageable);
 }

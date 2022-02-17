@@ -87,4 +87,14 @@ public class AllowanceServiceImpl implements AllowanceService {
     public List<Allowance> findAllowanceByNameOrId(String paramSearch) {
         return allowanceRepository.findByAllowanceIdOrName(paramSearch);
     }
+
+    @Override
+    public Page<Allowance> search(String paramSearch, Pageable pageable) {
+        return allowanceRepository.search(paramSearch,pageable);
+    }
+
+    @Override
+    public Page<Allowance> getByContractId(String id, Pageable pageable) {
+        return allowanceRepository.getAllByContractContractId(id, pageable);
+    }
 }

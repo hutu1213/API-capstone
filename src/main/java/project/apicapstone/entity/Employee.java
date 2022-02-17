@@ -7,16 +7,20 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
 
+
 import javax.persistence.*;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+//@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-//@EqualsAndHashCode(exclude = {"timeSheets", "dependants", "skills", "contracts", "evaluations", "tasks", "trainings", "proposals"}, callSuper = false)
+//@EqualsAndHashCode(exclude = {"timeSheets", "dependants", "skills", "", "evaluations", "tasks", "trainingCourses", "proposals"}, callSuper = false)
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 @Entity
 @Table(name = "table_employee")
@@ -26,12 +30,10 @@ public class Employee {
     private String employeeId;
     @Column
     private String employeeName;
-
     @Column
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate dateBirth;
-
     @Column
     private String placeBirth;
     @Column
@@ -81,7 +83,12 @@ public class Employee {
     private String backIdentityCard;
     @Column
     private String frontIdentityCard;
-
+    @Column
+    private String placeIssue;
+    @Column
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private String dateIssue;
     //relation employee- timesheet : 1-N
     @OneToMany(mappedBy = "employee")
     @JsonIgnore
@@ -106,8 +113,6 @@ public class Employee {
     @OneToOne(mappedBy = "employee", fetch = FetchType.LAZY)
     @JsonIgnore
     private Contract contract;
-
-
 
 
     // relationship title - employee 1-N
@@ -143,25 +148,26 @@ public class Employee {
     @JoinTable(name = "employee_task", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "task_id"))
     private Set<Task> tasks = new HashSet<>();
 
-    //relation employee- training : N-N
+    //relation employee- training course : N-N
     @JsonIgnore
     @Builder.Default
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "employee_training", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "training_id"))
-    private Set<Training> trainings = new HashSet<>();
+    private Set<TrainingCourse> trainingCourses = new HashSet<>();
 
     // relationship employee - trainingProposal 1-N
     @OneToMany(mappedBy = "employee")
     @JsonIgnore
     private Set<TrainingProposal> proposals = new HashSet<>();
 
+    //
     // relationship employee - Probation 1-N
     @OneToMany(mappedBy = "employee")
     @JsonIgnore
     private Set<Probation> probations = new HashSet<>();
 
     //relationship workplace - employee : 1 - N
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     // @JsonIgnore
     @JoinColumn(name = "workplace_id")
     private Workplace workplace;

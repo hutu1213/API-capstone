@@ -11,6 +11,7 @@ import project.apicapstone.dto.department.CreateDepartmentDto;
 import project.apicapstone.dto.dependant.CreateDependantDto;
 import project.apicapstone.dto.dependant.UpdateDependantDto;
 import project.apicapstone.dto.employee.UpdateEmployeeDto;
+import project.apicapstone.entity.Allowance;
 import project.apicapstone.entity.Department;
 import project.apicapstone.entity.Dependant;
 import project.apicapstone.entity.Employee;
@@ -75,5 +76,18 @@ public class DependantController {
     public Object findDependantById(@PathVariable("id") String id) {
         Dependant dependant = dependantService.findDependantById(id);
         return ResponseHandler.getResponse(dependant, HttpStatus.OK);
+    }
+    @GetMapping("/search-paging/{paramSearch}")
+    public Object search(@PathVariable String paramSearch, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Dependant> dependantPage = dependantService.search(paramSearch, pageable);
+        return ResponseHandler.getResponse(dependantService.pagingFormat(dependantPage), HttpStatus.OK);
+    }
+
+    @GetMapping("/get-by-employee-id/{id}")
+    public Object getByContractId(@PathVariable("id") String id, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size){
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Dependant> dependantPage = dependantService.getByEmployeeId(id, pageable);
+        return ResponseHandler.getResponse(dependantService.pagingFormat(dependantPage),HttpStatus.OK);
     }
 }

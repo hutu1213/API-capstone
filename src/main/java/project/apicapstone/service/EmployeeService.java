@@ -3,16 +3,16 @@ package project.apicapstone.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import project.apicapstone.dto.employee.CreateEmployeeDto;
 import project.apicapstone.dto.employee.PagingFormatEmployeeDto;
 import project.apicapstone.dto.employee.UpdateEmployeeDto;
 import project.apicapstone.entity.Employee;
 
-import java.time.LocalDate;
-import java.util.Date;
+
 import java.util.List;
 
-@Service
+//@Service
 public interface EmployeeService {
     Page<Employee> findAll(Pageable pageable);
 
@@ -23,6 +23,8 @@ public interface EmployeeService {
     Employee addNewEmployee(CreateEmployeeDto dto);
 
     List<Employee> findEmployeeByNameOrId(String paramSearch);
+
+
 
     boolean isExisted(String s);
 
@@ -52,4 +54,18 @@ public interface EmployeeService {
     List<Employee> getBirth();
 
     int countByArea(String area);
+
+    boolean isExistId(String toString);
+
+    Page<Employee> search(String paramSearch, Pageable pageable);
+
+    List<Employee> getByCourseId(String id);
+
+    boolean findByCourseIdAndEmployeeId(String courseId, String employeeId);
+
+    boolean findByTaskIdAndEmployeeId(String taskId, String employeeId);
+
+    List<Employee> getByTaskId(String id);
+
+    List<Employee> checkBirthDate(int dayOfMonth, int monthValue);
 }

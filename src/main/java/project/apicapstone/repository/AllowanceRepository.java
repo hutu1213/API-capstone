@@ -17,8 +17,13 @@ public interface AllowanceRepository extends JpaRepository<Allowance,String> {
     @Query("SELECT e FROM Allowance e")
     Page<Allowance> findAllAllowance(Pageable pageable);
 
-    @Query("SELECT a FROM Allowance a WHERE a.allowanceName LIKE %?1% OR a.allowanceId LIKE %?1%")
+    @Query("SELECT e FROM Allowance e WHERE lower(e.allowanceName)  LIKE lower(concat('%', ?1,'%'))  OR e.allowanceId LIKE %?1%")
     List<Allowance> findByAllowanceIdOrName(String paramSearch);
 
+    @Query("SELECT e FROM Allowance e WHERE lower(e.allowanceName)  LIKE lower(concat('%', ?1,'%'))  OR e.allowanceId LIKE %?1%")
+    Page<Allowance> search(String paramSearch,Pageable pageable);
+
+
+    Page<Allowance> getAllByContractContractId(String id,Pageable pageable);
 
 }

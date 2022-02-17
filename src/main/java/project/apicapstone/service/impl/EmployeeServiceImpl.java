@@ -46,6 +46,36 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public Page<Employee> search(String paramSearch, Pageable pageable) {
+        return employeeRepository.search(paramSearch, pageable);
+    }
+
+    @Override
+    public List<Employee> getByCourseId(String id) {
+        return employeeRepository.findAllByTrainingCourseId(id);
+    }
+
+    @Override
+    public boolean findByCourseIdAndEmployeeId(String courseId, String employeeId) {
+        return employeeRepository.findEmployeeByCourseIdAndEmployeeId(courseId, employeeId) >= 1;
+    }
+
+    @Override
+    public boolean findByTaskIdAndEmployeeId(String taskId, String employeeId) {
+        return employeeRepository.findEmployeeByTaskIdAndEmployeeId(taskId, employeeId) >= 1;
+    }
+
+    @Override
+    public List<Employee> getByTaskId(String id) {
+        return employeeRepository.findAllByTaskId(id);
+    }
+
+    @Override
+    public List<Employee> checkBirthDate(int dayOfMonth, int monthValue) {
+        return employeeRepository.findByDayOfBirthAndMonthOfBirth(dayOfMonth,monthValue);
+    }
+
+    @Override
     public List<Employee> findEmployeeByName(String employeeName) {
         List<Employee> employeeList = employeeRepository.findEmployeesByEmployeeNameContains(employeeName);
         if (employeeList.size() == 0) {
@@ -86,7 +116,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         addEmployee.setBackIdentityCard(dto.getBackIdentityCard());
         addEmployee.setFrontIdentityCard(dto.getFrontIdentityCard());
-
+        addEmployee.setPlaceIssue(dto.getPlaceIssue());
+        addEmployee.setDateIssue(dto.getDateIssue());
         addEmployee.setWorkplace(workplaceRepository.getById(dto.getWorkplaceId()));
 
         Title title = titleRepository.getById(dto.getTitleId());
@@ -100,6 +131,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> listSearch = employeeRepository.findEmployeesByNameOrId(paramSearch);
         return listSearch;
     }
+
 
     @Override
     public boolean isExisted(String id) {
@@ -144,7 +176,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         updateEmployee.setUpdateDate(LocalDate.now());
         updateEmployee.setBackIdentityCard(dto.getBackIdentityCard());
         updateEmployee.setFrontIdentityCard(dto.getFrontIdentityCard());
+        updateEmployee.setPlaceIssue(dto.getPlaceIssue());
+        updateEmployee.setDateIssue(dto.getDateIssue());
         updateEmployee.setTitle(titleRepository.getById(dto.getTitleId()));
+        updateEmployee.setWorkplace(workplaceRepository.getById(dto.getWorkplaceId()));
         employeeRepository.save(updateEmployee);
     }
 
@@ -375,4 +410,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     public int countByArea(String area) {
         return employeeRepository.countByArea(area);
     }
+
+    @Override
+    public boolean isExistId(String toString) {
+        return employeeRepository.existsById(toString);
+    }
+
+
 }

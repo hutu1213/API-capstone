@@ -19,13 +19,17 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     //List<Employee> findEmployeesByEmployeeName(String employeeName);
     List<Employee> findEmployeesByEmployeeNameContains(String employeeName);
 
-    //
-    @Query("SELECT e FROM Employee e WHERE e.employeeName LIKE %?1% OR e.employeeId LIKE %?1%")
+
+    @Query("SELECT e FROM Employee e WHERE lower(e.employeeName)  LIKE lower(concat('%', ?1,'%'))  OR e.employeeId LIKE %?1%")
     List<Employee> findEmployeesByNameOrId(String paramSearch);
 
     @Transactional(readOnly = true)
     @Query("SELECT e FROM Employee e")
     Page<Employee> findAllEmp(Pageable pageable);
+
+    //@Query("select u from User u where lower(u.name) like lower(concat('%', ?1,'%'))")
+    @Query("SELECT e FROM Employee e WHERE lower(e.employeeName)  LIKE lower(concat('%', ?1,'%'))  OR e.employeeId LIKE %?1%")
+    Page<Employee> search(String paramSearch, Pageable pageable);
 
     int countByCreateDateBetweenAndWorkingStatusNotContains(LocalDate start, LocalDate end, String workingStatus);
 
@@ -46,4 +50,21 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     @Query("SELECT COUNT(a.areaId) FROM Employee e JOIN e.workplace w JOIN w.subarea s JOIN s.area a WHERE a.name = ?1")
     int countByArea(String area);
 
+    int countEmployeesByEmployeeId(String id);
+
+    List<Employee> findByEmployeeNameIgnoreCase(String name);
+
+    @Query("SELECT e FROM Employee e join e.trainingCourses tc WHERE tc.courseId = ?1")
+    List<Employee> findAllByTrainingCourseId(String id);
+
+    @Query("SELECT COUNT(e.employeeId) FROM Employee e join e.trainingCourses tc WHERE tc.courseId = ?1 AND e.employeeId =?2")
+    int findEmployeeByCourseIdAndEmployeeId(String courseId, String employeeId);
+
+    @Query("SELECT COUNT(e.employeeId) FROM Employee e join e.tasks t WHERE t.taskId = ?1 AND e.employeeId =?2")
+    int findEmployeeByTaskIdAndEmployeeId(String taskId, String employeeId);
+
+    @Query("SELECT e FROM Employee e join e.tasks t WHERE t.taskId = ?1")
+    List<Employee> findAllByTaskId(String id);
+
+    List<Employee> findByDayOfBirthAndMonthOfBirth(int dayOfMonth, int monthValue);
 }

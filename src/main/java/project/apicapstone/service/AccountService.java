@@ -22,4 +22,6 @@ public interface AccountService {
     Page<Account> findAllAccount(Pageable pageable);
 
     Object pagingFormat(Page<Account> accountPage);
+
+    List<Account> getByRoleId(String roleId);
 }

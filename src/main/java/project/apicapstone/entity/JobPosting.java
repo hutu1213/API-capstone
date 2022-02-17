@@ -1,7 +1,6 @@
 package project.apicapstone.entity;
 
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -14,33 +13,41 @@ import project.apicapstone.common.entity.BaseEntity;
 import project.apicapstone.common.util.DateUtils;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties(value={"hibernateLazyInitializer"})
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 @Entity
 @Table(name = "table_jobPosting")
-public class JobPosting  {
+public class JobPosting {
     @Id
     private String jobPostingId;
     @Column
-    private String vacancies;
+    private String postTitle;
     @Column
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
-    private String datePost;
-    @Column
-    private String employmentInfor;
-    @Column
+    private LocalDate datePost;
+    //    @Lob
+    @Column(columnDefinition = "TEXT")
     private String jobDescription;
-    @Column
+    //    @Lob
+    @Column(columnDefinition = "TEXT")
     private String jobRequirements;
     @Column
     private String status;
-
+    //    @Lob
+    @Column(columnDefinition = "TEXT")
+    private String benefit;
+    @Column
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private LocalDate createDate;
     // relationship  title - job posting: 1-N
     @ManyToOne(fetch = FetchType.LAZY)
     //@JsonIgnore
@@ -48,13 +55,12 @@ public class JobPosting  {
     private Title title;
 
     // relationship job posting - criteria 1-N
-    @OneToMany(mappedBy="jobPosting")
+    @OneToMany(mappedBy = "jobPosting")
     @JsonIgnore
     private Set<Criteria> criteria = new HashSet<>();
 
     // relationship job posting - application 1-N
-    @OneToMany(mappedBy="jobPosting")
+    @OneToMany(mappedBy = "jobPosting")
     @JsonIgnore
     private Set<Applicant> applicants = new HashSet<>();
-
 }

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import project.apicapstone.entity.Account;
+import project.apicapstone.entity.Dependant;
 import project.apicapstone.entity.Position;
 
 import java.util.List;
@@ -19,4 +20,7 @@ public interface PositionRepository extends JpaRepository<Position,String> {
 
     @Query("SELECT p FROM Position p WHERE p.positionName LIKE %?1% OR p.positionId LIKE %?1%")
     List<Position> findPositionsByNameOrId(String paramSearch);
+
+    @Query("SELECT p FROM Position p WHERE p.positionName LIKE %?1% OR p.positionId LIKE %?1%")
+    Page<Position> search(String paramSearch, Pageable pageable);
 }

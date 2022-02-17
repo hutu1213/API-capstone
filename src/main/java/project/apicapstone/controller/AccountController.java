@@ -57,4 +57,10 @@ public class AccountController {
 
         return ResponseHandler.getResponse("Add Successful !", HttpStatus.OK);
     }
+    @GetMapping("/get-by-role-id/{roleId}")
+    public Object getByRoleId(@PathVariable String roleId) {
+        List<Account> accountList = accountService.getByRoleId(roleId);
+
+        return ResponseHandler.getResponse(accountList, HttpStatus.OK);
+    }
 }

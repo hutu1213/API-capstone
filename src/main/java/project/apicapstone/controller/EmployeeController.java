@@ -11,9 +11,7 @@ import project.apicapstone.dto.employee.CreateEmployeeDto;
 import project.apicapstone.dto.employee.UpdateEmployeeDto;
 import project.apicapstone.entity.Employee;
 import project.apicapstone.service.EmployeeService;
-
 import javax.validation.Valid;
-
 import java.util.List;
 
 @RestController
@@ -33,6 +31,16 @@ public class EmployeeController {
         return ResponseHandler.getResponse(employeeService.pagingFormat(employeePage), HttpStatus.OK);
     }
 
+    @GetMapping("/search-paging/{paramSearch}")
+    public Object search(@PathVariable String paramSearch, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Employee> employeePage = employeeService.search(paramSearch, pageable);
+//        if(paramSearch.isEmpty()){
+//            return ResponseHandler.getResponse("Vui lòng nhập", HttpStatus.BAD_REQUEST);
+//        }
+        return ResponseHandler.getResponse(employeeService.pagingFormat(employeePage), HttpStatus.OK);
+    }
+
     @GetMapping("/get-all")
     public Object findAll() {
         List<Employee> employees = employeeService.findAllEmployee();
@@ -48,7 +56,6 @@ public class EmployeeController {
     //    @GetMapping("")
 //    public Object findEmployee(@RequestParam String employeeName) {
 //        List<Employee> employeeList = employeeService.findEmployeeByName(employeeName);
-//        //return ResponseEntity.ok(employeeList);
 //        return ResponseHandler.getResponse(employeeList,HttpStatus.OK);
 //    }
     @GetMapping("/search/{paramSearch}")
@@ -113,6 +120,7 @@ public class EmployeeController {
         int count = employeeService.countByStatus(status);
         return ResponseHandler.getResponse(count, HttpStatus.OK);
     }
+
     @GetMapping("/count-by-area")
     public Object countByArea(@RequestParam(name = "area") String area) {
         int count = employeeService.countByArea(area);
@@ -131,10 +139,16 @@ public class EmployeeController {
         return ResponseHandler.getResponse(result, HttpStatus.OK);
     }
 
-    @GetMapping("/check-birth")
-    public Object checkBirth() {
-        List<Employee> employee = employeeService.getBirth();
-        return ResponseHandler.getResponse(employee, HttpStatus.OK);
+    @GetMapping("/training-course/{id}")
+    public Object getByTrainingCourseId(@PathVariable String id) {
+        List<Employee> employeeList = employeeService.getByCourseId(id);
+        return ResponseHandler.getResponse(employeeList, HttpStatus.OK);
+    }
+
+    @GetMapping("/task/{id}")
+    public Object getByTaskId(@PathVariable String id) {
+        List<Employee> employeeList = employeeService.getByTaskId(id);
+        return ResponseHandler.getResponse(employeeList, HttpStatus.OK);
     }
 
 }

@@ -84,4 +84,14 @@ public class WorkplaceServiceImpl implements WorkplaceService {
         dto.setRecords(workplacePage.toList());
         return dto;
     }
+
+    @Override
+    public List<Workplace> getBySubarea(String id) {
+        return workplaceRepository.findAllBySubareaSubareaId(id);
+    }
+
+    @Override
+    public Page<Workplace> search(String paramSearch, Pageable pageable) {
+        return workplaceRepository.search(paramSearch,pageable);
+    }
 }

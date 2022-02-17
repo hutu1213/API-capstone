@@ -1,8 +1,12 @@
 package project.apicapstone.service.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import project.apicapstone.dto.role.CreateRoleDto;
+import project.apicapstone.dto.role.PagingFormatRoleDto;
 import project.apicapstone.dto.role.UpdateRoleDto;
+
 import project.apicapstone.entity.Role;
 import project.apicapstone.repository.RoleRepository;
 import project.apicapstone.service.RoleService;
@@ -62,6 +66,21 @@ public class RoleServiceImpl implements RoleService {
         role.setRoleName(dto.getRoleName());
         role.setRoleDescription(dto.getRoleDescription());
         roleRepository.save(role);
+    }
+
+    @Override
+    public Page<Role> findAllRole(Pageable pageable) {
+        return roleRepository.findAllRole(pageable);
+    }
+
+    @Override
+    public Object pagingFormat(Page<Role> rolePage) {
+        PagingFormatRoleDto dto=new PagingFormatRoleDto();
+        dto.setPageSize(rolePage.getSize());
+        dto.setTotalRecordCount(rolePage.getTotalElements());
+        dto.setPageNumber(rolePage.getNumber());
+        dto.setRecords(rolePage.toList());
+        return dto;
     }
 
 

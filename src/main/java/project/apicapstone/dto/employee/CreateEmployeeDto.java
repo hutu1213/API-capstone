@@ -35,7 +35,7 @@ public class CreateEmployeeDto {
 
     private String placeBirth;
 
-    @CheckPhoneNumber
+    //@CheckPhoneNumber
     private String phone;
 
     private String gender;
@@ -77,6 +77,11 @@ public class CreateEmployeeDto {
 
     private String frontIdentityCard;
 
+    private String placeIssue;
+
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private String dateIssue;
     @FindTitleId
     private String titleId;
 

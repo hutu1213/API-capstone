@@ -1,6 +1,7 @@
 package project.apicapstone.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import project.apicapstone.common.entity.BaseEntity;
 
@@ -14,6 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(exclude = {"accounts"}, callSuper = false)
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 @Entity
 @Table(name = "table_role")
 public class Role {
@@ -24,6 +26,7 @@ public class Role {
     private String roleName;
     @Column
     private String roleDescription;
+
     //relation account-role : N-N
     @JsonIgnore
     @Builder.Default
