@@ -37,6 +37,7 @@ public class ApplicantServiceImpl implements ApplicantService {
         newApplicant.setApplicantName(dto.getApplicantName());
         newApplicant.setDateBirth(dto.getDateBirth());
         newApplicant.setAddress(dto.getAddress());
+        newApplicant.setCheckSendMail(0);
         newApplicant.setPhone(dto.getPhone());
         newApplicant.setGender(dto.getGender());
         newApplicant.setEmail(dto.getEmail());
@@ -86,6 +87,7 @@ public class ApplicantServiceImpl implements ApplicantService {
         Applicant applicant = applicantRepository.getById(applicantId);
         applicant.setApplicantName(dto.getApplicantName());
         applicant.setDateBirth(dto.getDateBirth());
+        applicant.setCheckSendMail(0);
         applicant.setAddress(dto.getAddress());
         applicant.setPhone(dto.getPhone());
         applicant.setGender(dto.getGender());
@@ -109,5 +111,10 @@ public class ApplicantServiceImpl implements ApplicantService {
     @Override
     public Page<Applicant> search(String paramSearch, Pageable pageable) {
         return applicantRepository.search(paramSearch,pageable);
+    }
+
+    @Override
+    public List<Applicant> getAllByStatus(String status) {
+        return applicantRepository.findAllByStatusAndCheckSendMail(status,0);
     }
 }

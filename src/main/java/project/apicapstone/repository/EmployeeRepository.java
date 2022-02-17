@@ -65,4 +65,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
 
     @Query("SELECT e FROM Employee e join e.tasks t WHERE t.taskId = ?1")
     List<Employee> findAllByTaskId(String id);
+
+    List<Employee> findByDayOfBirthAndMonthOfBirth(int dayOfMonth, int monthValue);
 }

@@ -54,6 +54,9 @@ public class Applicant {
     private float evaluateScore;
     @Column
     private String stage;
+    @Column
+    @JsonIgnore
+    private int checkSendMail;
     // relationship jobPosting - application 1-N
     @ManyToOne(fetch = FetchType.LAZY)
     // @JsonIgnore
