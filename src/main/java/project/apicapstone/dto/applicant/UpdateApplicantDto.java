@@ -42,7 +42,7 @@ public class UpdateApplicantDto {
     private String resumeFile;
     private String scanData;
 
-    private float evaluateScore;
+    private double evaluateScore;
 
     private String stage;
     @FindJobPostingId

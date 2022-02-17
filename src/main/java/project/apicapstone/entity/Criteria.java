@@ -23,7 +23,7 @@ public class Criteria {
     @Column
     private String criteriaDescription;
     @Column
-    private String weight;
+    private Double weight;
 
     // relationship job posting - criteria 1-N
     @ManyToOne(fetch = FetchType.LAZY)
