@@ -87,9 +87,10 @@ public class ApplicantServiceImpl implements ApplicantService {
     @Override
     public void updateApplicant(UpdateApplicantDto dto, String applicantId) {
         Applicant applicant = applicantRepository.getById(applicantId);
+
         applicant.setApplicantName(dto.getApplicantName());
         applicant.setDateBirth(dto.getDateBirth());
-        applicant.setCheckSendMail(0);
+        applicant.setCheckSendMail(applicant.getCheckSendMail());
         applicant.setAddress(dto.getAddress());
         applicant.setPhone(dto.getPhone());
         applicant.setGender(dto.getGender());
