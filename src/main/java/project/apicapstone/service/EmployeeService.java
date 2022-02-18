@@ -24,7 +24,7 @@ public interface EmployeeService {
 
     List<Employee> findEmployeeByNameOrId(String paramSearch);
 
-
+    void initEmployeeAdmin();
 
     boolean isExisted(String s);
 

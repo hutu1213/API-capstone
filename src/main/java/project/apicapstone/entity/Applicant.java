@@ -49,7 +49,7 @@ public class Applicant {
     @Column
     private String resumeFile;
     @JsonIgnore
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String scanData;
     @Column
     private double score;

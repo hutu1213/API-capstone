@@ -15,7 +15,7 @@ import project.apicapstone.repository.ApplicantRepository;
 import project.apicapstone.repository.JobPostingRepository;
 import project.apicapstone.service.ApplicantService;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Service

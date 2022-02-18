@@ -81,7 +81,7 @@ public class CreateEmployeeDto {
 
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
-    private String dateIssue;
+    private LocalDate dateIssue;
     @FindTitleId
     private String titleId;
 

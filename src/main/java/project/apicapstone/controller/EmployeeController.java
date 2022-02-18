@@ -11,6 +11,8 @@ import project.apicapstone.dto.employee.CreateEmployeeDto;
 import project.apicapstone.dto.employee.UpdateEmployeeDto;
 import project.apicapstone.entity.Employee;
 import project.apicapstone.service.EmployeeService;
+
+import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -24,6 +26,10 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
+//    @PostConstruct
+//    public void init(){
+//        employeeService.initEmployeeAdmin();
+//    }
     @GetMapping
     public Object findAllEmployee(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
