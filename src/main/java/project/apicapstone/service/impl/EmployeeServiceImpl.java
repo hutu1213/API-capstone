@@ -3,18 +3,15 @@ package project.apicapstone.service.impl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.dto.employee.CreateEmployeeDto;
 import project.apicapstone.dto.employee.PagingFormatEmployeeDto;
 import project.apicapstone.dto.employee.UpdateEmployeeDto;
-import project.apicapstone.entity.Employee;
-import project.apicapstone.entity.Title;
-import project.apicapstone.entity.Workplace;
+import project.apicapstone.entity.*;
 import project.apicapstone.entity.util.WorkingStatus;
-import project.apicapstone.repository.EmployeeRepository;
-import project.apicapstone.repository.TitleRepository;
-import project.apicapstone.repository.WorkplaceRepository;
+import project.apicapstone.repository.*;
 import project.apicapstone.service.EmployeeService;
 
 import java.time.DayOfWeek;
@@ -23,7 +20,9 @@ import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static java.time.temporal.TemporalAdjusters.next;
 import static java.time.temporal.TemporalAdjusters.previousOrSame;
@@ -33,11 +32,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
     private TitleRepository titleRepository;
     private WorkplaceRepository workplaceRepository;
+    private RoleRepository roleRepository;
+    private PasswordEncoder encoder;
+    private AccountRepository accountRepository;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, TitleRepository titleRepository, WorkplaceRepository workplaceRepository) {
+    public EmployeeServiceImpl(AccountRepository accountRepository, EmployeeRepository employeeRepository, PasswordEncoder encoder, TitleRepository titleRepository, WorkplaceRepository workplaceRepository, RoleRepository roleRepository) {
         this.employeeRepository = employeeRepository;
+        this.accountRepository = accountRepository;
         this.titleRepository = titleRepository;
         this.workplaceRepository = workplaceRepository;
+        this.roleRepository = roleRepository;
+        this.encoder = encoder;
     }
 
     @Override
@@ -72,7 +77,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> checkBirthDate(int dayOfMonth, int monthValue) {
-        return employeeRepository.findByDayOfBirthAndMonthOfBirth(dayOfMonth,monthValue);
+        return employeeRepository.findByDayOfBirthAndMonthOfBirth(dayOfMonth, monthValue);
     }
 
     @Override
@@ -130,6 +135,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> findEmployeeByNameOrId(String paramSearch) {
         List<Employee> listSearch = employeeRepository.findEmployeesByNameOrId(paramSearch);
         return listSearch;
+    }
+
+    @Override
+    public void initEmployeeAdmin() {
+
+
     }
 
 
