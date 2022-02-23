@@ -16,7 +16,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(FIELD)
 public @interface CheckContractId {
     String message() default "Mã hợp đồng theo định dạng chữ, số và dấu '-' ";
-//    String message() default "Contract Id not valid ! (letter, digit, '-' is valid)";
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};

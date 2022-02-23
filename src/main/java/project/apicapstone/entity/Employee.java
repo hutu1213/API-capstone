@@ -107,12 +107,12 @@ public class Employee {
     private Set<Skill> skills = new HashSet<>();
 
     // relationship employee - contract 1-N
-//    @OneToMany(mappedBy = "employee")
-//    @JsonIgnore
-//    private Set<Contract> contracts = new HashSet<>();
-    @OneToOne(mappedBy = "employee", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "employee")
     @JsonIgnore
-    private Contract contract;
+    private Set<Contract> contracts = new HashSet<>();
+//    @OneToOne(mappedBy = "employee", fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    private Contract contract;
 
 
     // relationship title - employee 1-N
@@ -167,7 +167,7 @@ public class Employee {
     private Set<Probation> probations = new HashSet<>();
 
     //relationship workplace - employee : 1 - N
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)//, cascade = CascadeType.ALL
     // @JsonIgnore
     @JoinColumn(name = "workplace_id")
     private Workplace workplace;

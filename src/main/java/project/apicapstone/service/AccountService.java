@@ -24,4 +24,12 @@ public interface AccountService {
     Object pagingFormat(Page<Account> accountPage);
 
     List<Account> getByRoleId(String roleId);
+
+    List<Account> existByEmployeeId(String s);
+
+    Account findByUsername(String username);
+
+    boolean checkIfValidOldPassword(Account account, String oldPassword);
+
+    void changePassword(Account account, String newPassword);
 }

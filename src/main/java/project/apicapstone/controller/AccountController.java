@@ -4,9 +4,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
+import project.apicapstone.dto.account.ChangePasswordDto;
 import project.apicapstone.dto.account.CreateAccountDto;
 import project.apicapstone.dto.account.AddRoleDto;
 import project.apicapstone.entity.Account;
@@ -57,10 +59,27 @@ public class AccountController {
 
         return ResponseHandler.getResponse("Add Successful !", HttpStatus.OK);
     }
+
     @GetMapping("/get-by-role-id/{roleId}")
     public Object getByRoleId(@PathVariable String roleId) {
         List<Account> accountList = accountService.getByRoleId(roleId);
 
         return ResponseHandler.getResponse(accountList, HttpStatus.OK);
+    }
+
+    @PostMapping("/change-password")
+    public Object changPassword(@RequestBody ChangePasswordDto passwordDto) {
+        // xac dinh user sau khi dang nhap
+        //Account account = accountService.findByUsername(((Account) SecurityContextHolder.getContext().getAuthentication().get).getUsername());
+
+        Account account = accountService.findByUsername(passwordDto.getUsername());
+        if (!accountService.checkIfValidOldPassword(account, passwordDto.getOldPassword())) {
+            return ResponseHandler.getErrors("Sai mật khẩu cũ", HttpStatus.BAD_REQUEST);
+        }
+        if (!passwordDto.getNewPassword().equals(passwordDto.getConfirmNewPassword())) {
+            return ResponseHandler.getErrors("Xác nhận mật khẩu mới không trùng khớp", HttpStatus.BAD_REQUEST);
+        }
+        accountService.changePassword(account, passwordDto.getNewPassword());
+        return ResponseHandler.getResponse("Successful", HttpStatus.OK);
     }
 }

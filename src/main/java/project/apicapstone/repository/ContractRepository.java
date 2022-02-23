@@ -30,6 +30,6 @@ public interface ContractRepository extends JpaRepository<Contract, String> {
     @Query("SELECT c FROM Contract c WHERE lower(c.contractName)  LIKE lower(concat('%', ?1,'%')) OR c.contractId LIKE %?1%")
     Page<Contract> search(String paramSearch, Pageable pageable);
 
-
-
+    @Query("SELECT COUNT(c.contractId) FROM Contract c join c.employee e WHERE e.employeeId=?1 AND c.status LIKE %?2%")
+    int getContractByEmployeeIdAndStatus(String s, String status);
 }

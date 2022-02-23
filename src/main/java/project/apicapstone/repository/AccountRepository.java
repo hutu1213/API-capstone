@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import project.apicapstone.entity.Account;
+import project.apicapstone.entity.Contract;
 import project.apicapstone.entity.Title;
 
 import java.util.List;
@@ -37,4 +38,8 @@ public interface AccountRepository extends JpaRepository<Account, String> {
 
     @Query("SELECT a FROM Account a join a.roles r WHERE r.roleId = ?1")
     List<Account> findAccountsByRoleId(String roleId);
+
+    @Query("SELECT a FROM Account a join a.employee e WHERE e.employeeId = ?1")
+    List<Account> findEmployeeIdInAccount(String id);
+
 }

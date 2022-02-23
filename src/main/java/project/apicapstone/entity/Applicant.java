@@ -9,7 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
-import project.apicapstone.common.entity.BaseEntity;
+
 import project.apicapstone.common.util.DateUtils;
 
 import javax.persistence.*;
@@ -48,7 +48,6 @@ public class Applicant {
     private String status;
     @Column
     private String resumeFile;
-    @JsonIgnore
     @Column(columnDefinition = "TEXT")
     private String scanData;
     @Column
@@ -58,7 +57,7 @@ public class Applicant {
     @Column
     @JsonIgnore
     private int checkSendMail;
-  
+
     // relationship jobPosting - application 1-N
     @ManyToOne(fetch = FetchType.LAZY)
     // @JsonIgnore

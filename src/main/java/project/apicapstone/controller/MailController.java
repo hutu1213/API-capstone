@@ -15,13 +15,8 @@ public class MailController {
         this.mailService = mailService;
     }
 
-    @PostMapping("/send-mail")
-    public Object sendMail(@RequestParam("to") String to, @RequestParam("body") String body, @RequestParam("subject") String subject) {
-        mailService.sendEmail(to, body, subject);
-        return ResponseHandler.getResponse(HttpStatus.OK);
-    }
-    @PostMapping()
-    public Object sendMail2(MailDto dto) {
+    @PostMapping("/send")
+    public Object sendMail(@RequestBody MailDto dto) {
         mailService.sendEmail(dto);
         return ResponseHandler.getResponse(HttpStatus.OK);
     }

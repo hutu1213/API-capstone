@@ -1,9 +1,11 @@
 package project.apicapstone.jobrunr.controller;
 
+import com.fasterxml.jackson.annotation.JacksonInject;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
+import org.hibernate.service.spi.InjectService;
 import org.jobrunr.jobs.JobId;
 import org.jobrunr.scheduling.BackgroundJob;
 import org.jobrunr.scheduling.JobScheduler;
@@ -19,7 +21,9 @@ import project.apicapstone.firebase.dto.NotificationRequestDto;
 import project.apicapstone.jobrunr.service.JobService;
 import project.apicapstone.service.EmployeeService;
 
+import javax.annotation.PostConstruct;
 import java.time.DayOfWeek;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -30,63 +34,30 @@ import java.util.Map;
 @RequestMapping("/api/job")
 public class JobController {
     private EmployeeService employeeService;
+    @Autowired
     private JobScheduler jobScheduler;
-
+    @Autowired
     private JobService jobService;
 
-    public JobController(EmployeeService employeeService, JobScheduler jobScheduler, JobService jobService) {
-        this.employeeService = employeeService;
-        this.jobScheduler = jobScheduler;
-        this.jobService = jobService;
-    }
-
-
-    //    @GetMapping(value = "/birth-date")
-//    public ResponseEntity remindBirthDateJob() {
-//        // final JobId enqueuedJobId = jobScheduler.<JobService>enqueue(myService -> myService.doBirthDate(token));
-//        jobScheduler.<JobService>enqueue(myService -> myService.doBirthDate());
-//
-//
-//        return ResponseEntity.ok().build();
-//    }
-    @GetMapping(value = "/birth-date")
-    public ResponseEntity remindBirthDateJob() {
-        // final JobId enqueuedJobId = jobScheduler.<JobService>enqueue(myService -> myService.doBirthDate(token));
-        jobScheduler.<JobService>enqueue(myService -> myService.doBirthDate());
-
-
-
-        //////////////////////////////////////////////////
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping(value = "/birth-date-token/{token}")
-    public ResponseEntity remindBirthDateJobWithToken(@PathVariable String token) {
-        // final JobId enqueuedJobId = jobScheduler.<JobService>enqueue(myService -> myService.doBirthDate(token));
-        //jobScheduler.<JobService>enqueue(myService -> myService.doBirthDateWithToken(token));
-        jobScheduler.scheduleRecurrently(
-                Cron.daily(),
-                () -> jobService.doBirthDateWithToken(token));
-        return ResponseEntity.ok("Successful");
-    }
-
-    //    @GetMapping(value = "/birth-date")
-//    public String remindBirthDateJob( ) {
-////        final JobId enqueuedJobId = jobScheduler.<JobService>enqueue(myService -> myService.doBirthDate(token));
-////    jobScheduler.<JobService>enqueue(myService -> myService.doBirthDate());
-//       // jobScheduler.enqueue(() -> jobService.doBirthDate(token));   //with param
-////   jobScheduler.scheduleRecurrently(
-////            Cron.daily(),
-////            () -> jobService.doBirthDate()); // ********* tại sao dùng scheduleRecurrently mà nó k hiện trong dashboard*********
-
-
-
-//        jobScheduler.schedule(
-//                LocalDateTime.now().plusSeconds(10),
-//                () -> jobService.doBirthDate());
-//        //return ResponseEntity.ok().build();
-//        return "hi";
+//    @PostConstruct
+//    public void JobController() {
+//        // sao truyền token vào
+//        jobScheduler.scheduleRecurrently("birth-date-token", Cron.daily(), () -> jobService.doBirthDateWithToken("e2CssvfecJIa3G-7F6NXZy:APA91bERZI3Skw-pUOywmuWeh_qaz-nL64R2F6CgLpp9InS7spDz-lSA6KGlkT0HlAbyhU8B9BuTcx6tJ65T6MTfNbX798yJHlGtAibFhr6GZ8jM5VAr8i1v8A884QMYG7LGgd2UPQS7"));
 //    }
 
+    // tại sao phải lưu token và notification?
+
+    @GetMapping(value = "/birth-date", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity remindBirthDateJob() throws FirebaseMessagingException {
+        String list = jobService.doBirthDate();
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping(value = "/birth-date-token/{token}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity remindBirthDateJobWithToken(@PathVariable String token) throws FirebaseMessagingException {
+        String json = jobService.doBirthDateWithToken(token);
+        jobScheduler.scheduleRecurrently("birth-date-token", "* */1 * * *", () -> jobService.doBirthDateWithToken(token));// right
+        return ResponseEntity.ok(json);
+    }
 
 }

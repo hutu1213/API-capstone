@@ -34,4 +34,6 @@ public interface ContractService {
     String findEmployeeIdWithContract(String employeeId);
 
     Page<Contract> search(String paramSearch, Pageable pageable);
+
+    boolean getContractByEmployeeIdAndStatus(String s, String status);
 }
