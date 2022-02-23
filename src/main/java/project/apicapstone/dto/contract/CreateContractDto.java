@@ -44,7 +44,8 @@ public class CreateContractDto {
     private String attachedFile;
 
     @FindEmployeeId
-    @CheckEmployeeIdExistInContract
+    //@CheckEmployeeIdExistInContract
+    @CheckEmployeeIdInOrtherContractWithStatus
     private String employeeId;
 
 }

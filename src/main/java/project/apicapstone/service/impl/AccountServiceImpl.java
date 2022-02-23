@@ -87,4 +87,25 @@ public class AccountServiceImpl implements AccountService {
     public List<Account> getByRoleId(String roleId) {
         return accountRepository.findAccountsByRoleId(roleId);
     }
+
+    @Override
+    public List<Account> existByEmployeeId(String s) {
+        return accountRepository.findEmployeeIdInAccount(s);
+    }
+
+    @Override
+    public Account findByUsername(String username) {
+        return accountRepository.findByUsername(username);
+    }
+
+    @Override
+    public boolean checkIfValidOldPassword(Account account, String oldPassword) {
+        return encoder.matches(oldPassword, account.getPassword());
+    }
+
+    @Override
+    public void changePassword(Account account, String newPassword) {
+        account.setPassword(encoder.encode(newPassword));
+        accountRepository.save(account);
+    }
 }

@@ -121,4 +121,9 @@ public class ContractServiceImpl implements ContractService {
         return contractRepository.search(paramSearch,pageable);
     }
 
+    @Override
+    public boolean getContractByEmployeeIdAndStatus(String s, String status) {
+        return contractRepository.getContractByEmployeeIdAndStatus(s,status)>=1;
+    }
+
 }

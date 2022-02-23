@@ -1,16 +1,14 @@
 package project.apicapstone.jobrunr.service;
 
 import com.google.firebase.messaging.*;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.jobrunr.jobs.annotations.Job;
-import org.jobrunr.scheduling.BackgroundJob;
 import org.jobrunr.spring.annotations.Recurring;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import project.apicapstone.entity.Applicant;
 import project.apicapstone.entity.Employee;
-import project.apicapstone.firebase.dto.NotificationRequestDto;
 import project.apicapstone.repository.ApplicantRepository;
 import project.apicapstone.repository.EmployeeRepository;
 import project.apicapstone.service.ApplicantService;
@@ -18,10 +16,7 @@ import project.apicapstone.service.EmployeeService;
 import project.apicapstone.service.MailService;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
+import java.util.*;
 
 @Service
 public class JobService {
@@ -31,34 +26,31 @@ public class JobService {
     private ApplicantService applicantService;
     private ApplicantRepository applicantRepository;
 
-    public JobService(EmployeeService employeeService, EmployeeRepository employeeRepository, MailService mailService, ApplicantService applicantService,ApplicantRepository applicantRepository) {
+    public JobService(EmployeeService employeeService, EmployeeRepository employeeRepository, MailService mailService, ApplicantService applicantService, ApplicantRepository applicantRepository) {
         this.employeeService = employeeService;
         this.employeeRepository = employeeRepository;
         this.mailService = mailService;
         this.applicantService = applicantService;
-        this.applicantRepository=applicantRepository;
+        this.applicantRepository = applicantRepository;
     }
 
     @Recurring(id = "birth-date-job", cron = "*/59 * * * *")
     @Job(name = "Birthday job")
     public String doBirthDate() throws FirebaseMessagingException {
+        List<Message> messageList = new ArrayList<>();
         for (int i = 0; i < checkBirthDate().size(); i++) {
             Message message = Message.builder()
                     .setToken("e2CssvfecJIa3G-7F6NXZy:APA91bERZI3Skw-pUOywmuWeh_qaz-nL64R2F6CgLpp9InS7spDz-lSA6KGlkT0HlAbyhU8B9BuTcx6tJ65T6MTfNbX798yJHlGtAibFhr6GZ8jM5VAr8i1v8A884QMYG7LGgd2UPQS7")
-                    //.setToken(token)
                     .setNotification(new Notification("Happy birthday", "Hôm nay là sinh nhật của: " + checkBirthDate().get(i).getEmployeeName() + ", Mã: " + checkBirthDate().get(i).getEmployeeId()))
-                    //.putData("content", "Happy birthday")
-                    //.putData("body", "Hôm nay là sinh nhật của" + checkBirthDate().get(i).getEmployeeName())
-                    // .setWebpushConfig(new WebpushNotification())
-                    //.setApnsConfig()
+//                    .putData("content", "Happy birthday")
+//                    .putData("body", "Hôm nay là sinh nhật của" + checkBirthDate().get(i).getEmployeeName())
                     .build();
-//            Map<String, String> map = new HashMap<>();
-//            map.put("content", "Happy birthday");
-//            map.put("body", "Hôm nay là sinh nhật của: " + checkBirthDate().get(i).getEmployeeName() + ", Mã: " + checkBirthDate().get(i).getEmployeeId());
+            messageList.add(message);
             FirebaseMessaging.getInstance().send(message);
         }
-
-        return "dit me m";
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String jsonOutput = gson.toJson(messageList);
+        return jsonOutput;
     }
 
 
@@ -68,24 +60,23 @@ public class JobService {
     }
 
     @Job(name = "Birthday job with token")
-    public void doBirthDateWithToken(String token) throws FirebaseMessagingException {
+    public String doBirthDateWithToken(String token) throws FirebaseMessagingException {
+        List<Message> messageList = new ArrayList<>();
         for (int i = 0; i < checkBirthDate().size(); i++) {
             Message message = Message.builder()
-                    // .setToken("e2CssvfecJIa3G-7F6NXZy:APA91bERZI3Skw-pUOywmuWeh_qaz-nL64R2F6CgLpp9InS7spDz-lSA6KGlkT0HlAbyhU8B9BuTcx6tJ65T6MTfNbX798yJHlGtAibFhr6GZ8jM5VAr8i1v8A884QMYG7LGgd2UPQS7")
                     .setToken(token)
                     .setNotification(new Notification("Happy birthday", "Hôm nay là sinh nhật của: " + checkBirthDate().get(i).getEmployeeName() + ", Mã: " + checkBirthDate().get(i).getEmployeeId()))
-//                    .putData("content", "Happy birthday")
-//                    .putData("body", "Hôm nay là sinh nhật của" + checkBirthDate().get(i).getName())
                     .build();
-//            Map<String, String> map = new HashMap<>();
-//            map.put("content", "Happy birthday");
-//            map.put("body", "Hôm nay là sinh nhật của: " + checkBirthDate().get(i).getEmployeeName() + ", Mã: " + checkBirthDate().get(i).getEmployeeId());
+            messageList.add(message);
             FirebaseMessaging.getInstance().send(message);
         }
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String jsonOutput = gson.toJson(messageList);
+        return jsonOutput;
+
     }
 
-
-    @Recurring(id = "Send-mail-when-reject-applicant", cron = "*/59 * * * *")
+    @Recurring(id = "Send-mail-when-reject-applicant", cron = "* */1 * * *")
     @Job(name = "Send mail when reject applicant")
     public void sendMailRejectApplicant() {
         String status = "Rớt";

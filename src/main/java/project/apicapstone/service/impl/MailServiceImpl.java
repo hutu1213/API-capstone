@@ -17,17 +17,7 @@ public class MailServiceImpl implements MailService {
         this.javaMailSender=javaMailSender;
     }
 
-    @Override
-    public void sendEmail(String to, String body, String subject) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("huytq1899@gmail.com");
-        //message.setFrom(dto.getFrom());
-        message.setTo(to);
-        message.setText(body);
-        message.setSubject(subject);
 
-        javaMailSender.send(message);
-    }
 
     @Override
     public void sendEmail(MailDto dto) {

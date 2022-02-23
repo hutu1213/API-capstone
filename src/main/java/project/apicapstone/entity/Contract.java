@@ -53,14 +53,14 @@ public class Contract {
     private String attachedFile;
 
     // relationship emply - contract 1-N
-//    @ManyToOne(fetch = FetchType.LAZY)
-//   // @JsonIgnore
-//    @JoinColumn(name = "employee_id")
-//    private Employee employee;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     //@JsonIgnore
+    @JoinColumn(name = "employee_id")
     private Employee employee;
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "employee_id")
+//    //@JsonIgnore
+//    private Employee employee;
 
 
     // relationship contract - dependant 1-N

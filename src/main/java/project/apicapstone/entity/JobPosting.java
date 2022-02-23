@@ -9,7 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
-import project.apicapstone.common.entity.BaseEntity;
+
 import project.apicapstone.common.util.DateUtils;
 
 import javax.persistence.*;

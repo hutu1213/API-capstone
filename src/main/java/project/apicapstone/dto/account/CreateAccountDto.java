@@ -3,10 +3,7 @@ package project.apicapstone.dto.account;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import project.apicapstone.validation.annonation.ConfirmPassword;
-import project.apicapstone.validation.annonation.FindEmployeeId;
-import project.apicapstone.validation.annonation.UniqueAccountId;
-import project.apicapstone.validation.annonation.UniqueUsername;
+import project.apicapstone.validation.annonation.*;
 
 import javax.validation.constraints.NotBlank;
 
@@ -23,6 +20,7 @@ public class CreateAccountDto {
 //    @NotBlank(message = "{account.status.not-blank}")
 //    private String status;
     @FindEmployeeId
+    @CheckEmployeeIdExistInAccount
     private String employeeId;
 
 }

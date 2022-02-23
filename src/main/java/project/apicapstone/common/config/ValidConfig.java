@@ -1,4 +1,4 @@
-package project.apicapstone.config;
+package project.apicapstone.common.config;
 
 
 import org.springframework.context.MessageSource;
