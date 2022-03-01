@@ -108,4 +108,9 @@ public class AccountServiceImpl implements AccountService {
         account.setPassword(encoder.encode(newPassword));
         accountRepository.save(account);
     }
+
+    @Override
+    public boolean existsAccountByUsername(String s) {
+        return accountRepository.existsAccountByUsername(s);
+    }
 }

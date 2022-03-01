@@ -76,7 +76,7 @@ public class JobService {
 
     }
 
-    @Recurring(id = "Send-mail-when-reject-applicant", cron = "* */1 * * *")
+    @Recurring(id = "Send-mail-when-reject-applicant", cron = "* */59 * * *")
     @Job(name = "Send mail when reject applicant")
     public void sendMailRejectApplicant() {
         String status = "Rớt";

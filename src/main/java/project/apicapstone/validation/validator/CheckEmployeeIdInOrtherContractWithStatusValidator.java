@@ -11,6 +11,7 @@ import javax.validation.ConstraintValidatorContext;
 public class CheckEmployeeIdInOrtherContractWithStatusValidator implements ConstraintValidator<CheckEmployeeIdInOrtherContractWithStatus, String> {
     private String message;
     private ContractService contractService;
+    private final String STATUS = "Còn hiệu lực";
 
     public CheckEmployeeIdInOrtherContractWithStatusValidator(ContractService contractService) {
         this.contractService = contractService;
@@ -23,8 +24,7 @@ public class CheckEmployeeIdInOrtherContractWithStatusValidator implements Const
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        String status = "Còn hiệu lực";
-        boolean check = contractService.getContractByEmployeeIdAndStatus(s, status);
+        boolean check = contractService.getContractByEmployeeIdAndStatus(s, STATUS);
         if (check) {
             return false;
         } else {

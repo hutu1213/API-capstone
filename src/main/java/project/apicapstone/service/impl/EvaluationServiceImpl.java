@@ -87,4 +87,9 @@ public class EvaluationServiceImpl implements EvaluationService {
         evaluation.setEmployee(employeeRepository.getById(dto.getEmployeeId()));
         evaluationRepository.save(evaluation);
     }
+
+    @Override
+    public List<Evaluation> getByApplicantId(String id) {
+        return evaluationRepository.findAllByApplicantApplicantId(id);
+    }
 }

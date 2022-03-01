@@ -27,4 +27,6 @@ public interface EvaluationService {
     void deleteById(String id);
 
     void updateEvaluation(UpdateEvaluationDto dto, String evaluationId);
+
+    List<Evaluation> getByApplicantId(String id);
 }
