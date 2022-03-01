@@ -24,7 +24,6 @@ public class CreateContractDto {
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
 //    private LocalDate endDate;
 
-    // @NotBlank(message = "{contract.status.not-blank}")
     private String status;
 
     private double salary;
@@ -44,7 +43,6 @@ public class CreateContractDto {
     private String attachedFile;
 
     @FindEmployeeId
-    //@CheckEmployeeIdExistInContract
     @CheckEmployeeIdInOrtherContractWithStatus
     private String employeeId;
 

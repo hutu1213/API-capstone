@@ -1,7 +1,7 @@
 package project.apicapstone.validation.annonation;
 
-import project.apicapstone.validation.validator.CheckEmployeeIdExistInContractValidator;
-import project.apicapstone.validation.validator.CheckEmployeeIdValidator;
+import project.apicapstone.validation.validator.FindAccountIdValidator;
+import project.apicapstone.validation.validator.FindUsernameValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -11,11 +11,11 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Constraint(validatedBy = CheckEmployeeIdExistInContractValidator.class)
+@Constraint(validatedBy = FindUsernameValidator.class)
 @Retention(RUNTIME)
 @Target(FIELD)
-public @interface CheckEmployeeIdExistInContract {
-    String message() default "Employee Id đã được sử dụng";
+public @interface FindUsername {
+    String message() default "Tài khoản không tìm thấy";
 
     Class<?>[] groups() default {};
 

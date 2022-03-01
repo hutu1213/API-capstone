@@ -68,11 +68,14 @@ public class AccountController {
     }
 
     @PostMapping("/change-password")
-    public Object changPassword(@RequestBody ChangePasswordDto passwordDto) {
+    public Object changPassword(@Valid @RequestBody ChangePasswordDto passwordDto, BindingResult bindingResult) {
         // xac dinh user sau khi dang nhap
         //Account account = accountService.findByUsername(((Account) SecurityContextHolder.getContext().getAuthentication().get).getUsername());
+        if (bindingResult.hasErrors())
+            return ResponseHandler.getResponse(bindingResult, HttpStatus.BAD_REQUEST);
 
         Account account = accountService.findByUsername(passwordDto.getUsername());
+
         if (!accountService.checkIfValidOldPassword(account, passwordDto.getOldPassword())) {
             return ResponseHandler.getErrors("Sai mật khẩu cũ", HttpStatus.BAD_REQUEST);
         }

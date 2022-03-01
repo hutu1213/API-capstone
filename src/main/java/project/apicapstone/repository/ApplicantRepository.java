@@ -46,4 +46,6 @@ public interface ApplicantRepository extends JpaRepository<Applicant,String> {
     int updateApplicantScore(Double score, String id);
   
     List<Applicant> findAllByStatusAndCheckSendMail(String status,int check);
+
+
 }

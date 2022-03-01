@@ -32,4 +32,6 @@ public interface AccountService {
     boolean checkIfValidOldPassword(Account account, String oldPassword);
 
     void changePassword(Account account, String newPassword);
+
+    boolean existsAccountByUsername(String s);
 }

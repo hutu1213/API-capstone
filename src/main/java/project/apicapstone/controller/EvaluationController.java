@@ -11,6 +11,7 @@ import project.apicapstone.dto.employee.CreateEmployeeDto;
 import project.apicapstone.dto.employee.UpdateEmployeeDto;
 import project.apicapstone.dto.evaluation.CreateEvaluationDto;
 import project.apicapstone.dto.evaluation.UpdateEvaluationDto;
+import project.apicapstone.entity.Criteria;
 import project.apicapstone.entity.Employee;
 import project.apicapstone.entity.Evaluation;
 import project.apicapstone.service.EvaluationService;
@@ -78,5 +79,10 @@ public class EvaluationController {
         }
         evaluationService.updateEvaluation(dto, dto.getEvaluationId());
         return ResponseHandler.getResponse(HttpStatus.OK);
+    }
+    @GetMapping("/get-by-applicant-id/{id}")
+    public Object getByApplicantId(@PathVariable String id) {
+        List<Evaluation> evaluationList = evaluationService.getByApplicantId(id);
+        return ResponseHandler.getResponse(evaluationList, HttpStatus.OK);
     }
 }

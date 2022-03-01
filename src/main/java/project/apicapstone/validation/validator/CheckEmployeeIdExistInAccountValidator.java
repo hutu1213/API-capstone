@@ -1,11 +1,8 @@
 package project.apicapstone.validation.validator;
 
 import project.apicapstone.entity.Account;
-import project.apicapstone.entity.Contract;
 import project.apicapstone.service.AccountService;
-import project.apicapstone.service.EmployeeService;
 import project.apicapstone.validation.annonation.CheckEmployeeIdExistInAccount;
-import project.apicapstone.validation.annonation.CheckEmployeeIdExistInContract;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -28,4 +28,6 @@ public interface CriteriaService {
     void updateCriteria(UpdateCriteriaDto dto, String criteriaId);
 
     boolean isExisted(String s);
+
+    List<Criteria> getByJobPostingId(String id);
 }
