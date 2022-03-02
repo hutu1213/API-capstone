@@ -43,9 +43,10 @@ public class JobController {
 //    public void JobController() {
 //        // sao truyền token vào
 //        jobScheduler.scheduleRecurrently("birth-date-token", Cron.daily(), () -> jobService.doBirthDateWithToken("e2CssvfecJIa3G-7F6NXZy:APA91bERZI3Skw-pUOywmuWeh_qaz-nL64R2F6CgLpp9InS7spDz-lSA6KGlkT0HlAbyhU8B9BuTcx6tJ65T6MTfNbX798yJHlGtAibFhr6GZ8jM5VAr8i1v8A884QMYG7LGgd2UPQS7"));
+// tại sao phải lưu token và notification?
 //    }
 
-    // tại sao phải lưu token và notification?
+
 
     @GetMapping(value = "/birth-date", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity remindBirthDateJob() throws FirebaseMessagingException {
