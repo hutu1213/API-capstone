@@ -51,6 +51,10 @@ public class Account {
 //    @JoinColumn(name = "employee_id", referencedColumnName = "employeeId")
 //    private Employee employee;
 
+// relationship account - notification: 1 - N
+    @OneToMany(mappedBy = "account")
+    @JsonIgnore
+    private Set<Notification> notifications = new HashSet<>();
     //helper
     public void addRole(Role role) {
         roles.add(role);

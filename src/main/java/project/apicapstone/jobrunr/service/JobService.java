@@ -25,6 +25,7 @@ public class JobService {
     private MailService mailService;
     private ApplicantService applicantService;
     private ApplicantRepository applicantRepository;
+    private final String STATUS = "Chưa đạt";
 
     public JobService(EmployeeService employeeService, EmployeeRepository employeeRepository, MailService mailService, ApplicantService applicantService, ApplicantRepository applicantRepository) {
         this.employeeService = employeeService;
@@ -79,8 +80,8 @@ public class JobService {
     @Recurring(id = "Send-mail-when-reject-applicant", cron = "* */59 * * *")
     @Job(name = "Send mail when reject applicant")
     public void sendMailRejectApplicant() {
-        String status = "Rớt";
-        List<Applicant> applicantList = applicantService.getAllByStatus(status);
+
+        List<Applicant> applicantList = applicantService.getAllByStatus(STATUS);
         for (int i = 0; i < applicantList.size(); i++) {
             mailService.sendEmailRejectApplicant(applicantList.get(i));
             applicantList.get(i).setCheckSendMail(1);
