@@ -85,4 +85,6 @@ public class AccountController {
         accountService.changePassword(account, passwordDto.getNewPassword());
         return ResponseHandler.getResponse("Successful", HttpStatus.OK);
     }
+
+
 }

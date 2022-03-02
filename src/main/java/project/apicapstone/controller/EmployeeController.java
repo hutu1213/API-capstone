@@ -10,10 +10,14 @@ import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.dto.employee.CreateEmployeeDto;
 import project.apicapstone.dto.employee.UpdateEmployeeDto;
 import project.apicapstone.entity.Employee;
+import project.apicapstone.entity.Notification;
 import project.apicapstone.service.EmployeeService;
+import project.apicapstone.service.NotificationService;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -21,9 +25,10 @@ import java.util.List;
 public class EmployeeController {
 
     private EmployeeService employeeService;
-
-    public EmployeeController(EmployeeService employeeService) {
+private NotificationService notificationService;
+    public EmployeeController(EmployeeService employeeService,NotificationService notificationService) {
         this.employeeService = employeeService;
+        this.notificationService=notificationService;
     }
 
 //    @PostConstruct
@@ -155,6 +160,12 @@ public class EmployeeController {
     public Object getByTaskId(@PathVariable String id) {
         List<Employee> employeeList = employeeService.getByTaskId(id);
         return ResponseHandler.getResponse(employeeList, HttpStatus.OK);
+    }
+    @GetMapping("/get-birth")
+    public Object getBirthDate(HttpServletRequest request) {
+        List<Employee> employeeList = employeeService.checkBirthDate(LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue());
+        List<Notification> notificationList = notificationService.setNotitfi(employeeList,request);
+        return ResponseHandler.getResponse(notificationList, HttpStatus.OK);
     }
 
 }

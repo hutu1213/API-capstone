@@ -25,16 +25,7 @@ public class JwtUtils {
 
 
     public String generateJwtToken(Authentication authentication) {
-//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-//        Date now = new Date();
-//        return Jwts.builder()
-//                .setSubject(userDetails.getUsername())
 //                .claim("roles",userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
-//                .setIssuedAt(now)
-//                .setExpiration(new Date(now.getTime() + jwtExpiration))
-//                .signWith(SignatureAlgorithm.HS512, jwtSecret)
-//                .compact();
-//        //.withExpiresAt(new Date(System.currentTimeMillis()+10*60*1000))
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Date now = new Date();
 
@@ -44,6 +35,7 @@ public class JwtUtils {
                 .setExpiration(new Date(now.getTime() + jwtExpiration))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
+        //.withExpiresAt(new Date(System.currentTimeMillis()+10*60*1000))
     }
 
     public boolean validateJwtToken(String token) {
