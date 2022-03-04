@@ -72,7 +72,7 @@ public class ScanApplicant {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             Map<String, String> json = objectMapper.readValue(jsonStr, new TypeReference<Map<String, String>>() {
-            });// readValue() convert Json String sang Java Object(Map)
+            });// readValue() convert Json String to Java Object(Map)
             applicantService.updateScanData(json.get("scanData"), json.get("applicantId"));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -82,7 +82,7 @@ public class ScanApplicant {
     public void callAnalyzeApplicantAPI(String jobPostingId) {
         // get all criteriaList of jobPosting by jobPostingId
         List<CriteriaWithoutJobPostingDto> criteriaList = criteriaService.findAllByJobPostingId(jobPostingId);
-// sout ra xem co key work khong
+        // sout ra xem co key work khong
         List<ProcessApplicantDto> applicants = applicantService.getAllProcessApplicantDtoByJobPosting(jobPostingId);
 
         // call analyze api
@@ -124,7 +124,7 @@ public class ScanApplicant {
 
             logger.info(String.valueOf(applicantsScoreList));
             for (ApplicantWithScoreDto applicantScore : applicantsScoreList) {
-                //System.out.println("core: "+applicantScore.getScore());
+                //System.out.println("core: " + applicantScore.getScore());
                 logger.info("core: " + applicantScore.getScore());
                 applicantService.updateScore(applicantScore.getScore(), applicantScore.getApplicantId());
             }
