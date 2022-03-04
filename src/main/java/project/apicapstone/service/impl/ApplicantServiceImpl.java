@@ -50,6 +50,8 @@ public class ApplicantServiceImpl implements ApplicantService {
         //newApplicant.setScanData(dto.getScanData());
         newApplicant.setScore(dto.getEvaluateScore());
         newApplicant.setStage(dto.getStage());
+        newApplicant.setInterviewDate(dto.getInterviewDate());
+        newApplicant.setInterviewTime(dto.getInterviewTime());
         JobPosting jobPosting = jobPostingRepository.getById(dto.getJobPostingId());
         newApplicant.setJobPosting(jobPosting);
         return applicantRepository.save(newApplicant);
@@ -103,6 +105,8 @@ public class ApplicantServiceImpl implements ApplicantService {
         //applicant.setScanData(dto.getScanData());
         applicant.setScore(dto.getEvaluateScore());
         applicant.setStage(dto.getStage());
+        applicant.setInterviewDate(dto.getInterviewDate());
+        applicant.setInterviewTime(dto.getInterviewTime());
         JobPosting jobPosting = jobPostingRepository.getById(dto.getJobPostingId());
         applicant.setJobPosting(jobPosting);
         applicantRepository.save(applicant);

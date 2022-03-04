@@ -53,6 +53,7 @@ public class CriteriaServiceImpl implements CriteriaService {
         criteria.setCriteriaId(dto.getCriteriaId());
         criteria.setCriteriaDescription(dto.getCriteriaDescription());
         criteria.setWeight(dto.getWeight());
+        criteria.setKeyword(dto.getKeyword());
         criteria.setJobPosting(jobPostingRepository.getById(dto.getJobPostingId()));
 
         return criteriaRepository.save(criteria);
@@ -66,9 +67,9 @@ public class CriteriaServiceImpl implements CriteriaService {
     @Override
     public void updateCriteria(UpdateCriteriaDto dto, String criteriaId) {
         Criteria criteria= criteriaRepository.getById(criteriaId);
-
         criteria.setCriteriaDescription(dto.getCriteriaDescription());
         criteria.setWeight(dto.getWeight());
+        criteria.setKeyword(dto.getKeyword());
         criteria.setJobPosting(jobPostingRepository.getById(dto.getJobPostingId()));
         criteriaRepository.save(criteria);
 

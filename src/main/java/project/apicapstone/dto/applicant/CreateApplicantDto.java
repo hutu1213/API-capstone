@@ -49,6 +49,12 @@ public class CreateApplicantDto {
     private double evaluateScore;
 
     private String stage;
+
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private LocalDate interviewDate;
+
+    private String interviewTime;
     @FindJobPostingId
     private String jobPostingId;
 }

@@ -13,6 +13,7 @@ import project.apicapstone.repository.EmployeeRepository;
 import project.apicapstone.repository.EvaluationRepository;
 import project.apicapstone.service.EvaluationService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -68,6 +69,9 @@ public class EvaluationServiceImpl implements EvaluationService {
         evaluation.setEvaluationId(dto.getEvaluationId());
         evaluation.setContent(dto.getContent());
         evaluation.setType(dto.getType());
+        evaluation.setCreateDate(LocalDate.now());
+        evaluation.setRating(dto.getRating());
+        evaluation.setUpdateDate(LocalDate.now());
         evaluation.setApplicant(applicantRepository.getById(dto.getApplicantId()));
         evaluation.setEmployee(employeeRepository.getById(dto.getEmployeeId()));
         return evaluationRepository.save(evaluation);
@@ -83,6 +87,8 @@ public class EvaluationServiceImpl implements EvaluationService {
         Evaluation evaluation = evaluationRepository.getById(evaluationId);
         evaluation.setContent(dto.getContent());
         evaluation.setType(dto.getType());
+        evaluation.setUpdateDate(LocalDate.now());
+        evaluation.setRating(dto.getRating());
         evaluation.setApplicant(applicantRepository.getById(dto.getApplicantId()));
         evaluation.setEmployee(employeeRepository.getById(dto.getEmployeeId()));
         evaluationRepository.save(evaluation);

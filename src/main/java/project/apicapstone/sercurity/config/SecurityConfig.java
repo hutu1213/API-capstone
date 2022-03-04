@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         //cấu hình xác thực cho các api
         http.authorizeRequests()
-                .antMatchers("/api/jobPosting/search-paging/{paramSearch}/{position}", "/api/auth/login","/swagger-ui.html/**","/api/applicant/create-applicant","/api/jobPosting/get-by-id/{id}","/api/jobPosting").permitAll()
+                .antMatchers("/api/jobPosting/search-paging/{paramSearch}/{position}", "/api/auth/login","/swagger-ui.html/**","/api/applicant/create-applicant","/api/jobPosting/get-by-id/{id}","/api/jobPosting","/dashboard/**").permitAll()
                 .antMatchers("/api/allowance/**", "/api/applicant/**", "/api/area/**", "/api/account/**", "/api/contract/**", "/api/training-course/**", "/api/criteria/**", "/api/department/**", "/api/dependant/**", "/api/excel/**", "/api/employees/**", "/api/jobPosting/**", "/api/position/**", "/api/role/**", "/api/subarea/**", "/api/task/**", "/api/title/**", "/api/workplace/**","/api/evaluation/**","/api/mail/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_TRUONGPHONG")
                 .antMatchers("/api/employees/**", "/api/skill/**", "/api/dependant/**", "/api/time-keeping/**").hasAnyAuthority("ROLE_QL_NHANVIEN", "ROLE_TRUONGPHONG")
                 .antMatchers("/api/contract/**", "/api/allowance/**").hasAnyAuthority("ROLE_QL_HOPDONG", "ROLE_TRUONGPHONG")
