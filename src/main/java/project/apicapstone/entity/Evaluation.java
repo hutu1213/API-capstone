@@ -1,7 +1,6 @@
 package project.apicapstone.entity;
 
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -20,10 +19,10 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties(value={"hibernateLazyInitializer"})
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 @Entity
 @Table(name = "table_evaluation")
-public class Evaluation  {
+public class Evaluation {
     @Id
     private String evaluationId;
     @Column
@@ -33,20 +32,20 @@ public class Evaluation  {
     @Column
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
-private LocalDate createDate;
+    private LocalDate createDate;
     @Column
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate updateDate;
     @Column
     private int rating;
-     //relationship application - evaluation 1-N
+    //relationship application - evaluation 1-N
     @ManyToOne(fetch = FetchType.LAZY)
     //@JsonIgnore
     @JoinColumn(name = "application_id")
     private Applicant applicant;
 
-  // relationship employ - evaluation 1-N
+    // relationship employ - evaluation 1-N
     @ManyToOne(fetch = FetchType.LAZY)
     //@JsonIgnore
     @JoinColumn(name = "employee_id")
