@@ -2,15 +2,20 @@ package project.apicapstone.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+import project.apicapstone.common.util.DateUtils;
 
 
 import javax.persistence.*;
+import java.time.LocalDate;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -25,7 +30,16 @@ public class Evaluation  {
     private String content;
     @Column
     private String type;
-
+    @Column
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+private LocalDate createDate;
+    @Column
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private LocalDate updateDate;
+    @Column
+    private int rating;
      //relationship application - evaluation 1-N
     @ManyToOne(fetch = FetchType.LAZY)
     //@JsonIgnore

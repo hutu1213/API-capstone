@@ -57,6 +57,12 @@ public class Applicant {
     @Column
     @JsonIgnore
     private int checkSendMail;
+    @Column
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private LocalDate interviewDate;
+    @Column
+    private String interviewTime;
 
     // relationship jobPosting - application 1-N
     @ManyToOne(fetch = FetchType.LAZY)

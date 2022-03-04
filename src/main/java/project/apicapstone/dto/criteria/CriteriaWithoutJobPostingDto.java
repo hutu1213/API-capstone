@@ -6,4 +6,6 @@ public interface CriteriaWithoutJobPostingDto {
     String getCriteriaDescription();
 
     Double getWeight();
+
+   String keyword();
 }

@@ -14,4 +14,5 @@ public class CreateCriteriaDto {
     private Double weight;
 
     private String jobPostingId;
+    private String keyword;
 }

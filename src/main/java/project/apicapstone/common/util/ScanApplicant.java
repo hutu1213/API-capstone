@@ -3,6 +3,8 @@ package project.apicapstone.common.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -13,6 +15,7 @@ import project.apicapstone.dto.applicant.ApplicantWithScoreDto;
 import project.apicapstone.dto.applicant.CreateApplicantDto;
 import project.apicapstone.dto.applicant.ProcessApplicantDto;
 import project.apicapstone.dto.criteria.CriteriaWithoutJobPostingDto;
+
 import project.apicapstone.service.ApplicantService;
 import project.apicapstone.service.CriteriaService;
 import reactor.core.publisher.Mono;
@@ -22,8 +25,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @Service
 public class ScanApplicant {
+    private Logger logger = LoggerFactory.getLogger(ScanApplicant.class);
     public static final String APPLICANT_PROCESS_API = "https://applicant-process-api.herokuapp.com";
     private ApplicantService applicantService;
     private CriteriaService criteriaService;
@@ -77,10 +82,8 @@ public class ScanApplicant {
     public void callAnalyzeApplicantAPI(String jobPostingId) {
         // get all criteriaList of jobPosting by jobPostingId
         List<CriteriaWithoutJobPostingDto> criteriaList = criteriaService.findAllByJobPostingId(jobPostingId);
-        //System.out.println("criteriaList" + criteriaList);
-
+// sout ra xem co key work khong
         List<ProcessApplicantDto> applicants = applicantService.getAllProcessApplicantDtoByJobPosting(jobPostingId);
-        //System.out.println("applicants" + applicants);
 
         // call analyze api
         WebClient client = WebClient.create(APPLICANT_PROCESS_API);
@@ -118,9 +121,11 @@ public class ScanApplicant {
             List<ApplicantWithScoreDto> applicantsScoreList =
                     objectMapper.readValue(jsonStr, new TypeReference<List<ApplicantWithScoreDto>>() {
                     });
-            System.out.println(applicantsScoreList);
+
+            logger.info(String.valueOf(applicantsScoreList));
             for (ApplicantWithScoreDto applicantScore : applicantsScoreList) {
-                System.out.println(applicantScore.getScore());
+                //System.out.println("core: "+applicantScore.getScore());
+                logger.info("core: " + applicantScore.getScore());
                 applicantService.updateScore(applicantScore.getScore(), applicantScore.getApplicantId());
             }
         } catch (Exception e) {

@@ -7,7 +7,7 @@ public class UpdateCriteriaDto {
     private String criteriaId;
 
     private String criteriaDescription;
-
     private Double weight;
+    private String keyword;
     private String jobPostingId;
 }
