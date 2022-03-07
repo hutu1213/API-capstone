@@ -86,5 +86,11 @@ public class AccountController {
         return ResponseHandler.getResponse("Successful", HttpStatus.OK);
     }
 
+    @GetMapping("/test")
+    public Object changPassword(@RequestParam(name = "role1") String role1, @RequestParam(name = "role2") String role2) {
+        List<Account> accountList = accountService.getAccountsByRoleName(role1, role2);
+        return ResponseHandler.getResponse(accountList, HttpStatus.OK);
+    }
+
 
 }

@@ -6,6 +6,7 @@ import project.apicapstone.dto.account.CreateAccountDto;
 import project.apicapstone.dto.account.AddRoleDto;
 import project.apicapstone.entity.Account;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface AccountService {
@@ -34,4 +35,10 @@ public interface AccountService {
     void changePassword(Account account, String newPassword);
 
     boolean existsAccountByUsername(String s);
+
+    List<Account> getAccountsByRoleName(String role1, String role2);
+
+    Account getById(String accountId);
+
+
 }

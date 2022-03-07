@@ -9,17 +9,15 @@ import org.jobrunr.spring.annotations.Recurring;
 import org.springframework.stereotype.Service;
 import project.apicapstone.entity.Account;
 import project.apicapstone.entity.Applicant;
+import project.apicapstone.entity.Contract;
 import project.apicapstone.entity.Employee;
+import project.apicapstone.repository.AccountRepository;
 import project.apicapstone.repository.ApplicantRepository;
 import project.apicapstone.repository.EmployeeRepository;
 import project.apicapstone.repository.NotificationRepository;
 import project.apicapstone.sercurity.jwt.JwtUtils;
-import project.apicapstone.service.AccountService;
-import project.apicapstone.service.ApplicantService;
-import project.apicapstone.service.EmployeeService;
-import project.apicapstone.service.MailService;
+import project.apicapstone.service.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -31,21 +29,31 @@ public class JobService {
     private ApplicantService applicantService;
     private ApplicantRepository applicantRepository;
     private final String STATUS = "Chưa đạt";
+    private final String ROLE_TRUONGPHONG = "ROLE_TRUONGPHONG";
+    private final String ROLE_QL_NHANVIEN = "ROLE_QL_NHANVIEN";
+    private final String ROLE_QL_HOPDONG = "ROLE_QL_HOPDONG";
     private JwtUtils jwtUtils;
     private AccountService accountService;
     private NotificationRepository notificationRepository;
+    private AccountRepository accountRepository;
+    private ContractService contractService;
 
-    public JobService(NotificationRepository notificationRepository,AccountService accountService,JwtUtils jwtUtils, EmployeeService employeeService, EmployeeRepository employeeRepository, MailService mailService, ApplicantService applicantService, ApplicantRepository applicantRepository) {
+    public JobService(ContractService contractService, AccountRepository accountRepository, NotificationRepository notificationRepository, AccountService accountService, JwtUtils jwtUtils, EmployeeService employeeService, EmployeeRepository employeeRepository, MailService mailService, ApplicantService applicantService, ApplicantRepository applicantRepository) {
         this.employeeService = employeeService;
+        this.contractService = contractService;
+        this.accountRepository = accountRepository;
         this.employeeRepository = employeeRepository;
         this.mailService = mailService;
         this.applicantService = applicantService;
         this.applicantRepository = applicantRepository;
         this.jwtUtils = jwtUtils;
-        this.accountService=accountService;
-        this.notificationRepository=notificationRepository;
+        this.accountService = accountService;
+        this.notificationRepository = notificationRepository;
     }
 
+    // lấy username sau khi đăng nhập
+//            String username = jwtUtils.getUsernameFromToken(jwtUtils.getJwtTokenFromRequest(request));
+//            Account account = accountService.findByUsername(username);
     @Recurring(id = "birth-date-job", cron = "*/59 * * * *")
     @Job(name = "Birthday job")
     public String doBirthDate() throws FirebaseMessagingException {
@@ -99,23 +107,45 @@ public class JobService {
         }
     }
 
-    //@Recurring(id = "Send notification", cron = "*****")
-    @Job(name = "Get-notification")
-    public List<project.apicapstone.entity.Notification> getNotification(HttpServletRequest request) {
-        List<project.apicapstone.entity.Notification> notificationList = new ArrayList<>();
-
-        for (int i = 0; i < checkBirthDate().size(); i++) {
-            project.apicapstone.entity.Notification notification1 = new project.apicapstone.entity.Notification();
-            notification1.setCreateDate(LocalDate.now());
-            notification1.setContent("Hôm nay là sinh nhật của " + checkBirthDate().get(i).getEmployeeName() + ", mã: " + checkBirthDate().get(i).getEmployeeId());
-            // lấy username sau khi đăng nhập
-            String username = jwtUtils.getUsernameFromToken(jwtUtils.getJwtTokenFromRequest(request));
-            Account account = accountService.findByUsername(username);
-            notification1.setAccount(account);
-            notificationRepository.save(notification1);
-            notificationList.add(notification1);
+    @Recurring(id = "Get-notification-employee-birthday", cron = "* */59 * * *")
+    @Job(name = "Get-notification-employee-birthday")
+    public void getNotificationEmpl() {
+        List<Account> accountList = accountService.getAccountsByRoleName(ROLE_TRUONGPHONG, ROLE_QL_NHANVIEN);
+        for (int i = 0; i < accountList.size(); i++) {
+            Account account = accountRepository.getById(accountList.get(i).getAccountId());
+            for (int j = 0; j < checkBirthDate().size(); j++) {
+                project.apicapstone.entity.Notification notification = new project.apicapstone.entity.Notification();
+                notification.setCreateDate(LocalDate.now());
+                System.out.println("****ID: " + checkBirthDate().get(j).getEmployeeId());
+                notification.setTitle("Happy birthday");
+                notification.setContent("Hôm nay là sinh nhật của " + checkBirthDate().get(j).getEmployeeName() + ", mã: " + checkBirthDate().get(j).getEmployeeId());
+                notificationRepository.save(notification);
+                account.addNotification(notification);
+            }
+            accountRepository.save(account);
         }
 
-        return notificationList;
     }
+
+    @Recurring(id = "Get-notification-contract-before-5day", cron = "* */59 * * *")
+    @Job(name = "Get-notification-contract")
+    public void getNotificationContract() {
+        List<Account> accountList = accountService.getAccountsByRoleName(ROLE_TRUONGPHONG, ROLE_QL_HOPDONG);
+        List<Contract> contractList = contractService.getContractsByEndDate(LocalDate.now().minusDays(5));
+        for (int i = 0; i < accountList.size(); i++) {
+            Account account = accountRepository.getById(accountList.get(i).getAccountId());
+            for (int j = 0; j < contractList.size(); j++) {
+                project.apicapstone.entity.Notification notification = new project.apicapstone.entity.Notification();
+                notification.setCreateDate(LocalDate.now());
+                notification.setTitle("Thông báo hết hạn hợp đồng");
+                notification.setContent("Hợp đồng " + contractList.get(j).getContractName() + ", mã: " + contractList.get(j).getContractId() + " còn 5 ngày nữa sẽ hết hạn.");
+                notificationRepository.save(notification);
+                account.addNotification(notification);
+            }
+            accountRepository.save(account);
+        }
+
+    }
+
+
 }

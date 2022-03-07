@@ -113,4 +113,14 @@ public class AccountServiceImpl implements AccountService {
     public boolean existsAccountByUsername(String s) {
         return accountRepository.existsAccountByUsername(s);
     }
+
+    @Override
+    public List<Account> getAccountsByRoleName(String role1, String role2) {
+        return accountRepository.getAccountsByRoleName(role1,role2);
+    }
+
+    @Override
+    public Account getById(String accountId) {
+        return accountRepository.getById(accountId);
+    }
 }
