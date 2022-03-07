@@ -83,6 +83,9 @@ public class ScanApplicant {
         // get all criteriaList of jobPosting by jobPostingId
         List<CriteriaWithoutJobPostingDto> criteriaList = criteriaService.findAllByJobPostingId(jobPostingId);
         // sout ra xem co key work khong
+        for (int i = 0; i<criteriaList.size();i++){
+            System.out.println("key word: "+criteriaList.get(i).getKeyword());
+        }
         List<ProcessApplicantDto> applicants = applicantService.getAllProcessApplicantDtoByJobPosting(jobPostingId);
 
         // call analyze api

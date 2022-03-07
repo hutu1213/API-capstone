@@ -17,6 +17,7 @@ import project.apicapstone.service.ContractService;
 
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -75,16 +76,18 @@ public class ContractController {
     public Object findContractByNameOrId(@PathVariable String paramSearch) {
         List<Contract> contractList = contractService.findContractByNameOrId(paramSearch);
         if (contractList.isEmpty()) {
-            return ResponseHandler.getErrors("Not found ",HttpStatus.NOT_FOUND);
+            return ResponseHandler.getErrors("Not found ", HttpStatus.NOT_FOUND);
         }
         return ResponseHandler.getResponse(contractList, HttpStatus.OK);
     }
+
     @GetMapping("/search-paging/{paramSearch}")
     public Object search(@PathVariable String paramSearch, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Contract> contractPage = contractService.search(paramSearch, pageable);
         return ResponseHandler.getResponse(contractService.pagingFormat(contractPage), HttpStatus.OK);
     }
+
 
 
 }

@@ -66,13 +66,13 @@ public class JobController {
     @GetMapping(value = "/birth-date-token/{token}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity remindBirthDateJobWithToken(@PathVariable String token) throws FirebaseMessagingException {
         String json = jobService.doBirthDateWithToken(token);
-        jobScheduler.scheduleRecurrently("birth-date-token", "* */1 * * *", () -> jobService.doBirthDateWithToken(token));// right
+        jobScheduler.scheduleRecurrently("birth-date-token", "* */59 * * *", () -> jobService.doBirthDateWithToken(token));// right
         return ResponseEntity.ok(json);
     }
-    @GetMapping(value = "/get-notification")//, produces = {MediaType.APPLICATION_JSON_VALUE}//  RIGHT
-    public ResponseEntity getNotification(HttpServletRequest request) {
-        jobScheduler.scheduleRecurrently("get-notification", "* */1 * * *", () -> jobService.getNotification(request));
-        return ResponseEntity.ok(jobService.getNotification(request));
-    }
+//    @GetMapping(value = "/get-notification")//, produces = {MediaType.APPLICATION_JSON_VALUE}//  RIGHT
+//    public ResponseEntity getNotification(HttpServletRequest request) {
+//        jobScheduler.scheduleRecurrently("get-notification", "* */1 * * *", () -> jobService.getNotification(request));
+//        return ResponseEntity.ok(jobService.getNotification(request));
+//    }
 
 }

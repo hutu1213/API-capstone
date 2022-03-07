@@ -7,6 +7,8 @@ import project.apicapstone.dto.contract.PagingFormatContractDto;
 import project.apicapstone.dto.contract.UpdateContractDto;
 import project.apicapstone.entity.Contract;
 
+import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 public interface ContractService {
@@ -36,4 +38,8 @@ public interface ContractService {
     Page<Contract> search(String paramSearch, Pageable pageable);
 
     boolean getContractByEmployeeIdAndStatus(String s, String status);
+
+    List<Contract> getContractsByEndDate(LocalDate date);
+
+   List<LocalDate> getAllEndDateContract();
 }

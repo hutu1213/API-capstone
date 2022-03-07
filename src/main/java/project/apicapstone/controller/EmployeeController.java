@@ -161,11 +161,11 @@ private NotificationService notificationService;
         List<Employee> employeeList = employeeService.getByTaskId(id);
         return ResponseHandler.getResponse(employeeList, HttpStatus.OK);
     }
-    @GetMapping("/get-birth")
-    public Object getBirthDate(HttpServletRequest request) {
-        List<Employee> employeeList = employeeService.checkBirthDate(LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue());
-        List<Notification> notificationList = notificationService.setNotitfi(employeeList,request);
-        return ResponseHandler.getResponse(notificationList, HttpStatus.OK);
-    }
+//    @GetMapping("/get-birth")
+//    public Object getBirthDate(HttpServletRequest request) {
+//        List<Employee> employeeList = employeeService.checkBirthDate(LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue());
+//        List<Notification> notificationList = notificationService.setNotitfi(employeeList,request);
+//        return ResponseHandler.getResponse(notificationList, HttpStatus.OK);
+//    }
 
 }

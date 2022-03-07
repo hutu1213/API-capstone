@@ -38,8 +38,7 @@ public class NotificationServiceImpl implements NotificationService {
         List<Notification> notificationList = new ArrayList<>();
         // option2: làm như job
         // sai or đúng: mỗi lần chạy là mỗi lần set id mới
-        //  tạo 1 biến trong employee + nó trong hàm checkBirth -> sau năm khác thì set lại 0
-        // *********sau khi lưu noti -> get notifi by account
+
         for (int i = 0; i < employeeList.size(); i++) {
             Notification notification = new Notification();
             notification.setCreateDate(LocalDate.now());
@@ -48,7 +47,7 @@ public class NotificationServiceImpl implements NotificationService {
             // lấy username sau khi đăng nhập
             String username = jwtUtils.getUsernameFromToken(jwtUtils.getJwtTokenFromRequest(request));
             Account account = accountService.findByUsername(username);
-            notification.setAccount(account);
+            //notification.setAccount(account);
 
 
             notificationRepository.save(notification);
@@ -60,6 +59,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public List<Notification> getAllByAccountId(String id) {
-        return notificationRepository.getNotificationsByAccount_AccountId(id);
+        //return notificationRepository.getNotificationsByAccount_AccountId(id);
+        return notificationRepository.getNotificationsByAccountId(id);
     }
 }

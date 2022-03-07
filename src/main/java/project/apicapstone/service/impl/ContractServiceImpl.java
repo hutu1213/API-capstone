@@ -13,6 +13,7 @@ import project.apicapstone.repository.ContractRepository;
 import project.apicapstone.repository.EmployeeRepository;
 import project.apicapstone.service.ContractService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -124,6 +125,16 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public boolean getContractByEmployeeIdAndStatus(String s, String status) {
         return contractRepository.getContractByEmployeeIdAndStatus(s,status)>=1;
+    }
+
+    @Override
+    public List<Contract> getContractsByEndDate(LocalDate date) {
+        return contractRepository.getContractsByEndDate(date);
+    }
+
+    @Override
+    public List<LocalDate> getAllEndDateContract() {
+        return contractRepository.getAllEndDateContract();
     }
 
 }

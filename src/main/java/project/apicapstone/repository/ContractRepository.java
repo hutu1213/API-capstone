@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import project.apicapstone.entity.Area;
 import project.apicapstone.entity.Contract;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -32,4 +33,9 @@ public interface ContractRepository extends JpaRepository<Contract, String> {
 
     @Query("SELECT COUNT(c.contractId) FROM Contract c join c.employee e WHERE e.employeeId=?1 AND c.status LIKE %?2%")
     int getContractByEmployeeIdAndStatus(String s, String status);
+
+    List<Contract> getContractsByEndDate(LocalDate date);
+
+    @Query("SELECT c.endDate FROM Contract c ")
+    List<LocalDate> getAllEndDateContract();
 }
