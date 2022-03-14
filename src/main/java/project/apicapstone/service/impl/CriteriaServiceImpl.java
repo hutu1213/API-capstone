@@ -85,6 +85,11 @@ public class CriteriaServiceImpl implements CriteriaService {
         return criteriaRepository.getByJPId(id);
     }
 
+    @Override
+    public Page<Criteria> getPagingByJobPostingId(Pageable pageable, String id) {
+        return criteriaRepository.getPagingByJPId(id,pageable);
+    }
+
 //    @Override
 //    public List<Criteria> findAll() {
 //        return criteriaRepository.findAll();

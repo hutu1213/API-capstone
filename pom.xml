@@ -8,21 +8,61 @@
         <version>2.5.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>project</groupId>
     <artifactId>API-capstone</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>API-capstone</name>
     <description>API-capstone</description>
+
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <java.version>11</java.version>
+
+        <spring-cloud.version>2020.0.5</spring-cloud.version>
     </properties>
+
     <dependencies>
+        <!-- *************************** CLOULD ************************************-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-bootstrap</artifactId>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-zuul &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>-->
+<!--            <version>2.2.9.RELEASE</version>-->
+<!--        </dependency>-->
+
+
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-config &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-config</artifactId>-->
+<!--            <version>3.1.1</version>-->
+<!--        </dependency>-->
+<!--        -->
+
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-loadbalancer</artifactId>-->
+<!--            <version>2.2.0.RELEASE</version>-->
+<!--        </dependency>-->
+
+
+        <!-- ****************~~~~~~~~***************** CLOUD ******************************########*********************-->
+
+
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+
+
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -43,6 +83,11 @@
             <version>2.9.2</version>
 
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--            <artifactId>jackson-core</artifactId>-->
+<!--            <version>2.5.2</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
@@ -143,6 +188,17 @@
         </dependency>
 
     </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>

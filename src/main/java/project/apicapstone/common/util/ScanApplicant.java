@@ -86,6 +86,7 @@ public class ScanApplicant {
         for (int i = 0; i<criteriaList.size();i++){
             System.out.println("key word: "+criteriaList.get(i).getKeyword());
         }
+
         List<ProcessApplicantDto> applicants = applicantService.getAllProcessApplicantDtoByJobPosting(jobPostingId);
 
         // call analyze api

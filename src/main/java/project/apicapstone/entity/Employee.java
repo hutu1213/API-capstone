@@ -6,21 +6,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import project.apicapstone.common.util.DateUtils;
-
-
 import javax.persistence.*;
-
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-//@Data
+
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-//@EqualsAndHashCode(exclude = {"timeSheets", "dependants", "skills", "", "evaluations", "tasks", "trainingCourses", "proposals"}, callSuper = false)
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 @Entity
 @Table(name = "table_employee")

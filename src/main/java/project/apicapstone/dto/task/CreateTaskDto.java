@@ -30,4 +30,5 @@ public class CreateTaskDto {
     private String duration;
 
     private String priority;
+    private String taskDetail;
 }

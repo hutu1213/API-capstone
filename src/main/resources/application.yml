@@ -9,8 +9,6 @@ spring:
     hibernate:
       ddl-auto: update
 
-
-
   jackson:
     serialization:
       fail-on-empty-beans: false
@@ -18,4 +16,42 @@ spring:
 server:
   error:
     include-message: always
+
+#zuul:
+#  routes:
+#    dashboard:
+#      path: /dashboard/**
+#      url: http://localhost:8000/dashboard
+#    api:
+#      path: /api/**
+#      url: http://localhost:8000/api
+#    sse:
+#      path: /sse/**
+#      url: http://localhost:8000/sse
+#
+#ribbon:
+#  ConnectTimeout: 120000
+#  ReadTimeout: 120000
+
+#zuul:
+#  routes:
+#    dashboard:
+#      path: /dashboard/**
+##      serviceId: myusers-service
+##      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+##      url: http://lug-capstone.herokuapp.com/dashboard/recurring-jobs
+#      url: http://localhost:8080/dashboard
+#    api:
+#      path: /api/**
+#      url: http://localhost:8080/api
+
+#myusers-service:
+#  ribbon:
+#    NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList
+#    listOfServers: http://lug-capstone.herokuapp.com
+#    ConnectTimeout: 1000
+#    ReadTimeout: 3000
+#    MaxTotalHttpConnections: 500
+#    MaxConnectionsPerHost: 100
+
 

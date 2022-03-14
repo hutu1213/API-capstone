@@ -46,4 +46,7 @@ public interface AccountRepository extends JpaRepository<Account, String> {
 
     @Query("SELECT a FROM Account a join FETCH a.roles r WHERE r.roleName=?1 or r.roleName =?2")
     List<Account> getAccountsByRoleName(String role1, String role2);
+
+
+    Account getAccountByEmployee_EmployeeId(String id);
 }

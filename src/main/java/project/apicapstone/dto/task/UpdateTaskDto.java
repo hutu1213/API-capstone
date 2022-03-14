@@ -26,4 +26,6 @@ public class UpdateTaskDto {
     private String duration;
 
     private String priority;
+
+    private String taskDetail;
 }

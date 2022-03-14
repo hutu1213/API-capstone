@@ -12,24 +12,24 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 
-@Service
+//@Service
 public class FCMInitializer {
-    @Value("${app.firebase-configuration-file}")
-    private String firebaseConfigPath;
-    Logger logger = LoggerFactory.getLogger(FCMInitializer.class);
-
-    @PostConstruct
-    public void initialize() {
-        logger.info("Start init");
-        try {
-            FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setCredentials(GoogleCredentials.fromStream(new ClassPathResource(firebaseConfigPath).getInputStream())).build();
-            if (FirebaseApp.getApps().isEmpty()) {
-                FirebaseApp.initializeApp(options);
-                logger.info("Firebase application has been initialized");
-            }
-        } catch (IOException e) {
-            logger.error(e.getMessage());
-        }
-    }
+//    @Value("${app.firebase-configuration-file}")
+//    private String firebaseConfigPath;
+//    Logger logger = LoggerFactory.getLogger(FCMInitializer.class);
+//
+//    @PostConstruct
+//    public void initialize() {
+//        logger.info("Start init");
+//        try {
+//            FirebaseOptions options = new FirebaseOptions.Builder()
+//                    .setCredentials(GoogleCredentials.fromStream(new ClassPathResource(firebaseConfigPath).getInputStream())).build();
+//            if (FirebaseApp.getApps().isEmpty()) {
+//                FirebaseApp.initializeApp(options);
+//                logger.info("Firebase application has been initialized");
+//            }
+//        } catch (IOException e) {
+//            logger.error(e.getMessage());
+//        }
+//    }
 }
