@@ -47,11 +47,11 @@ public class PushNotificationController {
 //        return pushNotificationService.sendPnsToTopic(notificationRequestDto);
 //    }
 
-    @PostMapping("/notification/token")
-    public ResponseEntity sendTokenNotification(@RequestBody PushNotificationRequest request) throws ExecutionException, InterruptedException {
-        // pushNotificationService.sendPushNotificationToToken(request);
-        String json = fcmService.sendMessageToToken(request);
-        //return new ResponseEntity<>(new PushNotificationResponse(HttpStatus.OK.value(), "Notification has been sent."), HttpStatus.OK);
-        return ResponseEntity.ok(json);
-    }
+//    @PostMapping("/notification/token")
+//    public ResponseEntity sendTokenNotification(@RequestBody PushNotificationRequest request) throws ExecutionException, InterruptedException {
+//        // pushNotificationService.sendPushNotificationToToken(request);
+//        String json = fcmService.sendMessageToToken(request);
+//        //return new ResponseEntity<>(new PushNotificationResponse(HttpStatus.OK.value(), "Notification has been sent."), HttpStatus.OK);
+//        return ResponseEntity.ok(json);
+//    }
 }

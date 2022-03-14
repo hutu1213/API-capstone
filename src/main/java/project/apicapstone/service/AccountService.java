@@ -41,4 +41,5 @@ public interface AccountService {
     Account getById(String accountId);
 
 
+    Account getByEmployeeId(String id);
 }

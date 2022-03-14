@@ -30,4 +30,6 @@ public interface CriteriaService {
     boolean isExisted(String s);
 
     List<Criteria> getByJobPostingId(String id);
+
+    Page<Criteria> getPagingByJobPostingId(Pageable pageable, String id);
 }

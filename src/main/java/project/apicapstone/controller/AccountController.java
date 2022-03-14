@@ -92,5 +92,9 @@ public class AccountController {
         return ResponseHandler.getResponse(accountList, HttpStatus.OK);
     }
 
-
+    @GetMapping("/get-by-employee-id/{id}")
+    public Object getByEmployeeId(@PathVariable String id) {
+        Account account = accountService.getByEmployeeId(id);
+        return ResponseHandler.getResponse(account, HttpStatus.OK);
+    }
 }

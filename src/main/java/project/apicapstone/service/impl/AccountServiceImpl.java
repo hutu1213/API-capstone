@@ -123,4 +123,9 @@ public class AccountServiceImpl implements AccountService {
     public Account getById(String accountId) {
         return accountRepository.getById(accountId);
     }
+
+    @Override
+    public Account getByEmployeeId(String id) {
+        return accountRepository.getAccountByEmployee_EmployeeId(id);
+    }
 }

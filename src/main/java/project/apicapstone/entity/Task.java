@@ -24,7 +24,7 @@ public class Task {
     @Column
     private String taskName;
     @Column
-    private String owner;
+    private String owner;// bỏ
     @Column
     private String status;
     @Column
@@ -37,6 +37,8 @@ public class Task {
     private String duration;
     @Column
     private String priority;
+    @Column
+    private String taskDetail;
 
     //relation employee - task : N-N
     @JsonIgnore

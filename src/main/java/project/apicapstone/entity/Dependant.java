@@ -39,7 +39,12 @@ public class Dependant {
     private String phone;
     @Column
     private String nationality;
-
+//    @JsonIgnore
+//    @Column
+//    private int monthOfBirth;
+//    @JsonIgnore
+//    @Column
+//    private int dayOfBirth;
     // relationship employee - dependant 1-N
     @ManyToOne(fetch = FetchType.LAZY)
     //@JsonIgnore

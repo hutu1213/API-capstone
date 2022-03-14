@@ -111,20 +111,38 @@ public class JobService {
     @Job(name = "Get-notification-employee-birthday")
     public void getNotificationEmpl() {
         List<Account> accountList = accountService.getAccountsByRoleName(ROLE_TRUONGPHONG, ROLE_QL_NHANVIEN);
-        for (int i = 0; i < accountList.size(); i++) {
-            Account account = accountRepository.getById(accountList.get(i).getAccountId());
-            for (int j = 0; j < checkBirthDate().size(); j++) {
-                project.apicapstone.entity.Notification notification = new project.apicapstone.entity.Notification();
-                notification.setCreateDate(LocalDate.now());
-                System.out.println("****ID: " + checkBirthDate().get(j).getEmployeeId());
-                notification.setTitle("Happy birthday");
-                notification.setContent("Hôm nay là sinh nhật của " + checkBirthDate().get(j).getEmployeeName() + ", mã: " + checkBirthDate().get(j).getEmployeeId());
-                notificationRepository.save(notification);
-                account.addNotification(notification);
-            }
-            accountRepository.save(account);
-        }
+//        for (int i = 0; i < accountList.size(); i++) {
+//            Account account = accountRepository.getById(accountList.get(i).getAccountId());
+//            for (int j = 0; j < checkBirthDate().size(); j++) {
+//                project.apicapstone.entity.Notification notification = new project.apicapstone.entity.Notification();
+//                notification.setCreateDate(LocalDate.now());
+//                System.out.println("****ID: " + checkBirthDate().get(j).getEmployeeId());
+//                notification.setTitle("Happy birthday");
+//                notification.setContent("Hôm nay là sinh nhật của " + checkBirthDate().get(j).getEmployeeName() + ", mã: " + checkBirthDate().get(j).getEmployeeId());
+//                notificationRepository.save(notification);
+//                account.addNotification(notification);
+//            }
+//
+//            accountRepository.save(account);
+//        }
+        // đổi thứ tụ vòng lặp
+        // đổi quan hệ nhiều nhiều notifi - account
 
+        for (int i = 0; i < checkBirthDate().size(); i++) {
+            project.apicapstone.entity.Notification notification = new project.apicapstone.entity.Notification();
+            notification.setCreateDate(LocalDate.now());
+            System.out.println("****ID: " + checkBirthDate().get(i).getEmployeeId());
+            notification.setTitle("Happy birthday");
+            notification.setContent("Hôm nay là sinh nhật của " + checkBirthDate().get(i).getEmployeeName() + ", mã: " + checkBirthDate().get(i).getEmployeeId());
+           //notificationRepository.save(notification);
+            for (int j = 0; j < accountList.size(); j++) {
+                Account account = accountRepository.getById(accountList.get(j).getAccountId());
+                notification.addAccount(account);
+                //accountRepository.save(account);
+            }
+           notificationRepository.save(notification); // check lại quan hệ nhiều nhiều
+        }
+//notificationRepository.save(notification);
     }
 
     @Recurring(id = "Get-notification-contract-before-5day", cron = "* */59 * * *")

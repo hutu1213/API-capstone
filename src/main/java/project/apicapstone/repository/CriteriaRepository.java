@@ -28,4 +28,7 @@ public interface CriteriaRepository extends JpaRepository<Criteria, String> {
 
     @Query("SELECT c FROM Criteria c join c.jobPosting j where j.jobPostingId=?1")
     List<Criteria> getByJPId(String id);
+
+    @Query("SELECT c FROM Criteria c join c.jobPosting j where j.jobPostingId=?1")
+    Page<Criteria> getPagingByJPId(String id, Pageable pageable);
 }

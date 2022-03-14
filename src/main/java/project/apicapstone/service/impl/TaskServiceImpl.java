@@ -73,6 +73,7 @@ public class TaskServiceImpl implements TaskService {
         newTask.setWorkPlan(dto.getWorkPlan());
         newTask.setDuration(dto.getDuration());
         newTask.setPriority(dto.getPriority());
+        newTask.setTaskDetail(dto.getTaskDetail());
         return taskRepository.save(newTask);
     }
 
@@ -86,6 +87,7 @@ public class TaskServiceImpl implements TaskService {
         task.setWorkPlan(dto.getWorkPlan());
         task.setDuration(dto.getDuration());
         task.setPriority(dto.getPriority());
+        task.setTaskDetail(dto.getTaskDetail());
         taskRepository.save(task);
     }
 

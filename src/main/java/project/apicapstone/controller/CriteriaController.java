@@ -22,10 +22,11 @@ import java.util.List;
 @RequestMapping(value = "/api/criteria")
 public class CriteriaController {
     private CriteriaService criteriaService;
-private ScanApplicant scanApplicant;
-    public CriteriaController(CriteriaService criteriaService,ScanApplicant scanApplicant) {
+    private ScanApplicant scanApplicant;
+
+    public CriteriaController(CriteriaService criteriaService, ScanApplicant scanApplicant) {
         this.criteriaService = criteriaService;
-        this.scanApplicant=scanApplicant;
+        this.scanApplicant = scanApplicant;
     }
 
     @GetMapping
@@ -93,5 +94,13 @@ private ScanApplicant scanApplicant;
         List<Criteria> criteriaList = criteriaService.getByJobPostingId(id);
         return ResponseHandler.getResponse(criteriaList, HttpStatus.OK);
     }
+
+    @GetMapping("/get-paging-by-jobPosting-id/{id}")
+    public Object getPagingByJobPostingId(@PathVariable String id,@RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Criteria> criteriaPage = criteriaService.getPagingByJobPostingId(pageable,id);
+        return ResponseHandler.getResponse(criteriaService.pagingFormat(criteriaPage), HttpStatus.OK);
+    }
+
 
 }

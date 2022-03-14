@@ -113,7 +113,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         addEmployee.setAvatar(dto.getAvatar());
 
         addEmployee.setCreateDate(LocalDate.now());
-//        addEmployee.setCreateDate(dto.getCreateDate());
+        //addEmployee.setCreateDate(dto.getCreateDate());
         addEmployee.setUpdateDate(LocalDate.now());
 
         addEmployee.setDayOfBirth(dto.getDateBirth().getDayOfMonth());
@@ -142,8 +142,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     }
-
-
     @Override
     public boolean isExisted(String id) {
         return employeeRepository.existsById(id);
@@ -298,7 +296,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public int[] countByMonth() {
-        int[] a;
+        int[] a = new int[0];
 
         LocalDate dateOfJan = LocalDate.of(getYear(), 1, 1);
         LocalDate startDayOfJan = dateOfJan.with(TemporalAdjusters.firstDayOfMonth());
@@ -324,6 +322,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         LocalDate dateOfJune = LocalDate.of(getYear(), 6, 1);
         LocalDate lastDayOfJune = dateOfJune.with(TemporalAdjusters.lastDayOfMonth());
         int month6 = employeeRepository.countByCreateDateBetween(startDayOfJan, lastDayOfJune);
+
 
         LocalDate dateOfJuly = LocalDate.of(getYear(), 7, 1);
         LocalDate lastDayOfJuly = dateOfJuly.with(TemporalAdjusters.lastDayOfMonth());
