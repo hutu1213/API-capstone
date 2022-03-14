@@ -23,14 +23,7 @@ public class ZuulConfiguration {
 //    private static final String ERROR_PATH = "/error";
 //    private static final String METHOD = "lookupHandler";
 //
-//    /**
-//     * Constructs a new bean post-processor for Zuul.
-//     *
-//     * @param routeLocator    the route locator.
-//     * @param zuulController  the Zuul controller.
-//     * @param errorController the error controller.
-//     * @return the new bean post-processor.
-//     */
+
 //    @Bean
 //    public ZuulPostProcessor zuulPostProcessor(@Autowired RouteLocator routeLocator,
 //                                               @Autowired ZuulController zuulController,
