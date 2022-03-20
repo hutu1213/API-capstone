@@ -33,14 +33,21 @@ public class Account {
     @Column
     private String status;
 
-    //relation acc-role : N-N
-    @JsonIgnore
-    @Builder.Default
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    //***relationship acc-role : N-N
+//    @JsonIgnore
+//    @Builder.Default
+//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    @JoinTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+//    private Set<Role> roles = new HashSet<>();
 
-    // relation: employee -account 1-1
+
+    // **** relationship : role - account: 1 - n
+    @ManyToOne(fetch = FetchType.LAZY)
+    //@JsonIgnore
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    // ***relationship: employee -account 1-1
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     //@JsonIgnore
@@ -50,27 +57,27 @@ public class Account {
 //    @JoinColumn(name = "employee_id", referencedColumnName = "employeeId")
 //    private Employee employee;
 
-    // relationship account - notification: 1 - N
+    // ***relationship account - notification: 1 - N
 //    @OneToMany(mappedBy = "account")
 //    @JsonIgnore
 //    private Set<Notification> notifications = new HashSet<>();
 
-
-//    @JsonIgnore
-//    @Builder.Default
-//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-//    @JoinTable(name = "account_notification", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "notification_id"))
-//    private Set<Notification> notifications = new HashSet<>();
     @JsonIgnore
     @Builder.Default
-    @ManyToMany(mappedBy = "accounts", fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "account_notification", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "notification_id"))
     private Set<Notification> notifications = new HashSet<>();
+//    @JsonIgnore
+//    @Builder.Default
+//    @ManyToMany(mappedBy = "accounts", fetch = FetchType.LAZY)
+//    private Set<Notification> notifications = new HashSet<>();// ><
 
     //helper
-    public void addRole(Role role) {
-        roles.add(role);
-        role.getAccounts().add(this);
-    }
+//    public void addRole(Role role) {
+//        roles.add(role);
+//        role.getAccounts().add(this);
+//    }
+
     public void addNotification(Notification notification) {
         notifications.add(notification);
         notification.getAccounts().add(this);

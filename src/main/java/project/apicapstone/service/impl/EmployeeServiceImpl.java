@@ -2,15 +2,15 @@ package project.apicapstone.service.impl;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import project.apicapstone.common.util.ResponseHandler;
+
 import project.apicapstone.dto.employee.CreateEmployeeDto;
 import project.apicapstone.dto.employee.PagingFormatEmployeeDto;
 import project.apicapstone.dto.employee.UpdateEmployeeDto;
 import project.apicapstone.entity.*;
-import project.apicapstone.entity.util.WorkingStatus;
+
 import project.apicapstone.repository.*;
 import project.apicapstone.service.EmployeeService;
 
@@ -20,9 +20,9 @@ import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 
 import java.util.Date;
-import java.util.HashSet;
+
 import java.util.List;
-import java.util.Set;
+
 
 import static java.time.temporal.TemporalAdjusters.next;
 import static java.time.temporal.TemporalAdjusters.previousOrSame;
@@ -32,17 +32,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
     private TitleRepository titleRepository;
     private WorkplaceRepository workplaceRepository;
-    private RoleRepository roleRepository;
-    private PasswordEncoder encoder;
     private AccountRepository accountRepository;
+    private PasswordEncoder passwordEncoder;
+    private RoleRepository roleRepository;
 
-    public EmployeeServiceImpl(AccountRepository accountRepository, EmployeeRepository employeeRepository, PasswordEncoder encoder, TitleRepository titleRepository, WorkplaceRepository workplaceRepository, RoleRepository roleRepository) {
+
+    public EmployeeServiceImpl(RoleRepository roleRepository,PasswordEncoder passwordEncoder,AccountRepository accountRepository,EmployeeRepository employeeRepository, TitleRepository titleRepository, WorkplaceRepository workplaceRepository) {
         this.employeeRepository = employeeRepository;
-        this.accountRepository = accountRepository;
         this.titleRepository = titleRepository;
         this.workplaceRepository = workplaceRepository;
-        this.roleRepository = roleRepository;
-        this.encoder = encoder;
+        this.roleRepository=roleRepository;
+        this.passwordEncoder=passwordEncoder;
+        this.accountRepository=accountRepository;
+
     }
 
     @Override
@@ -139,9 +141,56 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void initEmployeeAdmin() {
+        Employee addEmployee = new Employee();
+        addEmployee.setEmployeeId("admin");
+        addEmployee.setEmployeeName("admin");
+        addEmployee.setDateBirth(null);
+        addEmployee.setPlaceBirth("admin");
+        addEmployee.setPhone("admin");
+        addEmployee.setGender("admin");
+        addEmployee.setAddress("admin");
+        addEmployee.setEmail("admin@gmail.com");
+        addEmployee.setNationality("admin");
+        addEmployee.setReligion("admin");
+        addEmployee.setEthnic("admin");
+        addEmployee.setAcademicLevel("admin");
+        addEmployee.setBank("admin");
+        addEmployee.setBankAccountNo("admin");
+        addEmployee.setTaxIdentificationNo("admin");
+        addEmployee.setMaritalStatus("admin");
+        addEmployee.setWorkingStatus("admin");
+        addEmployee.setAvatar("admin");
 
+        addEmployee.setCreateDate(null);
+        //addEmployee.setCreateDate(dto.getCreateDate());
+        addEmployee.setUpdateDate(null);
 
+        addEmployee.setDayOfBirth(0);
+        addEmployee.setMonthOfBirth(0);
+
+        addEmployee.setBackIdentityCard("admin");
+        addEmployee.setFrontIdentityCard("admin");
+        addEmployee.setPlaceIssue("admin");
+        addEmployee.setDateIssue(null);
+        addEmployee.setWorkplace(null);
+        addEmployee.setTitle(null);
+        // account
+        Account account = new Account();
+        account.setEmployee(addEmployee);
+        account.setPassword(passwordEncoder.encode("admin"));
+        account.setStatus("ACTIVE");
+        account.setUsername("admin@lug.com");
+        // role
+        Role role = new Role();
+        role.setRoleId("1");
+        role.setRoleName("ROLE_TRUONGPHONG");
+        roleRepository.save(role);
+        account.setRole(role);
+        accountRepository.save(account);
+        addEmployee.setAccount(account);
+        employeeRepository.save(addEmployee);
     }
+
     @Override
     public boolean isExisted(String id) {
         return employeeRepository.existsById(id);
@@ -187,6 +236,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         updateEmployee.setFrontIdentityCard(dto.getFrontIdentityCard());
         updateEmployee.setPlaceIssue(dto.getPlaceIssue());
         updateEmployee.setDateIssue(dto.getDateIssue());
+        updateEmployee.setDayOfBirth(dto.getDateBirth().getDayOfMonth());
+        updateEmployee.setMonthOfBirth(dto.getDateBirth().getMonthValue());
         updateEmployee.setTitle(titleRepository.getById(dto.getTitleId()));
         updateEmployee.setWorkplace(workplaceRepository.getById(dto.getWorkplaceId()));
         employeeRepository.save(updateEmployee);
@@ -406,14 +457,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         int month12 = employeeRepository.countByUpdateDateBetweenAndWorkingStatus(startDayOfJan, lastDayOfDec, status);
 
         return new int[]{month1, month2, month3, month4, month5, month6, month7, month8, month9, month10, month11, month12};
-    }
-
-    @Override
-    public List<Employee> getBirth() {
-        LocalDate date = LocalDate.now();
-        int day = date.getDayOfMonth();
-        int month = date.getMonthValue();
-        return employeeRepository.getAllByDayOfBirthAndMonthOfBirth(day, month);
     }
 
     @Override

@@ -37,11 +37,11 @@ public class AuthController {
     private RoleRepository roleRepository;
 
 
-    public AuthController(AuthenticationManager authenticationManager, JwtUtils jwtUtils, AccountRepository accountRepository,RoleRepository roleRepository) {
+    public AuthController(AuthenticationManager authenticationManager, JwtUtils jwtUtils, AccountRepository accountRepository, RoleRepository roleRepository) {
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
         this.accountRepository = accountRepository;
-        this.roleRepository=roleRepository;
+        this.roleRepository = roleRepository;
     }
 
     @PostMapping("/login")
@@ -50,19 +50,17 @@ public class AuthController {
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 
         Authentication auth = null;
-
+        Account account = accountRepository.findByUsername(dto.getUsername());
+        if (!account.getStatus().equals("ACTIVE")) {
+            return ResponseHandler.getResponse("ACCOUNT NOT ACTIVE", HttpStatus.BAD_REQUEST);
+        }
         try {
             auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));
-
             SecurityContextHolder.getContext().setAuthentication(auth);
             String token = jwtUtils.generateJwtToken(auth);
-            Account account = accountRepository.findByUsername(dto.getUsername());
-            List<Role> roleList  = roleRepository.findByUsername(dto.getUsername());
-            // String title = accountRepository.findTitleByUsername(dto.getUsername());
-            return ResponseHandler.getResponseLogin(roleList,token, account, HttpStatus.OK);
-            //return ResponseHandler.getResponse(token, HttpStatus.OK);
-
+            List<Role> roleList = roleRepository.findByUsername(dto.getUsername());
+            return ResponseHandler.getResponseLogin(roleList, token, account, HttpStatus.OK);
         } catch (Exception e) {
             logger.debug("{} has been logged in with wrong password: {}", dto.getUsername(), e.getMessage());
         }

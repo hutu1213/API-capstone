@@ -1,16 +1,17 @@
 package project.apicapstone.controller;
 
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.dto.account.ChangePasswordDto;
 import project.apicapstone.dto.account.CreateAccountDto;
 import project.apicapstone.dto.account.AddRoleDto;
+import project.apicapstone.dto.account.UpdateAccountDto;
 import project.apicapstone.entity.Account;
 import project.apicapstone.service.AccountService;
 
@@ -40,14 +41,22 @@ public class AccountController {
     }
 
     @PostMapping("/create-account")
-    public Object createAccount(@Valid @RequestBody CreateAccountDto dto,
-                                BindingResult errors) {
+    public Object createAccount(@Valid @RequestBody CreateAccountDto dto, BindingResult errors) {
         if (errors.hasErrors())
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 
         Account createAcc = accountService.createAccount(dto);
 
         return ResponseHandler.getResponse(createAcc, HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    public Object update(@Valid @RequestBody UpdateAccountDto dto, BindingResult errors) {
+        if (errors.hasErrors())
+            return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
+
+        accountService.update(dto);
+        return ResponseHandler.getResponse("Successful", HttpStatus.OK);
     }
 
     @PostMapping("/add-role")
@@ -87,7 +96,7 @@ public class AccountController {
     }
 
     @GetMapping("/test")
-    public Object changPassword(@RequestParam(name = "role1") String role1, @RequestParam(name = "role2") String role2) {
+    public Object test(@RequestParam(name = "role1") String role1, @RequestParam(name = "role2") String role2) {
         List<Account> accountList = accountService.getAccountsByRoleName(role1, role2);
         return ResponseHandler.getResponse(accountList, HttpStatus.OK);
     }
