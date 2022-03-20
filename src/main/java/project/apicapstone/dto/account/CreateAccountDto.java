@@ -23,4 +23,7 @@ public class CreateAccountDto {
     @CheckEmployeeIdExistInAccount
     private String employeeId;
 
+    @FindRoleId
+    private String roleId;
+
 }

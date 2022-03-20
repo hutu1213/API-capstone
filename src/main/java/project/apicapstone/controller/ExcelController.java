@@ -9,12 +9,10 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import project.apicapstone.common.util.DateUtils;
+import project.apicapstone.common.util.ExporterExcelEmployee;
 import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.entity.Employee;
 import project.apicapstone.entity.Title;
@@ -24,6 +22,7 @@ import project.apicapstone.repository.TitleRepository;
 import project.apicapstone.repository.WorkplaceRepository;
 import project.apicapstone.service.EmployeeService;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -89,13 +88,10 @@ public class ExcelController {
                 System.out.println("month : " + birthDate.getMonthValue());
                 employee.setPlaceBirth(row.getCell(3).getStringCellValue());
 //
-                Integer phone = (int) row.getCell(4).getNumericCellValue();
-                System.out.println("phone: " + phone);
-                //if (phone.toString().matches("[0-9]{1,12}")) {
-                employee.setPhone(phone.toString());
-//                } else {
-//                    return ResponseHandler.getErrors("Số điện thoại từ 1 đến 12 chữ số", HttpStatus.BAD_REQUEST);
-//                }
+                //Integer phone = (int) row.getCell(4).getNumericCellValue();
+                employee.setPhone(row.getCell(4).getStringCellValue());
+                System.out.println("phone: " + row.getCell(4).getStringCellValue());
+
                 employee.setGender(row.getCell(5).getStringCellValue());
 
                 employee.setAddress(row.getCell(6).getStringCellValue());
@@ -121,29 +117,34 @@ public class ExcelController {
                 employee.setTaxIdentificationNo(taxIdentificationNo.toString());
 
                 employee.setMaritalStatus(row.getCell(15).getStringCellValue());
+                System.out.println("MaritalStatus : " + row.getCell(15).getStringCellValue());
 
                 employee.setWorkingStatus(row.getCell(16).getStringCellValue());
-
-                employee.setAvatar(row.getCell(17).getStringCellValue());
+                System.out.println("WorkingStatus : " + row.getCell(16).getStringCellValue());
 
                 employee.setCreateDate(LocalDate.now());
 
                 employee.setUpdateDate(LocalDate.now());
 
-                employee.setBackIdentityCard(row.getCell(18).getStringCellValue());
+                employee.setPlaceIssue(row.getCell(17).getStringCellValue());
+                System.out.println("PlaceIssue : " + row.getCell(17).getStringCellValue());
 
-                employee.setFrontIdentityCard(row.getCell(19).getStringCellValue());
+                LocalDate dateIssue = LocalDate.parse((String) row.getCell(18).getStringCellValue(), formatter);
+                System.out.println("DateIssue : " + dateIssue);
+                employee.setDateIssue(dateIssue);
 
-                if (titleRepository.existsById(row.getCell(20).getStringCellValue())) {
-                    employee.setTitle(titleRepository.getById(row.getCell(20).getStringCellValue()));
-                } else {
-                    return ResponseHandler.getErrors("Không tìm thấy mã chức vụ: " + row.getCell(20).getStringCellValue(), HttpStatus.BAD_REQUEST);
-                }
-                if (workplaceRepository.existsById(row.getCell(21).getStringCellValue())) {
-                    employee.setWorkplace(workplaceRepository.getById(row.getCell(21).getStringCellValue()));
-                } else {
-                    return ResponseHandler.getErrors("Không tìm thấy mã nơi làm việc: "+row.getCell(21).getStringCellValue(), HttpStatus.BAD_REQUEST);
-                }
+//                if (titleRepository.existsById(row.getCell(19).getStringCellValue())) {
+//                    employee.setTitle(titleRepository.getById(row.getCell(19).getStringCellValue()));
+//                    System.out.println("Title Id : " + row.getCell(19).getStringCellValue());
+//                } else {
+//                    return ResponseHandler.getErrors("Không tìm thấy mã chức vụ: " + row.getCell(19).getStringCellValue(), HttpStatus.BAD_REQUEST);
+//                }
+//                if (workplaceRepository.existsById(row.getCell(20).getStringCellValue())) {
+//                    employee.setWorkplace(workplaceRepository.getById(row.getCell(20).getStringCellValue()));
+//                    System.out.println("WorkPlace Id : " + row.getCell(20).getStringCellValue());
+//                } else {
+//                    return ResponseHandler.getErrors("Không tìm thấy mã nơi làm việc: " + row.getCell(20).getStringCellValue(), HttpStatus.BAD_REQUEST);
+//                }
 
                 employeeList.add(employee);
             }
@@ -153,5 +154,36 @@ public class ExcelController {
             saveEmployee.add(employee);
         }
         return ResponseHandler.getResponse(saveEmployee, HttpStatus.OK);
+    }
+
+    @GetMapping("/exportList/excel")
+    public Object exportListToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        String headerValue = "attachement; filename=HSNV.xlsx";
+        String headerKey = "Content-Disposition";
+        response.setHeader(headerKey, headerValue);
+
+        List<Employee> listEmployees = employeeService.findAllEmployee();
+        if (listEmployees.isEmpty()) {
+            return ResponseHandler.getErrors("Not found ", HttpStatus.NOT_FOUND);
+        }
+        ExporterExcelEmployee excelExporter = new ExporterExcelEmployee(listEmployees);
+        excelExporter.exportList(response);
+        return ResponseHandler.getResponse(excelExporter, HttpStatus.OK);
+    }
+
+
+    @GetMapping("{id}/exportEmployee/excel")
+    public Object exportEmployee(@PathVariable String id, HttpServletResponse response) throws IOException {
+        Employee employee = employeeService.findEmployeeById(id);
+
+        response.setContentType("application/octet-stream");
+        String headerValue = "attachement; filename=HSNV_" + employee.getEmployeeId() + ".xlsx";
+        String headerKey = "Content-Disposition";
+
+        response.setHeader(headerKey, headerValue);
+        ExporterExcelEmployee excelExporter = new ExporterExcelEmployee(employee);
+        excelExporter.export(response);
+        return ResponseHandler.getResponse(excelExporter, HttpStatus.OK);
     }
 }

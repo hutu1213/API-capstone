@@ -35,18 +35,18 @@ public interface AccountRepository extends JpaRepository<Account, String> {
 //    @Query("SELECT t.jobTitle FROM Account a JOIN a.Criteria e JOIN e.title t WHERE a.username = ?1")
 //    String findTitleByUsername(String username);
 
-    @Query("SELECT a FROM Account a LEFT JOIN FETCH a.roles WHERE a.username = ?1")
+//    @Query("SELECT a FROM Account a LEFT JOIN FETCH a.roles WHERE a.username = ?1")
+    @Query("SELECT a FROM Account a LEFT JOIN FETCH a.role Where a.username=?1")
     Optional<Account> findByUsernameWithRoles(String username);
 
-    @Query("SELECT a FROM Account a join a.roles r WHERE r.roleId = ?1")
+    @Query("SELECT a FROM Account a join a.role r WHERE r.roleId = ?1")
     List<Account> findAccountsByRoleId(String roleId);
 
     @Query("SELECT a FROM Account a join a.employee e WHERE e.employeeId = ?1")
     List<Account> findEmployeeIdInAccount(String id);
 
-    @Query("SELECT a FROM Account a join FETCH a.roles r WHERE r.roleName=?1 or r.roleName =?2")
+    @Query("SELECT a FROM Account a join FETCH a.role r WHERE r.roleName=?1 or r.roleName =?2")
     List<Account> getAccountsByRoleName(String role1, String role2);
-
 
     Account getAccountByEmployee_EmployeeId(String id);
 }

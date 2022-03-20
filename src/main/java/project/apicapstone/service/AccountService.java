@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import project.apicapstone.dto.account.CreateAccountDto;
 import project.apicapstone.dto.account.AddRoleDto;
+import project.apicapstone.dto.account.UpdateAccountDto;
 import project.apicapstone.entity.Account;
 
 import java.time.LocalDate;
@@ -42,4 +43,6 @@ public interface AccountService {
 
 
     Account getByEmployeeId(String id);
+
+    void update(UpdateAccountDto dto);
 }

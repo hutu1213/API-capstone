@@ -43,15 +43,15 @@ public class Notification {
 //    //@JsonIgnore
 //    @JoinColumn(name = "account_id")
 //    private Account account;
-//    @JsonIgnore
-//    @Builder.Default
-//    @ManyToMany(mappedBy = "notifications", fetch = FetchType.LAZY)
-//    private Set<Account> accounts = new HashSet<>();
     @JsonIgnore
     @Builder.Default
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "notification_account", joinColumns = @JoinColumn(name = "notification_id"), inverseJoinColumns = @JoinColumn(name = "account_id"))
+    @ManyToMany(mappedBy = "notifications", fetch = FetchType.LAZY)
     private Set<Account> accounts = new HashSet<>();
+//    @JsonIgnore
+//    @Builder.Default
+//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    @JoinTable(name = "notification_account", joinColumns = @JoinColumn(name = "notification_id"), inverseJoinColumns = @JoinColumn(name = "account_id"))
+//    private Set<Account> accounts = new HashSet<>();
 
     //helper
     public void addAccount(Account account) {

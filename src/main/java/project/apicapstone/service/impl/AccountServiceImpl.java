@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import project.apicapstone.dto.account.CreateAccountDto;
 import project.apicapstone.dto.account.PagingFormatAccountDto;
 import project.apicapstone.dto.account.AddRoleDto;
+import project.apicapstone.dto.account.UpdateAccountDto;
 import project.apicapstone.entity.Account;
 import project.apicapstone.entity.Employee;
 import project.apicapstone.entity.Role;
@@ -23,6 +24,7 @@ public class AccountServiceImpl implements AccountService {
     private PasswordEncoder encoder;
     private EmployeeRepository employeeRepository;
     private RoleRepository roleRepository;
+    private final String STATUS = "ACTIVE";
 
     public AccountServiceImpl(AccountRepository accountRepository, PasswordEncoder encoder, EmployeeRepository employeeRepository, RoleRepository roleRepository) {
         this.accountRepository = accountRepository;
@@ -39,23 +41,24 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account createAccount(CreateAccountDto dto) {
         Account newAcc = new Account();
-        //newAcc.setAccountId(dto.getAccountId());
         newAcc.setUsername(dto.getUsername());
         newAcc.setPassword(encoder.encode(dto.getPassword()));
-        newAcc.setStatus("ACTIVE");
+        newAcc.setStatus(STATUS);
         Employee employee = employeeRepository.getById(dto.getEmployeeId());
         newAcc.setEmployee(employee);
+        newAcc.setRole(roleRepository.getById(dto.getRoleId()));
         return accountRepository.save(newAcc);
     }
 
     @Override
     public Account addRole(AddRoleDto dto) {
-        Role role = roleRepository.getById(dto.getRoleId());
-        Account account = accountRepository.getById(dto.getAccountId());
-
-        account.addRole(role);
-
-        return accountRepository.save(account);
+//        Role role = roleRepository.getById(dto.getRoleId());
+//        Account account = accountRepository.getById(dto.getAccountId());
+//
+//        account.addRole(role);
+//
+//        return accountRepository.save(account);
+        return null;
     }
 
     @Override
@@ -116,7 +119,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<Account> getAccountsByRoleName(String role1, String role2) {
-        return accountRepository.getAccountsByRoleName(role1,role2);
+        return accountRepository.getAccountsByRoleName(role1, role2);
     }
 
     @Override
@@ -127,5 +130,13 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account getByEmployeeId(String id) {
         return accountRepository.getAccountByEmployee_EmployeeId(id);
+    }
+
+    @Override
+    public void update(UpdateAccountDto dto) {
+        Account account = accountRepository.getById(dto.getAccountId());
+        account.setStatus(dto.getStatus());
+        account.setRole(roleRepository.getById(dto.getRoleId()));
+        accountRepository.save(account);
     }
 }

@@ -12,7 +12,7 @@ import project.apicapstone.entity.Employee;
 
 import java.util.List;
 
-//@Service
+
 public interface EmployeeService {
     Page<Employee> findAll(Pageable pageable);
 
@@ -27,7 +27,6 @@ public interface EmployeeService {
     void initEmployeeAdmin();
 
     boolean isExisted(String s);
-
 
     List<Employee> findAllEmployee();
 
@@ -50,8 +49,6 @@ public interface EmployeeService {
     int[] countByMonth();
 
     int[] countByMonthWithStatus(String status);
-
-    List<Employee> getBirth();
 
     int countByArea(String area);
 

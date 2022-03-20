@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,8 +27,13 @@ public class Role {
     private String roleDescription;
 
     //relation account-role : N-N
+//    @JsonIgnore
+//    @Builder.Default
+//    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+//    private Set<Account> accounts = new HashSet<>();
+
+    //***** Relationship role - account: 1 - n
+    @OneToMany(mappedBy = "role")
     @JsonIgnore
-    @Builder.Default
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Set<Account> accounts = new HashSet<>();
 }
