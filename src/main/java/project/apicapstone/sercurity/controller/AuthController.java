@@ -52,9 +52,9 @@ public class AuthController {
 
         Authentication auth = null;
         Account account = accountRepository.findByUsername(dto.getUsername());
-        if (!account.getStatus().equals(STATUS)) {
-            return ResponseHandler.getErrors("Tài khoản không hoạt động", HttpStatus.BAD_REQUEST);
-        }
+//        if (!account.getStatus().equals(STATUS)) {
+//            return ResponseHandler.getErrors("Tài khoản không hoạt động", HttpStatus.BAD_REQUEST);
+//        }
         try {
             auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));
