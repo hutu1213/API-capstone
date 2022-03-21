@@ -1,11 +1,11 @@
 package project.apicapstone.sercurity.dto;
 
-import javax.validation.constraints.NotBlank;
+
 
 public class LoginDto {
-    @NotBlank(message = "Not blank")
+
     private String username;
-    @NotBlank(message = "Not blank")
+
     private String password;
 
     public String getUsername() {

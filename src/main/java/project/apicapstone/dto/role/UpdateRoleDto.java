@@ -8,7 +8,7 @@ public class UpdateRoleDto {
 
     private String roleId;
 
-    @UniqueRoleName
+    //@UniqueRoleName
     private String roleName;
 
     private String roleDescription;

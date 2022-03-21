@@ -23,13 +23,44 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private static final String MANAGE_ALLOWANCE = "/api/allowance/**";
+    private static final String MANAGE_APPLICANT = "/api/applicant/**";
+    private static final String MANAGE_AREA = "/api/area/**";
+    private static final String MANAGE_ACCOUNT = "/api/account/**";
+    private static final String MANAGE_CONTRACT = "/api/contract/**";
+    private static final String MANAGE_TRAINING_COURSE = "/api/training-course/**";
+    private static final String MANAGE_CRITERIA = "/api/criteria/**";
+    private static final String MANAGE_DEPARTMENT = "/api/department/**";
+    private static final String MANAGE_DEPENDANT = "/api/dependant/**";
+    private static final String MANAGE_EXCEL = "/api/excel/**";
+    private static final String MANAGE_EMPLOYEE = "/api/employees/**";
+    private static final String MANAGE_JOB_POSTING = "/api/jobPosting/**";
+    private static final String MANAGE_POSITION = "/api/position/**";
+    private static final String MANAGE_ROLE = "/api/role/**";
+    private static final String MANAGE_SUB_AREA = "/api/subarea/**";
+    private static final String MANAGE_TASK = "/api/task/**";
+    private static final String MANAGE_TITLE = "/api/title/**";
+    private static final String MANAGE_WORKPLACE = "/api/workplace/**";
+    private static final String MANAGE_EVALUATION = "/api/evaluation/**";
+    private static final String MANAGE_MAIL = "/api/mail/**";
+    private static final String MANAGE_SKILL = "/api/skill/**";
+    private static final String MANAGE_TIME_KEEPING = "/api/time-keeping/**";
+
+    private static final String ROLE_TRUONGPHONG = "ROLE_TRUONGPHONG";
+    private static final String ROLE_QL_NHANVIEN = "ROLE_QL_NHANVIEN";
+    private static final String ROLE_QL_HOPDONG = "ROLE_QL_HOPDONG";
+    private static final String ROLE_QL_TUYENDUNG = "ROLE_QL_TUYENDUNG";
+    private static final String ROLE_NHANVIEN = "ROLE_NHANVIEN";
+
     private final UserDetailsService userDetailsService;
     private final JwtAuthorizationFilter jwtAuthorizationFilter;
-    @Autowired
+
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
-    public SecurityConfig(UserDetailsService userDetailsService, JwtAuthorizationFilter jwtAuthorizationFilter) {
+    public SecurityConfig(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, UserDetailsService userDetailsService, JwtAuthorizationFilter jwtAuthorizationFilter) {
         this.userDetailsService = userDetailsService;
+        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
         this.jwtAuthorizationFilter = jwtAuthorizationFilter;
     }
 
@@ -63,18 +94,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
 
-        //test
-        //http.csrf().disable().cors().and().authorizeRequests().anyRequest().permitAll();
-
         //cấu hình xác thực cho các api
-        http.authorizeRequests()
-                .antMatchers("/api/jobPosting/search-paging/{paramSearch}/{position}", "/api/auth/login","/swagger-ui.html#/**","/api/applicant/create-applicant","/api/jobPosting/get-by-id/{id}","/api/jobPosting","/dashboard/**").permitAll()
-                .antMatchers("/api/allowance/**", "/api/applicant/**", "/api/area/**", "/api/account/**", "/api/contract/**", "/api/training-course/**", "/api/criteria/**", "/api/department/**", "/api/dependant/**", "/api/excel/**", "/api/employees/**", "/api/jobPosting/**", "/api/position/**", "/api/role/**", "/api/subarea/**", "/api/task/**", "/api/title/**", "/api/workplace/**","/api/evaluation/**","/api/mail/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_TRUONGPHONG")
-                .antMatchers("/api/employees/**", "/api/skill/**", "/api/dependant/**", "/api/time-keeping/**").hasAnyAuthority("ROLE_QL_NHANVIEN", "ROLE_TRUONGPHONG")
-                .antMatchers("/api/contract/**", "/api/allowance/**").hasAnyAuthority("ROLE_QL_HOPDONG", "ROLE_TRUONGPHONG")
-                .antMatchers("/api/jobPosting/**", "/api/applicant/search/{paramSearch}", "/api/applicant/**").hasAnyAuthority("ROLE_QL_TUYENDUNG", "ROLE_TRUONGPHONG")
-//              .antMatchers("").hasAnyAuthority("TRƯỞNG PHÒNG BAN KHÁC")
-                .antMatchers("/api/task/**").hasAnyAuthority("ROLE_NHANVIEN", "ROLE_TRUONGPHONG")
-                .anyRequest().authenticated();//.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
+//        http.authorizeRequests()
+//                .antMatchers("/api/jobPosting/search-paging/{paramSearch}/{position}", "/api/auth/login", "/swagger-ui.html#/**", "/api/applicant/create-applicant", "/api/jobPosting/get-by-id/{id}", "/api/jobPosting", "/dashboard/**").permitAll()
+//                .antMatchers(MANAGE_ALLOWANCE, MANAGE_APPLICANT,
+//                        MANAGE_AREA, MANAGE_ACCOUNT, MANAGE_CONTRACT, MANAGE_TRAINING_COURSE,
+//                        MANAGE_CRITERIA, MANAGE_DEPARTMENT, MANAGE_DEPENDANT,
+//                        MANAGE_EXCEL, MANAGE_EMPLOYEE, MANAGE_JOB_POSTING,
+//                        MANAGE_POSITION, MANAGE_ROLE, MANAGE_SUB_AREA,
+//                        MANAGE_TASK, MANAGE_TITLE, MANAGE_WORKPLACE,
+//                        MANAGE_EVALUATION, MANAGE_MAIL).hasAnyAuthority("ROLE_ADMIN", ROLE_TRUONGPHONG)
+//                .antMatchers(MANAGE_EMPLOYEE,
+//                        MANAGE_SKILL,
+//                        MANAGE_DEPENDANT,
+//                        MANAGE_TIME_KEEPING).hasAnyAuthority(ROLE_QL_NHANVIEN, ROLE_TRUONGPHONG)
+//                .antMatchers(MANAGE_CONTRACT,
+//                        MANAGE_ALLOWANCE).hasAnyAuthority(ROLE_QL_HOPDONG, ROLE_TRUONGPHONG)
+//                .antMatchers(MANAGE_JOB_POSTING,
+//                        "/api/applicant/search/{paramSearch}",
+//                        MANAGE_APPLICANT).hasAnyAuthority(ROLE_QL_TUYENDUNG, ROLE_TRUONGPHONG)
+////              .antMatchers("").hasAnyAuthority("TRƯỞNG PHÒNG BAN KHÁC")
+//
+//                .antMatchers(MANAGE_TASK).hasAnyAuthority(ROLE_NHANVIEN, ROLE_TRUONGPHONG)
+//                .anyRequest().authenticated();//.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
     }
 }

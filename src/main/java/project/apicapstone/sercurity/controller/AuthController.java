@@ -35,6 +35,7 @@ public class AuthController {
     private final JwtUtils jwtUtils;
     private AccountRepository accountRepository;
     private RoleRepository roleRepository;
+    private static final String STATUS = "ACTIVE";
 
 
     public AuthController(AuthenticationManager authenticationManager, JwtUtils jwtUtils, AccountRepository accountRepository, RoleRepository roleRepository) {
@@ -51,8 +52,8 @@ public class AuthController {
 
         Authentication auth = null;
         Account account = accountRepository.findByUsername(dto.getUsername());
-        if (!account.getStatus().equals("ACTIVE")) {
-            return ResponseHandler.getResponse("ACCOUNT NOT ACTIVE", HttpStatus.BAD_REQUEST);
+        if (!account.getStatus().equals(STATUS)) {
+            return ResponseHandler.getErrors("Tài khoản không hoạt động", HttpStatus.BAD_REQUEST);
         }
         try {
             auth = authenticationManager.authenticate(
@@ -64,6 +65,6 @@ public class AuthController {
         } catch (Exception e) {
             logger.debug("{} has been logged in with wrong password: {}", dto.getUsername(), e.getMessage());
         }
-        return ResponseHandler.getErrors("Username or password is invalid.", HttpStatus.BAD_REQUEST);
+        return ResponseHandler.getErrors("Tên đăng nhập hoặc mật khẩu không đúng", HttpStatus.BAD_REQUEST);
     }
 }
