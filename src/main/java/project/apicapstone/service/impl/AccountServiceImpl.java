@@ -24,7 +24,7 @@ public class AccountServiceImpl implements AccountService {
     private PasswordEncoder encoder;
     private EmployeeRepository employeeRepository;
     private RoleRepository roleRepository;
-    private final String STATUS = "ACTIVE";
+    private static final String STATUS = "ACTIVE";
 
     public AccountServiceImpl(AccountRepository accountRepository, PasswordEncoder encoder, EmployeeRepository employeeRepository, RoleRepository roleRepository) {
         this.accountRepository = accountRepository;

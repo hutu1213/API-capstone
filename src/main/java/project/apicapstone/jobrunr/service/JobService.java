@@ -116,7 +116,6 @@ public class JobService {
             for (int j = 0; j < checkBirthDate().size(); j++) {
                 project.apicapstone.entity.Notification notification = new project.apicapstone.entity.Notification();
                 notification.setCreateDate(LocalDate.now());
-                System.out.println("****ID: " + checkBirthDate().get(j).getEmployeeId());
                 notification.setTitle("Happy birthday");
                 notification.setContent("Hôm nay là sinh nhật của " + checkBirthDate().get(j).getEmployeeName() + ", mã: " + checkBirthDate().get(j).getEmployeeId());
                 notificationRepository.save(notification);

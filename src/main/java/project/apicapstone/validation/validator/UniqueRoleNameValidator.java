@@ -24,10 +24,7 @@ public class UniqueRoleNameValidator implements ConstraintValidator<UniqueRoleNa
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
         boolean isExisted = service.isExistedRoleName(s);
-        if (s.isEmpty()) {
-            ValidatorUtils.addError(constraintValidatorContext, "Username not blank");
-            return false;
-        }
+
         if (isExisted) {
             ValidatorUtils.addError(constraintValidatorContext, message);
             return false;
