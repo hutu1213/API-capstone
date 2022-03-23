@@ -28,7 +28,7 @@ public class JobService {
     private MailService mailService;
     private ApplicantService applicantService;
     private ApplicantRepository applicantRepository;
-    private final String STATUS = "Chưa đạt";
+    private final String STATUS = "Chưa phù hợp";
     private final String ROLE_TRUONGPHONG = "ROLE_TRUONGPHONG";
     private final String ROLE_QL_NHANVIEN = "ROLE_QL_NHANVIEN";
     private final String ROLE_QL_HOPDONG = "ROLE_QL_HOPDONG";
@@ -131,21 +131,22 @@ public class JobService {
     @Job(name = "Get-notification-contract")
     public void getNotificationContract() {
         List<Account> accountList = accountService.getAccountsByRoleName(ROLE_TRUONGPHONG, ROLE_QL_HOPDONG);
-        List<Contract> contractList = contractService.getContractsByEndDate(LocalDate.now().minusDays(5));
-        for (int i = 0; i < accountList.size(); i++) {
-            Account account = accountRepository.getById(accountList.get(i).getAccountId());
-            for (int j = 0; j < contractList.size(); j++) {
-                project.apicapstone.entity.Notification notification = new project.apicapstone.entity.Notification();
-                notification.setCreateDate(LocalDate.now());
-                notification.setTitle("Thông báo hết hạn hợp đồng");
-                notification.setContent("Hợp đồng " + contractList.get(j).getContractName() + ", mã: " + contractList.get(j).getContractId() + " còn 5 ngày nữa sẽ hết hạn.");
-                notificationRepository.save(notification);
-                account.addNotification(notification);
-            }
-            accountRepository.save(account);
+        // get contract whose endDate is in 5 days to come
+        List<Contract> contractList = contractService.getContractsByEndDate(LocalDate.now().plusDays(5));
+        for (int j = 0; j < contractList.size(); j++) {
+            project.apicapstone.entity.Notification notification = new project.apicapstone.entity.Notification();
+            notification.setCreateDate(LocalDate.now());
+            notification.setTitle("Hợp đồng sắp hết hạn!");
+            notification.setContent("Hợp đồng " + contractList.get(j).getContractName() + " (Mã hợp đồng: " + contractList.get(j).getContractId() + ") còn 5 ngày nữa sẽ hết hạn.");
+            // persist this notification first to avoid duplicate error
+            notificationRepository.save(notification);
+
+            for (int i = 0; i < accountList.size(); i++) {
+                Account account = accountRepository.getById(accountList.get(i).getAccountId());
+                notification.addAccount(account);
+                accountRepository.save(account);
+            }22
         }
-
     }
-
 
 }
