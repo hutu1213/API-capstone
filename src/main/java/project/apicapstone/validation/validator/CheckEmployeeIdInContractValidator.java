@@ -11,7 +11,7 @@ import project.apicapstone.validation.annonation.CheckEmployeeIdInContract;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-
+// không dùng
 public class CheckEmployeeIdInContractValidator implements ConstraintValidator<CheckEmployeeIdInContract, UpdateContractDto> {
     private ContractService service;
     private EmployeeService employeeService;

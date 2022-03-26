@@ -37,7 +37,8 @@ public class ContractServiceImpl implements ContractService {
         addContract.setContractId(dto.getContractId());
         addContract.setContractName(dto.getContractName());
         addContract.setStartDate(dto.getStartDate());
-        addContract.setEndDate(dto.getStartDate().plusMonths(dto.getDuration()));
+        LocalDate endDate = dto.getStartDate().plusMonths(dto.getDuration());
+        addContract.setEndDate(endDate);
         addContract.setStatus(dto.getStatus());
         addContract.setSalary(dto.getSalary());
         addContract.setType(dto.getType());
@@ -119,22 +120,22 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public Page<Contract> search(String paramSearch, Pageable pageable) {
-        return contractRepository.search(paramSearch,pageable);
+        return contractRepository.search(paramSearch, pageable);
     }
 
     @Override
     public boolean getContractByEmployeeIdAndStatus(String s, String status) {
-        return contractRepository.getContractByEmployeeIdAndStatus(s,status)>=1;
+        return contractRepository.getContractByEmployeeIdAndStatus(s, status) >= 1;
+    }
+
+    @Override
+    public Contract findEmployeeById(String id) {
+        return contractRepository.findEmployeeById(id);
     }
 
     @Override
     public List<Contract> getContractsByEndDate(LocalDate date) {
         return contractRepository.getContractsByEndDate(date);
-    }
-
-    @Override
-    public List<LocalDate> getAllEndDateContract() {
-        return contractRepository.getAllEndDateContract();
     }
 
 }

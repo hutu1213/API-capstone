@@ -39,7 +39,9 @@ public interface ContractService {
 
     boolean getContractByEmployeeIdAndStatus(String s, String status);
 
-    List<Contract> getContractsByEndDate(LocalDate date);
 
-   List<LocalDate> getAllEndDateContract();
+
+    Contract findEmployeeById(String id);
+
+    List<Contract> getContractsByEndDate(LocalDate minusDays);
 }

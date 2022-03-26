@@ -31,4 +31,6 @@ public interface DependantService {
     Page<Dependant> search(String paramSearch, Pageable pageable);
 
     Page<Dependant> getByEmployeeId(String id, Pageable pageable);
+
+    List<Dependant> checkBirthDate(int dayOfMonth, int monthValue);
 }

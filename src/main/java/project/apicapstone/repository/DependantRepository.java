@@ -26,4 +26,6 @@ public interface DependantRepository extends JpaRepository<Dependant,String> {
     Page<Dependant> search(String paramSearch, Pageable pageable);
 
     Page<Dependant> getAllByEmployeeEmployeeId(String id,Pageable pageable);
+
+    List<Dependant> findByDayOfBirthAndMonthOfBirth(int dayOfMonth, int monthValue);
 }
