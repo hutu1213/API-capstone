@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String MANAGE_MAIL = "/api/mail/**";
     private static final String MANAGE_SKILL = "/api/skill/**";
     private static final String MANAGE_TIME_KEEPING = "/api/time-keeping/**";
-
+    private static final String MANAGE_RECRUITMENT_REQUEST = "/api/recruitmentRequest/**";
     private static final String ROLE_TRUONGPHONG = "ROLE_TRUONGPHONG";
     private static final String ROLE_QL_NHANVIEN = "ROLE_QL_NHANVIEN";
     private static final String ROLE_QL_HOPDONG = "ROLE_QL_HOPDONG";
@@ -102,7 +102,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         MANAGE_CRITERIA, MANAGE_DEPARTMENT, MANAGE_DEPENDANT,
                         MANAGE_EXCEL, MANAGE_EMPLOYEE, MANAGE_JOB_POSTING,
                         MANAGE_POSITION, MANAGE_ROLE, MANAGE_SUB_AREA,
-                        MANAGE_TASK, MANAGE_TITLE, MANAGE_WORKPLACE,
+                        MANAGE_TASK, MANAGE_TITLE, MANAGE_WORKPLACE,MANAGE_RECRUITMENT_REQUEST,
                         MANAGE_EVALUATION, MANAGE_MAIL).hasAnyAuthority("ROLE_ADMIN", ROLE_TRUONGPHONG)
                 .antMatchers(MANAGE_EMPLOYEE,
                         MANAGE_SKILL,
