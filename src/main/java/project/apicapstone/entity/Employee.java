@@ -168,4 +168,8 @@ public class Employee {
     @JoinColumn(name = "workplace_id")
     private Workplace workplace;
 
+    //relationship employee - RecruitmentRequest : 1 - N
+    @OneToMany(mappedBy = "employee")
+    @JsonIgnore
+    private Set<RecruitmentRequest> recruitmentRequests = new HashSet<>();
 }

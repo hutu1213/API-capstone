@@ -62,6 +62,7 @@ public class CriteriaController {
     @DeleteMapping()
     public Object deleteCriteria(@RequestParam(name = "id") String id) {
         criteriaService.deleteById(id);
+        scanApplicant.callAnalyzeApplicantAPI(id);
         return ResponseHandler.getResponse(HttpStatus.OK);
     }
 
