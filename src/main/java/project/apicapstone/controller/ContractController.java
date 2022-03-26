@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import project.apicapstone.common.util.ExporterExcelEmployee;
 import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.dto.contract.CreateContractDto;
 import project.apicapstone.dto.contract.UpdateContractDto;
@@ -16,7 +17,9 @@ import project.apicapstone.entity.Employee;
 import project.apicapstone.service.ContractService;
 
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -87,7 +90,35 @@ public class ContractController {
         Page<Contract> contractPage = contractService.search(paramSearch, pageable);
         return ResponseHandler.getResponse(contractService.pagingFormat(contractPage), HttpStatus.OK);
     }
+    @GetMapping("/exportList/excel")
+    public Object exportListToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        String headerValue = "attachement; filename=HSNV.xlsx";
+        String headerKey = "Content-Disposition";
+        response.setHeader(headerKey, headerValue);
 
+        List<Contract> listEmployees = contractService.findAll();
+        if (listEmployees.isEmpty()) {
+            return ResponseHandler.getErrors("Not found ", HttpStatus.NOT_FOUND);
+        }
+        ExporterExcelEmployee excelExporter = new ExporterExcelEmployee(listEmployees);
+        excelExporter.exportList(response);
+        return ResponseHandler.getResponse(excelExporter, HttpStatus.OK);
+    }
+
+    @GetMapping("{id}/exportEmployee/excel")
+    public Object exportEmployee(@PathVariable String id, HttpServletResponse response) throws IOException {
+        Contract employee = contractService.findEmployeeById(id);
+
+        response.setContentType("application/octet-stream");
+        String headerValue = "attachement; filename=HSNV_" + employee.getEmployee().getEmployeeId() + ".xlsx";
+        String headerKey = "Content-Disposition";
+
+        response.setHeader(headerKey, headerValue);
+        ExporterExcelEmployee excelExporter = new ExporterExcelEmployee(employee);
+        excelExporter.export(response);
+        return ResponseHandler.getResponse(excelExporter, HttpStatus.OK);
+    }
 
 
 }

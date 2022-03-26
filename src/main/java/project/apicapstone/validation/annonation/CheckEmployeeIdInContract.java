@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = CheckEmployeeIdInContractValidator.class)
 @Retention(RUNTIME)
 @Target(TYPE)
-public @interface CheckEmployeeIdInContract {
+public @interface CheckEmployeeIdInContract { // Không dùng
     String message() default "Employee Id đã được sử dụng";
 
     Class<?>[] groups() default {};

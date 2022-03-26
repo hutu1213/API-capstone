@@ -7,7 +7,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import project.apicapstone.entity.Contract;
 import project.apicapstone.entity.Employee;
+import project.apicapstone.repository.ContractRepository;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -17,15 +19,18 @@ import java.util.List;
 public class ExporterExcelEmployee {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
+    private ContractRepository contractRepository;
 
-    private List<Employee> listEmployee;
+    private List<Contract> listEmployee;
+    private Contract contract;
     private Employee employee;
+
     private int i = 1;
-    public ExporterExcelEmployee(Employee employee) {
-        this.employee = employee;
+    public ExporterExcelEmployee(Contract contract) {
+        this.contract = contract;
     }
 
-    public ExporterExcelEmployee(List<Employee> listEmployee) {
+    public ExporterExcelEmployee(List<Contract> listEmployee) {
         this.listEmployee = listEmployee;
     }
 
@@ -85,43 +90,42 @@ public class ExporterExcelEmployee {
     }
 
     private void writeDataRow() {
-//        CellStyle style = workbook.createCellStyle();
-//        XSSFFont font = workbook.createFont();
-//        font.setFontHeight(12);
-//        style.setFont(font);
-//
-//        Row row = sheet.createRow(1);
-//
-//        createCell(row, 0, i++, style);
-//        createCell(row, 1, employee.getContract().getContractId(), style); //số HĐ
-//
-//        createCell(row, 2, employee.getEmployeeName(), style);
-//        createCell(row, 3, employee.getPhone(), style);
-//        createCell(row, 4, employee.getEmail(), style);
-//        createCell(row, 5, employee.getContract().getStartDate().toString(), style); //Ngày nhận việc
-//        createCell(row, 6, employee.getDateBirth().toString(), style);
-//        createCell(row, 7, employee.getPlaceBirth(), style);
-//        createCell(row, 8, employee.getGender(), style);
-//        createCell(row, 9, employee.getEthnic(), style);
-//        createCell(row, 10, employee.getReligion(), style);
-//        createCell(row, 11, employee.getAcademicLevel(), style);
-//        createCell(row, 12, employee.getEmployeeId(), style); //Số CMND
-//        createCell(row, 13, employee.getDateIssue().toString(), style); //Ngày cấp (CMND)
-//        createCell(row, 14, employee.getPlaceIssue(), style); //Nơi cấp (CMND)
-//        createCell(row, 15, employee.getAddress(), style);
-//        createCell(row, 16, employee.getTitle().getJobTitle(), style); //Chức Danh
-//        createCell(row, 17, employee.getContract().getType(), style); //Loại hợp đồng
-//        createCell(row, 18, "", style); //Ngày ký
-//        createCell(row, 19, "", style); //Tháng ký
-//        createCell(row, 20, "", style); //Năm ký
-//        createCell(row, 21, "", style); //Ngày làm
-//        createCell(row, 22, "", style); //Tháng làm
-//        createCell(row, 23, "", style); //Năm làm
-//        createCell(row, 24, "", style); //Ngày kết thúc
-//        createCell(row, 25, "", style); //Tháng kết thúc
-//        createCell(row, 26, "", style); //Năm kết thúc
-//        createCell(row, 27, employee.getMaritalStatus(), style);
-//        createCell(row, 28, "", style); //Liên hệ
+        CellStyle style = workbook.createCellStyle();
+        XSSFFont font = workbook.createFont();
+        font.setFontHeight(12);
+        style.setFont(font);
+
+        Row row = sheet.createRow(1);
+
+        createCell(row, 0, i++, style);
+        createCell(row, 1, contract.getContractId(), style); //số HĐ
+        createCell(row, 2, contract.getEmployee().getEmployeeName(), style);
+        createCell(row, 3, contract.getEmployee().getPhone(), style);
+        createCell(row, 4, contract.getEmployee().getEmail(), style);
+        createCell(row, 5, contract.getStartDate().toString(), style); //Ngày nhận việc
+        createCell(row, 6, contract.getEmployee().getDateBirth().toString(), style);
+        createCell(row, 7, contract.getEmployee().getPlaceBirth(), style);
+        createCell(row, 8, contract.getEmployee().getGender(), style);
+        createCell(row, 9, contract.getEmployee().getEthnic(), style);
+        createCell(row, 10, contract.getEmployee().getReligion(), style);
+        createCell(row, 11, contract.getEmployee().getAcademicLevel(), style);
+        createCell(row, 12, contract.getEmployee().getEmployeeId(), style); //Số CMND
+        createCell(row, 13, contract.getEmployee().getDateIssue().toString(), style); //Ngày cấp (CMND)
+        createCell(row, 14, contract.getEmployee().getPlaceIssue(), style); //Nơi cấp (CMND)
+        createCell(row, 15, contract.getEmployee().getAddress(), style);
+        createCell(row, 16, contract.getEmployee().getTitle().getJobTitle(), style); //Chức Danh
+        createCell(row, 17, contract.getType(), style); //Loại hợp đồng
+        createCell(row, 18, contract.getSignDate().getDayOfMonth(), style); //Ngày ký
+        createCell(row, 19, contract.getSignDate().getMonthValue(), style); //Tháng ký
+        createCell(row, 20, contract.getSignDate().getYear(), style); //Năm ký
+        createCell(row, 21, contract.getStartDate().getDayOfMonth(), style); //Ngày làm
+        createCell(row, 22, contract.getStartDate().getMonthValue(), style); //Tháng làm
+        createCell(row, 23, contract.getStartDate().getYear(), style); //Năm làm
+        createCell(row, 24, contract.getEndDate().getDayOfMonth(), style); //Ngày kết thúc
+        createCell(row, 25, contract.getEndDate().getMonthValue(), style); //Tháng kết thúc
+        createCell(row, 26, contract.getEndDate().getYear(), style); //Năm kết thúc
+        createCell(row, 27, contract.getEmployee().getMaritalStatus(), style);
+        createCell(row, 28, contract.getEmployee().getPhone(), style); //Liên hệ
     }
 
     private void writeDataRowList() {
@@ -131,38 +135,38 @@ public class ExporterExcelEmployee {
         font.setFontHeight(12);
         style.setFont(font);
 
-        for (Employee employee : listEmployee) {
+        for (Contract contract : listEmployee) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
-//            createCell(row, columnCount++, i++, style);
-//            createCell(row, columnCount++, employee.getContract().getContractId(), style); //số HĐ
-//            createCell(row, columnCount++, employee.getEmployeeName(), style);
-//            createCell(row, columnCount++, employee.getPhone(), style);
-//            createCell(row, columnCount++, employee.getEmail(), style);
-//            createCell(row, columnCount++, employee.getContract().getStartDate().toString(), style); //Ngày nhận việc
-//            createCell(row, columnCount++, employee.getDateBirth().toString(), style);
-//            createCell(row, columnCount++, employee.getPlaceBirth(), style);
-//            createCell(row, columnCount++, employee.getGender(), style);
-//            createCell(row, columnCount++, employee.getEthnic(), style);
-//            createCell(row, columnCount++, employee.getReligion(), style);
-//            createCell(row, columnCount++, employee.getAcademicLevel(), style);
-//            createCell(row, columnCount++, employee.getEmployeeId(), style); //Số CMND
-//            createCell(row, columnCount++, employee.getDateIssue().toString(), style); //Ngày cấp (CMND)
-//            createCell(row, columnCount++, employee.getPlaceIssue(), style); //Nơi cấp (CMND)
-//            createCell(row, columnCount++, employee.getAddress(), style);
-//            createCell(row, columnCount++, employee.getTitle().getJobTitle(), style); //Chức Danh
-//            createCell(row, columnCount++, employee.getContract().getType(), style); //Loại hợp đồng
-//            createCell(row, columnCount++, employee.getContract().getSignDate().getDayOfMonth(), style); //Ngày ký
-//            createCell(row, columnCount++, employee.getContract().getSignDate().getMonthValue(), style); //Tháng ký
-//            createCell(row, columnCount++, employee.getContract().getSignDate().getYear(), style); //Năm ký
-//            createCell(row, columnCount++, employee.getContract().getStartDate().getDayOfMonth(), style); //Ngày làm
-//            createCell(row, columnCount++, employee.getContract().getStartDate().getMonthValue(), style); //Tháng làm
-//            createCell(row, columnCount++, employee.getContract().getStartDate().getYear(), style); //Năm làm
-//            createCell(row, columnCount++, employee.getContract().getEndDate().getDayOfMonth(), style); //Ngày kết thúc
-//            createCell(row, columnCount++, employee.getContract().getEndDate().getMonthValue(), style); //Tháng kết thúc
-//            createCell(row, columnCount++, employee.getContract().getEndDate().getYear(), style); //Năm kết thúc
-//            createCell(row, columnCount++, employee.getMaritalStatus(), style);
-//            createCell(row, columnCount++, employee.getPhone(), style); //Liên hệ
+            createCell(row, columnCount++, i++, style);
+            createCell(row, columnCount++, contract.getContractId(), style); //số HĐ
+            createCell(row, columnCount++, contract.getEmployee().getEmployeeName(), style);
+            createCell(row, columnCount++, contract.getEmployee().getPhone(), style);
+            createCell(row, columnCount++, contract.getEmployee().getEmail(), style);
+            createCell(row, columnCount++, contract.getStartDate().toString(), style); //Ngày nhận việc
+            createCell(row, columnCount++, contract.getEmployee().getDateBirth().toString(), style);
+            createCell(row, columnCount++, contract.getEmployee().getPlaceBirth(), style);
+            createCell(row, columnCount++, contract.getEmployee().getGender(), style);
+            createCell(row, columnCount++, contract.getEmployee().getEthnic(), style);
+            createCell(row, columnCount++, contract.getEmployee().getReligion(), style);
+            createCell(row, columnCount++, contract.getEmployee().getAcademicLevel(), style);
+            createCell(row, columnCount++, contract.getEmployee().getEmployeeId(), style); //Số CMND
+            createCell(row, columnCount++, contract.getEmployee().getDateIssue().toString(), style); //Ngày cấp (CMND)
+            createCell(row, columnCount++, contract.getEmployee().getPlaceIssue(), style); //Nơi cấp (CMND)
+            createCell(row, columnCount++, contract.getEmployee().getAddress(), style);
+            createCell(row, columnCount++, contract.getEmployee().getTitle().getJobTitle(), style); //Chức Danh
+            createCell(row, columnCount++, contract.getType(), style); //Loại hợp đồng
+            createCell(row, columnCount++, contract.getSignDate().getDayOfMonth(), style); //Ngày ký
+            createCell(row, columnCount++, contract.getSignDate().getMonthValue(), style); //Tháng ký
+            createCell(row, columnCount++, contract.getSignDate().getYear(), style); //Năm ký
+            createCell(row, columnCount++, contract.getStartDate().getDayOfMonth(), style); //Ngày làm
+            createCell(row, columnCount++, contract.getStartDate().getMonthValue(), style); //Tháng làm
+            createCell(row, columnCount++, contract.getStartDate().getYear(), style); //Năm làm
+            createCell(row, columnCount++, contract.getEndDate().getDayOfMonth(), style); //Ngày kết thúc
+            createCell(row, columnCount++, contract.getEndDate().getMonthValue(), style); //Tháng kết thúc
+            createCell(row, columnCount++, contract.getEndDate().getYear(), style); //Năm kết thúc
+            createCell(row, columnCount++, contract.getEmployee().getMaritalStatus(), style);
+            createCell(row, columnCount++, contract.getEmployee().getPhone(), style); //Liên hệ
         }
     }
 

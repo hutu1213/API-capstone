@@ -96,7 +96,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         //cấu hình xác thực cho các api
         http.authorizeRequests()
-                .antMatchers("/api/jobPosting/search-paging/{paramSearch}/{position}", "/api/auth/login", "/swagger-ui.html#/**", "/api/applicant/create-applicant", "/api/jobPosting/get-by-id/{id}", "/api/jobPosting", "/dashboard/**").permitAll()
+                .antMatchers("/api/jobPosting/search-paging/{paramSearch}/{position}", "/api/auth/login", "/swagger-ui.html#/**", "/api/applicant/create-applicant", "/api/jobPosting/get-by-id/{id}", "/api/jobPosting", "/dashboard/**","/api/title/get-all").permitAll()
                 .antMatchers(MANAGE_ALLOWANCE, MANAGE_APPLICANT,
                         MANAGE_AREA, MANAGE_ACCOUNT, MANAGE_CONTRACT, MANAGE_TRAINING_COURSE,
                         MANAGE_CRITERIA, MANAGE_DEPARTMENT, MANAGE_DEPENDANT,
@@ -116,6 +116,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //              .antMatchers("").hasAnyAuthority("TRƯỞNG PHÒNG BAN KHÁC")
 
                 .antMatchers(MANAGE_TASK).hasAnyAuthority(ROLE_NHANVIEN, ROLE_TRUONGPHONG)
-                .anyRequest().authenticated();//.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
+                .anyRequest().authenticated();
+
+
+
+
+// .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
     }
 }

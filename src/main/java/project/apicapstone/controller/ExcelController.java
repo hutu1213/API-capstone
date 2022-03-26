@@ -156,34 +156,34 @@ public class ExcelController {
         return ResponseHandler.getResponse(saveEmployee, HttpStatus.OK);
     }
 
-    @GetMapping("/exportList/excel")
-    public Object exportListToExcel(HttpServletResponse response) throws IOException {
-        response.setContentType("application/octet-stream");
-        String headerValue = "attachement; filename=HSNV.xlsx";
-        String headerKey = "Content-Disposition";
-        response.setHeader(headerKey, headerValue);
-
-        List<Employee> listEmployees = employeeService.findAllEmployee();
-        if (listEmployees.isEmpty()) {
-            return ResponseHandler.getErrors("Not found ", HttpStatus.NOT_FOUND);
-        }
-        ExporterExcelEmployee excelExporter = new ExporterExcelEmployee(listEmployees);
-        excelExporter.exportList(response);
-        return ResponseHandler.getResponse(excelExporter, HttpStatus.OK);
-    }
-
-
-    @GetMapping("{id}/exportEmployee/excel")
-    public Object exportEmployee(@PathVariable String id, HttpServletResponse response) throws IOException {
-        Employee employee = employeeService.findEmployeeById(id);
-
-        response.setContentType("application/octet-stream");
-        String headerValue = "attachement; filename=HSNV_" + employee.getEmployeeId() + ".xlsx";
-        String headerKey = "Content-Disposition";
-
-        response.setHeader(headerKey, headerValue);
-        ExporterExcelEmployee excelExporter = new ExporterExcelEmployee(employee);
-        excelExporter.export(response);
-        return ResponseHandler.getResponse(excelExporter, HttpStatus.OK);
-    }
+//    @GetMapping("/exportList/excel")
+//    public Object exportListToExcel(HttpServletResponse response) throws IOException {
+//        response.setContentType("application/octet-stream");
+//        String headerValue = "attachement; filename=HSNV.xlsx";
+//        String headerKey = "Content-Disposition";
+//        response.setHeader(headerKey, headerValue);
+//
+//        List<Employee> listEmployees = employeeService.findAllEmployee();
+//        if (listEmployees.isEmpty()) {
+//            return ResponseHandler.getErrors("Not found ", HttpStatus.NOT_FOUND);
+//        }
+//        ExporterExcelEmployee excelExporter = new ExporterExcelEmployee(listEmployees);
+//        excelExporter.exportList(response);
+//        return ResponseHandler.getResponse(excelExporter, HttpStatus.OK);
+//    }
+//
+//
+//    @GetMapping("{id}/exportEmployee/excel")
+//    public Object exportEmployee(@PathVariable String id, HttpServletResponse response) throws IOException {
+//        Employee employee = employeeService.findEmployeeById(id);
+//
+//        response.setContentType("application/octet-stream");
+//        String headerValue = "attachement; filename=HSNV_" + employee.getEmployeeId() + ".xlsx";
+//        String headerKey = "Content-Disposition";
+//
+//        response.setHeader(headerKey, headerValue);
+//        ExporterExcelEmployee excelExporter = new ExporterExcelEmployee(employee);
+//        excelExporter.export(response);
+//        return ResponseHandler.getResponse(excelExporter, HttpStatus.OK);
+//    }
 }

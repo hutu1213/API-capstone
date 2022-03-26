@@ -107,4 +107,9 @@ public class DependantServiceImpl implements DependantService {
     public Page<Dependant> getByEmployeeId(String id, Pageable pageable) {
         return dependantRepository.getAllByEmployeeEmployeeId(id,pageable);
     }
+
+    @Override
+    public List<Dependant> checkBirthDate(int dayOfMonth, int monthValue) {
+        return dependantRepository.findByDayOfBirthAndMonthOfBirth(dayOfMonth,monthValue);
+    }
 }

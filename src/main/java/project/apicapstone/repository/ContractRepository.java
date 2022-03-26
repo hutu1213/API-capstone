@@ -21,7 +21,6 @@ public interface ContractRepository extends JpaRepository<Contract, String> {
     @Query("SELECT c FROM Contract c WHERE lower(c.contractName)  LIKE lower(concat('%', ?1,'%')) OR c.contractId LIKE %?1%")
     List<Contract> findContractByNameOrId(String paramSearch);
 
-
     @Query("SELECT c FROM Contract c join c.employee e WHERE e.employeeId = ?1")
     List<Contract> findEmployeeIdInContract(String id);
 
@@ -34,8 +33,10 @@ public interface ContractRepository extends JpaRepository<Contract, String> {
     @Query("SELECT COUNT(c.contractId) FROM Contract c join c.employee e WHERE e.employeeId=?1 AND c.status LIKE %?2%")
     int getContractByEmployeeIdAndStatus(String s, String status);
 
+    @Query("SELECT c FROM Contract c where c.endDate =?1")
     List<Contract> getContractsByEndDate(LocalDate date);
 
-    @Query("SELECT c.endDate FROM Contract c ")
-    List<LocalDate> getAllEndDateContract();
+    @Query("SELECT c FROM Contract c join c.employee e WHERE e.employeeId = ?1")
+    Contract findEmployeeById(String id);
+
 }
