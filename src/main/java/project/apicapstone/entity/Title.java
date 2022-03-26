@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -47,6 +46,11 @@ public class Title {
     @OneToMany(mappedBy = "title")
     @JsonIgnore
     private Set<JobPosting> jobPostings = new HashSet<>();
+
+    //relationship title - RecruitmentRequest : 1 - N
+    @OneToMany(mappedBy = "title")
+    @JsonIgnore
+    private Set<RecruitmentRequest> recruitmentRequests = new HashSet<>();
 
     // code nay ap dung jobpostings: https://vladmihalcea.com/the-best-way-to-map-a-onetomany-association-with-jpa-and-hibernate/
 //    public void addComment(PostComment comment) {
