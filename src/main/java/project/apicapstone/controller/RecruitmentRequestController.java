@@ -7,11 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
-import project.apicapstone.dto.position.CreatePositionDto;
-import project.apicapstone.dto.position.UpdatePositionDto;
 import project.apicapstone.dto.recruitmentRequest.CreateRecruitmentRequestDto;
 import project.apicapstone.dto.recruitmentRequest.UpdateRecruitmentRequestDto;
-import project.apicapstone.entity.Position;
 import project.apicapstone.entity.RecruitmentRequest;
 import project.apicapstone.service.RecruitmentRequestService;
 
@@ -77,6 +74,7 @@ public class RecruitmentRequestController {
         Page<RecruitmentRequest> recruitmentRequestPage = recruitmentRequestService.findRecruitmentRequestByEmployeeId(id, pageable);
         return ResponseHandler.getResponse(recruitmentRequestService.pagingFormat(recruitmentRequestPage), HttpStatus.OK);
     }
+
     @GetMapping("/get-by-status/{status}")
     public Object findRecruitmentRequestByStatus(@PathVariable("status") String status, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);

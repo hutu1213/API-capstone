@@ -3,7 +3,6 @@ package project.apicapstone.service.impl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import project.apicapstone.dto.employee.PagingFormatEmployeeDto;
 import project.apicapstone.dto.evaluation.CreateEvaluationDto;
 import project.apicapstone.dto.evaluation.PagingFormatEvaluationDto;
 import project.apicapstone.dto.evaluation.UpdateEvaluationDto;
@@ -71,6 +70,7 @@ public class EvaluationServiceImpl implements EvaluationService {
         evaluation.setType(dto.getType());
         evaluation.setCreateDate(LocalDate.now());
         evaluation.setRating(dto.getRating());
+        evaluation.setCreateTime(dto.getCreateTime());
         evaluation.setUpdateDate(LocalDate.now());
         evaluation.setApplicant(applicantRepository.getById(dto.getApplicantId()));
         evaluation.setEmployee(employeeRepository.getById(dto.getEmployeeId()));
@@ -89,6 +89,7 @@ public class EvaluationServiceImpl implements EvaluationService {
         evaluation.setType(dto.getType());
         evaluation.setUpdateDate(LocalDate.now());
         evaluation.setRating(dto.getRating());
+        evaluation.setCreateTime(dto.getCreateTime());
         evaluation.setApplicant(applicantRepository.getById(dto.getApplicantId()));
         evaluation.setEmployee(employeeRepository.getById(dto.getEmployeeId()));
         evaluationRepository.save(evaluation);

@@ -17,7 +17,7 @@ public class UpdateEvaluationDto {
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate updateDate;
-
+    private String createTime;
     private int rating;
     private String employeeId;
     private String applicantId;

@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import project.apicapstone.entity.*;
 import project.apicapstone.repository.AccountRepository;
 import project.apicapstone.repository.ApplicantRepository;
-import project.apicapstone.repository.EmployeeRepository;
+
 import project.apicapstone.repository.NotificationRepository;
-import project.apicapstone.sercurity.jwt.JwtUtils;
+
 import project.apicapstone.service.*;
 
 import java.time.LocalDate;
@@ -17,19 +17,19 @@ import java.util.*;
 
 @Service
 public class JobService {
-    private EmployeeService employeeService;
-    private MailService mailService;
-    private ApplicantService applicantService;
-    private ApplicantRepository applicantRepository;
+    private final EmployeeService employeeService;
+    private final MailService mailService;
+    private final ApplicantService applicantService;
+    private final ApplicantRepository applicantRepository;
     private final String STATUS = "Chưa phù hợp";
     private final String ROLE_TRUONGPHONG = "ROLE_TRUONGPHONG";
     private final String ROLE_QL_NHANVIEN = "ROLE_QL_NHANVIEN";
     private final String ROLE_QL_HOPDONG = "ROLE_QL_HOPDONG";
-    private AccountService accountService;
-    private NotificationRepository notificationRepository;
-    private AccountRepository accountRepository;
-    private ContractService contractService;
-    private DependantService dependantService;
+    private final AccountService accountService;
+    private final NotificationRepository notificationRepository;
+    private final AccountRepository accountRepository;
+    private final ContractService contractService;
+    private final DependantService dependantService;
 
     public JobService(DependantService dependantService, ContractService contractService, AccountRepository accountRepository, NotificationRepository notificationRepository, AccountService accountService, EmployeeService employeeService, MailService mailService, ApplicantService applicantService, ApplicantRepository applicantRepository) {
         this.employeeService = employeeService;
@@ -52,10 +52,15 @@ public class JobService {
     @Job(name = "Send mail when reject applicant")
     public void sendMailRejectApplicant() {
         List<Applicant> applicantList = applicantService.getAllByStatus(STATUS);
-        for (int i = 0; i < applicantList.size(); i++) {
-            mailService.sendEmailRejectApplicant(applicantList.get(i));
-            applicantList.get(i).setCheckSendMail(1);
-            applicantRepository.save(applicantList.get(i));
+//        for (int i = 0; i < applicantList.size(); i++) {
+//            mailService.sendEmailRejectApplicant(applicantList.get(i));
+//            applicantList.get(i).setCheckSendMail(1);
+//            applicantRepository.save(applicantList.get(i));
+//        }
+        for (Applicant applicant : applicantList) {
+            mailService.sendEmailRejectApplicant(applicant);
+            applicant.setCheckSendMail(1);
+            applicantRepository.save(applicant);
         }
     }
 
@@ -116,7 +121,7 @@ public class JobService {
 
     }
 
-    @Recurring(id = "Get-notification-contract-before-5day", cron = "* */59 * * *")
+    @Recurring(id = "Get-notification-contract-before-5-day", cron = "* */59 * * *")
     @Job(name = "Get-notification-contract")
     public void getNotificationContract() {
         List<Account> accountList = accountService.getAccountsByRoleName(ROLE_TRUONGPHONG, ROLE_QL_HOPDONG);

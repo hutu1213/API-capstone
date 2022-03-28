@@ -22,7 +22,7 @@ public class CreateEvaluationDto {
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate createDate;
-
+    private String createTime;
 
 
     private int rating;
