@@ -38,6 +38,8 @@ public class Evaluation {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate updateDate;
     @Column
+    private String createTime;
+    @Column
     private int rating;
     //relationship application - evaluation 1-N
     @ManyToOne(fetch = FetchType.LAZY)

@@ -102,20 +102,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         MANAGE_CRITERIA, MANAGE_DEPARTMENT, MANAGE_DEPENDANT,
                         MANAGE_EXCEL, MANAGE_EMPLOYEE, MANAGE_JOB_POSTING,
                         MANAGE_POSITION, MANAGE_ROLE, MANAGE_SUB_AREA,
-                        MANAGE_TASK, MANAGE_TITLE, MANAGE_WORKPLACE,MANAGE_RECRUITMENT_REQUEST,
-                        MANAGE_EVALUATION, MANAGE_MAIL).hasAnyAuthority("ROLE_ADMIN", ROLE_TRUONGPHONG)
+                        MANAGE_TASK, MANAGE_TITLE, MANAGE_WORKPLACE, MANAGE_RECRUITMENT_REQUEST,
+                        MANAGE_EVALUATION, MANAGE_MAIL)
+                .hasAnyAuthority("ROLE_ADMIN", ROLE_TRUONGPHONG)
                 .antMatchers(MANAGE_EMPLOYEE,
                         MANAGE_SKILL,
                         MANAGE_DEPENDANT,
-                        MANAGE_TIME_KEEPING).hasAnyAuthority(ROLE_QL_NHANVIEN, ROLE_TRUONGPHONG)
+                        MANAGE_TIME_KEEPING)
+                .hasAnyAuthority(ROLE_QL_NHANVIEN, ROLE_TRUONGPHONG)
                 .antMatchers(MANAGE_CONTRACT,
-                        MANAGE_ALLOWANCE).hasAnyAuthority(ROLE_QL_HOPDONG, ROLE_TRUONGPHONG)
+                        MANAGE_ALLOWANCE)
+                .hasAnyAuthority(ROLE_QL_HOPDONG, ROLE_TRUONGPHONG)
                 .antMatchers(MANAGE_JOB_POSTING,
                         "/api/applicant/search/{paramSearch}",
-                        MANAGE_APPLICANT).hasAnyAuthority(ROLE_QL_TUYENDUNG, ROLE_TRUONGPHONG)
+                        MANAGE_APPLICANT)
+                .hasAnyAuthority(ROLE_QL_TUYENDUNG, ROLE_TRUONGPHONG)
 //              .antMatchers("").hasAnyAuthority("TRƯỞNG PHÒNG BAN KHÁC")
 
-                .antMatchers(MANAGE_TASK).hasAnyAuthority(ROLE_NHANVIEN, ROLE_TRUONGPHONG)
+                .antMatchers(MANAGE_TASK)
+                .hasAnyAuthority(ROLE_NHANVIEN, ROLE_TRUONGPHONG)
                 .anyRequest().authenticated();
 
 
