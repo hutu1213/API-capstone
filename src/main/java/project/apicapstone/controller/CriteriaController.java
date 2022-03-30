@@ -12,21 +12,26 @@ import project.apicapstone.dto.criteria.CreateCriteriaDto;
 import project.apicapstone.dto.criteria.UpdateCriteriaDto;
 import project.apicapstone.entity.Criteria;
 
+import project.apicapstone.entity.JobPosting;
+import project.apicapstone.jobrunr.service.JobService;
 import project.apicapstone.service.CriteriaService;
+import project.apicapstone.service.JobPostingService;
 
 import javax.validation.Valid;
 import java.util.List;
 
 
 @RestController
-@RequestMapping(value = "/api/criteria")
+@RequestMapping(value = "/v1/api/criteria")
 public class CriteriaController {
-    private CriteriaService criteriaService;
-    private ScanApplicant scanApplicant;
+    private final CriteriaService criteriaService;
+    private final ScanApplicant scanApplicant;
+    private final JobPostingService jobPostingService;
 
-    public CriteriaController(CriteriaService criteriaService, ScanApplicant scanApplicant) {
+    public CriteriaController(JobPostingService jobPostingService,CriteriaService criteriaService, ScanApplicant scanApplicant) {
         this.criteriaService = criteriaService;
         this.scanApplicant = scanApplicant;
+        this.jobPostingService=jobPostingService;
     }
 
     @GetMapping
@@ -43,7 +48,7 @@ public class CriteriaController {
     }
 
     @GetMapping("/get-by-id/{id}")
-    public Object findCriteriaById(@PathVariable("id") String id) {
+    public Object findCriteriaById(@PathVariable("id") Long id) {
         Criteria criteria = criteriaService.findCriteriaById(id);
         return ResponseHandler.getResponse(criteria, HttpStatus.OK);
     }
@@ -60,9 +65,10 @@ public class CriteriaController {
     }
 
     @DeleteMapping()
-    public Object deleteCriteria(@RequestParam(name = "id") String id) {
+    public Object deleteCriteria(@RequestParam(name = "id") Long id) {
         criteriaService.deleteById(id);
-        scanApplicant.callAnalyzeApplicantAPI(id);
+        String jobPostingId = jobPostingService.getJPIdByCriteriaId(id);
+        scanApplicant.callAnalyzeApplicantAPI(jobPostingId);
         return ResponseHandler.getResponse(HttpStatus.OK);
     }
 

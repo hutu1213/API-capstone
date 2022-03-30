@@ -20,7 +20,8 @@ import java.time.LocalDate;
 public class RecruitmentRequest {
     @Id
     @Column
-    private String recruitmentRequestId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long recruitmentRequestId;
     @Column
     private String vacancies;
     @Column

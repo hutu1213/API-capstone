@@ -21,20 +21,22 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/employees")
+@RequestMapping(value = "/v1/api/employees")
 public class EmployeeController {
 
     private EmployeeService employeeService;
-private NotificationService notificationService;
-    public EmployeeController(EmployeeService employeeService,NotificationService notificationService) {
+    private NotificationService notificationService;
+
+    public EmployeeController(EmployeeService employeeService, NotificationService notificationService) {
         this.employeeService = employeeService;
-        this.notificationService=notificationService;
+        this.notificationService = notificationService;
     }
 
 //    @PostConstruct
-//    public void init(){
+//    public void init() {
 //        employeeService.initEmployeeAdmin();
 //    }
+
     @GetMapping
     public Object findAllEmployee(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -161,11 +163,6 @@ private NotificationService notificationService;
         List<Employee> employeeList = employeeService.getByTaskId(id);
         return ResponseHandler.getResponse(employeeList, HttpStatus.OK);
     }
-//    @GetMapping("/get-birth")
-//    public Object getBirthDate(HttpServletRequest request) {
-//        List<Employee> employeeList = employeeService.checkBirthDate(LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue());
-//        List<Notification> notificationList = notificationService.setNotitfi(employeeList,request);
-//        return ResponseHandler.getResponse(notificationList, HttpStatus.OK);
-//    }
+
 
 }

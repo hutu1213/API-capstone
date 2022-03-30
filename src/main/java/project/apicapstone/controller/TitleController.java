@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/title")
+@RequestMapping(value = "/v1/api/title")
 public class TitleController {
     private TitleService titleService;
 

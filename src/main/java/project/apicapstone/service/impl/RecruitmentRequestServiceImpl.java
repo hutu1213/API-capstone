@@ -28,7 +28,7 @@ public class RecruitmentRequestServiceImpl implements RecruitmentRequestService 
     }
 
     @Override
-    public boolean isExisted(String s) {
+    public boolean isExisted(Long s) {
         return recruitmentRequestRepository.existsById(s);
     }
 
@@ -55,7 +55,6 @@ public class RecruitmentRequestServiceImpl implements RecruitmentRequestService 
     @Override
     public RecruitmentRequest createRecruitmentRequest(CreateRecruitmentRequestDto dto) {
         RecruitmentRequest recruitmentRequest = new RecruitmentRequest();
-        recruitmentRequest.setRecruitmentRequestId(dto.getRecruitmentRequestId());
         recruitmentRequest.setVacancies(dto.getVacancies());
         recruitmentRequest.setReasonRecruitment(dto.getReasonRecruitment());
         recruitmentRequest.setCreateDate(LocalDate.now());
@@ -67,17 +66,17 @@ public class RecruitmentRequestServiceImpl implements RecruitmentRequestService 
     }
 
     @Override
-    public RecruitmentRequest findRecruitmentRequestById(String id) {
+    public RecruitmentRequest findRecruitmentRequestById(Long id) {
         return recruitmentRequestRepository.getById(id);
     }
 
     @Override
-    public void deleteById(String id) {
+    public void deleteById(Long id) {
         recruitmentRequestRepository.deleteById(id);
     }
 
     @Override
-    public void updateRecruitmentRequest(UpdateRecruitmentRequestDto dto, String recruitmentRequestId) {
+    public void updateRecruitmentRequest(UpdateRecruitmentRequestDto dto, Long recruitmentRequestId) {
         RecruitmentRequest recruitmentRequest = recruitmentRequestRepository.getById(recruitmentRequestId);
         recruitmentRequest.setVacancies(dto.getVacancies());
         recruitmentRequest.setReasonRecruitment(dto.getReasonRecruitment());

@@ -9,8 +9,8 @@ import project.apicapstone.validation.annonation.UniqueRecruitmentRequestId;
 
 @Data
 public class CreateRecruitmentRequestDto {
-    @UniqueRecruitmentRequestId
-    private String recruitmentRequestId;
+//    @UniqueRecruitmentRequestId
+//    private String recruitmentRequestId;
 
     private String vacancies;
 

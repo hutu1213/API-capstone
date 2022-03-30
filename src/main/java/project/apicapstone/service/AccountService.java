@@ -6,6 +6,7 @@ import project.apicapstone.dto.account.CreateAccountDto;
 import project.apicapstone.dto.account.AddRoleDto;
 import project.apicapstone.dto.account.UpdateAccountDto;
 import project.apicapstone.entity.Account;
+import project.apicapstone.entity.Notification;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -45,4 +46,6 @@ public interface AccountService {
     Account getByEmployeeId(String id);
 
     void update(UpdateAccountDto dto);
+
+    List<Notification> getNotificationById(String id);
 }

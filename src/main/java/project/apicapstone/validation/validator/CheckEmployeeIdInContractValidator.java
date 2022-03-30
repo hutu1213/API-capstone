@@ -30,20 +30,20 @@ public class CheckEmployeeIdInContractValidator implements ConstraintValidator<C
 
     @Override
     public boolean isValid(UpdateContractDto updateContractDto, ConstraintValidatorContext constraintValidatorContext) {
-        String contractId = service.findEmployeeIdWithContract(updateContractDto.getEmployeeId());
-        String id = updateContractDto.getContractId();
-        boolean isExisted = employeeService.isExisted(updateContractDto.getEmployeeId());
-        if (!isExisted) {
-            ValidatorUtils.addError(constraintValidatorContext, "Không tìm thấy mã nhân viên");
-            return false;
-        }
-        if (contractId.equals(id)) {
-            return true;
-        } else {
-            ValidatorUtils.addError(constraintValidatorContext, message);
-            return false;
-        }
+//        String contractId = service.findEmployeeIdWithContract(updateContractDto.getEmployeeId());
+//        String id = updateContractDto.getContractId();
+//        boolean isExisted = employeeService.isExisted(updateContractDto.getEmployeeId());
+//        if (!isExisted) {
+//            ValidatorUtils.addError(constraintValidatorContext, "Không tìm thấy mã nhân viên");
+//            return false;
+//        }
+//        if (contractId.equals(id)) {
+//            return true;
+//        } else {
+//            ValidatorUtils.addError(constraintValidatorContext, message);
+//            return false;
+//        }
 
-
+return false;
     }
 }

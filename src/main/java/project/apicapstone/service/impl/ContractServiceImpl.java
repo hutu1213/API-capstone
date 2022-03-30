@@ -92,9 +92,6 @@ public class ContractServiceImpl implements ContractService {
         contract.setSignDate(dto.getSignDate());
         contract.setWage(dto.getWage());
         contract.setNote(dto.getNote());
-        contract.setAttachedFile(dto.getAttachedFile());
-        Employee employee = employeeRepository.getById(dto.getEmployeeId());
-        contract.setEmployee(employee);
         contractRepository.save(contract);
     }
 
@@ -136,6 +133,16 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public List<Contract> getContractsByEndDate(LocalDate date) {
         return contractRepository.getContractsByEndDate(date);
+    }
+
+    @Override
+    public List<Contract> findEmployeetByStatusContract() {
+        return contractRepository.findContractByStatus("Còn hiệu lực");
+    }
+
+    @Override
+    public List<Contract> findEmployeeIDInContract(String id) {
+        return contractRepository.findEmployeeIdInContract(id);
     }
 
 }

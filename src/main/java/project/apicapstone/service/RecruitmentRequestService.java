@@ -9,7 +9,7 @@ import project.apicapstone.entity.RecruitmentRequest;
 import java.util.List;
 
 public interface RecruitmentRequestService {
-    boolean isExisted(String s);
+    boolean isExisted(Long s);
 
     Page<RecruitmentRequest> findAllRecruitmentRequest(Pageable pageable);
 
@@ -19,11 +19,11 @@ public interface RecruitmentRequestService {
 
     RecruitmentRequest createRecruitmentRequest(CreateRecruitmentRequestDto dto);
 
-    RecruitmentRequest findRecruitmentRequestById(String id);
+    RecruitmentRequest findRecruitmentRequestById(Long id);
 
-    void deleteById(String id);
+    void deleteById(Long id);
 
-    void updateRecruitmentRequest(UpdateRecruitmentRequestDto dto, String recruitmentRequestId);
+    void updateRecruitmentRequest(UpdateRecruitmentRequestDto dto, Long recruitmentRequestId);
 
     Page<RecruitmentRequest> findRecruitmentRequestByEmployeeId(String id, Pageable pageable);
 

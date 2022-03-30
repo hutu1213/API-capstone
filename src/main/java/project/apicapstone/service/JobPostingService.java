@@ -30,4 +30,6 @@ public interface JobPostingService {
     Page<JobPosting> search(String paramSearch, Pageable pageable);
 
     Page<JobPosting> searchWithPosition(String paramSearch, String position, Pageable pageable);
+
+    String getJPIdByCriteriaId(Long id);
 }

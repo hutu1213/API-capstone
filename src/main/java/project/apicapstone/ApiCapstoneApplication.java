@@ -8,13 +8,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 //import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Import;
 
 import project.apicapstone.jobrunr.AppConfig;
 
 
 @SpringBootApplication
-//@EnableZuulProxy
+@EnableZuulProxy
 //@EnableDiscoveryClient
 //@EnableEurekaClient
 //@EnableEurekaServer

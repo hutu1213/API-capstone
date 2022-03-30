@@ -19,15 +19,15 @@ public interface CriteriaService {
 
     List<Criteria> findAllCriteria();
 
-    Criteria findCriteriaById(String id);
+    Criteria findCriteriaById(Long id);
 
     Criteria addNewCriteria(CreateCriteriaDto dto);
 
-    void deleteById(String id);
+    void deleteById(Long id);
 
-    void updateCriteria(UpdateCriteriaDto dto, String criteriaId);
+    void updateCriteria(UpdateCriteriaDto dto, Long criteriaId);
 
-    boolean isExisted(String s);
+    boolean isExisted(Long s);
 
     List<Criteria> getByJobPostingId(String id);
 

@@ -10,6 +10,7 @@ import project.apicapstone.dto.account.AddRoleDto;
 import project.apicapstone.dto.account.UpdateAccountDto;
 import project.apicapstone.entity.Account;
 import project.apicapstone.entity.Employee;
+import project.apicapstone.entity.Notification;
 import project.apicapstone.entity.Role;
 import project.apicapstone.repository.AccountRepository;
 import project.apicapstone.repository.EmployeeRepository;
@@ -138,5 +139,10 @@ public class AccountServiceImpl implements AccountService {
         account.setStatus(dto.getStatus());
         account.setRole(roleRepository.getById(dto.getRoleId()));
         accountRepository.save(account);
+    }
+
+    @Override
+    public List<Notification> getNotificationById(String id) {
+        return null;
     }
 }

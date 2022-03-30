@@ -21,7 +21,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/workplace")
+@RequestMapping("/v1/api/workplace")
 public class WorkplaceController {
     private WorkplaceService workplaceService;
 

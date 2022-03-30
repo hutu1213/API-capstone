@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/applicant")
+@RequestMapping("/v1/api/applicant")
 //@CrossOrigin(origins = "*")
 public class ApplicantController {
     private ApplicantService applicantService;

@@ -21,7 +21,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/dependant")
+@RequestMapping(value = "/v1/api/dependant")
 public class DependantController {
     private DependantService dependantService;
 

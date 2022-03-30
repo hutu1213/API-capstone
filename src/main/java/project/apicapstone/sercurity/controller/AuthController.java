@@ -28,7 +28,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/v1/api/auth")
 public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(Jwts.class);
     private final AuthenticationManager authenticationManager;

@@ -10,7 +10,7 @@ import project.apicapstone.service.MailService;
 import javax.mail.MessagingException;
 
 @RestController
-@RequestMapping("/api/mail")
+@RequestMapping("/v1/api/mail")
 public class MailController {
     private MailService mailService;
 

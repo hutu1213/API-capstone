@@ -19,7 +19,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/jobPosting")
+@RequestMapping(value = "/v1/api/jobPosting")
 public class JobPostingController {
     private JobPostingService jobPostingService;
 

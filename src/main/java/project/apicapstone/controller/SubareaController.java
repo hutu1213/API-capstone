@@ -19,7 +19,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/subarea")
+@RequestMapping("/v1/api/subarea")
 public class SubareaController {
     private SubareaService subareaService;
 

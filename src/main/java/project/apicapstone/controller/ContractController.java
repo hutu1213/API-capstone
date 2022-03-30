@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import project.apicapstone.common.util.ExportExcelContract;
 import project.apicapstone.common.util.ExporterExcelEmployee;
 import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.dto.contract.CreateContractDto;
@@ -24,7 +25,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/contract")
+@RequestMapping(value = "/v1/api/contract")
 public class ContractController {
     private ContractService contractService;
 
@@ -90,33 +91,51 @@ public class ContractController {
         Page<Contract> contractPage = contractService.search(paramSearch, pageable);
         return ResponseHandler.getResponse(contractService.pagingFormat(contractPage), HttpStatus.OK);
     }
-    @GetMapping("/exportList/excel")
-    public Object exportListToExcel(HttpServletResponse response) throws IOException {
+
+    // export
+    @GetMapping("/exportListEmployee/excel")
+    public Object exportListEmployeeToExcel(HttpServletResponse response) throws IOException {
         response.setContentType("application/octet-stream");
         String headerValue = "attachement; filename=HSNV.xlsx";
         String headerKey = "Content-Disposition";
         response.setHeader(headerKey, headerValue);
 
-        List<Contract> listEmployees = contractService.findAll();
+        List<Contract> listEmployees = contractService.findEmployeetByStatusContract();
         if (listEmployees.isEmpty()) {
-            return ResponseHandler.getErrors("Not found ", HttpStatus.NOT_FOUND);
+            return ResponseHandler.getErrors("Không tồn tại hợp đồng còn hiệu lực", HttpStatus.NOT_FOUND);
         }
         ExporterExcelEmployee excelExporter = new ExporterExcelEmployee(listEmployees);
-        excelExporter.exportList(response);
+        excelExporter.exportListEmployee(response);
         return ResponseHandler.getResponse(excelExporter, HttpStatus.OK);
     }
 
     @GetMapping("{id}/exportEmployee/excel")
     public Object exportEmployee(@PathVariable String id, HttpServletResponse response) throws IOException {
-        Contract employee = contractService.findEmployeeById(id);
+        List<Contract> listEmployeeID = contractService.findEmployeeIDInContract(id);
 
         response.setContentType("application/octet-stream");
-        String headerValue = "attachement; filename=HSNV_" + employee.getEmployee().getEmployeeId() + ".xlsx";
+        String headerValue = "attachement; filename=HSNV_" + id + ".xlsx";
         String headerKey = "Content-Disposition";
 
         response.setHeader(headerKey, headerValue);
-        ExporterExcelEmployee excelExporter = new ExporterExcelEmployee(employee);
-        excelExporter.export(response);
+        ExporterExcelEmployee excelExporter = new ExporterExcelEmployee(listEmployeeID);
+        excelExporter.exportListEmployee(response);
+        return ResponseHandler.getResponse(excelExporter, HttpStatus.OK);
+    }
+
+    @GetMapping("/exportListContract/excel")
+    public Object exportListContractToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        String headerValue = "attachement; filename=HDLD.xlsx";
+        String headerKey = "Content-Disposition";
+        response.setHeader(headerKey, headerValue);
+
+        List<Contract> contractList = contractService.findEmployeetByStatusContract();
+        if (contractList.isEmpty()) {
+            return ResponseHandler.getErrors("Không tồn tại hợp đồng còn hiệu lực", HttpStatus.NOT_FOUND);
+        }
+        ExportExcelContract excelExporter = new ExportExcelContract(contractList);
+        excelExporter.exportListContract(response);
         return ResponseHandler.getResponse(excelExporter, HttpStatus.OK);
     }
 

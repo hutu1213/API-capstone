@@ -43,14 +43,14 @@ public class CriteriaServiceImpl implements CriteriaService {
     }
 
     @Override
-    public Criteria findCriteriaById(String id) {
+    public Criteria findCriteriaById(Long id) {
         return criteriaRepository.getById(id);
     }
 
     @Override
     public Criteria addNewCriteria(CreateCriteriaDto dto) {
         Criteria criteria=new Criteria();
-        criteria.setCriteriaId(dto.getCriteriaId());
+        //criteria.setCriteriaId(dto.getCriteriaId());
         criteria.setCriteriaDescription(dto.getCriteriaDescription());
         criteria.setWeight(dto.getWeight());
         criteria.setKeyword(dto.getKeyword());
@@ -60,12 +60,12 @@ public class CriteriaServiceImpl implements CriteriaService {
     }
 
     @Override
-    public void deleteById(String id) {
+    public void deleteById(Long id) {
         criteriaRepository.deleteById(id);
     }
 
     @Override
-    public void updateCriteria(UpdateCriteriaDto dto, String criteriaId) {
+    public void updateCriteria(UpdateCriteriaDto dto, Long criteriaId) {
         Criteria criteria= criteriaRepository.getById(criteriaId);
         criteria.setCriteriaDescription(dto.getCriteriaDescription());
         criteria.setWeight(dto.getWeight());
@@ -76,7 +76,7 @@ public class CriteriaServiceImpl implements CriteriaService {
     }
 
     @Override
-    public boolean isExisted(String s) {
+    public boolean isExisted(Long s) {
         return criteriaRepository.existsById(s);
     }
 

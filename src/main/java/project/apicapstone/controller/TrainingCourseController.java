@@ -19,7 +19,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/training-course")
+@RequestMapping("/v1/api/training-course")
 public class TrainingCourseController {
     private TrainingCourseService trainingCourseService;
     private EmployeeService employeeService;

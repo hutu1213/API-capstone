@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/area")
+@RequestMapping("/v1/api/area")
 public class AreaController {
     private AreaService areaService;
 
