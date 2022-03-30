@@ -100,6 +100,11 @@ public class JobPostingServiceImpl implements JobPostingService {
     }
 
     @Override
+    public String getJPIdByCriteriaId(Long id) {
+        return jobPostingRepository.getJPIdByCriteriaId(id);
+    }
+
+    @Override
     @Transactional
     public void deleteById(String id) {
         jobPostingRepository.deleteById(id);

@@ -9,7 +9,7 @@ import project.apicapstone.validation.annonation.UniqueCriteriaId;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class UniqueCriteriaIdValidator implements ConstraintValidator<UniqueCriteriaId, String> {
+public class UniqueCriteriaIdValidator implements ConstraintValidator<UniqueCriteriaId, Long> {
     private String message;
     private CriteriaService service;
     public UniqueCriteriaIdValidator(CriteriaService service){
@@ -21,7 +21,7 @@ public class UniqueCriteriaIdValidator implements ConstraintValidator<UniqueCrit
     }
 
     @Override
-    public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(Long s, ConstraintValidatorContext constraintValidatorContext) {
         boolean isExisted = service.isExisted(s);
 
         if (isExisted) {

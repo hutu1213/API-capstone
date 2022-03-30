@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class UpdateCriteriaDto {
-    private String criteriaId;
+    private Long criteriaId;
 
     private String criteriaDescription;
     private Double weight;

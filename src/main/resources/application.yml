@@ -7,7 +7,8 @@ spring:
     show-sql: true
     generate-ddl: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
+      # test @Postcontruct
 
   jackson:
     serialization:
@@ -17,17 +18,17 @@ server:
   error:
     include-message: always
 
-#zuul:
-#  routes:
-#    dashboard:
-#      path: /dashboard/**
-#      url: http://localhost:8000/dashboard
-#    api:
-#      path: /api/**
-#      url: http://localhost:8000/api
-#    sse:
-#      path: /sse/**
-#      url: http://localhost:8000/sse
+zuul:
+  routes:
+    dashboard:
+      path: /dashboard/**
+      url: http://localhost:8000/dashboard
+    api:
+      path: /api/**
+      url: http://localhost:8000/api
+    sse:
+      path: /sse/**
+      url: http://localhost:8000/sse
 #
 #ribbon:
 #  ConnectTimeout: 120000

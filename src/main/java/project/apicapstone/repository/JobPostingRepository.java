@@ -29,4 +29,7 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, String> 
     @Query("SELECT c FROM JobPosting c WHERE lower(c.postTitle)  LIKE lower(concat('%', ?1,'%')) AND c.title.position.positionId LIKE ?2 ")
     Page<JobPosting> searchWithPosition(String paramSearch, String position, Pageable pageable);
 
+    @Query("SELECT jp.jobPostingId FROM JobPosting jp join jp.criteria c WHERE c.criteriaId=?1")
+    String getJPIdByCriteriaId(Long id);
+
 }

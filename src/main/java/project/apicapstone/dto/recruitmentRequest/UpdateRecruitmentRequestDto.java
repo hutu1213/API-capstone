@@ -9,8 +9,8 @@ import project.apicapstone.validation.annonation.UniqueRecruitmentRequestId;
 import java.time.LocalDate;
 @Data
 public class UpdateRecruitmentRequestDto {
-    @UniqueRecruitmentRequestId
-    private String recruitmentRequestId;
+
+    private Long recruitmentRequestId;
 
     private String vacancies;
 

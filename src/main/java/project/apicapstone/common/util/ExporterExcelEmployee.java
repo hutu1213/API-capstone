@@ -23,12 +23,12 @@ public class ExporterExcelEmployee {
 
     private List<Contract> listEmployee;
     private Contract contract;
-    private Employee employee;
+    private String contractt;
 
     private int i = 1;
-    public ExporterExcelEmployee(Contract contract) {
-        this.contract = contract;
-    }
+    /*public ExporterExcelEmployee(String contractt) {
+        this.contractt = contractt;
+    }*/
 
     public ExporterExcelEmployee(List<Contract> listEmployee) {
         this.listEmployee = listEmployee;
@@ -89,46 +89,7 @@ public class ExporterExcelEmployee {
         createCell(row, 28, "LIÊN HỆ ", style);
     }
 
-    private void writeDataRow() {
-        CellStyle style = workbook.createCellStyle();
-        XSSFFont font = workbook.createFont();
-        font.setFontHeight(12);
-        style.setFont(font);
-
-        Row row = sheet.createRow(1);
-
-        createCell(row, 0, i++, style);
-        createCell(row, 1, contract.getContractId(), style); //số HĐ
-        createCell(row, 2, contract.getEmployee().getEmployeeName(), style);
-        createCell(row, 3, contract.getEmployee().getPhone(), style);
-        createCell(row, 4, contract.getEmployee().getEmail(), style);
-        createCell(row, 5, contract.getStartDate().toString(), style); //Ngày nhận việc
-        createCell(row, 6, contract.getEmployee().getDateBirth().toString(), style);
-        createCell(row, 7, contract.getEmployee().getPlaceBirth(), style);
-        createCell(row, 8, contract.getEmployee().getGender(), style);
-        createCell(row, 9, contract.getEmployee().getEthnic(), style);
-        createCell(row, 10, contract.getEmployee().getReligion(), style);
-        createCell(row, 11, contract.getEmployee().getAcademicLevel(), style);
-        createCell(row, 12, contract.getEmployee().getEmployeeId(), style); //Số CMND
-        createCell(row, 13, contract.getEmployee().getDateIssue().toString(), style); //Ngày cấp (CMND)
-        createCell(row, 14, contract.getEmployee().getPlaceIssue(), style); //Nơi cấp (CMND)
-        createCell(row, 15, contract.getEmployee().getAddress(), style);
-        createCell(row, 16, contract.getEmployee().getTitle().getJobTitle(), style); //Chức Danh
-        createCell(row, 17, contract.getType(), style); //Loại hợp đồng
-        createCell(row, 18, contract.getSignDate().getDayOfMonth(), style); //Ngày ký
-        createCell(row, 19, contract.getSignDate().getMonthValue(), style); //Tháng ký
-        createCell(row, 20, contract.getSignDate().getYear(), style); //Năm ký
-        createCell(row, 21, contract.getStartDate().getDayOfMonth(), style); //Ngày làm
-        createCell(row, 22, contract.getStartDate().getMonthValue(), style); //Tháng làm
-        createCell(row, 23, contract.getStartDate().getYear(), style); //Năm làm
-        createCell(row, 24, contract.getEndDate().getDayOfMonth(), style); //Ngày kết thúc
-        createCell(row, 25, contract.getEndDate().getMonthValue(), style); //Tháng kết thúc
-        createCell(row, 26, contract.getEndDate().getYear(), style); //Năm kết thúc
-        createCell(row, 27, contract.getEmployee().getMaritalStatus(), style);
-        createCell(row, 28, contract.getEmployee().getPhone(), style); //Liên hệ
-    }
-
-    private void writeDataRowList() {
+    private void writeEmployeeRowList() {
         int rowCount = 1;
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
@@ -170,20 +131,9 @@ public class ExporterExcelEmployee {
         }
     }
 
-    public void export(HttpServletResponse response) throws IOException {
+    public void exportListEmployee(HttpServletResponse response) throws IOException {
         writeHeaderRow();
-        writeDataRow();
-
-        ServletOutputStream outputStream = response.getOutputStream();
-        workbook.write(outputStream);
-        workbook.close();
-
-        outputStream.close();
-    }
-
-    public void exportList(HttpServletResponse response) throws IOException {
-        writeHeaderRow();
-        writeDataRowList();
+        writeEmployeeRowList();
 
         ServletOutputStream outputStream = response.getOutputStream();
         workbook.write(outputStream);

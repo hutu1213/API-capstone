@@ -18,7 +18,8 @@ import javax.persistence.*;
 @Table(name = "table_criteria")
 public class Criteria {
     @Id
-    private String criteriaId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long criteriaId;
     @Column
     private String criteriaDescription;
     @Column

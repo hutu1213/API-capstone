@@ -20,7 +20,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/department")
+@RequestMapping(value = "/v1/api/department")
 public class DepartmentController {
     private DepartmentService departmentService;
 

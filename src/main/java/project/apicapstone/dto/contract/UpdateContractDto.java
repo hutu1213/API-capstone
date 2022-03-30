@@ -45,7 +45,7 @@ public class UpdateContractDto {
 
     private String attachedFile;
 
-    @FindEmployeeId
-    @CheckEmployeeIdInOrtherContractWithStatus
-    private String employeeId;
+//    @FindEmployeeId
+//    @CheckEmployeeIdInOrtherContractWithStatus
+//    private String employeeId;
 }

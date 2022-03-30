@@ -12,7 +12,7 @@ import project.apicapstone.service.NotificationService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/notification")
+@RequestMapping("/v1/api/notification")
 public class NotificationController {
     private NotificationService notificationService;
 

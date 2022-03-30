@@ -22,7 +22,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/role")
+@RequestMapping(value = "/v1/api/role")
 public class RoleController {
     private RoleService roleService;
 

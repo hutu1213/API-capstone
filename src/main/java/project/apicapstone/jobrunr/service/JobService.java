@@ -48,15 +48,11 @@ public class JobService {
         return employeeList;
     }
 
-    @Recurring(id = "Send-mail-when-reject-applicant", cron = "* */59 * * *")
+    @Recurring(id = "Send-mail-when-reject-applicant", cron = "0 9 * * *")
     @Job(name = "Send mail when reject applicant")
     public void sendMailRejectApplicant() {
         List<Applicant> applicantList = applicantService.getAllByStatus(STATUS);
-//        for (int i = 0; i < applicantList.size(); i++) {
-//            mailService.sendEmailRejectApplicant(applicantList.get(i));
-//            applicantList.get(i).setCheckSendMail(1);
-//            applicantRepository.save(applicantList.get(i));
-//        }
+
         for (Applicant applicant : applicantList) {
             mailService.sendEmailRejectApplicant(applicant);
             applicant.setCheckSendMail(1);
@@ -64,7 +60,7 @@ public class JobService {
         }
     }
 
-    @Recurring(id = "Get-notification-employee-birthday", cron = "* */59 * * *")
+    @Recurring(id = "Get-notification-employee-birthday", cron = "0 9 * * *")
     @Job(name = "Get-notification-employee-birthday")
     public void getNotificationEmpl() {
         List<Account> accountList = accountService.getAccountsByRoleName(ROLE_TRUONGPHONG, ROLE_QL_NHANVIEN);
@@ -80,48 +76,33 @@ public class JobService {
                 accountRepository.save(account);
             }
         }
-
-//        for (int i = 0; i < accountList.size(); i++) {
-//            Account account = accountRepository.getById(accountList.get(i).getAccountId());
-//            for (int j = 0; j < checkBirthDate().size(); j++) {
-//                project.apicapstone.entity.Notification notification = new project.apicapstone.entity.Notification();
-//                notification.setCreateDate(LocalDate.now());
-//                notification.setTitle("Happy birthday");
-//                notification.setContent("Hôm nay là sinh nhật của " + checkBirthDate().get(j).getEmployeeName() + ", mã: " + checkBirthDate().get(j).getEmployeeId());
-//                notificationRepository.save(notification);
-//                account.addNotification(notification);
-//            }
-//
-//            accountRepository.save(account);
-//        }
-
     }
 
     public List<Dependant> checkBirthDateDependant() {
         List<Dependant> dependantList = dependantService.checkBirthDate(LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue());
         return dependantList;
     }
+//                           BIRTHDAY OF DEPENDANT**********************************************************************
+//    @Recurring(id = "Get-notification-dependant-birthday", cron = "0 9 * * *")
+//    @Job(name = "Get-notification-dependant-birthday")
+//    public void getNotificationDependant() {
+//        List<Account> accountList = accountService.getAccountsByRoleName(ROLE_TRUONGPHONG, ROLE_QL_NHANVIEN);
+//        for (int i = 0; i < checkBirthDateDependant().size(); i++) {
+//            project.apicapstone.entity.Notification notification = new project.apicapstone.entity.Notification();
+//            notification.setCreateDate(LocalDate.now());
+//            notification.setTitle("Thông báo chúc mừng sinh nhật người phụ thuộc");
+//            notification.setContent("Hôm nay là sinh nhật của " + checkBirthDateDependant().get(i).getDependantName() + ", mã: " + checkBirthDateDependant().get(i).getDependantId());
+//            notificationRepository.save(notification);
+//            for (int j = 0; j < accountList.size(); j++) {
+//                Account account = accountRepository.getById(accountList.get(j).getAccountId());
+//                notification.addAccount(account);
+//                accountRepository.save(account);
+//            }
+//        }
+//
+//    }
 
-    @Recurring(id = "Get-notification-dependant-birthday", cron = "* */59 * * *")
-    @Job(name = "Get-notification-dependant-birthday")
-    public void getNotificationDependant() {
-        List<Account> accountList = accountService.getAccountsByRoleName(ROLE_TRUONGPHONG, ROLE_QL_NHANVIEN);
-        for (int i = 0; i < checkBirthDateDependant().size(); i++) {
-            project.apicapstone.entity.Notification notification = new project.apicapstone.entity.Notification();
-            notification.setCreateDate(LocalDate.now());
-            notification.setTitle("Thông báo chúc mừng sinh nhật người phụ thuộc");
-            notification.setContent("Hôm nay là sinh nhật của " + checkBirthDateDependant().get(i).getDependantName() + ", mã: " + checkBirthDateDependant().get(i).getDependantId());
-            notificationRepository.save(notification);
-            for (int j = 0; j < accountList.size(); j++) {
-                Account account = accountRepository.getById(accountList.get(j).getAccountId());
-                notification.addAccount(account);
-                accountRepository.save(account);
-            }
-        }
-
-    }
-
-    @Recurring(id = "Get-notification-contract-before-5-day", cron = "* */59 * * *")
+    @Recurring(id = "Get-notification-contract-before-5-day", cron = "0 9 * * *")
     @Job(name = "Get-notification-contract")
     public void getNotificationContract() {
         List<Account> accountList = accountService.getAccountsByRoleName(ROLE_TRUONGPHONG, ROLE_QL_HOPDONG);

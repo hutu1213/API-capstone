@@ -7,7 +7,7 @@ import project.apicapstone.validation.annonation.UniqueRecruitmentRequestId;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class UniqueRecruitmentRequestIdValidator implements ConstraintValidator<UniqueRecruitmentRequestId, String> {
+public class UniqueRecruitmentRequestIdValidator implements ConstraintValidator<UniqueRecruitmentRequestId, Long> {
     private String message;
     private final RecruitmentRequestService recruitmentRequestService;
 
@@ -21,7 +21,7 @@ public class UniqueRecruitmentRequestIdValidator implements ConstraintValidator<
     }
 
     @Override
-    public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(Long s, ConstraintValidatorContext constraintValidatorContext) {
         boolean isExisted = recruitmentRequestService.isExisted(s);
 
         if (isExisted) {

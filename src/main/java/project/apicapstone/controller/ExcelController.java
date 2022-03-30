@@ -34,7 +34,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/excel")
+@RequestMapping("/v1/api/excel")
 public class ExcelController {
     private EmployeeService employeeService;
     private TitleRepository titleRepository;

@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/allowance")
+@RequestMapping("/v1/api/allowance")
 public class AllowanceController {
     private AllowanceService allowanceService;
 

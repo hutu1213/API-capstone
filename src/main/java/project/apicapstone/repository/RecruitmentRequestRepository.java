@@ -10,7 +10,7 @@ import project.apicapstone.entity.Position;
 import project.apicapstone.entity.RecruitmentRequest;
 
 @Repository
-public interface RecruitmentRequestRepository extends JpaRepository<RecruitmentRequest, String> {
+public interface RecruitmentRequestRepository extends JpaRepository<RecruitmentRequest, Long> {
     @Transactional(readOnly = true)
     @Query("SELECT e FROM RecruitmentRequest e")
     Page<RecruitmentRequest> findAllRecruitmentRequest(Pageable pageable);

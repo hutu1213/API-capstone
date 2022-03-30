@@ -12,7 +12,7 @@ import project.apicapstone.entity.Criteria;
 import java.util.List;
 
 @Repository
-public interface CriteriaRepository extends JpaRepository<Criteria, String> {
+public interface CriteriaRepository extends JpaRepository<Criteria, Long> {
 
         @Query("SELECT c.criteriaId AS criteriaId, " +
             "c.criteriaDescription AS criteriaDescription, " +

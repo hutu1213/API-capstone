@@ -39,4 +39,6 @@ public interface ContractRepository extends JpaRepository<Contract, String> {
     @Query("SELECT c FROM Contract c join c.employee e WHERE e.employeeId = ?1")
     Contract findEmployeeById(String id);
 
+    @Query("SELECT c FROM Contract c WHERE c.status = ?1")
+    List<Contract> findContractByStatus(String status);
 }

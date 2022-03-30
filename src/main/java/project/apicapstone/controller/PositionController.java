@@ -20,7 +20,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/position")
+@RequestMapping(value = "/v1/api/position")
 public class PositionController {
     private PositionService positionService;
 

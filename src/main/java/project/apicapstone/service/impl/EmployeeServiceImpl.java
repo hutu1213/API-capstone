@@ -29,12 +29,12 @@ import static java.time.temporal.TemporalAdjusters.previousOrSame;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private EmployeeRepository employeeRepository;
-    private TitleRepository titleRepository;
-    private WorkplaceRepository workplaceRepository;
-    private AccountRepository accountRepository;
-    private PasswordEncoder passwordEncoder;
-    private RoleRepository roleRepository;
+    private final EmployeeRepository employeeRepository;
+    private final TitleRepository titleRepository;
+    private final WorkplaceRepository workplaceRepository;
+    private final AccountRepository accountRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
 
 
     public EmployeeServiceImpl(RoleRepository roleRepository,PasswordEncoder passwordEncoder,AccountRepository accountRepository,EmployeeRepository employeeRepository, TitleRepository titleRepository, WorkplaceRepository workplaceRepository) {
@@ -177,7 +177,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         // account
         Account account = new Account();
         account.setEmployee(addEmployee);
-        account.setPassword(passwordEncoder.encode("admin"));
+        account.setPassword(passwordEncoder.encode("admin123456"));
         account.setStatus("ACTIVE");
         account.setUsername("admin@lug.com");
         // role

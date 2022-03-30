@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/recruitmentRequest")
+@RequestMapping(value = "/v1/api/recruitmentRequest")
 public class RecruitmentRequestController {
     private final RecruitmentRequestService recruitmentRequestService;
 
@@ -48,13 +48,13 @@ public class RecruitmentRequestController {
     }
 
     @GetMapping("/get-by-id/{id}")
-    public Object findRecruitmentRequestById(@PathVariable("id") String id) {
+    public Object findRecruitmentRequestById(@PathVariable("id") Long id) {
         RecruitmentRequest recruitmentRequest = recruitmentRequestService.findRecruitmentRequestById(id);
         return ResponseHandler.getResponse(recruitmentRequest, HttpStatus.OK);
     }
 
     @DeleteMapping()
-    public Object deleteRecruitmentRequest(@RequestParam(name = "id") String id) {
+    public Object deleteRecruitmentRequest(@RequestParam(name = "id") Long id) {
         recruitmentRequestService.deleteById(id);
         return ResponseHandler.getResponse(HttpStatus.OK);
     }

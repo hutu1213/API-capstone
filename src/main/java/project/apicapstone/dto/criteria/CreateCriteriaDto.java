@@ -6,8 +6,8 @@ import project.apicapstone.validation.annonation.UniqueCriteriaId;
 
 @Data
 public class CreateCriteriaDto {
-    @UniqueCriteriaId
-    private String criteriaId;
+//    @UniqueCriteriaId
+//    private String criteriaId;
 
     private String criteriaDescription;
 

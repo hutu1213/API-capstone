@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
-import project.apicapstone.dto.account.ChangePasswordDto;
 import project.apicapstone.dto.account.CreateAccountDto;
 import project.apicapstone.dto.account.AddRoleDto;
 import project.apicapstone.dto.account.UpdateAccountDto;
@@ -19,7 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/account")
+@RequestMapping("/v1/api/account")
 public class AccountController {
     private final AccountService accountService;
 
@@ -76,34 +75,10 @@ public class AccountController {
         return ResponseHandler.getResponse(accountList, HttpStatus.OK);
     }
 
-    @PostMapping("/change-password")
-    public Object changPassword(@Valid @RequestBody ChangePasswordDto passwordDto, BindingResult bindingResult) {
-        // xac dinh user sau khi dang nhap
-        //Account account = accountService.findByUsername(((Account) SecurityContextHolder.getContext().getAuthentication().get).getUsername());
-        if (bindingResult.hasErrors())
-            return ResponseHandler.getResponse(bindingResult, HttpStatus.BAD_REQUEST);
-
-        Account account = accountService.findByUsername(passwordDto.getUsername());
-
-        if (!accountService.checkIfValidOldPassword(account, passwordDto.getOldPassword())) {
-            return ResponseHandler.getErrors("Sai mật khẩu cũ", HttpStatus.BAD_REQUEST);
-        }
-        if (!passwordDto.getNewPassword().equals(passwordDto.getConfirmNewPassword())) {
-            return ResponseHandler.getErrors("Xác nhận mật khẩu mới không trùng khớp", HttpStatus.BAD_REQUEST);
-        }
-        accountService.changePassword(account, passwordDto.getNewPassword());
-        return ResponseHandler.getResponse("Successful", HttpStatus.OK);
-    }
-
-    @GetMapping("/test")
-    public Object test(@RequestParam(name = "role1") String role1, @RequestParam(name = "role2") String role2) {
-        List<Account> accountList = accountService.getAccountsByRoleName(role1, role2);
-        return ResponseHandler.getResponse(accountList, HttpStatus.OK);
-    }
-
     @GetMapping("/get-by-employee-id/{id}")
     public Object getByEmployeeId(@PathVariable String id) {
         Account account = accountService.getByEmployeeId(id);
         return ResponseHandler.getResponse(account, HttpStatus.OK);
     }
+
 }

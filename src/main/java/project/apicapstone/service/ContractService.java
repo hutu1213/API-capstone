@@ -44,4 +44,8 @@ public interface ContractService {
     Contract findEmployeeById(String id);
 
     List<Contract> getContractsByEndDate(LocalDate minusDays);
+
+    List<Contract> findEmployeetByStatusContract();
+
+    List<Contract> findEmployeeIDInContract(String id);
 }

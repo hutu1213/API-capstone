@@ -22,7 +22,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/task")
+@RequestMapping(value = "/v1/api/task")
 public class TaskController {
     private TaskService taskService;
     private EmployeeService employeeService;
