@@ -96,33 +96,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         //cấu hình xác thực cho các api
-//        http.authorizeRequests()
-//                .antMatchers("/api/jobPosting/search-paging/{paramSearch}/{position}", "/api/auth/login", "/swagger-ui.html#/**", "/api/applicant/create-applicant", "/api/jobPosting/get-by-id/{id}", "/api/jobPosting", "/dashboard/**", "/api/title/get-all").permitAll()
-//                .antMatchers(MANAGE_ALLOWANCE, MANAGE_APPLICANT,
-//                        MANAGE_AREA, MANAGE_ACCOUNT, MANAGE_CONTRACT, MANAGE_TRAINING_COURSE,
-//                        MANAGE_CRITERIA, MANAGE_DEPARTMENT, MANAGE_DEPENDANT,
-//                        MANAGE_EXCEL, MANAGE_EMPLOYEE, MANAGE_JOB_POSTING,
-//                        MANAGE_POSITION, MANAGE_ROLE, MANAGE_SUB_AREA,
-//                        MANAGE_TASK, MANAGE_TITLE, MANAGE_WORKPLACE, MANAGE_RECRUITMENT_REQUEST,
-//                        MANAGE_EVALUATION, MANAGE_MAIL,MANAGE_PASSWORD)
-//                .hasAnyAuthority("ROLE_ADMIN", ROLE_TRUONGPHONG)
-//                .antMatchers(MANAGE_EMPLOYEE,
-//                        MANAGE_SKILL,
-//                        MANAGE_DEPENDANT,
-//                        MANAGE_TIME_KEEPING,MANAGE_PASSWORD)
-//                .hasAnyAuthority(ROLE_QL_NHANVIEN, ROLE_TRUONGPHONG)
-//                .antMatchers(MANAGE_CONTRACT,
-//                        MANAGE_ALLOWANCE,MANAGE_PASSWORD)
-//                .hasAnyAuthority(ROLE_QL_HOPDONG, ROLE_TRUONGPHONG)
-//                .antMatchers(MANAGE_JOB_POSTING,
-//                        "/api/applicant/search/{paramSearch}",
-//                        MANAGE_APPLICANT,MANAGE_PASSWORD)
-//                .hasAnyAuthority(ROLE_QL_TUYENDUNG, ROLE_TRUONGPHONG)
-////              .antMatchers("").hasAnyAuthority("TRƯỞNG PHÒNG BAN KHÁC")
-//
-//                .antMatchers(MANAGE_TASK,MANAGE_PASSWORD)
-//                .hasAnyAuthority(ROLE_NHANVIEN, ROLE_TRUONGPHONG)
-//                .anyRequest().authenticated();
+        http.authorizeRequests()
+                .antMatchers("/api/jobPosting/search-paging/{paramSearch}/{position}", "/api/auth/login", "/swagger-ui.html#/**", "/api/applicant/create-applicant", "/api/jobPosting/get-by-id/{id}", "/api/jobPosting", "/dashboard/**", "/api/title/get-all").permitAll()
+                .antMatchers(MANAGE_ALLOWANCE, MANAGE_APPLICANT,
+                        MANAGE_AREA, MANAGE_ACCOUNT, MANAGE_CONTRACT, MANAGE_TRAINING_COURSE,
+                        MANAGE_CRITERIA, MANAGE_DEPARTMENT, MANAGE_DEPENDANT,
+                        MANAGE_EXCEL, MANAGE_EMPLOYEE, MANAGE_JOB_POSTING,
+                        MANAGE_POSITION, MANAGE_ROLE, MANAGE_SUB_AREA,
+                        MANAGE_TASK, MANAGE_TITLE, MANAGE_WORKPLACE, MANAGE_RECRUITMENT_REQUEST,
+                        MANAGE_EVALUATION, MANAGE_MAIL,MANAGE_PASSWORD)
+                .hasAnyAuthority("ROLE_ADMIN", ROLE_TRUONGPHONG)
+                .antMatchers(MANAGE_EMPLOYEE,
+                        MANAGE_SKILL,
+                        MANAGE_DEPENDANT,
+                        MANAGE_TIME_KEEPING,MANAGE_PASSWORD)
+                .hasAnyAuthority(ROLE_QL_NHANVIEN, ROLE_TRUONGPHONG)
+                .antMatchers(MANAGE_CONTRACT,
+                        MANAGE_ALLOWANCE,MANAGE_PASSWORD)
+                .hasAnyAuthority(ROLE_QL_HOPDONG, ROLE_TRUONGPHONG)
+                .antMatchers(MANAGE_JOB_POSTING,
+                        "/api/applicant/search/{paramSearch}",
+                        MANAGE_APPLICANT,MANAGE_PASSWORD)
+                .hasAnyAuthority(ROLE_QL_TUYENDUNG, ROLE_TRUONGPHONG)
+//              .antMatchers("").hasAnyAuthority("TRƯỞNG PHÒNG BAN KHÁC")
+
+                .antMatchers(MANAGE_TASK,MANAGE_PASSWORD)
+                .hasAnyAuthority(ROLE_NHANVIEN, ROLE_TRUONGPHONG)
+                .anyRequest().authenticated();
 
 
 // .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
