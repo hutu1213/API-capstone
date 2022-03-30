@@ -97,7 +97,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         //cấu hình xác thực cho các api
         http.authorizeRequests()
-                .antMatchers("/v1/api/jobPosting/search-paging/{paramSearch}/{position}", "/v1/api/auth/login", "/swagger-ui.html#/**", "/v1/api/applicant/create-applicant", "/v1/api/jobPosting/get-by-id/{id}", "/v1/api/jobPosting", "/dashboard/**", "/v1/api/title/get-all").permitAll()
+                .antMatchers("/v1/api/jobPosting/search-paging/{paramSearch}/{position}", "/v1/api/auth/login", "/swagger-ui.html#/**", "/v1/api/applicant/create-applicant", "/v1/api/jobPosting/get-by-id/{id}", "/v1/api/jobPosting", "/dashboard/**","/api/**","/sse/**", "/v1/api/title/get-all").permitAll()
                 .antMatchers(MANAGE_ALLOWANCE, MANAGE_APPLICANT,
                         MANAGE_AREA, MANAGE_ACCOUNT, MANAGE_CONTRACT, MANAGE_TRAINING_COURSE,
                         MANAGE_CRITERIA, MANAGE_DEPARTMENT, MANAGE_DEPENDANT,
