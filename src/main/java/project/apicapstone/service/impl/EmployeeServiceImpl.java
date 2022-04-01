@@ -37,13 +37,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final RoleRepository roleRepository;
 
 
-    public EmployeeServiceImpl(RoleRepository roleRepository,PasswordEncoder passwordEncoder,AccountRepository accountRepository,EmployeeRepository employeeRepository, TitleRepository titleRepository, WorkplaceRepository workplaceRepository) {
+    public EmployeeServiceImpl(RoleRepository roleRepository, PasswordEncoder passwordEncoder, AccountRepository accountRepository, EmployeeRepository employeeRepository, TitleRepository titleRepository, WorkplaceRepository workplaceRepository) {
         this.employeeRepository = employeeRepository;
         this.titleRepository = titleRepository;
         this.workplaceRepository = workplaceRepository;
-        this.roleRepository=roleRepository;
-        this.passwordEncoder=passwordEncoder;
-        this.accountRepository=accountRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.accountRepository = accountRepository;
 
     }
 
@@ -80,6 +80,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> checkBirthDate(int dayOfMonth, int monthValue) {
         return employeeRepository.findByDayOfBirthAndMonthOfBirth(dayOfMonth, monthValue);
+    }
+
+    @Override
+    public boolean getEmployeeByRequestAndStatus(String s, String status) {
+        return employeeRepository.getEmployeeByRequestIdAndStatus(s, status) >= 1;
     }
 
     @Override
@@ -179,7 +184,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         account.setEmployee(addEmployee);
         account.setPassword(passwordEncoder.encode("admin123456"));
         account.setStatus("ACTIVE");
-        account.setUsername("admin@lug.com");
+        account.setUsername("admin@lug.vn");
         // role
         Role role = new Role();
         role.setRoleId("1");

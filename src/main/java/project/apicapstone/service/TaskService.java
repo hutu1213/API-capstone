@@ -15,9 +15,9 @@ public interface TaskService {
 
     List<Task> findAll();
 
-    void deleteById(String id);
+    void deleteById(Long id);
 
-    Task findTaskById(String id);
+    Task findTaskById(Long id);
 
     List<Task> findTaskByNameOrId(String paramSearch);
 
@@ -25,11 +25,13 @@ public interface TaskService {
 
     Task createTask(CreateTaskDto dto);
 
-    void updateTask(UpdateTaskDto dto, String taskId);
+    void updateTask(UpdateTaskDto dto, Long taskId);
 
-    boolean isExisted(String s);
+    boolean isExisted(Long s);
 
-    Page<Task> search(String paramSearch, Pageable pageable);
+
 
     void addEmployee(AddEmployeeToTaskDto dto);
+
+    Page<Task> search(String name, Long id, Pageable pageable);
 }

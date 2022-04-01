@@ -65,4 +65,6 @@ public interface EmployeeService {
     List<Employee> getByTaskId(String id);
 
     List<Employee> checkBirthDate(int dayOfMonth, int monthValue);
+
+    boolean getEmployeeByRequestAndStatus(String s, String status);
 }

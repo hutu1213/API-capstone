@@ -7,7 +7,7 @@ import project.apicapstone.validation.annonation.UniqueTaskId;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class UniqueTaskIdValidator implements ConstraintValidator<UniqueTaskId, String> {
+public class UniqueTaskIdValidator implements ConstraintValidator<UniqueTaskId, Long> {
     private String message;
     private TaskService service;
     public UniqueTaskIdValidator(TaskService service){
@@ -19,7 +19,7 @@ public class UniqueTaskIdValidator implements ConstraintValidator<UniqueTaskId, 
     }
 
     @Override
-    public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(Long s, ConstraintValidatorContext constraintValidatorContext) {
         boolean isExisted = service.isExisted(s);
 
         if (isExisted) {
