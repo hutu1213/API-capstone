@@ -19,12 +19,12 @@ import java.util.List;
 
 @Service
 public class TaskServiceImpl implements TaskService {
-    private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
     private EmployeeRepository employeeRepository;
 
-    public TaskServiceImpl(TaskRepository taskRepository,EmployeeRepository employeeRepository) {
+    public TaskServiceImpl(TaskRepository taskRepository, EmployeeRepository employeeRepository) {
         this.taskRepository = taskRepository;
-        this.employeeRepository=employeeRepository;
+        this.employeeRepository = employeeRepository;
     }
 
     @Override
@@ -38,12 +38,12 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void deleteById(String id) {
+    public void deleteById(Long id) {
         taskRepository.deleteById(id);
     }
 
     @Override
-    public Task findTaskById(String id) {
+    public Task findTaskById(Long id) {
         return taskRepository.getById(id);
     }
 
@@ -65,7 +65,6 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task createTask(CreateTaskDto dto) {
         Task newTask = new Task();
-        newTask.setTaskId(dto.getTaskId());
         newTask.setTaskName(dto.getTaskName());
         newTask.setOwner(dto.getOwner());
         newTask.setStatus(dto.getStatus());
@@ -78,7 +77,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void updateTask(UpdateTaskDto dto, String taskId) {
+    public void updateTask(UpdateTaskDto dto, Long taskId) {
         Task task = taskRepository.getById(taskId);
         task.setTaskName(dto.getTaskName());
         task.setOwner(dto.getOwner());
@@ -92,14 +91,10 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public boolean isExisted(String s) {
+    public boolean isExisted(Long s) {
         return taskRepository.existsById(s);
     }
 
-    @Override
-    public Page<Task> search(String paramSearch, Pageable pageable) {
-        return taskRepository.search(paramSearch,pageable);
-    }
 
     @Override
     public void addEmployee(AddEmployeeToTaskDto dto) {
@@ -111,5 +106,10 @@ public class TaskServiceImpl implements TaskService {
 
         }
         taskRepository.save(task);
+    }
+
+    @Override
+    public Page<Task> search(String name, Long id, Pageable pageable) {
+        return taskRepository.search(name, id, pageable);
     }
 }

@@ -8,7 +8,7 @@ import project.apicapstone.validation.annonation.FindTaskId;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class FindTaskIdValidator implements ConstraintValidator<FindTaskId, String> {
+public class FindTaskIdValidator implements ConstraintValidator<FindTaskId, Long> {
     private String message;
     private TaskService taskService;
 
@@ -22,7 +22,7 @@ public class FindTaskIdValidator implements ConstraintValidator<FindTaskId, Stri
     }
 
     @Override
-    public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(Long s, ConstraintValidatorContext constraintValidatorContext) {
         boolean isExisted = taskService.isExisted(s);
 
         if (isExisted) {

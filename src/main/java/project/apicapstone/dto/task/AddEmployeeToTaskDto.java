@@ -7,7 +7,7 @@ import project.apicapstone.validation.annonation.FindTaskId;
 import java.util.List;
 @Data
 public class AddEmployeeToTaskDto {
-    @FindTaskId
-    private String taskId;
+   @FindTaskId
+    private Long taskId;
     private List<String> employeeIdList;
 }

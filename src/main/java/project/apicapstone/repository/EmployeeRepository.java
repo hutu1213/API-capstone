@@ -67,4 +67,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     List<Employee> findAllByTaskId(String id);
 
     List<Employee> findByDayOfBirthAndMonthOfBirth(int dayOfMonth, int monthValue);
+
+    @Query("SELECT COUNT(e.employeeId) FROM Employee e join e.recruitmentRequests rr WHERE e.employeeId=?1 AND rr.status=?2 ")
+    int getEmployeeByRequestIdAndStatus(String s, String status);
+
+
 }

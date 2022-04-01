@@ -12,8 +12,8 @@ import java.time.LocalDate;
 
 @Data
 public class CreateTaskDto {
-    @UniqueTaskId
-    private String taskId;
+//    @UniqueTaskId
+//    private String taskId;
 
     private String taskName;
 

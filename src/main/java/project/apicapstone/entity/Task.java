@@ -20,7 +20,8 @@ import java.util.Set;
 public class Task {
     @Id
     @Column
-    private String taskId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long taskId;
     @Column
     private String taskName;
     @Column

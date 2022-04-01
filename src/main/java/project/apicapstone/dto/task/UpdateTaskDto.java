@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Data
 public class UpdateTaskDto {
-    private String taskId;
+    private Long taskId;
 
     private String taskName;
 
