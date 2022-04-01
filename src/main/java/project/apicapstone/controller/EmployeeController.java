@@ -32,10 +32,10 @@ public class EmployeeController {
         this.notificationService = notificationService;
     }
 
-    @PostConstruct
-    public void init() {
-        employeeService.initEmployeeAdmin();
-    }
+//    @PostConstruct
+//    public void init() {
+//        employeeService.initEmployeeAdmin();
+//    }
 
     @GetMapping
     public Object findAllEmployee(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
