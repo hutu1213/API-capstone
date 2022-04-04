@@ -41,6 +41,8 @@ public class Evaluation {
     private String createTime;
     @Column
     private int rating;
+    @Column
+    private Boolean result;
     //relationship application - evaluation 1-N
     @ManyToOne(fetch = FetchType.LAZY)
     //@JsonIgnore
