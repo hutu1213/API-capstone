@@ -26,7 +26,7 @@ public class CreateEvaluationDto {
 
 
     private int rating;
-
+    private Boolean result;
     private String employeeId;
 
     private String applicantId;

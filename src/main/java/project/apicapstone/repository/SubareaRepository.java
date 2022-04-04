@@ -16,8 +16,9 @@ import java.util.List;
 @Repository
 public interface SubareaRepository extends JpaRepository<Subarea,String> {
 
-    @Query("SELECT e FROM Subarea e WHERE e.name LIKE %?1% OR e.subareaId LIKE %?1%")
+    @Query("SELECT e FROM Subarea e WHERE e.name LIKE %?1% OR e.area.areaId LIKE %?1%")
     List<Subarea> findSubareaByNameOrId(String paramSearch);
+
     @Transactional(readOnly = true)
     @Query("SELECT e FROM Subarea e")
     Page<Subarea> findAllSubarea(Pageable pageable);

@@ -13,7 +13,7 @@ public class UpdateEvaluationDto {
     private String content;
     private String type;
 
-
+    private Boolean result;
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate updateDate;

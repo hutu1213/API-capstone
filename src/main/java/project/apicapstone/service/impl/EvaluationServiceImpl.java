@@ -72,6 +72,7 @@ public class EvaluationServiceImpl implements EvaluationService {
         evaluation.setRating(dto.getRating());
         evaluation.setCreateTime(dto.getCreateTime());
         evaluation.setUpdateDate(LocalDate.now());
+        evaluation.setResult(dto.getResult());
         evaluation.setApplicant(applicantRepository.getById(dto.getApplicantId()));
         evaluation.setEmployee(employeeRepository.getById(dto.getEmployeeId()));
         return evaluationRepository.save(evaluation);
@@ -90,6 +91,7 @@ public class EvaluationServiceImpl implements EvaluationService {
         evaluation.setUpdateDate(LocalDate.now());
         evaluation.setRating(dto.getRating());
         evaluation.setCreateTime(dto.getCreateTime());
+        evaluation.setResult(dto.getResult());
         evaluation.setApplicant(applicantRepository.getById(dto.getApplicantId()));
         evaluation.setEmployee(employeeRepository.getById(dto.getEmployeeId()));
         evaluationRepository.save(evaluation);
