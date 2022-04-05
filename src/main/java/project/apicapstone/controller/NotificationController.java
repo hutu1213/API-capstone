@@ -25,4 +25,5 @@ public class NotificationController {
         List<Notification> notificationList = notificationService.getAllByAccountId(id);
         return ResponseHandler.getResponse(notificationList, HttpStatus.OK);
     }
+    // hiển thị theo ngày
 }

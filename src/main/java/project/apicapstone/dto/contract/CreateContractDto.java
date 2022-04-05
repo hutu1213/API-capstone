@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @Data
 public class CreateContractDto {
-    @CheckContractId
+    //@CheckContractId
     @UniqueContractId
     private String contractId;
 

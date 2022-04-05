@@ -41,4 +41,7 @@ public interface ContractRepository extends JpaRepository<Contract, String> {
 
     @Query("SELECT c FROM Contract c WHERE c.status = ?1")
     List<Contract> findContractByStatus(String status);
+
+    @Query("SELECT c.endDate FROM Contract c ")
+    List<LocalDate> getAllEndDate();
 }
