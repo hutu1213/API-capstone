@@ -8,6 +8,7 @@ import project.apicapstone.entity.*;
 import project.apicapstone.repository.AccountRepository;
 import project.apicapstone.repository.ApplicantRepository;
 
+import project.apicapstone.repository.ContractRepository;
 import project.apicapstone.repository.NotificationRepository;
 
 import project.apicapstone.service.*;
@@ -30,8 +31,9 @@ public class JobService {
     private final AccountRepository accountRepository;
     private final ContractService contractService;
     private final DependantService dependantService;
+    private final ContractRepository contractRepository;
 
-    public JobService(DependantService dependantService, ContractService contractService, AccountRepository accountRepository, NotificationRepository notificationRepository, AccountService accountService, EmployeeService employeeService, MailService mailService, ApplicantService applicantService, ApplicantRepository applicantRepository) {
+    public JobService(DependantService dependantService, ContractService contractService, AccountRepository accountRepository, NotificationRepository notificationRepository, AccountService accountService, EmployeeService employeeService, MailService mailService, ApplicantService applicantService, ApplicantRepository applicantRepository, ContractRepository contractRepository) {
         this.employeeService = employeeService;
         this.dependantService = dependantService;
         this.contractService = contractService;
@@ -41,11 +43,22 @@ public class JobService {
         this.applicantRepository = applicantRepository;
         this.accountService = accountService;
         this.notificationRepository = notificationRepository;
+        this.contractRepository = contractRepository;
     }
 
     public List<Employee> checkBirthDate() {
         List<Employee> employeeList = employeeService.checkBirthDate(LocalDate.now().getDayOfMonth(), LocalDate.now().getMonthValue());
         return employeeList;
+    }
+
+    @Recurring(id = "Update-contract", cron = "0 0 * * *")
+    @Job(name = "Update contract")
+    public void updateContract() {
+        List<Contract> contractList = contractService.getContractsByEndDate(LocalDate.now());
+        for (Contract contract:contractList){
+            contract.setStatus("Hết hiệu lực");
+            contractRepository.save(contract);
+        }
     }
 
     @Recurring(id = "Send-mail-when-reject-applicant", cron = "0 9 * * *")

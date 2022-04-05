@@ -10,6 +10,7 @@ import project.apicapstone.common.util.ResponseHandler;
 
 import project.apicapstone.dto.subarea.CreateSubareaDto;
 import project.apicapstone.dto.subarea.UpdateSubareaDto;
+import project.apicapstone.entity.Employee;
 import project.apicapstone.entity.Subarea;
 
 import project.apicapstone.entity.Workplace;
@@ -26,12 +27,14 @@ public class SubareaController {
     public SubareaController(SubareaService subareaService) {
         this.subareaService = subareaService;
     }
+
     @GetMapping
     public Object findAllSubarea(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Subarea> subareaPage = subareaService.findAllSubarea(pageable);
         return ResponseHandler.getResponse(subareaService.pagingFormat(subareaPage), HttpStatus.OK);
     }
+
     @GetMapping("/get-all")
     public Object findAll() {
         List<Subarea> workplaces = subareaService.findAll();
@@ -48,6 +51,7 @@ public class SubareaController {
 
         return ResponseHandler.getResponse(createSubarea, HttpStatus.CREATED);
     }
+
     @DeleteMapping()
     public Object deleteSubarea(@RequestParam(name = "id") String id) {
         subareaService.deleteById(id);
@@ -62,11 +66,13 @@ public class SubareaController {
         subareaService.updateSubarea(dto, dto.getSubareaId());
         return ResponseHandler.getResponse(HttpStatus.OK);
     }
+
     @GetMapping("/get-by-id/{id}")
     public Object findSubareaById(@PathVariable("id") String id) {
         Subarea subarea = subareaService.findSubareaById(id);
         return ResponseHandler.getResponse(subarea, HttpStatus.OK);
     }
+
     @GetMapping("/search/{paramSearch}")
     public Object findSubareaByNameOrId(@PathVariable String paramSearch) {
         List<Subarea> subareaList = subareaService.findSubareaByNameOrId(paramSearch);
@@ -75,9 +81,21 @@ public class SubareaController {
         }
         return ResponseHandler.getResponse(subareaList, HttpStatus.OK);
     }
+
+    @GetMapping("/search-paging/{paramSearch}")
+    public Object searchPaging(@PathVariable String paramSearch,
+                               @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                               @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<Subarea> subareaPage = subareaService.search(paramSearch,pageable);
+
+        return ResponseHandler.getResponse(subareaService.pagingFormat(subareaPage), HttpStatus.OK);
+    }
+
     @GetMapping("/get-by-area/{id}")
     public Object getByAreaId(@PathVariable("id") String id) {
-      List<Subarea> subareaList = subareaService.findSubareaByAreaId(id);
+        List<Subarea> subareaList = subareaService.findSubareaByAreaId(id);
         return ResponseHandler.getResponse(subareaList, HttpStatus.OK);
     }
 

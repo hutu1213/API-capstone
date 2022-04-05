@@ -145,4 +145,9 @@ public class ContractServiceImpl implements ContractService {
         return contractRepository.findEmployeeIdInContract(id);
     }
 
+    @Override
+    public List<LocalDate> gellAllEndDate() {
+        return contractRepository.getAllEndDate();
+    }
+
 }

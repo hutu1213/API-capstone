@@ -33,7 +33,6 @@ public class Contract {
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate endDate;
-
     @Column
     private String status;
     @Column

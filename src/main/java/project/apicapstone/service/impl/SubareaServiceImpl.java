@@ -87,4 +87,9 @@ public class SubareaServiceImpl implements SubareaService {
     public List<Subarea> findSubareaByAreaId(String id) {
         return subareaRepository.findAllByAreaAreaId(id);
     }
+
+    @Override
+    public Page<Subarea> search(String paramSearch, Pageable pageable) {
+        return subareaRepository.search(paramSearch, pageable);
+    }
 }

@@ -48,4 +48,6 @@ public interface ContractService {
     List<Contract> findEmployeetByStatusContract();
 
     List<Contract> findEmployeeIDInContract(String id);
+
+    List<LocalDate> gellAllEndDate();
 }

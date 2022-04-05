@@ -16,14 +16,14 @@ import java.util.List;
 @Repository
 public interface SubareaRepository extends JpaRepository<Subarea,String> {
 
-    @Query("SELECT e FROM Subarea e WHERE lower(e.name) LIKE lower(concat('%', ?1,'%')) OR e.area.areaId LIKE %?1%")
+    @Query("SELECT e FROM Subarea e WHERE lower(e.name) LIKE lower(concat('%', ?1,'%')) OR lower(e.area.name) LIKE lower(concat('%', ?1,'%'))")
     List<Subarea> findSubareaByNameOrId(String paramSearch);
 
     @Transactional(readOnly = true)
     @Query("SELECT e FROM Subarea e")
     Page<Subarea> findAllSubarea(Pageable pageable);
 
-    @Query("SELECT e FROM Subarea e WHERE e.name LIKE %?1% OR e.subareaId LIKE %?1%")
+    @Query("SELECT e FROM Subarea e WHERE lower(e.name) LIKE lower(concat('%', ?1,'%')) OR lower(e.area.name) LIKE lower(concat('%', ?1,'%'))")
     Page<Subarea> search(String paramSearch, Pageable pageable);
 
     List<Subarea> findAllByAreaAreaId(String id);
