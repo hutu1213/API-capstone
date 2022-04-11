@@ -140,7 +140,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/v1/api/workplace/get-all",
                         "/v1/api/applicant/get-all",
                         "/v1/api/applicant/get-by-id/{id}",
-                        MANAGE_EVALUATION).hasAnyAuthority("ROLE_TRUONGPHONGBAN_KHAC")
+                        MANAGE_EVALUATION).hasAnyAuthority("ROLE_TRUONGPHONGBAN_KHAC",ROLE_TRUONGPHONG)
 
                 .antMatchers(MANAGE_TASK,
                         MANAGE_PASSWORD).hasAnyAuthority(ROLE_NHANVIEN, ROLE_TRUONGPHONG)
