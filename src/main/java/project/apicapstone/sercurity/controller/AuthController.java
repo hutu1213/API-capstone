@@ -52,6 +52,9 @@ public class AuthController {
 
         Authentication auth = null;
         Account account = accountRepository.findByUsername(dto.getUsername());
+        if (account == null) {
+            return ResponseHandler.getErrors("Tài khoản không tồn tại", HttpStatus.BAD_REQUEST);
+        }
         if (!account.getStatus().equals(STATUS)) {
             return ResponseHandler.getErrors("Tài khoản không hoạt động", HttpStatus.BAD_REQUEST);
         }
@@ -65,6 +68,6 @@ public class AuthController {
         } catch (Exception e) {
             logger.debug("{} has been logged in with wrong password: {}", dto.getUsername(), e.getMessage());
         }
-        return ResponseHandler.getErrors("Tên đăng nhập hoặc mật khẩu không đúng", HttpStatus.BAD_REQUEST);
+        return ResponseHandler.getErrors("Mật khẩu không đúng", HttpStatus.BAD_REQUEST);
     }
 }
