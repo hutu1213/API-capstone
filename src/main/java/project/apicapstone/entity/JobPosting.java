@@ -33,21 +33,23 @@ public class JobPosting {
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate datePost;
-    //    @Lob
     @Column(columnDefinition = "TEXT")
     private String jobDescription;
-    //    @Lob
     @Column(columnDefinition = "TEXT")
     private String jobRequirements;
     @Column
     private String status;
-    //    @Lob
     @Column(columnDefinition = "TEXT")
     private String benefit;
     @Column
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate createDate;
+    @Column
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private LocalDate endDate;
+
     // relationship  title - job posting: 1-N
     @ManyToOne(fetch = FetchType.LAZY)
     //@JsonIgnore

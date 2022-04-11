@@ -11,6 +11,7 @@ import project.apicapstone.entity.Contract;
 import project.apicapstone.entity.Employee;
 import project.apicapstone.entity.JobPosting;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -32,4 +33,5 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, String> 
     @Query("SELECT jp.jobPostingId FROM JobPosting jp join jp.criteria c WHERE c.criteriaId=?1")
     String getJPIdByCriteriaId(Long id);
 
+    List<JobPosting> getJobPostingsByEndDate(LocalDate endDate);
 }

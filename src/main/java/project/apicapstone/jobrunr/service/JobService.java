@@ -5,11 +5,7 @@ import org.jobrunr.jobs.annotations.Job;
 import org.jobrunr.spring.annotations.Recurring;
 import org.springframework.stereotype.Service;
 import project.apicapstone.entity.*;
-import project.apicapstone.repository.AccountRepository;
-import project.apicapstone.repository.ApplicantRepository;
-
-import project.apicapstone.repository.ContractRepository;
-import project.apicapstone.repository.NotificationRepository;
+import project.apicapstone.repository.*;
 
 import project.apicapstone.service.*;
 
@@ -26,14 +22,18 @@ public class JobService {
     private final String ROLE_TRUONGPHONG = "ROLE_TRUONGPHONG";
     private final String ROLE_QL_NHANVIEN = "ROLE_QL_NHANVIEN";
     private final String ROLE_QL_HOPDONG = "ROLE_QL_HOPDONG";
+    private final String CONTRACT_STATUS = "Hết hiệu lực";
+    private final String JOB_POSTING_STATUS = "Dừng tuyển";
     private final AccountService accountService;
     private final NotificationRepository notificationRepository;
     private final AccountRepository accountRepository;
     private final ContractService contractService;
     private final DependantService dependantService;
     private final ContractRepository contractRepository;
+    private final JobPostingRepository jobPostingRepository;
+    private final JobPostingService jobPostingService;
 
-    public JobService(DependantService dependantService, ContractService contractService, AccountRepository accountRepository, NotificationRepository notificationRepository, AccountService accountService, EmployeeService employeeService, MailService mailService, ApplicantService applicantService, ApplicantRepository applicantRepository, ContractRepository contractRepository) {
+    public JobService(DependantService dependantService, ContractService contractService, AccountRepository accountRepository, NotificationRepository notificationRepository, AccountService accountService, EmployeeService employeeService, MailService mailService, ApplicantService applicantService, ApplicantRepository applicantRepository, ContractRepository contractRepository, JobPostingRepository jobPostingRepository, JobPostingService jobPostingService) {
         this.employeeService = employeeService;
         this.dependantService = dependantService;
         this.contractService = contractService;
@@ -44,6 +44,8 @@ public class JobService {
         this.accountService = accountService;
         this.notificationRepository = notificationRepository;
         this.contractRepository = contractRepository;
+        this.jobPostingRepository = jobPostingRepository;
+        this.jobPostingService = jobPostingService;
     }
 
     public List<Employee> checkBirthDate() {
@@ -51,13 +53,23 @@ public class JobService {
         return employeeList;
     }
 
-    @Recurring(id = "Update-contract", cron = "0 0 * * *")
-    @Job(name = "Update contract")
+    @Recurring(id = "Update-contract-expired", cron = "0 0 * * *")
+    @Job(name = "Update contract expired")
     public void updateContract() {
-        List<Contract> contractList = contractService.getContractsByEndDate(LocalDate.now());
-        for (Contract contract:contractList){
-            contract.setStatus("Hết hiệu lực");
+        List<Contract> contractList = contractService.getContractsByEndDate(LocalDate.now().minusDays(1));
+        for (Contract contract : contractList) {
+            contract.setStatus(CONTRACT_STATUS);
             contractRepository.save(contract);
+        }
+    }
+
+    @Recurring(id = "Update-job-posting-expired", cron = "0 0 * * *")
+    @Job(name = "Update job posting expired")
+    public void updateJobPosting() {
+        List<JobPosting> jobPostingList = jobPostingService.getJPsByEndDate(LocalDate.now().minusDays(1));
+        for (JobPosting jobPosting : jobPostingList) {
+            jobPosting.setStatus(JOB_POSTING_STATUS);
+            jobPostingRepository.save(jobPosting);
         }
     }
 
@@ -65,7 +77,6 @@ public class JobService {
     @Job(name = "Send mail when reject applicant")
     public void sendMailRejectApplicant() {
         List<Applicant> applicantList = applicantService.getAllByStatus(STATUS);
-
         for (Applicant applicant : applicantList) {
             mailService.sendEmailRejectApplicant(applicant);
             applicant.setCheckSendMail(1);

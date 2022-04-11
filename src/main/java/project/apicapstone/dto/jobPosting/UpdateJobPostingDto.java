@@ -25,8 +25,11 @@ public class UpdateJobPostingDto {
 
     private String status;
 
-
     private String benefit;
+
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
+    private LocalDate endDate;
 
     @FindTitleId
     private String titleId;
