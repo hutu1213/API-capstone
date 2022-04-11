@@ -1,47 +1,36 @@
 package project.apicapstone.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.BodyInserters;
-import org.springframework.web.reactive.function.client.WebClient;
 import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.common.util.ScanApplicant;
-import project.apicapstone.dto.applicant.ApplicantWithScoreDto;
+
 import project.apicapstone.dto.applicant.CreateApplicantDto;
-import project.apicapstone.dto.applicant.ProcessApplicantDto;
+
 import project.apicapstone.dto.applicant.UpdateApplicantDto;
-import project.apicapstone.dto.criteria.CriteriaWithoutJobPostingDto;
+
 import project.apicapstone.entity.Applicant;
 import project.apicapstone.service.ApplicantService;
 import project.apicapstone.service.CriteriaService;
-import reactor.core.publisher.Mono;
+
 
 import javax.validation.Valid;
-import java.net.URI;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
 @RequestMapping("/v1/api/applicant")
-//@CrossOrigin(origins = "*")
 public class ApplicantController {
-    private ApplicantService applicantService;
-    @Autowired
-    private CriteriaService criteriaService;
-    private ScanApplicant scanApplicant;
-    public static final String APPLICANT_PROCESS_API = "https://applicant-process-api.herokuapp.com";
+    private final ApplicantService applicantService;
+    private final ScanApplicant scanApplicant;
+
 
     public ApplicantController(ApplicantService applicantService, ScanApplicant scanApplicant) {
         this.applicantService = applicantService;

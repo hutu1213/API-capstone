@@ -6,6 +6,7 @@ import project.apicapstone.dto.jobPosting.CreateJobPostingDto;
 import project.apicapstone.dto.jobPosting.UpdateJobPostingDto;
 import project.apicapstone.entity.JobPosting;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface JobPostingService {
@@ -32,4 +33,6 @@ public interface JobPostingService {
     Page<JobPosting> searchWithPosition(String paramSearch, String position, Pageable pageable);
 
     String getJPIdByCriteriaId(Long id);
+
+    List<JobPosting> getJPsByEndDate(LocalDate minusDays);
 }

@@ -43,6 +43,7 @@ public class JobPostingServiceImpl implements JobPostingService {
         newJobPosting.setStatus(dto.getStatus());
         newJobPosting.setBenefit(dto.getBenefit());
         newJobPosting.setPostTitle(dto.getPostTitle());
+        newJobPosting.setEndDate(dto.getEndDate());
         Title title = titleRepository.getById(dto.getTitleId());
         newJobPosting.setTitle(title);
         return jobPostingRepository.save(newJobPosting);
@@ -105,6 +106,11 @@ public class JobPostingServiceImpl implements JobPostingService {
     }
 
     @Override
+    public List<JobPosting> getJPsByEndDate(LocalDate endDate) {
+        return jobPostingRepository.getJobPostingsByEndDate(endDate);
+    }
+
+    @Override
     @Transactional
     public void deleteById(String id) {
         jobPostingRepository.deleteById(id);
@@ -120,6 +126,7 @@ public class JobPostingServiceImpl implements JobPostingService {
         updateJobPosting.setStatus(dto.getStatus());
         updateJobPosting.setBenefit(dto.getBenefit());
         updateJobPosting.setPostTitle(dto.getPostTitle());
+        updateJobPosting.setEndDate(dto.getEndDate());
         Title title = titleRepository.getById(dto.getTitleId());
         updateJobPosting.setTitle(title);
         jobPostingRepository.save(updateJobPosting);
