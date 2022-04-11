@@ -57,11 +57,9 @@ public class ApplicationConfig implements ApplicationListener<ApplicationReadyEv
             addEmployee.setMaritalStatus("admin");
             addEmployee.setWorkingStatus("admin");
             addEmployee.setAvatar("admin");
-
             addEmployee.setCreateDate(null);
             //addEmployee.setCreateDate(dto.getCreateDate());
             addEmployee.setUpdateDate(null);
-
             addEmployee.setDayOfBirth(0);
             addEmployee.setMonthOfBirth(0);
 
