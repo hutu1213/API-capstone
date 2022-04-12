@@ -105,7 +105,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/v1/api/area/get-all",
                         "/v1/api/subarea/get-all",
                         "/v1/api/workplace/get-all",
-                        "/v1/api/applicant/get-all").permitAll()
+                        "/v1/api/applicant/get-all",
+                        "/v1/api/title/get-by").permitAll()
                 .antMatchers(MANAGE_ALLOWANCE, MANAGE_APPLICANT,
                         MANAGE_AREA, MANAGE_ACCOUNT, MANAGE_CONTRACT, MANAGE_TRAINING_COURSE,
                         MANAGE_CRITERIA, MANAGE_DEPARTMENT, MANAGE_DEPENDANT,
@@ -151,7 +152,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         MANAGE_EVALUATION).hasAnyAuthority("ROLE_TRUONGPHONGBAN_KHAC", ROLE_TRUONGPHONG)
 
                 .antMatchers(
-                        //      "/v1/api/department/get-all",
+                        //"/v1/api/department/get-all",
 //                        "/v1/api/position/get-all",
 //                        "/v1/api/area/get-all",
 //                        "/v1/api/subarea/get-all",
