@@ -113,7 +113,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         MANAGE_EXCEL, MANAGE_EMPLOYEE, MANAGE_JOB_POSTING,
                         MANAGE_POSITION, MANAGE_ROLE, MANAGE_SUB_AREA,
                         MANAGE_TASK, MANAGE_TITLE, MANAGE_WORKPLACE, MANAGE_RECRUITMENT_REQUEST,
-                        MANAGE_EVALUATION, MANAGE_MAIL, MANAGE_PASSWORD)
+                        MANAGE_EVALUATION, MANAGE_MAIL, MANAGE_PASSWORD,
+                        "/v1/api/recruitmentRequest/**")
                 .hasAnyAuthority("ROLE_ADMIN", ROLE_TRUONGPHONG)
                 .antMatchers(MANAGE_EMPLOYEE,
                         MANAGE_SKILL,
@@ -149,6 +150,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                        "/v1/api/workplace/get-all",
                         //"/v1/api/applicant/get-by-id/{id}", *****
                         MANAGE_APPLICANT,
+                        "/v1/api/recruitmentRequest/**",
                         MANAGE_EVALUATION).hasAnyAuthority("ROLE_TRUONGPHONGBAN_KHAC", ROLE_TRUONGPHONG)
 
                 .antMatchers(
