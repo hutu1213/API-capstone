@@ -1,10 +1,7 @@
 package project.apicapstone.controller;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.entity.Notification;
 import project.apicapstone.service.NotificationService;
@@ -25,5 +22,5 @@ public class NotificationController {
         List<Notification> notificationList = notificationService.getAllByAccountId(id);
         return ResponseHandler.getResponse(notificationList, HttpStatus.OK);
     }
-    // hiển thị theo ngày
+
 }

@@ -34,4 +34,6 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, String> 
     String getJPIdByCriteriaId(Long id);
 
     List<JobPosting> getJobPostingsByEndDate(LocalDate endDate);
+
+    List<JobPosting> getJobPostingsByDatePost(LocalDate datePost);
 }

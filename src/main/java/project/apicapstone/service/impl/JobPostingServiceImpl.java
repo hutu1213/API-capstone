@@ -111,6 +111,11 @@ public class JobPostingServiceImpl implements JobPostingService {
     }
 
     @Override
+    public List<JobPosting> getJPsByStartDate(LocalDate datePost) {
+        return jobPostingRepository.getJobPostingsByDatePost(datePost);
+    }
+
+    @Override
     @Transactional
     public void deleteById(String id) {
         jobPostingRepository.deleteById(id);
