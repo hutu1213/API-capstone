@@ -33,39 +33,32 @@ public class ApplicationConfig implements ApplicationListener<ApplicationReadyEv
 
     private void init() {
         if (roleRepository.findAll().isEmpty()) {
-//            Role role = new Role();
-//            role.setRoleId("1");
-//            role.setRoleName("ROLE_TRUONGPHONG");
-//            role.setRoleDescription(null);
-//            roleRepository.save(role);
             Employee addEmployee = new Employee();
             addEmployee.setEmployeeId("admin");
             addEmployee.setEmployeeName("admin");
             addEmployee.setDateBirth(null);
-            addEmployee.setPlaceBirth("admin");
-            addEmployee.setPhone("admin");
-            addEmployee.setGender("admin");
-            addEmployee.setAddress("admin");
+            addEmployee.setPlaceBirth(null);
+            addEmployee.setPhone(null);
+            addEmployee.setGender(null);
+            addEmployee.setAddress(null);
             addEmployee.setEmail("admin@gmail.com");
-            addEmployee.setNationality("admin");
-            addEmployee.setReligion("admin");
-            addEmployee.setEthnic("admin");
-            addEmployee.setAcademicLevel("admin");
-            addEmployee.setBank("admin");
-            addEmployee.setBankAccountNo("admin");
-            addEmployee.setTaxIdentificationNo("admin");
-            addEmployee.setMaritalStatus("admin");
-            addEmployee.setWorkingStatus("admin");
-            addEmployee.setAvatar("admin");
+            addEmployee.setNationality(null);
+            addEmployee.setReligion(null);
+            addEmployee.setEthnic(null);
+            addEmployee.setAcademicLevel(null);
+            addEmployee.setBank(null);
+            addEmployee.setBankAccountNo(null);
+            addEmployee.setTaxIdentificationNo(null);
+            addEmployee.setMaritalStatus(null);
+            addEmployee.setWorkingStatus(null);
+            addEmployee.setAvatar(null);
             addEmployee.setCreateDate(null);
-            //addEmployee.setCreateDate(dto.getCreateDate());
             addEmployee.setUpdateDate(null);
             addEmployee.setDayOfBirth(0);
             addEmployee.setMonthOfBirth(0);
-
-            addEmployee.setBackIdentityCard("admin");
-            addEmployee.setFrontIdentityCard("admin");
-            addEmployee.setPlaceIssue("admin");
+            addEmployee.setBackIdentityCard(null);
+            addEmployee.setFrontIdentityCard(null);
+            addEmployee.setPlaceIssue(null);
             addEmployee.setDateIssue(null);
             addEmployee.setWorkplace(null);
             addEmployee.setTitle(null);

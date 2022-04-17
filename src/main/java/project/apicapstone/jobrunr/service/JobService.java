@@ -14,6 +14,8 @@ import java.util.*;
 
 @Service
 public class JobService {
+    private final String CRON_12AM = "0 0 * * *";
+    private final String CRON_9AM = "0 9 * * *";
     private final EmployeeService employeeService;
     private final MailService mailService;
     private final ApplicantService applicantService;
@@ -23,7 +25,8 @@ public class JobService {
     private final String ROLE_QL_NHANVIEN = "ROLE_QL_NHANVIEN";
     private final String ROLE_QL_HOPDONG = "ROLE_QL_HOPDONG";
     private final String CONTRACT_STATUS = "Hết hiệu lực";
-    private final String JOB_POSTING_STATUS = "Dừng tuyển";
+    private final String JOB_POSTING_STATUS_EXPIRED = "Dừng tuyển";
+    private final String JOB_POSTING_STATUS = "Đang tuyển";
     private final AccountService accountService;
     private final NotificationRepository notificationRepository;
     private final AccountRepository accountRepository;
@@ -53,7 +56,7 @@ public class JobService {
         return employeeList;
     }
 
-    @Recurring(id = "Update-contract-expired", cron = "0 0 * * *")
+    @Recurring(id = "Update-contract-expired", cron = CRON_12AM)
     @Job(name = "Update contract expired")
     public void updateContract() {
         List<Contract> contractList = contractService.getContractsByEndDate(LocalDate.now().minusDays(1));
@@ -63,17 +66,27 @@ public class JobService {
         }
     }
 
-    @Recurring(id = "Update-job-posting-expired", cron = "0 0 * * *")
+    @Recurring(id = "Update-job-posting-expired", cron = CRON_12AM)
     @Job(name = "Update job posting expired")
     public void updateJobPosting() {
         List<JobPosting> jobPostingList = jobPostingService.getJPsByEndDate(LocalDate.now().minusDays(1));
+        for (JobPosting jobPosting : jobPostingList) {
+            jobPosting.setStatus(JOB_POSTING_STATUS_EXPIRED);
+            jobPostingRepository.save(jobPosting);
+        }
+    }
+
+    @Recurring(id = "Update-job-posting-future", cron = CRON_12AM)
+    @Job(name = "Update job posting")
+    public void updateJobPostingFuture() {
+        List<JobPosting> jobPostingList = jobPostingService.getJPsByStartDate(LocalDate.now());
         for (JobPosting jobPosting : jobPostingList) {
             jobPosting.setStatus(JOB_POSTING_STATUS);
             jobPostingRepository.save(jobPosting);
         }
     }
 
-    @Recurring(id = "Send-mail-when-reject-applicant", cron = "0 9 * * *")
+    @Recurring(id = "Send-mail-when-reject-applicant", cron = CRON_9AM)
     @Job(name = "Send mail when reject applicant")
     public void sendMailRejectApplicant() {
         List<Applicant> applicantList = applicantService.getAllByStatus(STATUS);
@@ -84,7 +97,7 @@ public class JobService {
         }
     }
 
-    @Recurring(id = "Get-notification-employee-birthday", cron = "0 9 * * *")
+    @Recurring(id = "Get-notification-employee-birthday", cron = CRON_9AM)
     @Job(name = "Get-notification-employee-birthday")
     public void getNotificationEmpl() {
         List<Account> accountList = accountService.getAccountsByRoleName(ROLE_TRUONGPHONG, ROLE_QL_NHANVIEN);
@@ -126,7 +139,7 @@ public class JobService {
 //
 //    }
 
-    @Recurring(id = "Get-notification-contract-before-5-day", cron = "0 9 * * *")
+    @Recurring(id = "Get-notification-contract-before-5-day", cron = CRON_9AM)
     @Job(name = "Get-notification-contract")
     public void getNotificationContract() {
         List<Account> accountList = accountService.getAccountsByRoleName(ROLE_TRUONGPHONG, ROLE_QL_HOPDONG);

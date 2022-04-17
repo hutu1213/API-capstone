@@ -35,4 +35,6 @@ public interface JobPostingService {
     String getJPIdByCriteriaId(Long id);
 
     List<JobPosting> getJPsByEndDate(LocalDate minusDays);
+
+    List<JobPosting> getJPsByStartDate(LocalDate datePost);
 }
