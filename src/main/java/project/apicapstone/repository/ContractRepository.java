@@ -31,7 +31,7 @@ public interface ContractRepository extends JpaRepository<Contract, String> {
     Page<Contract> search(String paramSearch, Pageable pageable);
 
     @Query("SELECT COUNT(c.contractId) FROM Contract c join c.employee e WHERE e.employeeId=?1 AND c.status LIKE %?2%")
-    int getContractByEmployeeIdAndStatus(String s, String status);
+    int countContractByEmployeeIdAndStatus(String s, String status);
 
     @Query("SELECT c FROM Contract c where c.endDate =?1")
     List<Contract> getContractsByEndDate(LocalDate date);
@@ -44,4 +44,7 @@ public interface ContractRepository extends JpaRepository<Contract, String> {
 
     @Query("SELECT c.endDate FROM Contract c ")
     List<LocalDate> getAllEndDate();
+
+    @Query("SELECT c FROM Contract c join c.employee e WHERE e.employeeId=?1 AND c.status LIKE %?2%")
+    Contract getContractByEmployeeIdAndStatus(String id, String status);
 }

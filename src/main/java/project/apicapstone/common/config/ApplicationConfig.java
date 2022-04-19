@@ -69,14 +69,30 @@ public class ApplicationConfig implements ApplicationListener<ApplicationReadyEv
             account.setStatus("ACTIVE");
             account.setUsername("admin");
             // role
-            Role role = new Role();
-            role.setRoleId("1");
-            role.setRoleName("ROLE_TRUONGPHONG");
-            roleRepository.save(role);
-            account.setRole(role);
+            Role role1 = new Role();
+            role1.setRoleId("1");
+            role1.setRoleName("ROLE_TRUONGPHONG");
+            roleRepository.save(role1);
+            account.setRole(role1);
             accountRepository.save(account);
             addEmployee.setAccount(account);
             employeeRepository.save(addEmployee);
+            Role role2 = new Role();
+            role2.setRoleId("2");
+            role2.setRoleName("ROLE_QL_NHANVIEN");
+            roleRepository.save(role2);
+            Role role3 = new Role();
+            role3.setRoleId("3");
+            role3.setRoleName("ROLE_QL_HOPDONG");
+            roleRepository.save(role3);
+            Role role4 = new Role();
+            role4.setRoleId("4");
+            role4.setRoleName("ROLE_QL_TUYENDUNG");
+            roleRepository.save(role4);
+            Role role5 = new Role();
+            role5.setRoleId("5");
+            role5.setRoleName("ROLE_TRUONGPHONGBAN_KHAC");
+            roleRepository.save(role5);
         }
 
     }

@@ -37,7 +37,7 @@ public interface ContractService {
 
     Page<Contract> search(String paramSearch, Pageable pageable);
 
-    boolean getContractByEmployeeIdAndStatus(String s, String status);
+    boolean countContractByEmployeeIdAndStatus(String s, String status);
 
 
 
@@ -50,4 +50,6 @@ public interface ContractService {
     List<Contract> findEmployeeIDInContract(String id);
 
     List<LocalDate> gellAllEndDate();
+
+    Contract getContractByEmployeeIdAndStatus(String id, String status);
 }
