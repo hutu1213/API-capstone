@@ -60,9 +60,9 @@ public interface EmployeeService {
 
     boolean findByCourseIdAndEmployeeId(String courseId, String employeeId);
 
-    boolean findByTaskIdAndEmployeeId(String taskId, String employeeId);
+    boolean findByTaskIdAndEmployeeId(Long taskId, String employeeId);
 
-    List<Employee> getByTaskId(String id);
+    List<Employee> getByTaskId(Long id);
 
     List<Employee> checkBirthDate(int dayOfMonth, int monthValue);
 

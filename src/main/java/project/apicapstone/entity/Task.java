@@ -52,5 +52,8 @@ public class Task {
         employees.add(employee);
         employee.getTasks().add(this);
     }
-
+    public void deleteEmployee(Employee employee) {
+        employees.remove(employee);
+        employee.getTasks().add(this);
+    }
 }

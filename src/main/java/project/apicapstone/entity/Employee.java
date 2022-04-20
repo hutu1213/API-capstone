@@ -172,4 +172,10 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
     @JsonIgnore
     private Set<RecruitmentRequest> recruitmentRequests = new HashSet<>();
+
+    public void removeTask(Task task) {
+        tasks.remove(task);
+        task.getEmployees().remove(this);
+
+    }
 }

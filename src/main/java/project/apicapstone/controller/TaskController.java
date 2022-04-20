@@ -90,20 +90,33 @@ public class TaskController {
 //        return ResponseHandler.getResponse(taskService.pagingFormat(taskPage), HttpStatus.OK);
 //    }
 
-    @PostMapping("/add-employee")
+    @PostMapping("/assign-employee")
     public Object addEmployeeToTask(@Valid @RequestBody AddEmployeeToTaskDto dto, BindingResult errors) {
-//        if (errors.hasErrors())
-//            return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
-//
-//        for (int i = 0; i < dto.getEmployeeIdList().size(); i++) {
-//            String employeeId = dto.getEmployeeIdList().get(i);
-//            if (employeeService.findByTaskIdAndEmployeeId(dto.getTaskId(), employeeId)) {
-//                return ResponseHandler.getErrors("Mã nhân viên " + employeeId + " đã tồn tại trong công việc", HttpStatus.BAD_REQUEST);
-//            }
-//        }
-//        taskService.addEmployee(dto);
+        if (errors.hasErrors())
+            return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
+
+        for (int i = 0; i < dto.getEmployeeIdList().size(); i++) {
+            String employeeId = dto.getEmployeeIdList().get(i);
+            if (employeeService.findByTaskIdAndEmployeeId(dto.getTaskId(), employeeId)) {
+                return ResponseHandler.getErrors("Mã nhân viên " + employeeId + " đã tồn tại trong công việc", HttpStatus.BAD_REQUEST);
+            }
+        }
+        taskService.addEmployee(dto);
         return ResponseHandler.getResponse("Add Successful!", HttpStatus.OK);
     }
 
+    @PostMapping("/un-assign-employee")
+    public Object deleteEmployeeToTask(@Valid @RequestBody AddEmployeeToTaskDto dto, BindingResult errors) {
+        if (errors.hasErrors())
+            return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 
+        for (int i = 0; i < dto.getEmployeeIdList().size(); i++) {
+            String employeeId = dto.getEmployeeIdList().get(i);
+            if (!employeeService.findByTaskIdAndEmployeeId(dto.getTaskId(), employeeId)) {
+                return ResponseHandler.getErrors("Mã nhân viên " + employeeId + " không tìm thấy trong công việc", HttpStatus.BAD_REQUEST);
+            }
+        }
+        taskService.removeEmployee(dto);
+        return ResponseHandler.getResponse("Delete Successful!", HttpStatus.OK);
+    }
 }

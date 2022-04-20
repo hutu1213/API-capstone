@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import project.apicapstone.entity.Employee;
 import project.apicapstone.entity.Task;
 
 import java.util.List;
@@ -24,5 +25,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Transactional(readOnly = true)
     @Query("SELECT e FROM Task e WHERE (e.taskName like %?1% OR e.taskName is null) OR (e.taskId=?2 OR e.taskId is null)")
     Page<Task> search(String name, Long id, Pageable pageable);
+
+
 
 }

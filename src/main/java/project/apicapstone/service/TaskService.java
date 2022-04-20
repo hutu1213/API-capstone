@@ -34,4 +34,6 @@ public interface TaskService {
     void addEmployee(AddEmployeeToTaskDto dto);
 
     Page<Task> search(String name, Long id, Pageable pageable);
+
+    void removeEmployee(AddEmployeeToTaskDto dto);
 }

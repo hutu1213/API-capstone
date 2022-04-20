@@ -132,7 +132,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         MANAGE_APPLICANT,
                         "/v1/api/recruitmentRequest/**",
                         MANAGE_EVALUATION, MANAGE_PASSWORD).hasAnyAuthority("ROLE_TRUONGPHONGBAN_KHAC", ROLE_TRUONGPHONG)
-
                 .antMatchers(
                         MANAGE_TASK,
                         MANAGE_PASSWORD).hasAnyAuthority(ROLE_NHANVIEN, ROLE_TRUONGPHONG)
