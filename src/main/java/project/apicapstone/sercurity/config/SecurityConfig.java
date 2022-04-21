@@ -112,7 +112,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(MANAGE_APPLICANT, MANAGE_EVALUATION)
                 .hasAnyAuthority(ROLE_TRUONGPHONG, ROLE_QL_TUYENDUNG, ROLE_TRUONGPHONGBAN_KHAC)
 
-                .antMatchers("/v1/api/employees/get-by-task-id/{id}", MANAGE_REQUEST, MANAGE_PASSWORD).
+                .antMatchers("/v1/api/employees/get-by-task-id/{id}", MANAGE_REQUEST, MANAGE_PASSWORD,MANAGE_TASK).
                 hasAnyAuthority(ROLE_TRUONGPHONG, ROLE_QL_NHANVIEN, ROLE_QL_HOPDONG, ROLE_QL_TUYENDUNG, ROLE_TRUONGPHONGBAN_KHAC, ROLE_NHANVIEN)
 
                 .antMatchers(MANAGE_EMPLOYEE, MANAGE_DEPENDANT).hasAnyAuthority(ROLE_QL_NHANVIEN, ROLE_TRUONGPHONG)
@@ -121,8 +121,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         MANAGE_SKILL,
                         MANAGE_TIME_KEEPING
                 ).hasAnyAuthority(ROLE_QL_NHANVIEN)
-
-                .antMatchers(MANAGE_TASK).hasAnyAuthority(ROLE_NHANVIEN, ROLE_TRUONGPHONG)
 
                 .antMatchers(MANAGE_AREA, MANAGE_ACCOUNT, MANAGE_TRAINING_COURSE,
                         MANAGE_CRITERIA, MANAGE_DEPARTMENT,
