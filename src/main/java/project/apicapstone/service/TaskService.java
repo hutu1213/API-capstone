@@ -36,4 +36,6 @@ public interface TaskService {
     Page<Task> search(String name, Long id, Pageable pageable);
 
     void removeEmployee(AddEmployeeToTaskDto dto);
+
+    List<Task> findTaskByEmployeeId(String id);
 }

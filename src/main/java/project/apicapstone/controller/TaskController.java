@@ -73,6 +73,11 @@ public class TaskController {
         return ResponseHandler.getResponse(task, HttpStatus.OK);
     }
 
+    @GetMapping("/get-by-employee-id/{id}")
+    public Object findTaskByEmployeeId(@PathVariable("id") String id) {
+        List<Task> task = taskService.findTaskByEmployeeId(id);
+        return ResponseHandler.getResponse(task, HttpStatus.OK);
+    }
 //    @GetMapping("/search/{paramSearch}")
 //    public Object findTaskByNameOrId(@PathVariable String paramSearch) {
 //        List<Task> taskList = taskService.findTaskByNameOrId(paramSearch);

@@ -127,5 +127,8 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.search(name, id, pageable);
     }
 
-
+    @Override
+    public List<Task> findTaskByEmployeeId(String id) {
+        return taskRepository.findTasksByEmployeeId(id);
+    }
 }
