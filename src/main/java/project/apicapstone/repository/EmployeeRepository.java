@@ -37,7 +37,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
 
     int countByUpdateDateBetweenAndWorkingStatus(LocalDate start, LocalDate end, String workingStatus);
 
-    @Query("SELECT COUNT(e.employeeId) FROM Employee e")
+    @Query("SELECT COUNT(e.employeeId) FROM Employee e where e.employeeId not in ('admin')")
     int countAll();
 
     int countEmployeeByWorkingStatus(String workingStatus);
