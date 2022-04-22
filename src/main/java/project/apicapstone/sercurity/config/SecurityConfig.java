@@ -24,7 +24,6 @@ import java.util.Arrays;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String MANAGE_ALLOWANCE = "/v1/api/allowance/**";
-    private static final String MANAGE_REQUEST = "/v1/api/recruitmentRequest/**";
     private static final String MANAGE_APPLICANT = "/v1/api/applicant/**";
     private static final String MANAGE_AREA = "/v1/api/area/**";
     private static final String MANAGE_ACCOUNT = "/v1/api/account/**";
@@ -112,7 +111,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(MANAGE_APPLICANT, MANAGE_EVALUATION)
                 .hasAnyAuthority(ROLE_TRUONGPHONG, ROLE_QL_TUYENDUNG, ROLE_TRUONGPHONGBAN_KHAC)
 
-                .antMatchers("/v1/api/employees/get-by-task-id/{id}", MANAGE_REQUEST, MANAGE_PASSWORD,MANAGE_TASK).
+                .antMatchers("/v1/api/employees/get-by-task-id/{id}", MANAGE_RECRUITMENT_REQUEST, MANAGE_PASSWORD,MANAGE_TASK).
                 hasAnyAuthority(ROLE_TRUONGPHONG, ROLE_QL_NHANVIEN, ROLE_QL_HOPDONG, ROLE_QL_TUYENDUNG, ROLE_TRUONGPHONGBAN_KHAC, ROLE_NHANVIEN)
 
                 .antMatchers(MANAGE_EMPLOYEE, MANAGE_DEPENDANT).hasAnyAuthority(ROLE_QL_NHANVIEN, ROLE_TRUONGPHONG)
@@ -126,7 +125,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         MANAGE_CRITERIA, MANAGE_DEPARTMENT,
                         MANAGE_EXCEL, MANAGE_JOB_POSTING,
                         MANAGE_POSITION, MANAGE_ROLE, MANAGE_SUB_AREA,
-                        MANAGE_TITLE, MANAGE_WORKPLACE, MANAGE_RECRUITMENT_REQUEST,
+                        MANAGE_TITLE, MANAGE_WORKPLACE,
                         MANAGE_MAIL)
                 .hasAnyAuthority(ROLE_TRUONGPHONG)
                 .anyRequest().authenticated();
