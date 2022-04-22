@@ -107,7 +107,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/v1/api/subarea/get-all",
                         "/v1/api/workplace/get-all",
                         "/v1/api/applicant/get-all",
-                        "/v1/api/title/get-by").permitAll()
+                        "/v1/api/title/get-by","/v1/api/request-notification/**").permitAll()
                 .antMatchers(MANAGE_APPLICANT, MANAGE_EVALUATION)
                 .hasAnyAuthority(ROLE_TRUONGPHONG, ROLE_QL_TUYENDUNG, ROLE_TRUONGPHONGBAN_KHAC)
 

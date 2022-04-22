@@ -35,8 +35,9 @@ public class JobService {
     private final ContractRepository contractRepository;
     private final JobPostingRepository jobPostingRepository;
     private final JobPostingService jobPostingService;
-
-    public JobService(DependantService dependantService, ContractService contractService, AccountRepository accountRepository, NotificationRepository notificationRepository, AccountService accountService, EmployeeService employeeService, MailService mailService, ApplicantService applicantService, ApplicantRepository applicantRepository, ContractRepository contractRepository, JobPostingRepository jobPostingRepository, JobPostingService jobPostingService) {
+    private final RecruitmentRequestService recruitmentRequestService;
+private final RequestNotificationRepository requestNotificationRepository;
+    public JobService(DependantService dependantService, ContractService contractService, AccountRepository accountRepository, NotificationRepository notificationRepository, AccountService accountService, EmployeeService employeeService, MailService mailService, ApplicantService applicantService, ApplicantRepository applicantRepository, ContractRepository contractRepository, JobPostingRepository jobPostingRepository, JobPostingService jobPostingService, RecruitmentRequestService recruitmentRequestService, RequestNotificationRepository requestNotificationRepository) {
         this.employeeService = employeeService;
         this.dependantService = dependantService;
         this.contractService = contractService;
@@ -49,6 +50,8 @@ public class JobService {
         this.contractRepository = contractRepository;
         this.jobPostingRepository = jobPostingRepository;
         this.jobPostingService = jobPostingService;
+        this.recruitmentRequestService = recruitmentRequestService;
+        this.requestNotificationRepository = requestNotificationRepository;
     }
 
     public List<Employee> checkBirthDate() {
@@ -158,6 +161,25 @@ public class JobService {
         }
     }
 
+    @Recurring(id = "Get-recruitment-request-not-yet", cron = CRON_9AM)
+    @Job(name = "Get-notification-recruitment-request")
+    public void getNotificationRequest() {
+        List<Account> accountList = accountService.getAccountsByRoleName(ROLE_TRUONGPHONG, "ROLE_QL_TUYENDUNG");
+        List<RecruitmentRequest> recruitmentRequestList = recruitmentRequestService.getByStatus("Chưa duyệt");
+        for (int i = 0; i < recruitmentRequestList.size(); i++) {
+            RequestNotification requestNotification = new RequestNotification();
+            requestNotification.setCreateDate(LocalDate.now());
+            requestNotification.setTitle("Thông báo yêu cầu tuyển dụng chưa được duyệt");
+            requestNotification.setRecruitmentRequestId(recruitmentRequestList.get(i).getRecruitmentRequestId());
+            requestNotification.setContent("Yêu cầu tuyển dụng " + recruitmentRequestList.get(i).getRecruitmentRequestId() +" chưa được duyệt");
+            requestNotificationRepository.save(requestNotification);
+            for (int j = 0; j < accountList.size(); j++) {
+                Account account = accountRepository.getById(accountList.get(j).getAccountId());
+                requestNotification.addAccountToRequestNotifi(account);
+                accountRepository.save(account);
+            }
+        }
+    }
     // lấy username sau khi đăng nhập
 //            String username = jwtUtils.getUsernameFromToken(jwtUtils.getJwtTokenFromRequest(request));
 //            Account account = accountService.findByUsername(username);
