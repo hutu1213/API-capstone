@@ -7,14 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
-import project.apicapstone.dto.department.CreateDepartmentDto;
+
 import project.apicapstone.dto.dependant.CreateDependantDto;
 import project.apicapstone.dto.dependant.UpdateDependantDto;
-import project.apicapstone.dto.employee.UpdateEmployeeDto;
-import project.apicapstone.entity.Allowance;
-import project.apicapstone.entity.Department;
+
 import project.apicapstone.entity.Dependant;
-import project.apicapstone.entity.Employee;
+
 import project.apicapstone.service.DependantService;
 
 import javax.validation.Valid;
@@ -23,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/v1/api/dependant")
 public class DependantController {
-    private DependantService dependantService;
+    private final DependantService dependantService;
 
     public DependantController(DependantService dependantService) {
         this.dependantService = dependantService;

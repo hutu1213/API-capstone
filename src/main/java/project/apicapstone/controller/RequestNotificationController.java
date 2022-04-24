@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import project.apicapstone.common.util.ResponseHandler;
-import project.apicapstone.entity.Notification;
 import project.apicapstone.entity.RequestNotification;
 import project.apicapstone.service.RequestNotificationService;
 

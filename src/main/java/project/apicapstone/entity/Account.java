@@ -58,9 +58,7 @@ public class Account {
 //    private Employee employee;
 
     // ***relationship account - notification: 1 - N
-//    @OneToMany(mappedBy = "account")
-//    @JsonIgnore
-//    private Set<Notification> notifications = new HashSet<>();
+
 
     @JsonIgnore
     @Builder.Default

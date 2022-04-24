@@ -9,11 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import project.apicapstone.common.util.ResponseHandler;
 import project.apicapstone.dto.department.CreateDepartmentDto;
 import project.apicapstone.dto.department.UpdateDepartmentDto;
-import project.apicapstone.dto.employee.CreateEmployeeDto;
-import project.apicapstone.dto.employee.UpdateEmployeeDto;
-import project.apicapstone.entity.Applicant;
+
 import project.apicapstone.entity.Department;
-import project.apicapstone.entity.Employee;
+
 import project.apicapstone.service.DepartmentService;
 
 import javax.validation.Valid;
@@ -22,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/v1/api/department")
 public class DepartmentController {
-    private DepartmentService departmentService;
+    private final DepartmentService departmentService;
 
     public DepartmentController(DepartmentService departmentService) {
         this.departmentService = departmentService;

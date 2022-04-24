@@ -30,4 +30,6 @@ public interface RecruitmentRequestService {
     Page<RecruitmentRequest> findRecruitmentRequestByStatus(String status, Pageable pageable);
 
     List<RecruitmentRequest> getByStatus(String status);
+
+    RecruitmentRequest searchById(Long paramSearch);
 }

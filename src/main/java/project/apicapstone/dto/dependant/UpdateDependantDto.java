@@ -24,7 +24,7 @@ public class UpdateDependantDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate dateBirth;
 
-    @CheckPhoneNumber
+   // @CheckPhoneNumber
     private String phone;
 
     private String nationality;

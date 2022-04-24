@@ -107,11 +107,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/v1/api/subarea/get-all",
                         "/v1/api/workplace/get-all",
                         "/v1/api/applicant/get-all",
-                        "/v1/api/title/get-by","/v1/api/request-notification/**").permitAll()
+                        "/v1/api/title/get-by", "/v1/api/request-notification/**").permitAll()
                 .antMatchers(MANAGE_APPLICANT, MANAGE_EVALUATION)
                 .hasAnyAuthority(ROLE_TRUONGPHONG, ROLE_QL_TUYENDUNG, ROLE_TRUONGPHONGBAN_KHAC)
 
-                .antMatchers("/v1/api/employees/get-by-task-id/{id}", MANAGE_RECRUITMENT_REQUEST, MANAGE_PASSWORD,MANAGE_TASK).
+                .antMatchers("/v1/api/employees/get-by-task-id/{id}", MANAGE_RECRUITMENT_REQUEST, MANAGE_PASSWORD, MANAGE_TASK, MANAGE_CRITERIA).
                 hasAnyAuthority(ROLE_TRUONGPHONG, ROLE_QL_NHANVIEN, ROLE_QL_HOPDONG, ROLE_QL_TUYENDUNG, ROLE_TRUONGPHONGBAN_KHAC, ROLE_NHANVIEN)
 
                 .antMatchers(MANAGE_EMPLOYEE, MANAGE_DEPENDANT).hasAnyAuthority(ROLE_QL_NHANVIEN, ROLE_TRUONGPHONG)

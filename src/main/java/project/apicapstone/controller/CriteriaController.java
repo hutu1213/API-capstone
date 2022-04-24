@@ -12,8 +12,6 @@ import project.apicapstone.dto.criteria.CreateCriteriaDto;
 import project.apicapstone.dto.criteria.UpdateCriteriaDto;
 import project.apicapstone.entity.Criteria;
 
-import project.apicapstone.entity.JobPosting;
-import project.apicapstone.jobrunr.service.JobService;
 import project.apicapstone.service.CriteriaService;
 import project.apicapstone.service.JobPostingService;
 

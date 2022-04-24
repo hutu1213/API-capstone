@@ -81,4 +81,10 @@ public class RecruitmentRequestController {
         Page<RecruitmentRequest> recruitmentRequestPage = recruitmentRequestService.findRecruitmentRequestByStatus(status, pageable);
         return ResponseHandler.getResponse(recruitmentRequestService.pagingFormat(recruitmentRequestPage), HttpStatus.OK);
     }
+
+    @GetMapping("/search/{paramSearch}")
+    public Object findByNameOrId(@PathVariable Long paramSearch) {
+        RecruitmentRequest employeeList = recruitmentRequestService.searchById(paramSearch);
+        return ResponseHandler.getResponse(employeeList, HttpStatus.OK);
+    }
 }

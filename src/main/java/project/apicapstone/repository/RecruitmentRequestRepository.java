@@ -23,4 +23,6 @@ public interface RecruitmentRequestRepository extends JpaRepository<RecruitmentR
     Page<RecruitmentRequest> getAllByStatus(String status, Pageable pageable);
 
     List<RecruitmentRequest> getRecruitmentRequestsByStatus(String status);
+
+    RecruitmentRequest findByRecruitmentRequestId(Long id);
 }
