@@ -169,9 +169,9 @@ private final RequestNotificationRepository requestNotificationRepository;
         for (int i = 0; i < recruitmentRequestList.size(); i++) {
             RequestNotification requestNotification = new RequestNotification();
             requestNotification.setCreateDate(LocalDate.now());
-            requestNotification.setTitle("Thông báo yêu cầu tuyển dụng chưa được duyệt");
+            requestNotification.setTitle("Thông báo yêu cầu tuyển dụng cần được xem xét");
             requestNotification.setRecruitmentRequestId(recruitmentRequestList.get(i).getRecruitmentRequestId());
-            requestNotification.setContent("Yêu cầu tuyển dụng " + recruitmentRequestList.get(i).getRecruitmentRequestId() +" chưa được duyệt");
+            requestNotification.setContent("Yêu cầu tuyển dụng " + recruitmentRequestList.get(i).getRecruitmentRequestId() +" cần được xem xét");
             requestNotificationRepository.save(requestNotification);
             for (int j = 0; j < accountList.size(); j++) {
                 Account account = accountRepository.getById(accountList.get(j).getAccountId());
