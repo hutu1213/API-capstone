@@ -10,5 +10,5 @@ public interface MailService {
 
     void sendEmail(MailDto dto) throws MessagingException;
 
-    void sendEmailRejectApplicant(Applicant applicant);
+    void sendEmailRejectApplicant(Applicant applicant) throws MessagingException;
 }

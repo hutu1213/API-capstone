@@ -21,7 +21,7 @@ import java.util.Properties;
 @Service
 public class MailServiceImpl implements MailService {
     @Value("${spring.mail.username}")
-    private String userName ;//= "huytq1899@gmail.com";
+    private String userName;//= "huytq1899@gmail.com";
 
     private JavaMailSender javaMailSender;
 
@@ -42,14 +42,16 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void sendEmailRejectApplicant(Applicant applicant) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("huytq1899@gmail.com");
-        //message.setFrom(dto.getFrom());
-        message.setTo(applicant.getEmail());
-        message.setText("Bạn không vượt qua phỏng vấn");
-        message.setSubject("Thông báo phỏng vấn");
-
-        javaMailSender.send(message);
+    public void sendEmailRejectApplicant(Applicant applicant) throws MessagingException {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+        helper.setText("Gửi " +"<b>"+ applicant.getApplicantName() +"</b>"+ ",<br/><br/>" +
+                "Cảm ơn vì sự quan tâm của bạn đối với công ty Lug và vị trí " + applicant.getJobPosting().getTitle().getJobTitle() + ". Sau khi xem xét các hồ sơ nhận được, chúng tôi rất tiếc không thể chọn bạn đi tiếp. <br/><br/>" +
+                "Ban tuyển dụng đánh giá cao thời gian bạn dành để ứng tuyển. Chúc bạn may mắn trong quá trình tìm việc và mong rằng có thể hợp tác với bạn ở những vị trí việc làm khác trong tương lai.<br/><br/>" +
+                "Trân trọng!", true);
+        helper.setTo(applicant.getEmail());
+        helper.setSubject("Thông báo phỏng vấn");
+        helper.setFrom(userName);
+        javaMailSender.send(mimeMessage);
     }
 }

@@ -9,6 +9,7 @@ import project.apicapstone.repository.*;
 
 import project.apicapstone.service.*;
 
+import javax.mail.MessagingException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -36,7 +37,8 @@ public class JobService {
     private final JobPostingRepository jobPostingRepository;
     private final JobPostingService jobPostingService;
     private final RecruitmentRequestService recruitmentRequestService;
-private final RequestNotificationRepository requestNotificationRepository;
+    private final RequestNotificationRepository requestNotificationRepository;
+
     public JobService(DependantService dependantService, ContractService contractService, AccountRepository accountRepository, NotificationRepository notificationRepository, AccountService accountService, EmployeeService employeeService, MailService mailService, ApplicantService applicantService, ApplicantRepository applicantRepository, ContractRepository contractRepository, JobPostingRepository jobPostingRepository, JobPostingService jobPostingService, RecruitmentRequestService recruitmentRequestService, RequestNotificationRepository requestNotificationRepository) {
         this.employeeService = employeeService;
         this.dependantService = dependantService;
@@ -91,7 +93,7 @@ private final RequestNotificationRepository requestNotificationRepository;
 
     @Recurring(id = "Send-mail-when-reject-applicant", cron = CRON_9AM)
     @Job(name = "Send mail when reject applicant")
-    public void sendMailRejectApplicant() {
+    public void sendMailRejectApplicant() throws MessagingException {
         List<Applicant> applicantList = applicantService.getAllByStatus(STATUS);
         for (Applicant applicant : applicantList) {
             mailService.sendEmailRejectApplicant(applicant);
@@ -107,7 +109,7 @@ private final RequestNotificationRepository requestNotificationRepository;
         for (int i = 0; i < checkBirthDate().size(); i++) {
             project.apicapstone.entity.Notification notification = new project.apicapstone.entity.Notification();
             notification.setCreateDate(LocalDate.now());
-            notification.setTitle("Thông báo chúc mừng sinh nhật nhân viên");
+            notification.setTitle("Chúc mừng sinh nhật nhân viên");
             notification.setContent("Hôm nay là sinh nhật của " + checkBirthDate().get(i).getEmployeeName() + ", mã: " + checkBirthDate().get(i).getEmployeeId());
             notificationRepository.save(notification);
             for (int j = 0; j < accountList.size(); j++) {
@@ -150,7 +152,7 @@ private final RequestNotificationRepository requestNotificationRepository;
         for (int i = 0; i < contractList.size(); i++) {
             project.apicapstone.entity.Notification notification = new project.apicapstone.entity.Notification();
             notification.setCreateDate(LocalDate.now());
-            notification.setTitle("Thông báo hết hạn hợp đồng");
+            notification.setTitle("Hợp đồng hết hạn");
             notification.setContent("Hợp đồng " + contractList.get(i).getContractName() + ", mã: " + contractList.get(i).getContractId() + " còn 5 ngày nữa sẽ hết hạn.");
             notificationRepository.save(notification);
             for (int j = 0; j < accountList.size(); j++) {
@@ -169,9 +171,9 @@ private final RequestNotificationRepository requestNotificationRepository;
         for (int i = 0; i < recruitmentRequestList.size(); i++) {
             RequestNotification requestNotification = new RequestNotification();
             requestNotification.setCreateDate(LocalDate.now());
-            requestNotification.setTitle("Thông báo yêu cầu tuyển dụng cần được xem xét");
+            requestNotification.setTitle("Yêu cầu tuyển dụng cần được xem xét");
             requestNotification.setRecruitmentRequestId(recruitmentRequestList.get(i).getRecruitmentRequestId());
-            requestNotification.setContent("Yêu cầu tuyển dụng " + recruitmentRequestList.get(i).getRecruitmentRequestId() +" cần được xem xét");
+            requestNotification.setContent("Yêu cầu tuyển dụng " + recruitmentRequestList.get(i).getRecruitmentRequestId() + " cần được xem xét");
             requestNotificationRepository.save(requestNotification);
             for (int j = 0; j < accountList.size(); j++) {
                 Account account = accountRepository.getById(accountList.get(j).getAccountId());
