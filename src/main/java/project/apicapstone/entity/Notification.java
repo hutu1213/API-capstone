@@ -10,6 +10,7 @@ import project.apicapstone.common.util.DateUtils;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,9 +35,9 @@ public class Notification {
     @Column
     private String content;
     @Column
-    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
-    private LocalDate createDate;
+    @DateTimeFormat(pattern = DateUtils.DATE_FORMAT_MINUS)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT_MINUS)
+    private LocalDateTime createDate;
 
     // relationship account - notification: 1 - N
 //    @ManyToOne(fetch = FetchType.LAZY)
