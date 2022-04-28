@@ -45,12 +45,12 @@ public class MailServiceImpl implements MailService {
     public void sendEmailRejectApplicant(Applicant applicant) throws MessagingException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
-        helper.setText("Gửi " +"<b>"+ applicant.getApplicantName() +"</b>"+ ",<br/><br/>" +
-                "Cảm ơn vì sự quan tâm của bạn đối với công ty Lug và vị trí " + applicant.getJobPosting().getTitle().getJobTitle() + ". Sau khi xem xét các hồ sơ nhận được, chúng tôi rất tiếc không thể chọn bạn đi tiếp. <br/><br/>" +
+        helper.setText("Gửi " + "<b>" + applicant.getApplicantName() + "</b>" + ",<br/><br/>" +
+                "Cảm ơn vì sự quan tâm của bạn đối với công ty Lug và vị trí " + "<b>" + applicant.getJobPosting().getTitle().getJobTitle() + "</b>" + ". Sau khi xem xét các hồ sơ nhận được, chúng tôi rất tiếc không thể chọn bạn đi tiếp. <br/><br/>" +
                 "Ban tuyển dụng đánh giá cao thời gian bạn dành để ứng tuyển. Chúc bạn may mắn trong quá trình tìm việc và mong rằng có thể hợp tác với bạn ở những vị trí việc làm khác trong tương lai.<br/><br/>" +
                 "Trân trọng!", true);
         helper.setTo(applicant.getEmail());
-        helper.setSubject("Thông báo phỏng vấn");
+        helper.setSubject("Thông báo kết quả");
         helper.setFrom(userName);
         javaMailSender.send(mimeMessage);
     }

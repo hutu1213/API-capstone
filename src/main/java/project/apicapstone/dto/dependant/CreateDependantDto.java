@@ -30,6 +30,7 @@ public class CreateDependantDto {
     private String phone;
 
     private String nationality;
+    private String relationship;
     @FindEmployeeId
     private String employeeId;
 }

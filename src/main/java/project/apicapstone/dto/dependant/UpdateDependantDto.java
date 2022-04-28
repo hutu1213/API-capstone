@@ -26,7 +26,7 @@ public class UpdateDependantDto {
 
    // @CheckPhoneNumber
     private String phone;
-
+    private String relationship;
     private String nationality;
     @FindEmployeeId
     private String employeeId;

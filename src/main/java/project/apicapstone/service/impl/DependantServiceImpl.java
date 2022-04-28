@@ -57,6 +57,7 @@ public class DependantServiceImpl implements DependantService {
         newDependant.setNationality(dto.getNationality());
         newDependant.setMonthOfBirth(dto.getDateBirth().getMonthValue());
         newDependant.setDayOfBirth(dto.getDateBirth().getDayOfMonth());
+        newDependant.setRelationship(dto.getRelationship());
         Employee employee = employeeRepository.getById(dto.getEmployeeId());
         newDependant.setEmployee(employee);
         return dependantRepository.save(newDependant);
@@ -83,6 +84,7 @@ public class DependantServiceImpl implements DependantService {
         updateDependant.setNationality(dto.getNationality());
         updateDependant.setMonthOfBirth(dto.getDateBirth().getMonthValue());
         updateDependant.setDayOfBirth(dto.getDateBirth().getDayOfMonth());
+        updateDependant.setRelationship(dto.getRelationship());
         Employee employee = employeeRepository.getById(dto.getEmployeeId());
         updateDependant.setEmployee(employee);
         dependantRepository.save(updateDependant);

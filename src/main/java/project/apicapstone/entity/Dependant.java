@@ -45,6 +45,8 @@ public class Dependant {
     @JsonIgnore
     @Column
     private int dayOfBirth;
+    @Column
+    private String relationship;
     // relationship employee - dependant 1-N
     @ManyToOne(fetch = FetchType.LAZY)
     //@JsonIgnore
