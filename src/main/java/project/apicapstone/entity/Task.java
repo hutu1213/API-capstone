@@ -38,7 +38,7 @@ public class Task {
     private String duration;
     @Column
     private String priority;
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String taskDetail;
 
     //relation employee - task : N-N

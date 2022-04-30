@@ -50,7 +50,7 @@ public class MailServiceImpl implements MailService {
                 "Ban tuyển dụng đánh giá cao thời gian bạn dành để ứng tuyển. Chúc bạn may mắn trong quá trình tìm việc và mong rằng có thể hợp tác với bạn ở những vị trí việc làm khác trong tương lai.<br/><br/>" +
                 "Trân trọng!", true);
         helper.setTo(applicant.getEmail());
-        helper.setSubject("Thông báo kết quả");
+        helper.setSubject(" [LUG Company] – THÔNG BÁO KẾT QUẢ");
         helper.setFrom(userName);
         javaMailSender.send(mimeMessage);
     }
