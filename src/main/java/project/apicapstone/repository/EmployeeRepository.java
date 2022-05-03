@@ -24,7 +24,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     List<Employee> findEmployeesByNameOrId(String paramSearch);
 
     @Transactional(readOnly = true)
-    @Query("SELECT e FROM Employee e")
+    @Query("SELECT e FROM Employee e where e.employeeId not in ('admin') ")
     Page<Employee> findAllEmp(Pageable pageable);
 
     //@Query("select u from User u where lower(u.name) like lower(concat('%', ?1,'%'))")
