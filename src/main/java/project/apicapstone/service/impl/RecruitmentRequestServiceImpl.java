@@ -97,4 +97,14 @@ public class RecruitmentRequestServiceImpl implements RecruitmentRequestService 
     public Page<RecruitmentRequest> findRecruitmentRequestByStatus(String status, Pageable pageable) {
         return recruitmentRequestRepository.getAllByStatus(status, pageable);
     }
+
+    @Override
+    public List<RecruitmentRequest> getByStatus(String status) {
+        return recruitmentRequestRepository.getRecruitmentRequestsByStatus(status);
+    }
+
+    @Override
+    public RecruitmentRequest searchById(Long paramSearch) {
+        return recruitmentRequestRepository.findByRecruitmentRequestId(paramSearch);
+    }
 }

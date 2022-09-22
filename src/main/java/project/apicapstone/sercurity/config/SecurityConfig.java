@@ -52,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String ROLE_QL_HOPDONG = "ROLE_QL_HOPDONG";
     private static final String ROLE_QL_TUYENDUNG = "ROLE_QL_TUYENDUNG";
     private static final String ROLE_NHANVIEN = "ROLE_NHANVIEN";
+    private static final String ROLE_TRUONGPHONGBAN_KHAC = "ROLE_TRUONGPHONGBAN_KHAC";
 
     private final UserDetailsService userDetailsService;
     private final JwtAuthorizationFilter jwtAuthorizationFilter;
@@ -95,48 +96,39 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         //cấu hình xác thực cho các api
-//        http.authorizeRequests()
-//                .antMatchers("/v1/api/jobPosting/search-paging/{paramSearch}/{position}",
-//                        "/v1/api/auth/login", "/swagger-ui.html#/**", "/v1/api/applicant/create-applicant",
-//                        "/v1/api/jobPosting/get-by-id/{id}", "/v1/api/jobPosting", "/dashboard/**", "/api/**", "/sse/**",
-//                        "/v1/api/title/get-all",
-//                        "/v1/api/department/get-all",
-//                        "/v1/api/position/get-all",
-//                        "/v1/api/area/get-all",
-//                        "/v1/api/subarea/get-all",
-//                        "/v1/api/workplace/get-all",
-//                        "/v1/api/applicant/get-all",
-//                        "/v1/api/title/get-by").permitAll()
-//                .antMatchers(MANAGE_ALLOWANCE, MANAGE_APPLICANT,
-//                        MANAGE_AREA, MANAGE_ACCOUNT, MANAGE_CONTRACT, MANAGE_TRAINING_COURSE,
-//                        MANAGE_CRITERIA, MANAGE_DEPARTMENT, MANAGE_DEPENDANT,
-//                        MANAGE_EXCEL, MANAGE_EMPLOYEE, MANAGE_JOB_POSTING,
-//                        MANAGE_POSITION, MANAGE_ROLE, MANAGE_SUB_AREA,
-//                        MANAGE_TASK, MANAGE_TITLE, MANAGE_WORKPLACE, MANAGE_RECRUITMENT_REQUEST,
-//                        MANAGE_EVALUATION, MANAGE_MAIL, MANAGE_PASSWORD,
-//                        "/v1/api/recruitmentRequest/**")
-//                .hasAnyAuthority("ROLE_ADMIN", ROLE_TRUONGPHONG)
-//                .antMatchers(MANAGE_EMPLOYEE,
-//                        MANAGE_SKILL,
-//                        MANAGE_DEPENDANT,
-//                        MANAGE_TIME_KEEPING, MANAGE_PASSWORD
-//                ).hasAnyAuthority(ROLE_QL_NHANVIEN, ROLE_TRUONGPHONG)
-//                .antMatchers(MANAGE_CONTRACT,
-//                        MANAGE_ALLOWANCE, MANAGE_PASSWORD
-//                ).hasAnyAuthority(ROLE_QL_HOPDONG, ROLE_TRUONGPHONG)
-//                .antMatchers(MANAGE_JOB_POSTING,
-//                        MANAGE_APPLICANT, MANAGE_PASSWORD)
-//                .hasAnyAuthority(ROLE_QL_TUYENDUNG, ROLE_TRUONGPHONG)
-//                .antMatchers(
-//                        //"/v1/api/applicant/get-by-id/{id}", *****
-//                        MANAGE_APPLICANT,
-//                        "/v1/api/recruitmentRequest/**",
-//                        MANAGE_EVALUATION, MANAGE_PASSWORD).hasAnyAuthority("ROLE_TRUONGPHONGBAN_KHAC", ROLE_TRUONGPHONG)
-//
-//                .antMatchers(
-//                        MANAGE_TASK,
-//                        MANAGE_PASSWORD).hasAnyAuthority(ROLE_NHANVIEN, ROLE_TRUONGPHONG)
-//                .anyRequest().authenticated();
+        http.authorizeRequests()
+                .antMatchers("/v1/api/jobPosting/search-paging/{paramSearch}/{position}",
+                        "/v1/api/auth/login", "/swagger-ui.html#/**", "/v1/api/applicant/create-applicant",
+                        "/v1/api/jobPosting/get-by-id/{id}", "/v1/api/jobPosting", "/dashboard/**", "/api/**", "/sse/**",
+                        "/v1/api/title/get-all",
+                        "/v1/api/department/get-all",
+                        "/v1/api/position/get-all",
+                        "/v1/api/area/get-all",
+                        "/v1/api/subarea/get-all",
+                        "/v1/api/workplace/get-all",
+                        "/v1/api/applicant/get-all",
+                        "/v1/api/title/get-by", "/v1/api/request-notification/**").permitAll()
+                .antMatchers(MANAGE_APPLICANT, MANAGE_EVALUATION)
+                .hasAnyAuthority(ROLE_TRUONGPHONG, ROLE_QL_TUYENDUNG, ROLE_TRUONGPHONGBAN_KHAC)
+
+                .antMatchers("/v1/api/employees/get-by-task-id/{id}", MANAGE_RECRUITMENT_REQUEST, MANAGE_PASSWORD, MANAGE_TASK, MANAGE_CRITERIA).
+                hasAnyAuthority(ROLE_TRUONGPHONG, ROLE_QL_NHANVIEN, ROLE_QL_HOPDONG, ROLE_QL_TUYENDUNG, ROLE_TRUONGPHONGBAN_KHAC, ROLE_NHANVIEN)
+
+                .antMatchers(MANAGE_EMPLOYEE, MANAGE_DEPENDANT).hasAnyAuthority(ROLE_QL_NHANVIEN, ROLE_TRUONGPHONG)
+                .antMatchers(MANAGE_CONTRACT, MANAGE_ALLOWANCE).hasAnyAuthority(ROLE_QL_HOPDONG, ROLE_TRUONGPHONG)
+                .antMatchers(
+                        MANAGE_SKILL,
+                        MANAGE_TIME_KEEPING
+                ).hasAnyAuthority(ROLE_QL_NHANVIEN)
+
+                .antMatchers(MANAGE_AREA, MANAGE_ACCOUNT, MANAGE_TRAINING_COURSE,
+                        MANAGE_CRITERIA, MANAGE_DEPARTMENT,
+                        MANAGE_EXCEL, MANAGE_JOB_POSTING,
+                        MANAGE_POSITION, MANAGE_ROLE, MANAGE_SUB_AREA,
+                        MANAGE_TITLE, MANAGE_WORKPLACE,
+                        MANAGE_MAIL)
+                .hasAnyAuthority(ROLE_TRUONGPHONG)
+                .anyRequest().authenticated();
 
 
 // .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);

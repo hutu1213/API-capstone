@@ -6,8 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import project.apicapstone.entity.Position;
 import project.apicapstone.entity.RecruitmentRequest;
+
+import java.util.List;
 
 @Repository
 public interface RecruitmentRequestRepository extends JpaRepository<RecruitmentRequest, Long> {
@@ -20,4 +21,8 @@ public interface RecruitmentRequestRepository extends JpaRepository<RecruitmentR
 
 //    @Query("SELECT r FROM RecruitmentRequest r join r.employee e where =?1")
     Page<RecruitmentRequest> getAllByStatus(String status, Pageable pageable);
+
+    List<RecruitmentRequest> getRecruitmentRequestsByStatus(String status);
+
+    RecruitmentRequest findByRecruitmentRequestId(Long id);
 }

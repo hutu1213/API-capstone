@@ -25,7 +25,7 @@ import java.time.LocalDate;
 public class Evaluation {
     @Id
     private String evaluationId;
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String content;
     @Column
     private String type;

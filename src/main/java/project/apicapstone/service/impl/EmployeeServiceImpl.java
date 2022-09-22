@@ -68,12 +68,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public boolean findByTaskIdAndEmployeeId(String taskId, String employeeId) {
+    public boolean findByTaskIdAndEmployeeId(Long taskId, String employeeId) {
         return employeeRepository.findEmployeeByTaskIdAndEmployeeId(taskId, employeeId) >= 1;
     }
 
     @Override
-    public List<Employee> getByTaskId(String id) {
+    public List<Employee> getByTaskId(Long id) {
         return employeeRepository.findAllByTaskId(id);
     }
 

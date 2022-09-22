@@ -9,7 +9,9 @@ import project.apicapstone.repository.*;
 
 import project.apicapstone.service.*;
 
+import javax.mail.MessagingException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -35,8 +37,10 @@ public class JobService {
     private final ContractRepository contractRepository;
     private final JobPostingRepository jobPostingRepository;
     private final JobPostingService jobPostingService;
+    private final RecruitmentRequestService recruitmentRequestService;
+    private final RequestNotificationRepository requestNotificationRepository;
 
-    public JobService(DependantService dependantService, ContractService contractService, AccountRepository accountRepository, NotificationRepository notificationRepository, AccountService accountService, EmployeeService employeeService, MailService mailService, ApplicantService applicantService, ApplicantRepository applicantRepository, ContractRepository contractRepository, JobPostingRepository jobPostingRepository, JobPostingService jobPostingService) {
+    public JobService(DependantService dependantService, ContractService contractService, AccountRepository accountRepository, NotificationRepository notificationRepository, AccountService accountService, EmployeeService employeeService, MailService mailService, ApplicantService applicantService, ApplicantRepository applicantRepository, ContractRepository contractRepository, JobPostingRepository jobPostingRepository, JobPostingService jobPostingService, RecruitmentRequestService recruitmentRequestService, RequestNotificationRepository requestNotificationRepository) {
         this.employeeService = employeeService;
         this.dependantService = dependantService;
         this.contractService = contractService;
@@ -49,6 +53,8 @@ public class JobService {
         this.contractRepository = contractRepository;
         this.jobPostingRepository = jobPostingRepository;
         this.jobPostingService = jobPostingService;
+        this.recruitmentRequestService = recruitmentRequestService;
+        this.requestNotificationRepository = requestNotificationRepository;
     }
 
     public List<Employee> checkBirthDate() {
@@ -88,7 +94,7 @@ public class JobService {
 
     @Recurring(id = "Send-mail-when-reject-applicant", cron = CRON_9AM)
     @Job(name = "Send mail when reject applicant")
-    public void sendMailRejectApplicant() {
+    public void sendMailRejectApplicant() throws MessagingException {
         List<Applicant> applicantList = applicantService.getAllByStatus(STATUS);
         for (Applicant applicant : applicantList) {
             mailService.sendEmailRejectApplicant(applicant);
@@ -103,8 +109,8 @@ public class JobService {
         List<Account> accountList = accountService.getAccountsByRoleName(ROLE_TRUONGPHONG, ROLE_QL_NHANVIEN);
         for (int i = 0; i < checkBirthDate().size(); i++) {
             project.apicapstone.entity.Notification notification = new project.apicapstone.entity.Notification();
-            notification.setCreateDate(LocalDate.now());
-            notification.setTitle("Thông báo chúc mừng sinh nhật nhân viên");
+            notification.setCreateDate(LocalDateTime.now());
+            notification.setTitle("Chúc mừng sinh nhật nhân viên");
             notification.setContent("Hôm nay là sinh nhật của " + checkBirthDate().get(i).getEmployeeName() + ", mã: " + checkBirthDate().get(i).getEmployeeId());
             notificationRepository.save(notification);
             for (int j = 0; j < accountList.size(); j++) {
@@ -146,8 +152,8 @@ public class JobService {
         List<Contract> contractList = contractService.getContractsByEndDate(LocalDate.now().plusDays(5));
         for (int i = 0; i < contractList.size(); i++) {
             project.apicapstone.entity.Notification notification = new project.apicapstone.entity.Notification();
-            notification.setCreateDate(LocalDate.now());
-            notification.setTitle("Thông báo hết hạn hợp đồng");
+            notification.setCreateDate(LocalDateTime.now());
+            notification.setTitle("Hợp đồng hết hạn");
             notification.setContent("Hợp đồng " + contractList.get(i).getContractName() + ", mã: " + contractList.get(i).getContractId() + " còn 5 ngày nữa sẽ hết hạn.");
             notificationRepository.save(notification);
             for (int j = 0; j < accountList.size(); j++) {
@@ -158,6 +164,25 @@ public class JobService {
         }
     }
 
+    @Recurring(id = "Get-recruitment-request-unconfirm", cron = CRON_9AM)
+    @Job(name = "Get-notification-recruitment-request-unconfirm")
+    public void getNotificationRequest() {
+        List<Account> accountList = accountService.getAccountsByRoleName(ROLE_TRUONGPHONG, "ROLE_QL_TUYENDUNG");
+        List<RecruitmentRequest> recruitmentRequestList = recruitmentRequestService.getByStatus("Chưa duyệt");
+        for (int i = 0; i < recruitmentRequestList.size(); i++) {
+            RequestNotification requestNotification = new RequestNotification();
+            requestNotification.setCreateDate(LocalDateTime.now());
+            requestNotification.setTitle("Yêu cầu tuyển dụng cần được xem xét");
+            requestNotification.setRecruitmentRequestId(recruitmentRequestList.get(i).getRecruitmentRequestId());
+            requestNotification.setContent("Yêu cầu tuyển dụng " + recruitmentRequestList.get(i).getRecruitmentRequestId() + " cần được xem xét");
+            requestNotificationRepository.save(requestNotification);
+            for (int j = 0; j < accountList.size(); j++) {
+                Account account = accountRepository.getById(accountList.get(j).getAccountId());
+                requestNotification.addAccountToRequestNotifi(account);
+                accountRepository.save(account);
+            }
+        }
+    }
     // lấy username sau khi đăng nhập
 //            String username = jwtUtils.getUsernameFromToken(jwtUtils.getJwtTokenFromRequest(request));
 //            Account account = accountService.findByUsername(username);

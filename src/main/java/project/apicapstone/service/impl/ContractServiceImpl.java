@@ -121,8 +121,8 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public boolean getContractByEmployeeIdAndStatus(String s, String status) {
-        return contractRepository.getContractByEmployeeIdAndStatus(s, status) >= 1;
+    public boolean countContractByEmployeeIdAndStatus(String s, String status) {
+        return contractRepository.countContractByEmployeeIdAndStatus(s, status) >= 1;
     }
 
     @Override
@@ -148,6 +148,11 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public List<LocalDate> gellAllEndDate() {
         return contractRepository.getAllEndDate();
+    }
+
+    @Override
+    public Contract getContractByEmployeeIdAndStatus(String id, String status) {
+        return contractRepository.getContractByEmployeeIdAndStatus(id,status);
     }
 
 }

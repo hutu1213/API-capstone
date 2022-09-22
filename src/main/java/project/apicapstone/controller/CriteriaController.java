@@ -12,8 +12,6 @@ import project.apicapstone.dto.criteria.CreateCriteriaDto;
 import project.apicapstone.dto.criteria.UpdateCriteriaDto;
 import project.apicapstone.entity.Criteria;
 
-import project.apicapstone.entity.JobPosting;
-import project.apicapstone.jobrunr.service.JobService;
 import project.apicapstone.service.CriteriaService;
 import project.apicapstone.service.JobPostingService;
 
@@ -66,8 +64,8 @@ public class CriteriaController {
 
     @DeleteMapping()
     public Object deleteCriteria(@RequestParam(name = "id") Long id) {
-        criteriaService.deleteById(id);
         String jobPostingId = jobPostingService.getJPIdByCriteriaId(id);
+        criteriaService.deleteById(id);
         scanApplicant.callAnalyzeApplicantAPI(jobPostingId);
         return ResponseHandler.getResponse(HttpStatus.OK);
     }

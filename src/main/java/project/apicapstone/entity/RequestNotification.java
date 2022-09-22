@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.transaction.annotation.Transactional;
 import project.apicapstone.common.util.DateUtils;
 
 import javax.persistence.*;
@@ -13,7 +12,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-
 
 @Getter
 @Setter
@@ -23,13 +21,14 @@ import java.util.Set;
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 //@EqualsAndHashCode(exclude = {"roles", "employee","notifications"}, callSuper = false)
 @Entity
-@Table(name = "tbl_notification")
-@Transactional
-public class Notification {
+@Table(name = "tbl_request_notification")
+public class RequestNotification {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
+    private Long RecruitmentRequestId;
     @Column
     private String title;
     @Column
@@ -38,28 +37,13 @@ public class Notification {
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT_MINUS)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT_MINUS)
     private LocalDateTime createDate;
-
-    // relationship account - notification: 1 - N
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    //@JsonIgnore
-//    @JoinColumn(name = "account_id")
-//    private Account account;
     @JsonIgnore
     @Builder.Default
-    @ManyToMany(mappedBy = "notifications", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "requestNotifications", fetch = FetchType.LAZY)
     private Set<Account> accounts = new HashSet<>();
-//    @JsonIgnore
-//    @Builder.Default
-//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-//    @JoinTable(name = "notification_account", joinColumns = @JoinColumn(name = "notification_id"), inverseJoinColumns = @JoinColumn(name = "account_id"))
-//    private Set<Account> accounts = new HashSet<>();
 
-    //helper
-    public void addAccount(Account account) {
+    public void addAccountToRequestNotifi(Account account) {
         accounts.add(account);
-        account.getNotifications().add(this);
+        account.getRequestNotifications().add(this);
     }
-
-
-
 }

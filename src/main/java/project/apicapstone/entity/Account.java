@@ -58,15 +58,19 @@ public class Account {
 //    private Employee employee;
 
     // ***relationship account - notification: 1 - N
-//    @OneToMany(mappedBy = "account")
-//    @JsonIgnore
-//    private Set<Notification> notifications = new HashSet<>();
+
 
     @JsonIgnore
     @Builder.Default
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "account_notification", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "notification_id"))
     private Set<Notification> notifications = new HashSet<>();
+
+    @JsonIgnore
+    @Builder.Default
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "account_request_notification", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "request_notification_id"))
+    private Set<RequestNotification> requestNotifications = new HashSet<>();
 //    @JsonIgnore
 //    @Builder.Default
 //    @ManyToMany(mappedBy = "accounts", fetch = FetchType.LAZY)

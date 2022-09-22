@@ -26,10 +26,11 @@ public class CreateDependantDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate dateBirth;
 
-    @CheckPhoneNumber
+   // @CheckPhoneNumber
     private String phone;
 
     private String nationality;
+    private String relationship;
     @FindEmployeeId
     private String employeeId;
 }

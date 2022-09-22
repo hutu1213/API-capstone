@@ -24,7 +24,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     List<Employee> findEmployeesByNameOrId(String paramSearch);
 
     @Transactional(readOnly = true)
-    @Query("SELECT e FROM Employee e")
+    @Query("SELECT e FROM Employee e where e.employeeId not in ('admin') ")
     Page<Employee> findAllEmp(Pageable pageable);
 
     //@Query("select u from User u where lower(u.name) like lower(concat('%', ?1,'%'))")
@@ -37,7 +37,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
 
     int countByUpdateDateBetweenAndWorkingStatus(LocalDate start, LocalDate end, String workingStatus);
 
-    @Query("SELECT COUNT(e.employeeId) FROM Employee e")
+    @Query("SELECT COUNT(e.employeeId) FROM Employee e where e.employeeId not in ('admin')")
     int countAll();
 
     int countEmployeeByWorkingStatus(String workingStatus);
@@ -61,10 +61,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
     int findEmployeeByCourseIdAndEmployeeId(String courseId, String employeeId);
 
     @Query("SELECT COUNT(e.employeeId) FROM Employee e join e.tasks t WHERE t.taskId = ?1 AND e.employeeId =?2")
-    int findEmployeeByTaskIdAndEmployeeId(String taskId, String employeeId);
+    int findEmployeeByTaskIdAndEmployeeId(Long taskId, String employeeId);
 
     @Query("SELECT e FROM Employee e join e.tasks t WHERE t.taskId = ?1")
-    List<Employee> findAllByTaskId(String id);
+    List<Employee> findAllByTaskId(Long id);
 
     List<Employee> findByDayOfBirthAndMonthOfBirth(int dayOfMonth, int monthValue);
 

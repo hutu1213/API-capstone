@@ -22,9 +22,9 @@ public class RecruitmentRequest {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long recruitmentRequestId;
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String vacancies;
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String reasonRecruitment;
     @Column
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
@@ -32,7 +32,7 @@ public class RecruitmentRequest {
     private LocalDate createDate;
     @Column
     private String status;
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String descriptionWork;
 
     //relationship title - RecruitmentRequest : 1 - N

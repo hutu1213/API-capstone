@@ -38,7 +38,7 @@ public class Task {
     private String duration;
     @Column
     private String priority;
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String taskDetail;
 
     //relation employee - task : N-N
@@ -52,5 +52,8 @@ public class Task {
         employees.add(employee);
         employee.getTasks().add(this);
     }
-
+    public void deleteEmployee(Employee employee) {
+        employees.remove(employee);
+        employee.getTasks().add(this);
+    }
 }

@@ -48,7 +48,7 @@ public class ApplicantServiceImpl implements ApplicantService {
         newApplicant.setStatus(dto.getStatus());
         newApplicant.setResumeFile(dto.getResumeFile());
         //newApplicant.setScanData(dto.getScanData());
-        newApplicant.setScore(dto.getEvaluateScore());
+        newApplicant.setScore(dto.getScore());
         newApplicant.setStage(dto.getStage());
         newApplicant.setInterviewDate(dto.getInterviewDate());
         newApplicant.setInterviewTime(dto.getInterviewTime());
@@ -103,7 +103,7 @@ public class ApplicantServiceImpl implements ApplicantService {
         applicant.setStatus(dto.getStatus());
         applicant.setResumeFile(dto.getResumeFile());
         //applicant.setScanData(dto.getScanData());
-        applicant.setScore(dto.getEvaluateScore());
+        applicant.setScore(dto.getScore());
         applicant.setStage(dto.getStage());
         applicant.setInterviewDate(dto.getInterviewDate());
         applicant.setInterviewTime(dto.getInterviewTime());

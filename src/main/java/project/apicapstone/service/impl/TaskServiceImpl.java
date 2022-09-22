@@ -39,9 +39,23 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void deleteById(Long id) {
+
+        List<Employee> employeeList = employeeRepository.findAllByTaskId(id);
+        for (Employee employee: employeeList) {
+            employee.removeTask(taskRepository.getById(id));
+            employeeRepository.save(employee);
+        }
         taskRepository.deleteById(id);
     }
-
+    @Override
+    public void removeEmployee(AddEmployeeToTaskDto dto) {
+        Task task = taskRepository.getById(dto.getTaskId());
+        for (int i = 0; i < dto.getEmployeeIdList().size(); i++) {
+            Employee employee = employeeRepository.getById(dto.getEmployeeIdList().get(i));
+            employee.removeTask(task);
+            employeeRepository.save(employee);
+        }
+    }
     @Override
     public Task findTaskById(Long id) {
         return taskRepository.getById(id);
@@ -111,5 +125,10 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Page<Task> search(String name, Long id, Pageable pageable) {
         return taskRepository.search(name, id, pageable);
+    }
+
+    @Override
+    public List<Task> findTaskByEmployeeId(String id) {
+        return taskRepository.findTasksByEmployeeId(id);
     }
 }

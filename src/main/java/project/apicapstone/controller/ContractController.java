@@ -55,8 +55,8 @@ public class ContractController {
         return ResponseHandler.getResponse(createContract, HttpStatus.CREATED);
     }
 
-    @GetMapping("/get-by-id/{id}")
-    public Object findContractById(@PathVariable String id) {
+    @GetMapping("/get-by-id")
+    public Object findContractById(@RequestParam String id) {
         Contract contract = contractService.getById(id);
         return ResponseHandler.getResponse(contract, HttpStatus.OK);
     }
@@ -139,5 +139,10 @@ public class ContractController {
         return ResponseHandler.getResponse(excelExporter, HttpStatus.OK);
     }
 
-
+    @GetMapping("/get-by-employee-id/{id}")
+    public Object getByEmployeeId(@PathVariable String id) {
+        String status = "Còn hiệu lực";
+        Contract contract = contractService.getContractByEmployeeIdAndStatus(id, status);
+        return ResponseHandler.getResponse(contract, HttpStatus.OK);
+    }
 }

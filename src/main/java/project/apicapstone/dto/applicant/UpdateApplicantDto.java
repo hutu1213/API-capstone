@@ -43,7 +43,8 @@ public class UpdateApplicantDto {
     private String resumeFile;
    // private String scanData;
 
-    private double evaluateScore;
+    private double score;
+
     @DateTimeFormat(pattern = DateUtils.DATE_FORMAT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)
     private LocalDate interviewDate;

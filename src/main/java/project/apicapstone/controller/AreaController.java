@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/api/area")
 public class AreaController {
-    private AreaService areaService;
+    private final AreaService areaService;
 
     public AreaController(AreaService areaService) {
         this.areaService = areaService;

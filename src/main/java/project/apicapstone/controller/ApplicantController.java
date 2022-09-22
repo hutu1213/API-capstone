@@ -1,7 +1,6 @@
 package project.apicapstone.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +16,6 @@ import project.apicapstone.dto.applicant.UpdateApplicantDto;
 
 import project.apicapstone.entity.Applicant;
 import project.apicapstone.service.ApplicantService;
-import project.apicapstone.service.CriteriaService;
 
 
 import javax.validation.Valid;
@@ -31,13 +29,12 @@ public class ApplicantController {
     private final ApplicantService applicantService;
     private final ScanApplicant scanApplicant;
 
-
     public ApplicantController(ApplicantService applicantService, ScanApplicant scanApplicant) {
         this.applicantService = applicantService;
         this.scanApplicant = scanApplicant;
     }
 
-    @GetMapping
+    @GetMapping()
     public Object findAllApplicant(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page, @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Applicant> applicantPage = applicantService.findAllApplicant(pageable);

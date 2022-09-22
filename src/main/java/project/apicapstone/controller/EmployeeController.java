@@ -158,8 +158,8 @@ public class EmployeeController {
         return ResponseHandler.getResponse(employeeList, HttpStatus.OK);
     }
 
-    @GetMapping("/task/{id}")
-    public Object getByTaskId(@PathVariable String id) {
+    @GetMapping("/get-by-task-id/{id}")
+    public Object getByTaskId(@PathVariable Long id) {
         List<Employee> employeeList = employeeService.getByTaskId(id);
         return ResponseHandler.getResponse(employeeList, HttpStatus.OK);
     }

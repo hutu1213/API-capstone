@@ -46,7 +46,7 @@ public class CreateApplicantDto {
 
     //private String scanData;
 
-    private double evaluateScore;
+    private double score;
 
     private String stage;
 

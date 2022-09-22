@@ -20,7 +20,7 @@ public class Criteria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long criteriaId;
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String criteriaDescription;
     @Column
     private Double weight;

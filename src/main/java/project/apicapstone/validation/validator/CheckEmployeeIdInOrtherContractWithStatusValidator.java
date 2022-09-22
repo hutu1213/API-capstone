@@ -24,7 +24,7 @@ public class CheckEmployeeIdInOrtherContractWithStatusValidator implements Const
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        boolean check = contractService.getContractByEmployeeIdAndStatus(s, STATUS);
+        boolean check = contractService.countContractByEmployeeIdAndStatus(s, STATUS);
         if (check) {
             return false;
         } else {
