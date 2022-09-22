@@ -66,12 +66,48 @@ public class ApplicationConfig implements ApplicationListener<ApplicationReadyEv
             addEmployee.setDateIssue(null);
             addEmployee.setWorkplace(null);
             addEmployee.setTitle(null);
-            // account
+            //
+            Employee addEmployee2 = new Employee();
+            addEmployee2.setEmployeeId("otherdepart");
+            addEmployee2.setEmployeeName("other department");
+            addEmployee2.setDateBirth(null);
+            addEmployee2.setPlaceBirth(null);
+            addEmployee2.setPhone(null);
+            addEmployee2.setGender(null);
+            addEmployee2.setAddress(null);
+            addEmployee2.setEmail(null);
+            addEmployee2.setNationality(null);
+            addEmployee2.setReligion(null);
+            addEmployee2.setEthnic(null);
+            addEmployee2.setAcademicLevel(null);
+            addEmployee2.setBank(null);
+            addEmployee2.setBankAccountNo(null);
+            addEmployee2.setTaxIdentificationNo(null);
+            addEmployee2.setMaritalStatus(null);
+            addEmployee2.setWorkingStatus(null);
+            addEmployee2.setAvatar(null);
+            addEmployee2.setCreateDate(null);
+            addEmployee2.setUpdateDate(null);
+            addEmployee2.setDayOfBirth(0);
+            addEmployee2.setMonthOfBirth(0);
+            addEmployee2.setBackIdentityCard(null);
+            addEmployee2.setFrontIdentityCard(null);
+            addEmployee2.setPlaceIssue(null);
+            addEmployee2.setDateIssue(null);
+            addEmployee2.setWorkplace(null);
+            addEmployee2.setTitle(null);
+            // account admin
             Account account = new Account();
             account.setEmployee(addEmployee);
             account.setPassword(passwordEncoder.encode("admin123456"));
             account.setStatus("ACTIVE");
             account.setUsername("admin");
+            //account otherdepart
+            Account account2 = new Account();
+            account2.setEmployee(addEmployee2);
+            account2.setPassword(passwordEncoder.encode("otherdepart"));
+            account2.setStatus("ACTIVE");
+            account2.setUsername("otherdepart");
             // role
             Role role1 = new Role();
             role1.setRoleId("1");
@@ -97,6 +133,10 @@ public class ApplicationConfig implements ApplicationListener<ApplicationReadyEv
             role5.setRoleId("5");
             role5.setRoleName("ROLE_TRUONGPHONGBAN_KHAC");
             roleRepository.save(role5);
+            account2.setRole(role5);
+            accountRepository.save(account2);
+            addEmployee2.setAccount(account2);
+            employeeRepository.save(addEmployee2);
             Department department1 = new Department();
             department1.setDepartmentId("PNS");
             department1.setDepartmentName("Phòng Nhân Sự");
